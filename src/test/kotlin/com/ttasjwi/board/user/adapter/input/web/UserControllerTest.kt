@@ -12,12 +12,23 @@ import org.springframework.http.HttpStatus
 @DisplayName("UserController 테스트")
 class UserControllerTest {
 
+    private val controller = UserController(userRegisterUseCase = object : UserRegisterUseCase {
+
+        override fun register(command: UserRegisterCommand): UserRegisterResult {
+            return UserRegisterResult(
+                id = 1L,
+                loginId = command.loginId,
+                nickname = command.nickname,
+                email = command.email,
+                role = "USER"
+            )
+        }
+    })
+
     @Test
     @DisplayName("사용자가 회원가입에 성공하면 201 응답을 받는다.")
     fun registerSuccessTest() {
         // given
-        val controller = UserController(userRegisterUseCase = fakeUserRegisterUseCase())
-
         val request = UserRegisterRequest("ttasjwi", "땃쥐", "ttasjwi@gmail.com", "1234")
 
         // when
@@ -33,16 +44,44 @@ class UserControllerTest {
         assertThat(result.body!!.role).isEqualTo("USER")
     }
 
-    private fun fakeUserRegisterUseCase() = object : UserRegisterUseCase {
+    @Test
+    @DisplayName("회원가입 시 로그인Id는 필수이다.")
+    fun requireLoginId() {
+        // given
+        // when
+        val request = UserRegisterRequest(null, "땃쥐", "ttasjwi@gmail.com", "1234")
 
-        override fun register(command: UserRegisterCommand): UserRegisterResult {
-            return UserRegisterResult(
-                id = 1L,
-                loginId = command.loginId,
-                nickname = command.nickname,
-                email = command.email,
-                role = "USER"
-            )
-        }
+        assertThatThrownBy { controller.registerUser(request) }.isInstanceOf(IllegalArgumentException::class.java)
     }
+
+    @Test
+    @DisplayName("회원가입 시 닉네임은 필수이다.")
+    fun requireNickName() {
+        // given
+        // when
+        val request = UserRegisterRequest("ttasjwi", null, "ttasjwi@gmail.com", "1234")
+
+        assertThatThrownBy { controller.registerUser(request) }.isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    @DisplayName("회원가입 시 이메일은 필수이다.")
+    fun requireEmail() {
+        // given
+        // when
+        val request = UserRegisterRequest(null, "땃쥐", "ttasjwi@gmail.com", "1234")
+
+        assertThatThrownBy { controller.registerUser(request) }.isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    @DisplayName("회원가입 시 패스워드는 필수이다.")
+    fun requirePassword() {
+        // given
+        // when
+        val request = UserRegisterRequest("ttasjwi", "땃쥐", "ttasjwi@gmail.com", null)
+
+        assertThatThrownBy { controller.registerUser(request) }.isInstanceOf(IllegalArgumentException::class.java)
+    }
+
 }

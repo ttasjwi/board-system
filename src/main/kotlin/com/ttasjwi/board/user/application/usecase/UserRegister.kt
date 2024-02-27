@@ -12,9 +12,9 @@ data class UserRegisterCommand(
 ) {
 
     companion object {
-        fun of(loginId: String?, nickname: String?, email:String?, password: String?): UserRegisterCommand {
+        fun of(loginId: String, nickname: String, email:String, password: String): UserRegisterCommand {
             // TODO: 입력값 검증
-            return UserRegisterCommand(loginId!!, nickname!!, email!!, password!!)
+            return UserRegisterCommand(loginId, nickname, email, password)
         }
     }
 }
