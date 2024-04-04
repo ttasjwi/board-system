@@ -1,1 +1,1 @@
-rootProject.name = "board-be"
+rootProject.name = "board-system"

@@ -1,4 +1,4 @@
-package com.ttasjwi.board
+package com.ttasjwi.board.system
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
