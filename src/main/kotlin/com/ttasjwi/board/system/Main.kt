@@ -7,4 +7,5 @@ import org.springframework.boot.runApplication
 class Main
 
 fun main(args: Array<String>) {
-    runApplicADFADFADFation<Main>(*arADSFADFADFgs)
+    runApplication<Main>(*args)
+}
