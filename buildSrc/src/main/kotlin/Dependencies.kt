@@ -9,6 +9,7 @@ enum class Dependencies(
     KOTLIN_JACKSON(groupId = "com.fasterxml.jackson.module", artifactId = "jackson-module-kotlin"),
     KOTLIN_REFLECT(groupId = "org.jetbrains.kotlin", artifactId = "kotlin-reflect"),
     KOTLIN_LOGGING(groupId = "io.github.oshai", artifactId = "kotlin-logging", version = "7.0.0"),
+    MOCKK(groupId="org.mockito.kotlin", artifactId = "mockito-kotlin", version = "5.4.0"),
 
     // spring
     SPRING_BOOT_WEB(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-web"),
@@ -16,6 +17,8 @@ enum class Dependencies(
     SPRING_BOOT_TEST(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-test"),
     SPRING_BOOT_DATA_JPA(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-data-jpa"),
     SPRING_BOOT_ACTUATOR(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-actuator"),
+
+    // test
 
     // mysql
     MYSQL_DRIVER(groupId = "com.mysql", artifactId = "mysql-connector-java"),

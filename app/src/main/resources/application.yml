@@ -1,4 +1,41 @@
 spring.application.name: board-system
+spring:
+  profiles:
+    active: local
+
+---
+
+# local 서버에만 적용할 설정
+
+spring.config.activate.on-profile: local
 
 server:
+  env: local
   port: 8080
+  address: localhost
+  name: local_server
+
+---
+
+# blue 서버에만 적용할 설정
+
+spring.config.activate.on-profile: blue
+
+server:
+  env: blue
+  port: 8081
+  address: ${BLUE_SERVER_ADDRESS}
+  name: blue_server
+
+---
+
+# green 서버에만 적용할 설정
+spring.config.activate.on-profile: green
+
+server:
+  env: green
+  port: 8082
+  address: ${GREEN_SERVER_ADDRESS}
+  name: green_server
+
+---

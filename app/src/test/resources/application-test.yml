@@ -1,0 +1,5 @@
+server:
+  env: test
+  port: 8080
+  address: localhost
+  name: test_server
