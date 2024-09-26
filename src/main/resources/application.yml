@@ -1,1 +1,33 @@
 spring.application.name: board-system
+spring:
+  profiles:
+    active: local
+
+---
+
+spring.config.activate.on-profile: local
+server:
+  address: localhost
+  port: 8080
+  name: local-server
+  env: local
+
+---
+
+spring.config.activate.on-profile: blue
+server:
+  address: ${BLUE_SERVER_ADDRESS}
+  port: ${BLUE_SERVER_PORT}
+  name: blue-server
+  env: blue
+
+---
+
+spring.config.activate.on-profile: green
+server:
+  address: ${GREEN_SERVER_ADDRESS}
+  port: ${GREEN_SERVER_PORT}
+  name: green-server
+  env: green
+
+---
