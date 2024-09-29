@@ -1,0 +1,6 @@
+spring.application.name: board-system-test
+spring:
+  profiles:
+    active: test
+
+---
