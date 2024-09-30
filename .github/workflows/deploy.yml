@@ -34,8 +34,8 @@ jobs:
 
       - name: 프로젝트 빌드
         run: |
-          echo ${{secrets.APPLICATION_BLUE_YML}} | base64 --decode > ./src/main/resources/application-blue.yml
-          echo ${{secrets.APPLICATION_GREEN_YML}} | base64 --decode > ./src/main/resources/application-green.yml
+          echo ${{ secrets.DEPLOY_CONFIG_BLUE_YML }} | base64 --decode > ./board-system-api/api-deploy/src/main/resources/deploy-config-blue.yml
+          echo ${{ secrets.DEPLOY_CONFIG_GREEN_YML }} | base64 --decode > ./board-system-api/api-deploy/src/main/resources/deploy-config-green.yml
           ./gradlew build
 
       - name: DockerHub 로그인

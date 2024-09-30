@@ -1,0 +1,23 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: deploy-config-local.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: blue
+    import: deploy-config-blue.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: blue
+    import: deploy-config-green.yml
+
+---

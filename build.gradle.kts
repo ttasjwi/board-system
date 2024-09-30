@@ -1,45 +1,55 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+// 루트 프로젝트
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.3.4"
-    id("io.spring.dependency-management") version "1.1.6"
+    id(Plugins.KOTLIN_JVM.id) version Plugins.KOTLIN_JVM.version
+    id(Plugins.KOTLIN_SPRING.id) version Plugins.KOTLIN_SPRING.version apply false
+    id(Plugins.SPRING_BOOT.id) version Plugins.SPRING_BOOT.version apply false
+    id(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) version Plugins.SPRING_DEPENDENCY_MANAGEMENT.version
 }
-
-group = "com.ttasjwi"
-version = "0.0.1"
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.valueOf("VERSION_${ProjectProperties.JAVA_VERSION}")
 }
 
-repositories {
-    mavenCentral()
-}
+// 루트 프로젝트 + 서브 프로젝트 전체
+allprojects {
+    group = ProjectProperties.GROUP_NAME
+    version = ProjectProperties.VERSION
 
-dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "21"
+    repositories {
+        mavenCentral()
     }
 }
 
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
+// 서브프로젝트에 적용
+subprojects {
+    apply { plugin(Plugins.KOTLIN_JVM.id) }
+    apply { plugin(Plugins.KOTLIN_SPRING.id) }
+    apply { plugin(Plugins.SPRING_BOOT.id) }
+    apply { plugin(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) }
 
-tasks.getByName("bootJar") {
-    enabled = true
-}
+    dependencies {
+        implementation(Dependencies.KOTLIN_REFLECT.fullName)
+        testImplementation(Dependencies.SPRING_BOOT_TEST.fullName)
+    }
 
-tasks.getByName("jar") {
-    enabled = false
+    tasks.getByName("bootJar") {
+        enabled = false
+    }
+
+    tasks.getByName("jar") {
+        enabled = true
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions {
+            freeCompilerArgs += "-Xjsr305=strict"
+            jvmTarget = ProjectProperties.JAVA_VERSION
+        }
+    }
+
+    tasks.test {
+        useJUnitPlatform()
+    }
 }
