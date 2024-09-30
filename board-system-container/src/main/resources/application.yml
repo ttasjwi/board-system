@@ -2,3 +2,6 @@ spring.application.name: board-system
 spring:
   profiles:
     active: local
+  config:
+    import:
+      - deploy-config.yml

@@ -2,5 +2,8 @@ spring.application.name: board-system-test
 spring:
   profiles:
     active: test
+  config:
+    import:
+      - deploy-config-test.yml
 
 ---
