@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.9.25"
-    id("org.springframework.boot") version "3.3.4"
-    id("io.spring.dependency-management") version "1.1.6"
+    id(Plugins.KOTLIN_JVM.id) version Plugins.KOTLIN_JVM.version
+    id(Plugins.KOTLIN_SPRING.id) version Plugins.KOTLIN_SPRING.version
+    id(Plugins.SPRING_BOOT.id) version Plugins.SPRING_BOOT.version
+    id(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) version Plugins.SPRING_DEPENDENCY_MANAGEMENT.version
 }
 
-group = "com.ttasjwi"
-version = "0.0.1"
+group = ProjectProperties.GROUP_NAME
+version = ProjectProperties.VERSION
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.valueOf("VERSION_${ProjectProperties.JAVA_VERSION}")
 }
 
 repositories {
@@ -19,16 +19,16 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation(Dependencies.SPRING_BOOT_WEB.fullName)
+    implementation(Dependencies.KOTLIN_REFLECT.fullName)
+    implementation(Dependencies.KOTLIN_JACKSON.fullName)
+    testImplementation(Dependencies.SPRING_BOOT_TEST.fullName)
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs += "-Xjsr305=strict"
-        jvmTarget = "21"
+        jvmTarget = ProjectProperties.JAVA_VERSION
     }
 }
 
