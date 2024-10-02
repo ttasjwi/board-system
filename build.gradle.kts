@@ -30,6 +30,13 @@ subprojects {
     apply { plugin(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) }
 
     dependencies {
+
+        val sharedModuleNames = listOf("board-system-core")
+
+        if(project.name !in sharedModuleNames) {
+            implementation(project(":board-system-core"))
+        }
+
         implementation(Dependencies.KOTLIN_REFLECT.fullName)
         testImplementation(Dependencies.SPRING_BOOT_TEST.fullName)
     }
