@@ -7,6 +7,7 @@ include(
 
     // 공용 모듈
     "board-system-core",
+    "board-system-logging",
 
     // api
     "board-system-api:api-deploy",
