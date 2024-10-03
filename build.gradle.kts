@@ -31,10 +31,11 @@ subprojects {
 
     dependencies {
 
-        val sharedModuleNames = listOf("board-system-core")
+        val sharedModuleNames = listOf("board-system-core", "board-system-logging")
 
         if(project.name !in sharedModuleNames) {
             implementation(project(":board-system-core"))
+            implementation(project(":board-system-logging"))
         }
 
         implementation(Dependencies.KOTLIN_REFLECT.fullName)
