@@ -1,0 +1,9 @@
+spring.application.name: board-system-external-message-test
+spring:
+  profiles:
+    active: test
+  config:
+    import:
+      - message-config.yml
+
+---
