@@ -11,4 +11,7 @@ include(
 
     // api
     "board-system-api:api-deploy",
+
+    // external : 외부 기술 의존성
+    "board-system-external:external-message",
 )
