@@ -1,0 +1,3 @@
+Example:
+  message: "예제 메시지"
+  description: "예제 설명(args={0},{1},{2})"
