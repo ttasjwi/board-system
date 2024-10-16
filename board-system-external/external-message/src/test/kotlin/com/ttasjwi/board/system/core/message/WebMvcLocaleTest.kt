@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.core.message
 
 import com.ttasjwi.board.system.MessageTestController
+import com.ttasjwi.board.system.core.config.LocaleConfig
 import com.ttasjwi.board.system.core.config.MessageConfig
 import com.ttasjwi.board.system.core.config.MessageProperties
 import org.junit.jupiter.api.DisplayName
@@ -21,7 +22,7 @@ import java.util.*
 @ActiveProfiles("test")
 @WebMvcTest(controllers = [MessageTestController::class])
 @EnableConfigurationProperties(MessageProperties::class)
-@Import(value = [MessageConfig::class, MessageResolverImpl::class])
+@Import(value = [MessageConfig::class, LocaleConfig::class, MessageResolverImpl::class])
 @AutoConfigureMockMvc
 @DisplayName("WebMvc에서 메시지/국제화가 잘 적용되는 지 테스트")
 class WebMvcLocaleTest {
