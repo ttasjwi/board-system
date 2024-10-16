@@ -2,6 +2,7 @@ dependencies {
     implementation(Dependencies.SPRING_BOOT_STARTER.fullName)
 
     // api
+    implementation(project(":board-system-api:api-core"))
     implementation(project(":board-system-api:api-deploy"))
 
     // external
