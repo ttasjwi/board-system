@@ -59,7 +59,9 @@ jobs:
           echo "STATUS=$STATUS"
           
           if [ "$STATUS" = "200" ]; then
-            CURRENT_UPSTREAM="$BODY"
+            CURRENT_PROFILE=$(echo "$BODY" | jq -r '.data.profile')
+            echo "CURRENT_PROFILE=$CURRENT_PROFILE"
+            CURRENT_UPSTREAM="$CURRENT_PROFILE"
           else
             CURRENT_UPSTREAM="green"
           fi
