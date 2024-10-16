@@ -55,14 +55,18 @@ jobs:
           response=$(curl -s -w "%{http_code}" "http://${{ secrets.LIVE_SERVER_IP }}/api/v1/deploy/health-check")
           STATUS="${response: -3}"  # 마지막 3글자 (HTTP 상태 코드)
           BODY="${response::-3}"     # 나머지 (응답 본문)
-          
+      
           echo "STATUS=$STATUS"
-          
+      
           if [ "$STATUS" = "200" ]; then
-            CURRENT_UPSTREAM="$BODY"
+            CURRENT_PROFILE=$(echo "$BODY" | jq -r '.data.profile')
+            echo "CURRENT_PROFILE=$CURRENT_PROFILE"
+            CURRENT_UPSTREAM="$CURRENT_PROFILE"
           else
             CURRENT_UPSTREAM="green"
           fi
+      
+          echo "CURRENT_UPSTREAM=$CURRENT_UPSTREAM"
           
           echo "CURRENT_UPSTREAM=$CURRENT_UPSTREAM" >> $GITHUB_ENV
           

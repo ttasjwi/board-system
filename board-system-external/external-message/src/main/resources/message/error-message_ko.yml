@@ -1,0 +1,4 @@
+Error:
+  NullArgument:
+    message: "필수값 누락"
+    description: "''{0}''은(는) 필수입니다."

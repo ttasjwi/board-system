@@ -1,10 +1,10 @@
-spring.application.name: board-system-test
+spring.application.name: board-system-external-message-test
+
 spring:
   profiles:
     active: test
   config:
     import:
-      - deploy-config-test.yml
       - message-config.yml
 
 ---
