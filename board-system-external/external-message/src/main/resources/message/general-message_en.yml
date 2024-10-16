@@ -1,3 +1,7 @@
+HealthCheck.Success:
+  message: "Health check successful"
+  description: "Health check was successful. Please refer to the '{0}' field for the current server profile."
+
 Example:
   message: "Example Message"
   description: "Example Description(args={0},{1},{2})"
