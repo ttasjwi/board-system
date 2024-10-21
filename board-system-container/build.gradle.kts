@@ -7,6 +7,7 @@ dependencies {
 
     // external
     implementation(project(":board-system-external:external-message"))
+    implementation(project(":board-system-external:external-exception-handle"))
 }
 
 tasks.getByName("bootJar") {
