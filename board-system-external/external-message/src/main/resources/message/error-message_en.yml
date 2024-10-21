@@ -1,4 +1,10 @@
 Error:
+  Occurred:
+    message: "Error occurred"
+    description: "Failed to process the request. An error has occurred."
+  Server:
+    message: "Server Error"
+    description: "An unknown error has occurred. If the issue persists, please contact customer support."
   NullArgument:
     message: "Missing required value"
     description: "The field ''{0}'' is required."
