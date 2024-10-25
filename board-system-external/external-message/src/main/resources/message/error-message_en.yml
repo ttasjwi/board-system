@@ -5,6 +5,9 @@ Error:
   Server:
     message: "Server Error"
     description: "An unknown error has occurred. If the issue persists, please contact customer support."
+  NotImplemented:
+    message: "Feature Not Implemented"
+    description: "The requested feature is currently not implemented. It is under development and is expected to be added in the near future."
   NullArgument:
     message: "Missing required value"
     description: "The field ''{0}'' is required."

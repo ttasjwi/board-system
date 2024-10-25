@@ -26,6 +26,14 @@ class ErrorHttpStatusResolveFunctionTest {
     }
 
     @Test
+    @DisplayName("ErrorStatus.NOT_IMPLEMENTED 는 NOT IMPLEMENTED 상태코드로 변환한다.")
+    fun caseNotImplemented() {
+        val errorStatus = ErrorStatus.NOT_IMPLEMENTED
+        val httpStatus = resolveHttpStatus(errorStatus)
+        assertThat(httpStatus).isEqualTo(HttpStatus.NOT_IMPLEMENTED)
+    }
+
+    @Test
     @DisplayName("ErrorStatus.UNAUTHENTICATED 는 UNAUTHORIZED 상태코드로 변환한다.")
     fun caseUnauthenticated() {
         val errorStatus = ErrorStatus.UNAUTHENTICATED

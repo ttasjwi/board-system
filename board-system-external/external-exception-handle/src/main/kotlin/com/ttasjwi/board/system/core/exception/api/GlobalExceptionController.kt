@@ -2,10 +2,10 @@ package com.ttasjwi.board.system.core.exception.api
 
 import com.ttasjwi.board.system.core.api.ErrorResponse
 import com.ttasjwi.board.system.core.exception.CustomException
+import com.ttasjwi.board.system.core.exception.ErrorStatus
 import com.ttasjwi.board.system.core.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.logging.getLogger
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -26,25 +26,11 @@ internal class GlobalExceptionController(
      */
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<ErrorResponse> {
-        val code = "Error.Server"
-        val httpStatus = HttpStatus.INTERNAL_SERVER_ERROR
-
         log.error(e)
-
-        return ResponseEntity
-            .status(httpStatus)
-            .body(
-                makeErrorResponse(
-                    listOf(
-                        ErrorResponse.ErrorItem(
-                            code = code,
-                            message = messageResolver.resolveMessage(code),
-                            description = messageResolver.resolveDescription(code),
-                            source = "server"
-                        )
-                    )
-                )
-            )
+        return makeSingleErrorResponse(
+            errorStatus = ErrorStatus.APPLICATION_ERROR,
+            errorItem = makeErrorItem(code = "Error.Server", source = "server")
+        )
     }
 
     /**
@@ -52,23 +38,10 @@ internal class GlobalExceptionController(
      */
     @ExceptionHandler(CustomException::class)
     fun handleCustomException(e: CustomException): ResponseEntity<ErrorResponse> {
-        val code = e.code
-        val httpStatus = resolveHttpStatus(e.status)
-
-        return ResponseEntity
-            .status(httpStatus)
-            .body(
-                makeErrorResponse(
-                    listOf(
-                        ErrorResponse.ErrorItem(
-                            code = code,
-                            message = messageResolver.resolveMessage(code),
-                            description = messageResolver.resolveDescription(code, e.args),
-                            source = e.source
-                        )
-                    )
-                )
-            )
+        return makeSingleErrorResponse(
+            errorStatus = e.status,
+            errorItem = makeErrorItem(code = e.code, args = e.args, source = e.source)
+        )
     }
 
     /**
@@ -76,33 +49,68 @@ internal class GlobalExceptionController(
      */
     @ExceptionHandler(ValidationExceptionCollector::class)
     fun handleValidationExceptionCollector(exceptionCollector: ValidationExceptionCollector): ResponseEntity<ErrorResponse> {
-        val httpStatus = resolveHttpStatus(exceptionCollector.status)
+        return makeMultipleErrorResponse(
+            errorStatus = ErrorStatus.INVALID_ARGUMENT,
+            errorItems = makeErrorItems(exceptionCollector.getExceptions())
+        )
+    }
+
+    @ExceptionHandler(NotImplementedError::class)
+    fun handleNotImplementedError(e: NotImplementedError): ResponseEntity<ErrorResponse> {
+        log.error(e)
+
+        return makeSingleErrorResponse(
+            errorStatus = ErrorStatus.NOT_IMPLEMENTED,
+            errorItem = makeErrorItem(code = "Error.NotImplemented", source = "server")
+        )
+    }
+
+    private fun makeSingleErrorResponse(
+        errorStatus: ErrorStatus,
+        errorItem: ErrorResponse.ErrorItem
+    ): ResponseEntity<ErrorResponse> {
+        return makeMultipleErrorResponse(errorStatus, listOf(errorItem))
+    }
+
+    private fun makeMultipleErrorResponse(
+        errorStatus: ErrorStatus,
+        errorItems: List<ErrorResponse.ErrorItem>
+    ): ResponseEntity<ErrorResponse> {
+        val commonCode = "Error.Occurred"
         return ResponseEntity
-            .status(httpStatus)
+            .status(resolveHttpStatus(errorStatus))
             .body(
-                makeErrorResponse(
-                    exceptionCollector.getExceptions().map {
-                        ErrorResponse.ErrorItem(
-                            code = it.code,
-                            message = messageResolver.resolveMessage(it.code),
-                            description = messageResolver.resolveDescription(it.code, it.args),
-                            source = it.source
-                        )
-                    }
+                ErrorResponse(
+                    code = commonCode,
+                    message = messageResolver.resolveMessage(commonCode),
+                    description = messageResolver.resolveDescription(commonCode),
+                    errors = errorItems
                 )
             )
     }
 
-    private fun makeErrorResponse(
-        errors: List<ErrorResponse.ErrorItem>
-    ): ErrorResponse {
-
-        val commonCode = "Error.Occurred"
-        return ErrorResponse(
-            code = commonCode,
-            message = messageResolver.resolveMessage(commonCode),
-            description = messageResolver.resolveDescription(commonCode),
-            errors = errors
+    private fun makeErrorItem(
+        code: String,
+        args: List<Any?> = emptyList(),
+        source: String,
+    ): ErrorResponse.ErrorItem {
+        return ErrorResponse.ErrorItem(
+            code = code,
+            message = messageResolver.resolveMessage(code),
+            description = messageResolver.resolveDescription(code, args),
+            source = source
         )
+    }
+
+    private fun makeErrorItems(
+        exceptions: List<CustomException>
+    ): List<ErrorResponse.ErrorItem> {
+        return exceptions.map {
+            makeErrorItem(
+                code = it.code,
+                args = it.args,
+                source = it.source,
+            )
+        }
     }
 }

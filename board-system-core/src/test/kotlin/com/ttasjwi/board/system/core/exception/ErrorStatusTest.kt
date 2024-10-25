@@ -15,6 +15,13 @@ class ErrorStatusTest {
     }
 
     @Test
+    @DisplayName("ErrorStatus.NOT_IMPLEMENTED 는 연산이 완전히 구현되지 않았음을 나타내는 에러 유형이다.")
+    fun testNotImplemented() {
+        val notImplemented = ErrorStatus.NOT_IMPLEMENTED
+        assertThat(notImplemented.name).isEqualTo("NOT_IMPLEMENTED")
+    }
+
+    @Test
     @DisplayName("ErrorStatus.UNAUTHENTICATED 는 연산의 주체를 식별하지 못 한 상황(예: 로그인 실패, 미인증)을 나타내는 에러 유형이다.")
     fun testUnauthenticated() {
         val unAuthenticated = ErrorStatus.UNAUTHENTICATED
