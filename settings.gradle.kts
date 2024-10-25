@@ -14,7 +14,11 @@ include(
     "board-system-api:api-member",
     "board-system-api:api-deploy",
 
+    // application
+    "board-system-application:application-core",
+
     // external : 외부 기술 의존성
     "board-system-external:external-message",
+    "board-system-external:external-db",
     "board-system-external:external-exception-handle"
 )
