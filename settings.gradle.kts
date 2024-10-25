@@ -16,6 +16,7 @@ include(
 
     // application
     "board-system-application:application-core",
+    "board-system-application:application-member",
 
     // external : 외부 기술 의존성
     "board-system-external:external-message",
