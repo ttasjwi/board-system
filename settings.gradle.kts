@@ -11,6 +11,7 @@ include(
 
     // api
     "board-system-api:api-core",
+    "board-system-api:api-member",
     "board-system-api:api-deploy",
 
     // external : 외부 기술 의존성

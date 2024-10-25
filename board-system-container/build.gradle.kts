@@ -3,6 +3,7 @@ dependencies {
 
     // api
     implementation(project(":board-system-api:api-core"))
+    implementation(project(":board-system-api:api-member"))
     implementation(project(":board-system-api:api-deploy"))
 
     // external
