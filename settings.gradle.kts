@@ -18,6 +18,9 @@ include(
     "board-system-application:application-core",
     "board-system-application:application-member",
 
+    // domain
+    "board-system-domain:domain-core",
+
     // external : 외부 기술 의존성
     "board-system-external:external-message",
     "board-system-external:external-db",
