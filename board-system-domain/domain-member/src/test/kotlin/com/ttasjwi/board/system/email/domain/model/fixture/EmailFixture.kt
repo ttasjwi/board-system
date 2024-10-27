@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.email.domain.model.fixture
 
-import com.ttasjwi.board.system.email.domain.model.Email
+import com.ttasjwi.board.system.member.domain.model.Email
 
 fun emailFixture(
     value: String = "test@gmail.com"

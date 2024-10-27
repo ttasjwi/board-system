@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.email.domain.model
 
+import com.ttasjwi.board.system.member.domain.model.Email
 import java.time.ZonedDateTime
 
 class EmailVerification

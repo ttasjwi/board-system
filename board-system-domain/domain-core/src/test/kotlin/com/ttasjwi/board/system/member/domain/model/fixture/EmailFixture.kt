@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.email.domain.model.fixture
+package com.ttasjwi.board.system.member.domain.model.fixture
 
 import com.ttasjwi.board.system.member.domain.model.Email
 

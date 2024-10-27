@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
-import com.ttasjwi.board.system.email.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureRegistered
 import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture

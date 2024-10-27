@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.core.domain.model.DomainEntity
-import com.ttasjwi.board.system.email.domain.model.Email
 import java.time.ZonedDateTime
 
 class Member

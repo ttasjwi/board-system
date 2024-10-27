@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.email.domain.model
+package com.ttasjwi.board.system.member.domain.model
 
 class Email(
     val value: String

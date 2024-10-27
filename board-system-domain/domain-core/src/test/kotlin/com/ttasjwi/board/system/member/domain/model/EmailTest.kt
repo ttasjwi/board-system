@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.email.domain.model
+package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.email.domain.model.fixture.emailFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
