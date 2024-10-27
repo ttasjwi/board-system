@@ -26,6 +26,7 @@ include(
     // external : 외부 기술 의존성
     "board-system-external:external-message",
     "board-system-external:external-db",
+    "board-system-external:external-redis",
     "board-system-external:external-exception-handle",
-    "board-system-external:external-email-sender",
+    "board-system-external:external-email-sender"
 )

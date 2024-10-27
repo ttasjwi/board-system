@@ -9,6 +9,7 @@ dependencies {
     // external
     implementation(project(":board-system-external:external-message"))
     implementation(project(":board-system-external:external-db"))
+    implementation(project(":board-system-external:external-redis"))
     implementation(project(":board-system-external:external-exception-handle"))
     implementation(project(":board-system-external:external-email-sender"))
 }
