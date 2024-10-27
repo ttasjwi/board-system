@@ -20,7 +20,6 @@ include(
 
     // domain
     "board-system-domain:domain-core",
-    "board-system-domain:domain-email",
     "board-system-domain:domain-member",
 
     // external : 외부 기술 의존성

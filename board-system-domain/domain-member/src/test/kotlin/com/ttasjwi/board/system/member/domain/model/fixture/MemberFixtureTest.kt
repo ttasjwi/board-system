@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
-import com.ttasjwi.board.system.email.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.Role
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
