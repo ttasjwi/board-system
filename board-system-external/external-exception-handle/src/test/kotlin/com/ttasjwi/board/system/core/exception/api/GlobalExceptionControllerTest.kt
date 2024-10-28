@@ -1,11 +1,11 @@
 package com.ttasjwi.board.system.core.exception.api
 
 import com.ttasjwi.board.system.core.api.ErrorResponse
-import com.ttasjwi.board.system.core.exception.ErrorStatus
 import com.ttasjwi.board.system.core.exception.NullArgumentException
 import com.ttasjwi.board.system.core.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
-import org.assertj.core.api.Assertions.*
+import jakarta.servlet.ServletException
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
@@ -60,13 +60,13 @@ class GlobalExceptionControllerTest {
         assertThat(errorItem.source).isEqualTo(exception.source)
     }
 
-
     @Test
     @DisplayName("NotImplementedError 처리 테스트")
     fun handleNotImplementedError() {
         val e = NotImplementedError()
+        val servletException = ServletException(e)
 
-        val responseEntity = exceptionController.handleNotImplementedError(e)
+        val responseEntity = exceptionController.handleException(servletException)
         val response = responseEntity.body as ErrorResponse
 
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.NOT_IMPLEMENTED.value())

@@ -26,7 +26,13 @@ internal class GlobalExceptionController(
      */
     @ExceptionHandler(Exception::class)
     fun handleException(e: Exception): ResponseEntity<ErrorResponse> {
+        val cause = e.cause
+        if (cause is NotImplementedError) {
+            return handleNotImplementedError(cause)
+        }
+
         log.error(e)
+
         return makeSingleErrorResponse(
             errorStatus = ErrorStatus.APPLICATION_ERROR,
             errorItem = makeErrorItem(code = "Error.Server", source = "server")
@@ -55,8 +61,7 @@ internal class GlobalExceptionController(
         )
     }
 
-    @ExceptionHandler(NotImplementedError::class)
-    fun handleNotImplementedError(e: NotImplementedError): ResponseEntity<ErrorResponse> {
+    private fun handleNotImplementedError(e: NotImplementedError): ResponseEntity<ErrorResponse> {
         log.error(e)
 
         return makeSingleErrorResponse(
@@ -64,6 +69,7 @@ internal class GlobalExceptionController(
             errorItem = makeErrorItem(code = "Error.NotImplemented", source = "server")
         )
     }
+
 
     private fun makeSingleErrorResponse(
         errorStatus: ErrorStatus,
