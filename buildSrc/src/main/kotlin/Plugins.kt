@@ -8,4 +8,6 @@ enum class Plugins(
 
     SPRING_BOOT(id = "org.springframework.boot", version = "3.3.4"),
     SPRING_DEPENDENCY_MANAGEMENT(id = "io.spring.dependency-management", version = "1.1.6"),
+
+    JAVA_TEST_FIXTURES(id = "java-test-fixtures", version = ""),
 }

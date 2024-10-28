@@ -6,6 +6,7 @@ plugins {
     id(Plugins.KOTLIN_SPRING.id) version Plugins.KOTLIN_SPRING.version apply false
     id(Plugins.SPRING_BOOT.id) version Plugins.SPRING_BOOT.version apply false
     id(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) version Plugins.SPRING_DEPENDENCY_MANAGEMENT.version
+    id(Plugins.JAVA_TEST_FIXTURES.id)
 }
 
 java {
@@ -28,6 +29,7 @@ subprojects {
     apply { plugin(Plugins.KOTLIN_SPRING.id) }
     apply { plugin(Plugins.SPRING_BOOT.id) }
     apply { plugin(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) }
+    apply { plugin(Plugins.JAVA_TEST_FIXTURES.id) }
 
     dependencies {
 
