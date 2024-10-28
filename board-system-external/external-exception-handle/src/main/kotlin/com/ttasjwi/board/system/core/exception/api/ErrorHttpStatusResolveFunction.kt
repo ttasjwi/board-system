@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus
 internal fun resolveHttpStatus(status: ErrorStatus): HttpStatus {
     return when (status) {
         ErrorStatus.INVALID_ARGUMENT -> HttpStatus.BAD_REQUEST
+        ErrorStatus.NOT_IMPLEMENTED -> HttpStatus.NOT_IMPLEMENTED
         ErrorStatus.NOT_FOUND -> HttpStatus.NOT_FOUND
         ErrorStatus.UNAUTHENTICATED -> HttpStatus.UNAUTHORIZED
         ErrorStatus.FORBIDDEN -> HttpStatus.FORBIDDEN

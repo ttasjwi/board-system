@@ -11,9 +11,21 @@ include(
 
     // api
     "board-system-api:api-core",
+    "board-system-api:api-member",
     "board-system-api:api-deploy",
+
+    // application
+    "board-system-application:application-core",
+    "board-system-application:application-member",
+
+    // domain
+    "board-system-domain:domain-core",
+    "board-system-domain:domain-member",
 
     // external : 외부 기술 의존성
     "board-system-external:external-message",
-    "board-system-external:external-exception-handle"
+    "board-system-external:external-db",
+    "board-system-external:external-redis",
+    "board-system-external:external-exception-handle",
+    "board-system-external:external-email-sender"
 )

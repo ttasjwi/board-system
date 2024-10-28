@@ -4,7 +4,8 @@ import com.ttasjwi.board.system.core.api.ErrorResponse
 import com.ttasjwi.board.system.core.exception.NullArgumentException
 import com.ttasjwi.board.system.core.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
-import org.assertj.core.api.Assertions.*
+import jakarta.servlet.ServletException
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
@@ -57,6 +58,29 @@ class GlobalExceptionControllerTest {
         assertThat(errorItem.message).isEqualTo("${exception.code}.message")
         assertThat(errorItem.description).isEqualTo("${exception.code}.description(args=${exception.args})")
         assertThat(errorItem.source).isEqualTo(exception.source)
+    }
+
+    @Test
+    @DisplayName("NotImplementedError 처리 테스트")
+    fun handleNotImplementedError() {
+        val e = NotImplementedError()
+        val servletException = ServletException(e)
+
+        val responseEntity = exceptionController.handleException(servletException)
+        val response = responseEntity.body as ErrorResponse
+
+        assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.NOT_IMPLEMENTED.value())
+        assertThat(response.isSuccess).isFalse()
+        assertThat(response.code).isEqualTo("Error.Occurred")
+        assertThat(response.message).isEqualTo("Error.Occurred.message")
+        assertThat(response.description).isEqualTo("Error.Occurred.description(args=[])")
+        assertThat(response.errors.size).isEqualTo(1)
+
+        val errorItem = response.errors[0]
+        assertThat(errorItem.code).isEqualTo("Error.NotImplemented")
+        assertThat(errorItem.message).isEqualTo("Error.NotImplemented.message")
+        assertThat(errorItem.description).isEqualTo("Error.NotImplemented.description(args=[])")
+        assertThat(errorItem.source).isEqualTo("server")
     }
 
     @Test

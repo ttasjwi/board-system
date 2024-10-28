@@ -11,6 +11,11 @@ enum class ErrorStatus {
     NOT_FOUND,
 
     /**
+     * 기능이 미구현 상태일 때
+     */
+    NOT_IMPLEMENTED,
+
+    /**
      * 미인증, 인증 실패, ...
      */
     UNAUTHENTICATED,
