@@ -38,6 +38,7 @@ subprojects {
         if(project.name !in sharedModuleNames) {
             implementation(project(":board-system-core"))
             implementation(project(":board-system-logging"))
+            testFixturesImplementation(testFixtures(project(":board-system-core")))
         }
 
         implementation(Dependencies.KOTLIN_REFLECT.fullName)
