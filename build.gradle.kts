@@ -16,7 +16,6 @@ java {
 // 루트 프로젝트 + 서브 프로젝트 전체
 allprojects {
     group = ProjectProperties.GROUP_NAME
-    version = ProjectProperties.VERSION
 
     repositories {
         mavenCentral()
@@ -62,5 +61,8 @@ subprojects {
 
     tasks.test {
         useJUnitPlatform()
+
+        // 경고 무시(OpenJDK 64-bit Server VM warning: Sharing is only supported for boot loader ...)
+        jvmArgs("-Xshare:off")
     }
 }
