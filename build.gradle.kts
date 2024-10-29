@@ -6,6 +6,7 @@ plugins {
     id(Plugins.KOTLIN_SPRING.id) version Plugins.KOTLIN_SPRING.version apply false
     id(Plugins.SPRING_BOOT.id) version Plugins.SPRING_BOOT.version apply false
     id(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) version Plugins.SPRING_DEPENDENCY_MANAGEMENT.version
+    id(Plugins.JAVA_TEST_FIXTURES.id)
 }
 
 java {
@@ -15,7 +16,6 @@ java {
 // 루트 프로젝트 + 서브 프로젝트 전체
 allprojects {
     group = ProjectProperties.GROUP_NAME
-    version = ProjectProperties.VERSION
 
     repositories {
         mavenCentral()
@@ -28,6 +28,7 @@ subprojects {
     apply { plugin(Plugins.KOTLIN_SPRING.id) }
     apply { plugin(Plugins.SPRING_BOOT.id) }
     apply { plugin(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) }
+    apply { plugin(Plugins.JAVA_TEST_FIXTURES.id) }
 
     dependencies {
 
@@ -36,6 +37,7 @@ subprojects {
         if(project.name !in sharedModuleNames) {
             implementation(project(":board-system-core"))
             implementation(project(":board-system-logging"))
+            testFixturesImplementation(testFixtures(project(":board-system-core")))
         }
 
         implementation(Dependencies.KOTLIN_REFLECT.fullName)
@@ -59,5 +61,8 @@ subprojects {
 
     tasks.test {
         useJUnitPlatform()
+
+        // 경고 무시(OpenJDK 64-bit Server VM warning: Sharing is only supported for boot loader ...)
+        jvmArgs("-Xshare:off")
     }
 }

@@ -3,7 +3,8 @@ package com.ttasjwi.board.system.member.domain.model
 /**
  * 사용자 관점 아이디
  */
-class Username(
+class Username
+internal constructor(
     val value: String
 ) {
 

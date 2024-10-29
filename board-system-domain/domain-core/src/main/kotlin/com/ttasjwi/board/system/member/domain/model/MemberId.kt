@@ -2,7 +2,8 @@ package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.core.domain.model.DomainId
 
-class MemberId(
+class MemberId
+internal constructor(
     value: Long
 ) : DomainId<Long>(value) {
 
