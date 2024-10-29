@@ -30,6 +30,6 @@ internal class EmailAvailableProcessor(
         }
 
         log.info { "사용 가능한 이메일입니다. (email = ${email.value})" }
-        return EmailAvailableResult(query.email, true, "EmailAvailable.Available")
+        return EmailAvailableResult(query.email, true, "EmailAvailableCheck.Available")
     }
 }
