@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
-class EncodedPassword(
+class EncodedPassword
+internal constructor(
     val value: String
 ) {
 

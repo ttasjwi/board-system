@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
-class Nickname(
+class Nickname
+internal constructor(
     val value: String
 ) {
 

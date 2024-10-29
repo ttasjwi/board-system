@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
-class Email(
+class Email
+internal constructor(
     val value: String
 ) {
 
