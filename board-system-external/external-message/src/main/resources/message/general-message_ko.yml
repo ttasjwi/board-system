@@ -5,3 +5,17 @@ HealthCheck.Success:
 Example:
   message: "예제 메시지"
   description: "예제 설명(args={0},{1},{2})"
+
+EmailAvailableCheck:
+  Complete:
+    message: "이메일 사용가능여부 확인 완료"
+    description: "이메일 사용가능여부 확인을 마무리했습니다. ''{0}'' 필드를 참고하세요."
+  Available:
+    message: "사용 가능한 이메일"
+    description: "이 이메일은 사용 가능합니다."
+  InvalidFormat:
+    message: "유효하지 않은 포맷의 이메일"
+    description: "이메일 문자열의 포맷이 올바르지 않습니다."
+  Taken:
+    message: "사용 중인 이메일"
+    description: "이미 사용 중인 이메일입니다."

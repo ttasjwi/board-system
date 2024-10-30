@@ -41,7 +41,7 @@ class EmailAvailableControllerTest {
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("EmailAvailableCheck.Complete")
         assertThat(response.message).isEqualTo("EmailAvailableCheck.Complete.message")
-        assertThat(response.description).isEqualTo("EmailAvailableCheck.Complete.description(args=[])")
+        assertThat(response.description).isEqualTo("EmailAvailableCheck.Complete.description(args=[$.data.emailAvailable])")
 
         val emailAvailable = response.data.emailAvailable
 

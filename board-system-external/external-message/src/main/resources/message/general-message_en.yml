@@ -5,3 +5,17 @@ HealthCheck.Success:
 Example:
   message: "Example Message"
   description: "Example Description(args={0},{1},{2})"
+
+EmailAvailableCheck:
+  Complete:
+    message: "Email availability check complete"
+    description: "The email availability check has been completed. Please refer to the ''{0}'' field."
+  Available:
+    message: "Email is available"
+    description: "This email is available for use."
+  InvalidFormat:
+    message: "Invalid email format"
+    description: "The format of the email string is not valid."
+  Taken:
+    message: "Email is already taken"
+    description: "This email is already in use."

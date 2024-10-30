@@ -32,7 +32,7 @@ class EmailAvailableController(
         return SuccessResponse(
             code = code,
             message = messageResolver.resolveMessage(code),
-            description = messageResolver.resolveDescription(code),
+            description = messageResolver.resolveDescription(code, listOf("$.data.emailAvailable")),
             data = EmailAvailableResponse(
                 emailAvailable = EmailAvailableResponse.EmailAvailable(
                     email = result.email,

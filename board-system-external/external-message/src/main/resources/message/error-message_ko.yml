@@ -15,3 +15,7 @@ Error:
   NullArgument:
     message: "필수값 누락"
     description: "''{0}''은(는) 필수입니다."
+
+  InvalidEmailFormat:
+    message: "유효하지 않은 이메일 포맷"
+    description: "이메일 포맷이 올바르지 않습니다. (email = {0})"
