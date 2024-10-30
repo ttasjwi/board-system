@@ -27,5 +27,6 @@ include(
     "board-system-external:external-db",
     "board-system-external:external-redis",
     "board-system-external:external-exception-handle",
-    "board-system-external:external-email-sender"
+    "board-system-external:external-email-sender",
+    "board-system-external:external-email-format-checker",
 )
