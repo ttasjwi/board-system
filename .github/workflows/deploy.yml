@@ -34,8 +34,6 @@ jobs:
 
       - name: 프로젝트 빌드
         run: |
-          echo ${{ secrets.DEPLOY_CONFIG_BLUE_YML }} | base64 --decode > ./board-system-api/api-deploy/src/main/resources/deploy-config-blue.yml
-          echo ${{ secrets.DEPLOY_CONFIG_GREEN_YML }} | base64 --decode > ./board-system-api/api-deploy/src/main/resources/deploy-config-green.yml
           ./gradlew build
 
       - name: DockerHub 로그인
@@ -117,6 +115,13 @@ jobs:
         run: |
           ssh board-ec2 << 'EOF'
             set -e
+          
+            # 필요한 프로필 파일을 서버로 복사합니다.
+            if [ "${{ env.TARGET_UPSTREAM }}" = "blue" ]; then
+              echo "${{ secrets.DEPLOY_CONFIG_BLUE_YML }}" | base64 --decode > /home/ec2-user/config/board-system/deploy-config-blue.yml
+            else
+              echo "${{ secrets.DEPLOY_CONFIG_GREEN_YML }}" | base64 --decode > /home/ec2-user/config/board-system/deploy-config-green.yml
+            fi
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/board-be:latest
             docker compose -f docker-compose-${{ env.TARGET_UPSTREAM }}.yml up -d
           EOF

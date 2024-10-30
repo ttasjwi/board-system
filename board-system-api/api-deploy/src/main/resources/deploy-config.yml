@@ -10,7 +10,7 @@ spring:
   config:
     activate:
       on-profile: blue
-    import: deploy-config-blue.yml
+    import: file:/app/config/board-system/deploy-config-blue.yml
 
 ---
 
@@ -18,6 +18,6 @@ spring:
   config:
     activate:
       on-profile: green
-    import: deploy-config-green.yml
+    import: file:/app/config/board-system/deploy-config-green.yml
 
 ---
