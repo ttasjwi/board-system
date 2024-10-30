@@ -19,3 +19,17 @@ EmailAvailableCheck:
   Taken:
     message: "Email is already taken"
     description: "This email is already in use."
+
+UsernameAvailableCheck:
+  Complete:
+    message: "Username availability check completed"
+    description: "The username availability check has been completed. Please refer to the ''{0}'' field."
+  Available:
+    message: "Username is available"
+    description: "This username is available for use."
+  InvalidFormat:
+    message: "Invalid username format"
+    description: "The format of the username string is incorrect."
+  Taken:
+    message: "Username is already in use"
+    description: "The username is already taken."
