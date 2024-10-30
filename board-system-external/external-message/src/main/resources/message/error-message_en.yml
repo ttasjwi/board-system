@@ -14,3 +14,6 @@ Error:
   InvalidEmailFormat:
     message: "Invalid email format"
     description: "The email format is not valid. (email = {0})"
+  InvalidUsernameFormat:
+    message: "Invalid username format"
+    description: "The username format is incorrect. The username must be at least {0} characters and at most {1} characters, and can only contain lowercase English letters, numbers, and underscores. (username = {2})"

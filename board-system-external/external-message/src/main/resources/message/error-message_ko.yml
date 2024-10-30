@@ -19,3 +19,7 @@ Error:
   InvalidEmailFormat:
     message: "유효하지 않은 이메일 포맷"
     description: "이메일 포맷이 올바르지 않습니다. (email = {0})"
+
+  InvalidUsernameFormat:
+    message: "유효하지 않은 사용자아이디 포맷"
+    description: "사용자 아이디 포맷이 올바르지 않습니다. 사용자아이디(username)는 {0} 자 이상 {1} 자 이하여야 하며, 영어소문자/숫자/언더바 만 허용됩니다. (username = {2})"

@@ -33,8 +33,8 @@ class EmailAvailableProcessorTest {
     }
 
     @Nested
-    @DisplayName("queryEmailAvailable: 이메일이 사용가능한 지 여부를 확인하고 그 결과를 반환한다.")
-    inner class QueryEmailAvailable {
+    @DisplayName("checkEmailAvailable: 이메일이 사용가능한 지 여부를 확인하고 그 결과를 반환한다.")
+    inner class CheckEmailAvailable {
 
         @Test
         @DisplayName("이메일 포맷이 유효하지 않을 때, 이메일 포맷이 유효하지 않다는 결과를 반환한다.")

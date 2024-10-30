@@ -8,6 +8,8 @@ import com.ttasjwi.board.system.member.domain.service.UsernameCreator
 internal class UsernameCreatorImpl : UsernameCreator {
 
     override fun create(value: String): Result<Username> {
-        TODO("Not yet implemented")
+        return kotlin.runCatching {
+            Username.create(value)
+        }
     }
 }
