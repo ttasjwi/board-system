@@ -6,10 +6,10 @@ import com.ttasjwi.board.system.core.annotation.component.AppComponent
 class TransactionRunnerImpl : TransactionRunner{
 
     override fun <T> run(function: () -> T): T {
-        TODO("Not yet implemented")
+        return function.invoke()
     }
 
     override fun <T> runReadOnly(function: () -> T): T {
-        TODO("Not yet implemented")
+        return function.invoke()
     }
 }

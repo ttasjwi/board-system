@@ -1,50 +1,57 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.core.annotation.component.AppComponent
-import com.ttasjwi.board.system.member.domain.model.Email
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.MemberId
-import com.ttasjwi.board.system.member.domain.model.Nickname
-import com.ttasjwi.board.system.member.domain.model.Username
+import com.ttasjwi.board.system.member.domain.model.*
 import com.ttasjwi.board.system.member.domain.service.MemberAppender
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.atomic.AtomicLong
 
 @AppComponent
 internal class MemberStorage : MemberAppender, MemberFinder {
 
+    private val storage: MutableMap<MemberId, Member> = ConcurrentHashMap()
+    private val sequence = AtomicLong(0)
+
     override fun save(member: Member): Member {
-        TODO("Not yet implemented")
+        if (member.id == null) {
+            val id = MemberId.restore(sequence.incrementAndGet())
+            member.initId(id)
+        }
+        storage[member.id!!] = member
+        return member
     }
 
     override fun findByIdOrNull(id: MemberId): Member? {
-        TODO("Not yet implemented")
+        return storage[id]
     }
 
     override fun existsById(id: MemberId): Boolean {
-        TODO("Not yet implemented")
+        return storage.containsKey(id)
     }
 
     override fun findByEmailOrNull(email: Email): Member? {
-        TODO("Not yet implemented")
+        return storage.values.firstOrNull { it.email == email }
     }
 
     override fun existsByEmail(email: Email): Boolean {
-        TODO("Not yet implemented")
+        return storage.values.any { it.email == email }
     }
 
     override fun findByUsernameOrNull(username: Username): Member? {
-        TODO("Not yet implemented")
+        return storage.values.firstOrNull { it.username == username }
     }
 
     override fun existsByUsername(username: Username): Boolean {
-        TODO("Not yet implemented")
+        return storage.values.any { it.username == username }
     }
 
     override fun findByNicknameOrNull(nickname: Nickname): Member? {
-        TODO("Not yet implemented")
+        return storage.values.firstOrNull { it.nickname == nickname }
     }
 
     override fun existsByNickname(nickname: Nickname): Boolean {
-        TODO("Not yet implemented")
+        return storage.values.any { it.nickname == nickname }
     }
+
 }

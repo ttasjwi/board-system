@@ -11,3 +11,6 @@ Error:
   NullArgument:
     message: "Missing required value"
     description: "The field ''{0}'' is required."
+  InvalidEmailFormat:
+    message: "Invalid email format"
+    description: "The email format is not valid. (email = {0})"

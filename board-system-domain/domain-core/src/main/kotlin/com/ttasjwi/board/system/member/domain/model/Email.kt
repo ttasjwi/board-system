@@ -1,11 +1,14 @@
 package com.ttasjwi.board.system.member.domain.model
 
+import com.ttasjwi.board.system.member.domain.exception.InvalidEmailFormatException
+
 class Email
 internal constructor(
     val value: String
 ) {
 
     companion object {
+
         /**
          * 기본 Email 객체 복원
          */
@@ -13,6 +16,15 @@ internal constructor(
             return Email(value)
         }
 
+        /**
+         * Email 객체 생성
+         */
+        internal fun create(value: String, isEmailValid: (String) -> Boolean): Email {
+            if (!isEmailValid(value)) {
+                throw InvalidEmailFormatException(value)
+            }
+            return Email(value)
+        }
     }
 
     override fun equals(other: Any?): Boolean {

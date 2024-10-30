@@ -18,7 +18,10 @@ enum class Dependencies(
     SPRING_BOOT_TEST(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-test"),
 
     // yaml message
-    YAML_RESOURCE_BUNDLE(groupId = "dev.akkinoc.util", artifactId = "yaml-resource-bundle", version = "2.13.0");
+    YAML_RESOURCE_BUNDLE(groupId = "dev.akkinoc.util", artifactId = "yaml-resource-bundle", version = "2.13.0"),
+
+    // email-format-check
+    COMMONS_VALIDATOR(groupId="commons-validator", artifactId ="commons-validator" , version="1.9.0");
 
 
     val fullName: String
