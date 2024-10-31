@@ -33,3 +33,17 @@ UsernameAvailableCheck:
   Taken:
     message: "Username is already in use"
     description: "The username is already taken."
+
+NicknameAvailableCheck:
+  Complete:
+    message: "Nickname availability check completed"
+    description: "The nickname availability check is finished. Please refer to the ''{0}'' field."
+  Available:
+    message: "Nickname is available"
+    description: "This nickname is available for use."
+  InvalidFormat:
+    message: "Invalid nickname format"
+    description: "The format of the nickname string is incorrect."
+  Taken:
+    message: "Nickname is already in use"
+    description: "This nickname is already taken."

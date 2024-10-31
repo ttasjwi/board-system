@@ -8,6 +8,8 @@ import com.ttasjwi.board.system.member.domain.service.NicknameCreator
 internal class NicknameCreatorImpl : NicknameCreator {
 
     override fun create(value: String): Result<Nickname> {
-        TODO("Not yet implemented")
+        return kotlin.runCatching {
+            Nickname.create(value)
+        }
     }
 }

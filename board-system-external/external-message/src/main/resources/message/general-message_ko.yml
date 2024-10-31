@@ -33,3 +33,17 @@ UsernameAvailableCheck:
   Taken:
     message: "사용 중인 사용자아이디(username)"
     description: "이미 사용 중인 사용자아이디(username) 입니다."
+
+NicknameAvailableCheck:
+  Complete:
+    message: "닉네임 사용가능여부 확인 완료"
+    description: "닉네임 사용가능여부 확인을 마무리했습니다. ''{0}'' 필드를 참고하세요."
+  Available:
+    message: "사용 가능한 닉네임"
+    description: "이 닉네임은 사용 가능합니다."
+  InvalidFormat:
+    message: "유효하지 않은 포맷의 닉네임"
+    description: "닉네임 문자열의 포맷이 올바르지 않습니다."
+  Taken:
+    message: "사용 중인 닉네임"
+    description: "이미 사용 중인 닉네임입니다."

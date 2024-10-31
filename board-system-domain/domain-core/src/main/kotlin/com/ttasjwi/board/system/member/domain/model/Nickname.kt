@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
+import com.ttasjwi.board.system.member.domain.exception.InvalidNicknameFormatException
+
 class Nickname
 internal constructor(
     val value: String
@@ -7,7 +9,22 @@ internal constructor(
 
     companion object {
 
+        /**
+         * 한글, 영문자(대,소), 숫자만 허용
+         */
+        private val pattern = Regex("^[ㄱ-힣|a-z|A-Z|0-9|]+\$")
+
+        internal const val MIN_LENGTH = 1
+        internal const val MAX_LENGTH = 15
+
         fun restore(value: String): Nickname {
+            return Nickname(value)
+        }
+
+        internal fun create(value: String): Nickname {
+            if (value.length < MIN_LENGTH || value.length > MAX_LENGTH || !value.matches(pattern)) {
+                throw InvalidNicknameFormatException(value)
+            }
             return Nickname(value)
         }
     }
