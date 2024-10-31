@@ -17,3 +17,6 @@ Error:
   InvalidUsernameFormat:
     message: "Invalid username format"
     description: "The username format is incorrect. The username must be at least {0} characters and at most {1} characters, and can only contain lowercase English letters, numbers, and underscores. (username = {2})"
+  InvalidNicknameFormat:
+    message: "Invalid nickname format"
+    description: "The nickname format is incorrect. The nickname must be between {0} and {1} characters, consisting only of Korean letters, English letters, or numbers. (nickname= {2})"
