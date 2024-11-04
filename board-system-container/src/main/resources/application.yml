@@ -2,7 +2,12 @@ spring.application.name: board-system
 spring:
   profiles:
     active: local
+    group:
+      local: local
+      blue: blue, production
+      green: green, production
   config:
     import:
+      - db-config.yml
       - deploy-config.yml
       - message-config.yml

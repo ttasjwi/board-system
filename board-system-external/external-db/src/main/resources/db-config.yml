@@ -1,0 +1,29 @@
+spring:
+  jpa:
+    open-in-view: false
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: db-config-local.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+    import: db-config-test.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: production
+    import: file:/app/config/board-system/db-config-production.yml
+
+---

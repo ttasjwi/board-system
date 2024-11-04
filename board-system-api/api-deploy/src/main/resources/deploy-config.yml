@@ -9,6 +9,14 @@ spring:
 spring:
   config:
     activate:
+      on-profile: test
+    import: deploy-config-test.yml
+
+---
+
+spring:
+  config:
+    activate:
       on-profile: blue
     import: file:/app/config/board-system/deploy-config-blue.yml
 

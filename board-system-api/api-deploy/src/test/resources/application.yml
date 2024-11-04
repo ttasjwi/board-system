@@ -4,6 +4,6 @@ spring:
     active: test
   config:
     import:
-      - deploy-config-test.yml
+      - deploy-config.yml
 
 ---

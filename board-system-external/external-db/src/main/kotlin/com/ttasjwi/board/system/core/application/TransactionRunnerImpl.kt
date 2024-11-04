@@ -1,14 +1,17 @@
 package com.ttasjwi.board.system.core.application
 
-import com.ttasjwi.board.system.core.annotation.component.AppComponent
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
-@AppComponent
-class TransactionRunnerImpl : TransactionRunner{
+@Service
+class TransactionRunnerImpl : TransactionRunner {
 
+    @Transactional
     override fun <T> run(function: () -> T): T {
         return function.invoke()
     }
 
+    @Transactional(readOnly = true)
     override fun <T> runReadOnly(function: () -> T): T {
         return function.invoke()
     }
