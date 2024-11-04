@@ -6,16 +6,19 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
+import org.springframework.transaction.annotation.Transactional
 
-class MemberStorageTest {
 
-
-    private lateinit var memberStorage: MemberStorage
-
-    @BeforeEach
-    fun init() {
-        memberStorage = MemberStorage()
-    }
+@SpringBootTest
+@ActiveProfiles(value = ["test"])
+@Transactional
+@DisplayName("MemberStorage 테스트")
+class MemberStorageTest @Autowired constructor(
+    private var memberStorage: MemberStorage
+) {
 
     @Nested
     @DisplayName("save: 회원을 저장하고, id 를 발급받아 반환시킨다.")
