@@ -1,0 +1,14 @@
+spring.application.name: board-system-db-test
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+    import: db-config.yml

@@ -8,6 +8,7 @@ build/
 ### secret properties files ###
 board-system-api/api-deploy/src/main/resources/deploy-config-blue.yml
 board-system-api/api-deploy/src/main/resources/deploy-config-green.yml
+board-system-external/external-db/src/main/resources/db-config-production.yml
 
 ### STS ###
 .apt_generated

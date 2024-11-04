@@ -4,7 +4,8 @@ spring:
     active: test
   config:
     import:
-      - deploy-config-test.yml
+      - db-config.yml
+      - deploy-config.yml
       - message-config.yml
 
 ---
