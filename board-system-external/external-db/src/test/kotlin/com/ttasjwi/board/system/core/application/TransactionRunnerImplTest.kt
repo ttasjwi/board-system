@@ -1,18 +1,18 @@
 package com.ttasjwi.board.system.core.application
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.context.ActiveProfiles
 
-class TransactionRunnerImplTest {
-
-    private lateinit var transactionRunner: TransactionRunner
-
-    @BeforeEach
-    fun setup() {
-        transactionRunner = TransactionRunnerImpl()
-    }
+@SpringBootTest
+@ActiveProfiles(value = ["test"])
+@DisplayName("TransactionManagerImpl 테스트")
+class TransactionRunnerImplTest @Autowired constructor(
+    private val transactionRunner: TransactionRunner
+) {
 
     @Test
     @DisplayName("run: 전달한 함수의 반환값을 그대로 반환한다.")
