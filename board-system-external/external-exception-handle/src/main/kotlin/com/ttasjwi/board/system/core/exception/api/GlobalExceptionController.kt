@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.core.api.ErrorResponse
 import com.ttasjwi.board.system.core.exception.CustomException
 import com.ttasjwi.board.system.core.exception.ErrorStatus
 import com.ttasjwi.board.system.core.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.core.locale.LocaleManager
 import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.logging.getLogger
 import org.springframework.http.ResponseEntity
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 internal class GlobalExceptionController(
-    private val messageResolver: MessageResolver
+    private val messageResolver: MessageResolver,
+    private val localeManager: LocaleManager,
 ) {
 
     companion object {
@@ -30,12 +32,11 @@ internal class GlobalExceptionController(
         if (cause is NotImplementedError) {
             return handleNotImplementedError(cause)
         }
-
         log.error(e)
 
         return makeSingleErrorResponse(
             errorStatus = ErrorStatus.APPLICATION_ERROR,
-            errorItem = makeErrorItem(code = "Error.Server", source = "server")
+            errorItem = makeErrorItem("Error.Server", emptyList(), "server"),
         )
     }
 
@@ -73,7 +74,7 @@ internal class GlobalExceptionController(
 
     private fun makeSingleErrorResponse(
         errorStatus: ErrorStatus,
-        errorItem: ErrorResponse.ErrorItem
+        errorItem: ErrorResponse.ErrorItem,
     ): ResponseEntity<ErrorResponse> {
         return makeMultipleErrorResponse(errorStatus, listOf(errorItem))
     }
@@ -83,13 +84,14 @@ internal class GlobalExceptionController(
         errorItems: List<ErrorResponse.ErrorItem>
     ): ResponseEntity<ErrorResponse> {
         val commonCode = "Error.Occurred"
+        val locale = localeManager.getCurrentLocale()
         return ResponseEntity
             .status(resolveHttpStatus(errorStatus))
             .body(
                 ErrorResponse(
                     code = commonCode,
-                    message = messageResolver.resolveMessage(commonCode),
-                    description = messageResolver.resolveDescription(commonCode),
+                    message = messageResolver.resolveMessage(code = commonCode, locale = locale),
+                    description = messageResolver.resolveDescription(code = commonCode, locale = locale),
                     errors = errorItems
                 )
             )
@@ -100,10 +102,11 @@ internal class GlobalExceptionController(
         args: List<Any?> = emptyList(),
         source: String,
     ): ErrorResponse.ErrorItem {
+        val locale = localeManager.getCurrentLocale()
         return ErrorResponse.ErrorItem(
             code = code,
-            message = messageResolver.resolveMessage(code),
-            description = messageResolver.resolveDescription(code, args),
+            message = messageResolver.resolveMessage(code, locale),
+            description = messageResolver.resolveDescription(code, args, locale),
             source = source
         )
     }

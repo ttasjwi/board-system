@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import java.util.*
 
 @ActiveProfiles("test")
 @WebMvcTest(controllers = [ExceptionApiTestController::class])
@@ -50,12 +51,12 @@ class WebMvcExceptionHandleTest {
                 content().contentType(MediaType.APPLICATION_JSON),
                 jsonPath("$.isSuccess").value(false),
                 jsonPath("$.code").value("Error.Occurred"),
-                jsonPath("$.message").value("Error.Occurred.message"),
-                jsonPath("$.description").value("Error.Occurred.description(args=[])"),
+                jsonPath("$.message").value("Error.Occurred.message(locale=${Locale.KOREAN})"),
+                jsonPath("$.description").value("Error.Occurred.description(args=[],locale=${Locale.KOREAN})"),
                 jsonPath("$.data").doesNotExist(),
                 jsonPath("$.errors[0].code").value("Error.Fixture"),
-                jsonPath("$.errors[0].message").value("Error.Fixture.message"),
-                jsonPath("$.errors[0].description").value("Error.Fixture.description(args=[])"),
+                jsonPath("$.errors[0].message").value("Error.Fixture.message(locale=${Locale.KOREAN})"),
+                jsonPath("$.errors[0].description").value("Error.Fixture.description(args=[],locale=${Locale.KOREAN})"),
                 jsonPath("$.errors[0].source").value("filter"),
             )
     }
@@ -71,12 +72,12 @@ class WebMvcExceptionHandleTest {
                 content().contentType(MediaType.APPLICATION_JSON),
                 jsonPath("$.isSuccess").value(false),
                 jsonPath("$.code").value("Error.Occurred"),
-                jsonPath("$.message").value("Error.Occurred.message"),
-                jsonPath("$.description").value("Error.Occurred.description(args=[])"),
+                jsonPath("$.message").value("Error.Occurred.message(locale=${Locale.KOREAN})"),
+                jsonPath("$.description").value("Error.Occurred.description(args=[],locale=${Locale.KOREAN})"),
                 jsonPath("$.data").doesNotExist(),
                 jsonPath("$.errors[0].code").value("Error.Fixture"),
-                jsonPath("$.errors[0].message").value("Error.Fixture.message"),
-                jsonPath("$.errors[0].description").value("Error.Fixture.description(args=[])"),
+                jsonPath("$.errors[0].message").value("Error.Fixture.message(locale=${Locale.KOREAN})"),
+                jsonPath("$.errors[0].description").value("Error.Fixture.description(args=[],locale=${Locale.KOREAN})"),
                 jsonPath("$.errors[0].source").value("controller"),
             )
     }

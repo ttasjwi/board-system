@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system
 
+import com.ttasjwi.board.system.core.locale.LocaleManager
+import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -23,6 +25,11 @@ class TestConfig {
     @Bean
     fun messageResolverFixture(): MessageResolver {
         return MessageResolverFixture()
+    }
+
+    @Bean
+    fun localeManagerFixture(): LocaleManager {
+        return LocaleManagerFixture()
     }
 
     /**

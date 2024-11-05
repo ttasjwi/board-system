@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.MessageTestController
 import com.ttasjwi.board.system.core.config.LocaleConfig
 import com.ttasjwi.board.system.core.config.MessageConfig
 import com.ttasjwi.board.system.core.config.MessageProperties
+import com.ttasjwi.board.system.core.locale.LocaleManagerImpl
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -22,7 +23,7 @@ import java.util.*
 @ActiveProfiles("test")
 @WebMvcTest(controllers = [MessageTestController::class])
 @EnableConfigurationProperties(MessageProperties::class)
-@Import(value = [MessageConfig::class, LocaleConfig::class, MessageResolverImpl::class])
+@Import(value = [MessageConfig::class, LocaleConfig::class, MessageResolverImpl::class, LocaleManagerImpl::class])
 @AutoConfigureMockMvc
 @DisplayName("WebMvc에서 메시지/국제화가 잘 적용되는 지 테스트")
 class WebMvcLocaleTest {

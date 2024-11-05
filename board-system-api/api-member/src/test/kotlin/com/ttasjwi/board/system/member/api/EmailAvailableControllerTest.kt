@@ -1,29 +1,31 @@
 package com.ttasjwi.board.system.member.api
 
 import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.message.MessageResolver
+import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
-import com.ttasjwi.board.system.member.application.usecase.EmailAvailableUseCase
 import com.ttasjwi.board.system.member.application.usecase.fixture.EmailAvailableUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
+import java.util.*
 
 @DisplayName("EmailAvailableController 테스트")
 class EmailAvailableControllerTest {
 
     private lateinit var controller: EmailAvailableController
-    private lateinit var useCase: EmailAvailableUseCase
-    private lateinit var messageResolver: MessageResolver
+    private lateinit var useCaseFixture: EmailAvailableUseCaseFixture
+    private lateinit var messageResolverFixture: MessageResolverFixture
+    private lateinit var localeManagerFixture: LocaleManagerFixture
 
     @BeforeEach
     fun setup() {
-        useCase = EmailAvailableUseCaseFixture()
-        messageResolver = MessageResolverFixture()
-        controller = EmailAvailableController(useCase, messageResolver)
+        useCaseFixture = EmailAvailableUseCaseFixture()
+        messageResolverFixture = MessageResolverFixture()
+        localeManagerFixture = LocaleManagerFixture()
+        controller = EmailAvailableController(useCaseFixture, messageResolverFixture, localeManagerFixture)
     }
 
     @Test
@@ -40,15 +42,15 @@ class EmailAvailableControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("EmailAvailableCheck.Complete")
-        assertThat(response.message).isEqualTo("EmailAvailableCheck.Complete.message")
-        assertThat(response.description).isEqualTo("EmailAvailableCheck.Complete.description(args=[$.data.emailAvailable])")
+        assertThat(response.message).isEqualTo("EmailAvailableCheck.Complete.message(locale=${Locale.KOREAN})")
+        assertThat(response.description).isEqualTo("EmailAvailableCheck.Complete.description(args=[$.data.emailAvailable],locale=${Locale.KOREAN})")
 
         val emailAvailable = response.data.emailAvailable
 
         assertThat(emailAvailable.email).isEqualTo(request.email)
         assertThat(emailAvailable.isAvailable).isEqualTo(true)
         assertThat(emailAvailable.reasonCode).isEqualTo("EmailAvailableCheck.Available")
-        assertThat(emailAvailable.message).isEqualTo("EmailAvailableCheck.Available.message")
-        assertThat(emailAvailable.description).isEqualTo("EmailAvailableCheck.Available.description(args=[])")
+        assertThat(emailAvailable.message).isEqualTo("EmailAvailableCheck.Available.message(locale=${Locale.KOREAN})")
+        assertThat(emailAvailable.description).isEqualTo("EmailAvailableCheck.Available.description(args=[],locale=${Locale.KOREAN})")
     }
 }
