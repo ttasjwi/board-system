@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.api
 
 import com.ttasjwi.board.system.core.api.SuccessResponse
+import com.ttasjwi.board.system.core.locale.LocaleManager
 import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResult
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class EmailAvailableController(
     private val useCase: EmailAvailableUseCase,
     private val messageResolver: MessageResolver,
+    private val localeManager: LocaleManager,
 ) {
 
     @GetMapping("/api/v1/members/email-available")
@@ -29,17 +31,18 @@ class EmailAvailableController(
 
     private fun makeResponse(result: EmailAvailableResult): SuccessResponse<EmailAvailableResponse> {
         val code = "EmailAvailableCheck.Complete"
+        val locale = localeManager.getCurrentLocale()
         return SuccessResponse(
             code = code,
-            message = messageResolver.resolveMessage(code),
-            description = messageResolver.resolveDescription(code, listOf("$.data.emailAvailable")),
+            message = messageResolver.resolveMessage(code, locale),
+            description = messageResolver.resolveDescription(code, listOf("$.data.emailAvailable"), locale),
             data = EmailAvailableResponse(
                 emailAvailable = EmailAvailableResponse.EmailAvailable(
                     email = result.email,
                     isAvailable = result.isAvailable,
                     reasonCode = result.reasonCode,
-                    message = messageResolver.resolveMessage(result.reasonCode),
-                    description = messageResolver.resolveDescription(result.reasonCode),
+                    message = messageResolver.resolveMessage(result.reasonCode, locale),
+                    description = messageResolver.resolveDescription(result.reasonCode, emptyList(), locale),
                 )
             )
         )

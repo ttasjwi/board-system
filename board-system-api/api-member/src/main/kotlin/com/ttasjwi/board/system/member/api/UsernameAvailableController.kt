@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.api
 
 import com.ttasjwi.board.system.core.api.SuccessResponse
+import com.ttasjwi.board.system.core.locale.LocaleManager
 import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableResult
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class UsernameAvailableController(
     private val useCase: UsernameAvailableUseCase,
     private val messageResolver: MessageResolver,
+    private val localeManager: LocaleManager,
 ) {
 
     @GetMapping("/api/v1/members/username-available")
@@ -29,17 +31,18 @@ class UsernameAvailableController(
 
     private fun makeResponse(result: UsernameAvailableResult): SuccessResponse<UsernameAvailableResponse> {
         val code = "UsernameAvailableCheck.Complete"
+        val locale = localeManager.getCurrentLocale()
         return SuccessResponse(
             code = code,
-            message = messageResolver.resolveMessage(code),
-            description = messageResolver.resolveDescription(code, listOf("$.data.usernameAvailable")),
+            message = messageResolver.resolveMessage(code, locale),
+            description = messageResolver.resolveDescription(code, listOf("$.data.usernameAvailable"), locale),
             data = UsernameAvailableResponse(
                 usernameAvailable = UsernameAvailableResponse.UsernameAvailable(
                     username = result.username,
                     isAvailable = result.isAvailable,
                     reasonCode = result.reasonCode,
-                    message = messageResolver.resolveMessage(result.reasonCode),
-                    description = messageResolver.resolveDescription(result.reasonCode),
+                    message = messageResolver.resolveMessage(result.reasonCode, locale),
+                    description = messageResolver.resolveDescription(result.reasonCode, emptyList(), locale),
                 )
             )
         )

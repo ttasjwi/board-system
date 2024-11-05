@@ -1,29 +1,31 @@
 package com.ttasjwi.board.system.member.api
 
 import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.message.MessageResolver
+import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableRequest
-import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableUseCase
 import com.ttasjwi.board.system.member.application.usecase.fixture.UsernameAvailableUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
+import java.util.*
 
 @DisplayName("UsernameAvailableController 테스트")
 class UsernameAvailableControllerTest {
 
     private lateinit var controller: UsernameAvailableController
-    private lateinit var useCase: UsernameAvailableUseCase
-    private lateinit var messageResolver: MessageResolver
+    private lateinit var useCaseFixture: UsernameAvailableUseCaseFixture
+    private lateinit var messageResolverFixture: MessageResolverFixture
+    private lateinit var localeManagerFixture: LocaleManagerFixture
 
     @BeforeEach
     fun setup() {
-        useCase = UsernameAvailableUseCaseFixture()
-        messageResolver = MessageResolverFixture()
-        controller = UsernameAvailableController(useCase, messageResolver)
+        useCaseFixture = UsernameAvailableUseCaseFixture()
+        messageResolverFixture = MessageResolverFixture()
+        localeManagerFixture = LocaleManagerFixture()
+        controller = UsernameAvailableController(useCaseFixture, messageResolverFixture, localeManagerFixture)
     }
 
     @Test
@@ -40,15 +42,15 @@ class UsernameAvailableControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("UsernameAvailableCheck.Complete")
-        assertThat(response.message).isEqualTo("UsernameAvailableCheck.Complete.message")
-        assertThat(response.description).isEqualTo("UsernameAvailableCheck.Complete.description(args=[$.data.usernameAvailable])")
+        assertThat(response.message).isEqualTo("UsernameAvailableCheck.Complete.message(locale=${Locale.KOREAN})")
+        assertThat(response.description).isEqualTo("UsernameAvailableCheck.Complete.description(args=[$.data.usernameAvailable],locale=${Locale.KOREAN})")
 
         val usernameAvailable = response.data.usernameAvailable
 
         assertThat(usernameAvailable.username).isEqualTo(request.username)
         assertThat(usernameAvailable.isAvailable).isEqualTo(true)
         assertThat(usernameAvailable.reasonCode).isEqualTo("UsernameAvailableCheck.Available")
-        assertThat(usernameAvailable.message).isEqualTo("UsernameAvailableCheck.Available.message")
-        assertThat(usernameAvailable.description).isEqualTo("UsernameAvailableCheck.Available.description(args=[])")
+        assertThat(usernameAvailable.message).isEqualTo("UsernameAvailableCheck.Available.message(locale=${Locale.KOREAN})")
+        assertThat(usernameAvailable.description).isEqualTo("UsernameAvailableCheck.Available.description(args=[],locale=${Locale.KOREAN})")
     }
 }
