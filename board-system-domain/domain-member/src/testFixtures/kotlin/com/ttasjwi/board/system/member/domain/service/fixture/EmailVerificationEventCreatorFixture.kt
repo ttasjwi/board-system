@@ -15,6 +15,7 @@ class EmailVerificationEventCreatorFixture : EmailVerificationEventCreator {
             email = emailVerification.email.value,
             code = emailVerification.code,
             codeCreatedAt = emailVerification.codeCreatedAt,
+            codeExpiresAt = emailVerification.codeExpiresAt,
             locale = locale,
         )
     }
