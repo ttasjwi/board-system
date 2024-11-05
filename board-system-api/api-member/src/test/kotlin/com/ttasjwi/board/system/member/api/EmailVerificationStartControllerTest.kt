@@ -1,27 +1,58 @@
 package com.ttasjwi.board.system.member.api
 
-import org.junit.jupiter.api.Assertions.*
+import com.ttasjwi.board.system.core.api.SuccessResponse
+import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
+import com.ttasjwi.board.system.core.time.fixture.timeFixture
+import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
+import com.ttasjwi.board.system.member.application.usecase.fixture.EmailVerificationStartUseCaseFixture
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
+import org.springframework.http.HttpStatus
+import java.util.*
 
 @DisplayName("EmailVerificationStartController 테스트")
 class EmailVerificationStartControllerTest {
 
-    private lateinit var emailVerificationStartController: EmailVerificationStartController
+    private lateinit var controller: EmailVerificationStartController
+    private lateinit var useCaseFixture: EmailVerificationStartUseCaseFixture
+    private lateinit var messageResolverFixture: MessageResolverFixture
+    private lateinit var localeManagerFixture: LocaleManagerFixture
 
     @BeforeEach
     fun setup() {
-        emailVerificationStartController = EmailVerificationStartController()
+        useCaseFixture = EmailVerificationStartUseCaseFixture()
+        messageResolverFixture = MessageResolverFixture()
+        localeManagerFixture = LocaleManagerFixture()
+        controller = EmailVerificationStartController(
+            useCase = useCaseFixture,
+            messageResolver = messageResolverFixture,
+            localeManager = localeManagerFixture
+        )
     }
 
     @Test
-    @DisplayName("이 api는 현재 미구현 상태이다.")
+    @DisplayName("유즈케이스를 호출하고 그 결과를 기반으로 200 코드와 함께 응답을 반환한다.")
     fun test() {
         // given
+        val request = EmailVerificationStartRequest(email = "hello@gmail.com")
+
         // when
+        val responseEntity = controller.startEmailVerification(request)
+        val response = responseEntity.body as SuccessResponse<EmailVerificationStartResponse>
+
         // then
-        assertThrows<NotImplementedError> { emailVerificationStartController.startEmailVerification() }
+        assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
+        assertThat(response.isSuccess).isTrue()
+        assertThat(response.code).isEqualTo("EmailVerificationStart.Complete")
+        assertThat(response.message).isEqualTo("EmailVerificationStart.Complete.message(locale=${Locale.KOREAN})")
+        assertThat(response.description).isEqualTo("EmailVerificationStart.Complete.description(args=[$.data.emailVerificationStartResult],locale=${Locale.KOREAN})")
+
+        val emailVerificationStartResult = response.data.emailVerificationStartResult
+
+        assertThat(emailVerificationStartResult.email).isEqualTo(request.email)
+        assertThat(emailVerificationStartResult.codeExpiresAt).isEqualTo(timeFixture())
     }
 }
