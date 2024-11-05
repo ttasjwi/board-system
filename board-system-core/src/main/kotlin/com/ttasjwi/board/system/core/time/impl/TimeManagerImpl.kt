@@ -8,6 +8,6 @@ import java.time.ZonedDateTime
 class TimeManagerImpl : TimeManager {
 
     override fun now(): ZonedDateTime {
-        TODO("Not yet implemented")
+        return ZonedDateTime.now()
     }
 }
