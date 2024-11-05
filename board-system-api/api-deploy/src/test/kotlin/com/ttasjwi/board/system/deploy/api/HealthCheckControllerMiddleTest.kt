@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.deploy.api
 
+import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.deploy.config.DeployProperties
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+import java.util.*
 
 @ActiveProfiles("test")
 @WebMvcTest(controllers = [HealthCheckController::class])
@@ -38,6 +40,11 @@ class HealthCheckControllerMiddleTest {
         fun messageResolverFixture(): MessageResolver {
             return MessageResolverFixture()
         }
+
+        @Bean
+        fun localeManagerFixture(): LocaleManagerFixture {
+            return LocaleManagerFixture()
+        }
     }
 
     @Test
@@ -51,8 +58,8 @@ class HealthCheckControllerMiddleTest {
                 content().contentType(MediaType.APPLICATION_JSON),
                 jsonPath("$.isSuccess").value(true),
                 jsonPath("$.code").value("HealthCheck.Success"),
-                jsonPath("$.message").value("HealthCheck.Success.message"),
-                jsonPath("$.description").value("HealthCheck.Success.description(args=[\$.data.profile])"),
+                jsonPath("$.message").value("HealthCheck.Success.message(locale=${Locale.KOREAN})"),
+                jsonPath("$.description").value("HealthCheck.Success.description(args=[\$.data.profile],locale=${Locale.KOREAN})"),
                 jsonPath("$.data.profile").value("test")
             )
     }
