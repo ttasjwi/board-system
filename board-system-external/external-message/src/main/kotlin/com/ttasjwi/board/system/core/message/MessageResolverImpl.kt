@@ -2,8 +2,8 @@ package com.ttasjwi.board.system.core.message
 
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.MessageSource
-import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 internal class MessageResolverImpl(
@@ -18,14 +18,14 @@ internal class MessageResolverImpl(
         private const val ERROR_MESSAGE_PREFIX = "Error."
     }
 
-    override fun resolveMessage(code: String): String {
+    override fun resolveMessage(code: String, locale: Locale): String {
         val messageSource = selectMessageSource(code)
-        return messageSource.getMessage("$code.message", null, LocaleContextHolder.getLocale())
+        return messageSource.getMessage("$code.message", null, locale)
     }
 
-    override fun resolveDescription(code: String, args: List<Any?>): String {
+    override fun resolveDescription(code: String, args: List<Any?>, locale: Locale): String {
         val messageSource = selectMessageSource(code)
-        return messageSource.getMessage("$code.description", args.toTypedArray(), LocaleContextHolder.getLocale())
+        return messageSource.getMessage("$code.description", args.toTypedArray(), locale)
     }
 
     private fun selectMessageSource(code: String): MessageSource {

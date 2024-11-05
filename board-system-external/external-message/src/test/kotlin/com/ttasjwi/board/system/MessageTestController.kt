@@ -1,15 +1,16 @@
 package com.ttasjwi.board.system
 
+import com.ttasjwi.board.system.core.locale.LocaleManager
 import com.ttasjwi.board.system.core.message.MessageResolver
 import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
-
 @RestController
 class MessageTestController(
-    private val messageResolver: MessageResolver
+    private val messageResolver: MessageResolver,
+    private val localeManager: LocaleManager,
 ) {
 
     @GetMapping("/api/test")
@@ -18,8 +19,8 @@ class MessageTestController(
 
         val code = "Example"
         val args = listOf(1, 2, 3)
-        val message = messageResolver.resolveMessage(code)
-        val description = messageResolver.resolveDescription(code, args)
+        val message = messageResolver.resolveMessage(code, locale)
+        val description = messageResolver.resolveDescription(code, args, locale)
 
         return ResponseEntity.ok(
             MessageTestResponse(
