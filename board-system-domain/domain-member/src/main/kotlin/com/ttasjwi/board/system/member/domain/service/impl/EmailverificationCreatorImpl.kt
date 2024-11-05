@@ -10,6 +10,6 @@ import java.time.ZonedDateTime
 internal class EmailverificationCreatorImpl : EmailVerificationCreator {
 
     override fun create(email: Email, currentTime: ZonedDateTime): EmailVerification {
-        TODO("Not yet implemented")
+        return EmailVerification.create(email, currentTime)
     }
 }

@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import java.time.ZonedDateTime
+import java.util.UUID
 
 class EmailVerification
 internal constructor(
@@ -21,6 +22,9 @@ internal constructor(
 
     companion object {
 
+        internal const val CODE_LENGTH = 6
+        internal const val CODE_VALIDITY_MINUTE = 5L
+
         fun restore(
             email: String,
             code: String,
@@ -36,6 +40,15 @@ internal constructor(
                 codeExpiresAt = codeExpiresAt,
                 verifiedAt = verifiedAt,
                 verificationExpiresAt = verificationExpiresAt
+            )
+        }
+
+        internal fun create(email: Email, currentTime: ZonedDateTime): EmailVerification {
+            return EmailVerification(
+                email = email,
+                code = UUID.randomUUID().toString().substring(startIndex = 0, endIndex = CODE_LENGTH),
+                codeCreatedAt = currentTime,
+                codeExpiresAt = currentTime.plusMinutes(CODE_VALIDITY_MINUTE)
             )
         }
     }
