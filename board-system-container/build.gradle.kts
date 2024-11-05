@@ -6,6 +6,10 @@ dependencies {
     implementation(project(":board-system-api:api-member"))
     implementation(project(":board-system-api:api-deploy"))
 
+    // event
+    implementation(project(":board-system-event:event-publisher-member"))
+    implementation(project(":board-system-event:event-consumer-member"))
+
     // external
     implementation(project(":board-system-external:external-message"))
     implementation(project(":board-system-external:external-db"))
