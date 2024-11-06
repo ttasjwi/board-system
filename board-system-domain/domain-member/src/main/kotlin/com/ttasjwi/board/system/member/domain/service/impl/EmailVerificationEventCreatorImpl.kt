@@ -14,10 +14,10 @@ internal class EmailVerificationEventCreatorImpl : EmailVerificationEventCreator
         emailVerification: EmailVerification,
         locale: Locale
     ): EmailVerificationStartedEvent {
-        TODO("Not yet implemented")
+        return EmailVerificationStartedEvent.create(emailVerification, locale)
     }
 
     override fun onVerified(emailVerification: EmailVerification): EmailVerifiedEvent {
-        TODO("Not yet implemented")
+        return EmailVerifiedEvent.create(emailVerification)
     }
 }
