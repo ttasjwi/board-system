@@ -18,14 +18,9 @@ internal class MessageResolverImpl(
         private const val ERROR_MESSAGE_PREFIX = "Error."
     }
 
-    override fun resolveMessage(code: String, locale: Locale): String {
+    override fun resolve(code: String, locale: Locale, args: List<Any?>): String {
         val messageSource = selectMessageSource(code)
-        return messageSource.getMessage("$code.message", null, locale)
-    }
-
-    override fun resolveDescription(code: String, args: List<Any?>, locale: Locale): String {
-        val messageSource = selectMessageSource(code)
-        return messageSource.getMessage("$code.description", args.toTypedArray(), locale)
+        return messageSource.getMessage(code, args.toTypedArray(), locale)
     }
 
     private fun selectMessageSource(code: String): MessageSource {

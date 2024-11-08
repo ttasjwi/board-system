@@ -21,8 +21,8 @@ class MessageResolverImplTest @Autowired constructor(
         val code = "Example"
         val locale = Locale.KOREAN
 
-        val message = messageResolver.resolveMessage(code, locale)
-        val description = messageResolver.resolveDescription(code, listOf(1, 2, "야옹"), locale)
+        val message = messageResolver.resolve("$code.message", locale)
+        val description = messageResolver.resolve("$code.description", locale, listOf(1, 2, "야옹"))
 
         assertThat(message).isEqualTo("예제 메시지")
         assertThat(description).isEqualTo("예제 설명(args=1,2,야옹)")
@@ -34,8 +34,8 @@ class MessageResolverImplTest @Autowired constructor(
         val code = "Example"
         val locale = Locale.ENGLISH
 
-        val message = messageResolver.resolveMessage(code, locale)
-        val description = messageResolver.resolveDescription(code, listOf(1, 2, "nyaa"), locale)
+        val message = messageResolver.resolve("$code.message", locale)
+        val description = messageResolver.resolve("$code.description", locale, listOf(1, 2, "nyaa"))
 
         assertThat(message).isEqualTo("Example Message")
         assertThat(description).isEqualTo("Example Description(args=1,2,nyaa)")
@@ -47,8 +47,8 @@ class MessageResolverImplTest @Autowired constructor(
         val code = "Error.NullArgument"
         val locale = Locale.KOREAN
 
-        val message = messageResolver.resolveMessage(code, locale)
-        val description = messageResolver.resolveDescription(code, listOf("username"), locale)
+        val message = messageResolver.resolve("$code.message", locale)
+        val description = messageResolver.resolve("$code.description", locale, listOf("username"))
 
         assertThat(message).isEqualTo("필수값 누락")
         assertThat(description).isEqualTo("'username'은(는) 필수입니다.")
@@ -60,8 +60,8 @@ class MessageResolverImplTest @Autowired constructor(
         val code = "Error.NullArgument"
         val locale = Locale.ENGLISH
 
-        val message = messageResolver.resolveMessage(code, locale)
-        val description = messageResolver.resolveDescription(code, listOf("username"), locale)
+        val message = messageResolver.resolve("$code.message", locale)
+        val description = messageResolver.resolve("$code.description", locale, listOf("username"))
 
         assertThat(message).isEqualTo("Missing required value")
         assertThat(description).isEqualTo("The field 'username' is required.")
