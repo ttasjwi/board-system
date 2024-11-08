@@ -6,7 +6,9 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.FilterType
+import org.springframework.scheduling.annotation.EnableAsync
 
+@EnableAsync
 @ConfigurationPropertiesScan
 @ComponentScan(
     includeFilters = [ComponentScan.Filter(
