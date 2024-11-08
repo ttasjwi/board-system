@@ -34,15 +34,15 @@ class EmailAvailableController(
         val locale = localeManager.getCurrentLocale()
         return SuccessResponse(
             code = code,
-            message = messageResolver.resolveMessage(code, locale),
-            description = messageResolver.resolveDescription(code, listOf("$.data.emailAvailable"), locale),
+            message = messageResolver.resolve("$code.message", locale),
+            description = messageResolver.resolve("$code.description", locale, listOf("$.data.emailAvailable")),
             data = EmailAvailableResponse(
                 emailAvailable = EmailAvailableResponse.EmailAvailable(
                     email = result.email,
                     isAvailable = result.isAvailable,
                     reasonCode = result.reasonCode,
-                    message = messageResolver.resolveMessage(result.reasonCode, locale),
-                    description = messageResolver.resolveDescription(result.reasonCode, emptyList(), locale),
+                    message = messageResolver.resolve("${result.reasonCode}.message", locale),
+                    description = messageResolver.resolve("${result.reasonCode}.description", locale),
                 )
             )
         )

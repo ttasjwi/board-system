@@ -36,8 +36,8 @@ class EmailVerificationStartController(
         val locale = localeManager.getCurrentLocale()
         return SuccessResponse(
             code = code,
-            message = messageResolver.resolveMessage(code, locale),
-            description = messageResolver.resolveDescription(code, listOf("$.data.emailVerificationStartResult"), locale),
+            message = messageResolver.resolve("$code.message", locale),
+            description = messageResolver.resolve("$code.description", locale, listOf("$.data.emailVerificationStartResult")),
             data = EmailVerificationStartResponse(
                 EmailVerificationStartResponse.EmailVerificationStartResult(
                     email = result.email,

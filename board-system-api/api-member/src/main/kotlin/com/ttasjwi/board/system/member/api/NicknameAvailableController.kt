@@ -34,15 +34,15 @@ class NicknameAvailableController(
         val locale = localeManager.getCurrentLocale()
         return SuccessResponse(
             code = code,
-            message = messageResolver.resolveMessage(code, locale),
-            description = messageResolver.resolveDescription(code, listOf("$.data.nicknameAvailable"), locale),
+            message = messageResolver.resolve("$code.message", locale),
+            description = messageResolver.resolve("$code.description", locale, listOf("$.data.nicknameAvailable")),
             data = NicknameAvailableResponse(
                 nicknameAvailable = NicknameAvailableResponse.NicknameAvailable(
                     nickname = result.nickname,
                     isAvailable = result.isAvailable,
                     reasonCode = result.reasonCode,
-                    message = messageResolver.resolveMessage(result.reasonCode, locale),
-                    description = messageResolver.resolveDescription(result.reasonCode, emptyList(), locale),
+                    message = messageResolver.resolve("${result.reasonCode}.message", locale),
+                    description = messageResolver.resolve("${result.reasonCode}.description", locale),
                 )
             )
         )
