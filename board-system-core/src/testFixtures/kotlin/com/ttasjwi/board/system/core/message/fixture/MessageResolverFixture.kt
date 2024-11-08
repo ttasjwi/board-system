@@ -5,11 +5,7 @@ import java.util.*
 
 class MessageResolverFixture : MessageResolver {
 
-    override fun resolveMessage(code: String, locale: Locale): String {
-        return "$code.message(locale=${locale})"
-    }
-
-    override fun resolveDescription(code: String, args: List<Any?>, locale: Locale): String {
-        return "$code.description(args=$args,locale=$locale)"
+    override fun resolve(code: String, locale: Locale, args: List<Any?>): String {
+        return "$code(locale=$locale,args=$args)"
     }
 }

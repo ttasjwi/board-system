@@ -22,8 +22,8 @@ class HealthCheckController(
         val args = listOf("$.data.profile")
         val response = SuccessResponse(
             code = code,
-            message = messageResolver.resolveMessage(code, locale),
-            description = messageResolver.resolveDescription(code, args, locale),
+            message = messageResolver.resolve("$code.message", locale),
+            description = messageResolver.resolve("$code.description", locale, args),
             data = HealthCheckResponse(
                 profile = deployProperties.profile
             )

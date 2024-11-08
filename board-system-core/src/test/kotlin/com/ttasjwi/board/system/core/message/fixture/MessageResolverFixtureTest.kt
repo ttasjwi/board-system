@@ -11,22 +11,22 @@ class MessageResolverFixtureTest {
     private val messageResolver = MessageResolverFixture()
 
     @Test
-    @DisplayName("resolveMessage: code, locale 을 전달하여 메시지를 얻어올 수 있다.")
-    fun testGeneralTitle() {
+    @DisplayName("resolve: code, locale 만 전달하여 메시지를 얻어올 수 있다.")
+    fun test1() {
         val code = "hello"
         val locale = Locale.KOREAN
 
-        val title = messageResolver.resolveMessage(code, locale)
-        assertThat(title).isEqualTo("$code.message(locale=$locale)")
+        val title = messageResolver.resolve(code, locale)
+        assertThat(title).isEqualTo("$code(locale=$locale,args=[])")
     }
 
     @Test
-    @DisplayName("resolveDescription: code, args, locale 을 전달하여 메시지를 얻어올 수 있다.")
-    fun testDescription() {
+    @DisplayName("resolve: code, locale, args 를 전달하여 메시지를 얻어올 수 있다.")
+    fun test2() {
         val code = "hello"
-        val args = listOf(1, 2)
         val locale = Locale.ENGLISH
-        val description = messageResolver.resolveDescription(code, args, locale)
-        assertThat(description).isEqualTo("$code.description(args=[1, 2],locale=$locale)")
+        val args = listOf(1, 2)
+        val description = messageResolver.resolve(code, locale, args)
+        assertThat(description).isEqualTo("$code(locale=$locale,args=[1, 2])")
     }
 }

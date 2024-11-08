@@ -47,8 +47,8 @@ class EmailVerificationStartControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("EmailVerificationStart.Complete")
-        assertThat(response.message).isEqualTo("EmailVerificationStart.Complete.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("EmailVerificationStart.Complete.description(args=[$.data.emailVerificationStartResult],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("EmailVerificationStart.Complete.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("EmailVerificationStart.Complete.description(locale=${Locale.KOREAN},args=[])")
 
         val emailVerificationStartResult = response.data.emailVerificationStartResult
 

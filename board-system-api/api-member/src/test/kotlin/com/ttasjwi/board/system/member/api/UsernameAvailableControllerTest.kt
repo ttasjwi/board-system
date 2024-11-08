@@ -42,15 +42,15 @@ class UsernameAvailableControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("UsernameAvailableCheck.Complete")
-        assertThat(response.message).isEqualTo("UsernameAvailableCheck.Complete.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("UsernameAvailableCheck.Complete.description(args=[$.data.usernameAvailable],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("UsernameAvailableCheck.Complete.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("UsernameAvailableCheck.Complete.description(locale=${Locale.KOREAN},args=[\$.data.usernameAvailable])")
 
         val usernameAvailable = response.data.usernameAvailable
 
         assertThat(usernameAvailable.username).isEqualTo(request.username)
         assertThat(usernameAvailable.isAvailable).isEqualTo(true)
         assertThat(usernameAvailable.reasonCode).isEqualTo("UsernameAvailableCheck.Available")
-        assertThat(usernameAvailable.message).isEqualTo("UsernameAvailableCheck.Available.message(locale=${Locale.KOREAN})")
-        assertThat(usernameAvailable.description).isEqualTo("UsernameAvailableCheck.Available.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(usernameAvailable.message).isEqualTo("UsernameAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(usernameAvailable.description).isEqualTo("UsernameAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
     }
 }

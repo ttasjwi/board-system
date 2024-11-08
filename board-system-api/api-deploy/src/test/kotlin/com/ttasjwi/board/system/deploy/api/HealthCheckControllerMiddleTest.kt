@@ -58,8 +58,8 @@ class HealthCheckControllerMiddleTest {
                 content().contentType(MediaType.APPLICATION_JSON),
                 jsonPath("$.isSuccess").value(true),
                 jsonPath("$.code").value("HealthCheck.Success"),
-                jsonPath("$.message").value("HealthCheck.Success.message(locale=${Locale.KOREAN})"),
-                jsonPath("$.description").value("HealthCheck.Success.description(args=[\$.data.profile],locale=${Locale.KOREAN})"),
+                jsonPath("$.message").value("HealthCheck.Success.message(locale=${Locale.KOREAN},args=[])"),
+                jsonPath("$.description").value("HealthCheck.Success.description(locale=${Locale.KOREAN},args=[\$.data.profile])"),
                 jsonPath("$.data.profile").value("test")
             )
     }

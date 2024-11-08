@@ -47,3 +47,12 @@ NicknameAvailableCheck:
   Taken:
     message: "사용 중인 닉네임"
     description: "이미 사용 중인 닉네임입니다."
+
+EmailVerificationStart:
+  Complete:
+    message: "이메일인증 시작됨"
+    description: "이메일 인증이 시작됐습니다. 귀하의 이메일로 보내진 코드를 참고하세요."
+
+EmailVerification:
+  subject: "이메일인증 코드입니다"
+  content: "이메일인증 코드: {0}"

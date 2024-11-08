@@ -42,15 +42,15 @@ class NicknameAvailableControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("NicknameAvailableCheck.Complete")
-        assertThat(response.message).isEqualTo("NicknameAvailableCheck.Complete.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("NicknameAvailableCheck.Complete.description(args=[$.data.nicknameAvailable],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("NicknameAvailableCheck.Complete.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("NicknameAvailableCheck.Complete.description(locale=${Locale.KOREAN},args=[\$.data.nicknameAvailable])")
 
         val nicknameAvailable = response.data.nicknameAvailable
 
         assertThat(nicknameAvailable.nickname).isEqualTo(request.nickname)
         assertThat(nicknameAvailable.isAvailable).isEqualTo(true)
         assertThat(nicknameAvailable.reasonCode).isEqualTo("NicknameAvailableCheck.Available")
-        assertThat(nicknameAvailable.message).isEqualTo("NicknameAvailableCheck.Available.message(locale=${Locale.KOREAN})")
-        assertThat(nicknameAvailable.description).isEqualTo("NicknameAvailableCheck.Available.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(nicknameAvailable.message).isEqualTo("NicknameAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(nicknameAvailable.description).isEqualTo("NicknameAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
     }
 }

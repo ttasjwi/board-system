@@ -42,15 +42,15 @@ class EmailAvailableControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("EmailAvailableCheck.Complete")
-        assertThat(response.message).isEqualTo("EmailAvailableCheck.Complete.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("EmailAvailableCheck.Complete.description(args=[$.data.emailAvailable],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("EmailAvailableCheck.Complete.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("EmailAvailableCheck.Complete.description(locale=${Locale.KOREAN},args=[\$.data.emailAvailable])")
 
         val emailAvailable = response.data.emailAvailable
 
         assertThat(emailAvailable.email).isEqualTo(request.email)
         assertThat(emailAvailable.isAvailable).isEqualTo(true)
         assertThat(emailAvailable.reasonCode).isEqualTo("EmailAvailableCheck.Available")
-        assertThat(emailAvailable.message).isEqualTo("EmailAvailableCheck.Available.message(locale=${Locale.KOREAN})")
-        assertThat(emailAvailable.description).isEqualTo("EmailAvailableCheck.Available.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(emailAvailable.message).isEqualTo("EmailAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(emailAvailable.description).isEqualTo("EmailAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
     }
 }
