@@ -37,7 +37,7 @@ class EmailVerificationStartController(
         return SuccessResponse(
             code = code,
             message = messageResolver.resolve("$code.message", locale),
-            description = messageResolver.resolve("$code.description", locale, listOf("$.data.emailVerificationStartResult")),
+            description = messageResolver.resolve("$code.description", locale),
             data = EmailVerificationStartResponse(
                 EmailVerificationStartResponse.EmailVerificationStartResult(
                     email = result.email,
