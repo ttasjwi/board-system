@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.util.*
 
 @DisplayName("EmailVerificationStartedEventFixture 테스트")
 class EmailVerificationStartedEventFixtureTest {
@@ -19,6 +20,7 @@ class EmailVerificationStartedEventFixtureTest {
         assertThat(data.code).isNotNull()
         assertThat(data.codeCreatedAt).isNotNull()
         assertThat(data.codeExpiresAt).isNotNull()
+        assertThat(data.locale).isEqualTo(Locale.KOREAN)
     }
 
     @Test
@@ -28,12 +30,14 @@ class EmailVerificationStartedEventFixtureTest {
         val code = "54321"
         val codeCreatedAt = timeFixture(minute = 5)
         val codeExpiresAt = timeFixture(minute = 10)
+        val locale = Locale.ENGLISH
 
         val event = emailVerificationStartedEventFixture(
             email = email,
             code = code,
             codeCreatedAt = codeCreatedAt,
-            codeExpiresAt = codeExpiresAt
+            codeExpiresAt = codeExpiresAt,
+            locale = locale
         )
         val data = event.data
 
@@ -42,5 +46,6 @@ class EmailVerificationStartedEventFixtureTest {
         assertThat(data.code).isEqualTo(code)
         assertThat(data.codeCreatedAt).isEqualTo(codeCreatedAt)
         assertThat(data.codeExpiresAt).isEqualTo(codeExpiresAt)
+        assertThat(data.locale).isEqualTo(locale)
     }
 }

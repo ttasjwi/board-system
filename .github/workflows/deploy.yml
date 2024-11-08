@@ -132,6 +132,7 @@ jobs:
           
             # 필요한 프로필 파일을 서버로 복사합니다.
             echo "${{ secrets.DB_CONFIG_PRODUCTION_YML }}" | base64 --decode > /home/ec2-user/config/board-system/db-config-production.yml
+            echo "${{ secrets.EMAIL_SEND_CONFIG_PRODUCTIONSECRET_YML }}" | base64 --decode > /home/ec2-user/config/board-system/email-send-config-productionSecret.yml
           
             if [ "${{ env.TARGET_UPSTREAM }}" = "blue" ]; then
               echo "${{ secrets.DEPLOY_CONFIG_BLUE_YML }}" | base64 --decode > /home/ec2-user/config/board-system/deploy-config-blue.yml

@@ -3,11 +3,12 @@ spring:
   profiles:
     active: local
     group:
-      local: local
-      blue: blue, production
-      green: green, production
+      local: local, localSecret
+      blue: blue, production, productionSecret
+      green: green, production, productionSecret
   config:
     import:
       - db-config.yml
+      - email-send-config.yml
       - deploy-config.yml
       - message-config.yml

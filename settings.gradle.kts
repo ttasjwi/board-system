@@ -22,6 +22,10 @@ include(
     "board-system-domain:domain-core",
     "board-system-domain:domain-member",
 
+    // event
+    "board-system-event:event-publisher-member",
+    "board-system-event:event-consumer-member",
+
     // external : 외부 기술 의존성
     "board-system-external:external-message",
     "board-system-external:external-db",

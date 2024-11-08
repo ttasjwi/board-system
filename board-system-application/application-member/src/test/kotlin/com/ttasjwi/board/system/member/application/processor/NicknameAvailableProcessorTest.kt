@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("NicknameAvailableQueryMapper: NicknameAvailableRequest 를 NicknameAvailableQuery 로 변환한다")
+@DisplayName("NicknameAvailableProcessor: 닉네임이 사용가능한 지 여부를 실질적으로 확인하는 처리자")
 class NicknameAvailableProcessorTest {
 
     private lateinit var processor: NicknameAvailableProcessor
