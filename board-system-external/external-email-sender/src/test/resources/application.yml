@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: email-send-test-application
+  profiles:
+    active: test
+    group:
+      test: localSecret
+  config:
+    import: email-send-config.yml
+
+---

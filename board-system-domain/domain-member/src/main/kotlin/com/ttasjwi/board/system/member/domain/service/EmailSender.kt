@@ -8,5 +8,5 @@ interface EmailSender {
         address: Email,
         subject: String,
         content: String
-    ): Result<Unit>
+    )
 }
