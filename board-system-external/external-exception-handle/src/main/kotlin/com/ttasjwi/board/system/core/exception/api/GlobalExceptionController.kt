@@ -90,8 +90,8 @@ internal class GlobalExceptionController(
             .body(
                 ErrorResponse(
                     code = commonCode,
-                    message = messageResolver.resolveMessage(code = commonCode, locale = locale),
-                    description = messageResolver.resolveDescription(code = commonCode, locale = locale),
+                    message = messageResolver.resolve("$commonCode.message", locale),
+                    description = messageResolver.resolve("$commonCode.description", locale),
                     errors = errorItems
                 )
             )
@@ -105,8 +105,8 @@ internal class GlobalExceptionController(
         val locale = localeManager.getCurrentLocale()
         return ErrorResponse.ErrorItem(
             code = code,
-            message = messageResolver.resolveMessage(code, locale),
-            description = messageResolver.resolveDescription(code, args, locale),
+            message = messageResolver.resolve("$code.message", locale),
+            description = messageResolver.resolve("$code.description", locale, args),
             source = source
         )
     }

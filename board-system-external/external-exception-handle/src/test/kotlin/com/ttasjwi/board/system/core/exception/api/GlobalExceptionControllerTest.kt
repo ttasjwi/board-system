@@ -43,14 +43,14 @@ class GlobalExceptionControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value())
         assertThat(response.isSuccess).isFalse()
         assertThat(response.code).isEqualTo("Error.Occurred")
-        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("Error.Occurred.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("Error.Occurred.description(locale=${Locale.KOREAN},args=[])")
         assertThat(response.errors.size).isEqualTo(1)
 
         val errorItem = response.errors[0]
         assertThat(errorItem.code).isEqualTo("Error.Server")
-        assertThat(errorItem.message).isEqualTo("Error.Server.message(locale=${Locale.KOREAN})")
-        assertThat(errorItem.description).isEqualTo("Error.Server.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(errorItem.message).isEqualTo("Error.Server.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(errorItem.description).isEqualTo("Error.Server.description(locale=${Locale.KOREAN},args=[])")
         assertThat(errorItem.source).isEqualTo("server")
     }
 
@@ -65,14 +65,14 @@ class GlobalExceptionControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.BAD_REQUEST.value())
         assertThat(response.isSuccess).isFalse()
         assertThat(response.code).isEqualTo("Error.Occurred")
-        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("Error.Occurred.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("Error.Occurred.description(locale=${Locale.KOREAN},args=[])")
         assertThat(response.errors.size).isEqualTo(1)
 
         val errorItem = response.errors[0]
         assertThat(errorItem.code).isEqualTo(exception.code)
-        assertThat(errorItem.message).isEqualTo("${exception.code}.message(locale=${Locale.KOREAN})")
-        assertThat(errorItem.description).isEqualTo("${exception.code}.description(args=${exception.args},locale=${Locale.KOREAN})")
+        assertThat(errorItem.message).isEqualTo("${exception.code}.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(errorItem.description).isEqualTo("${exception.code}.description(locale=${Locale.KOREAN},args=${exception.args})")
         assertThat(errorItem.source).isEqualTo(exception.source)
     }
 
@@ -89,14 +89,14 @@ class GlobalExceptionControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.NOT_IMPLEMENTED.value())
         assertThat(response.isSuccess).isFalse()
         assertThat(response.code).isEqualTo("Error.Occurred")
-        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("Error.Occurred.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("Error.Occurred.description(locale=${Locale.KOREAN},args=[])")
         assertThat(response.errors.size).isEqualTo(1)
 
         val errorItem = response.errors[0]
         assertThat(errorItem.code).isEqualTo("Error.NotImplemented")
-        assertThat(errorItem.message).isEqualTo("Error.NotImplemented.message(locale=${Locale.KOREAN})")
-        assertThat(errorItem.description).isEqualTo("Error.NotImplemented.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(errorItem.message).isEqualTo("Error.NotImplemented.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(errorItem.description).isEqualTo("Error.NotImplemented.description(locale=${Locale.KOREAN},args=[])")
         assertThat(errorItem.source).isEqualTo("server")
     }
 
@@ -116,20 +116,20 @@ class GlobalExceptionControllerTest {
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.BAD_REQUEST.value())
         assertThat(response.isSuccess).isFalse()
         assertThat(response.code).isEqualTo("Error.Occurred")
-        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN})")
-        assertThat(response.description).isEqualTo("Error.Occurred.description(args=[],locale=${Locale.KOREAN})")
+        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("Error.Occurred.description(locale=${Locale.KOREAN},args=[])")
         assertThat(response.errors.size).isEqualTo(2)
 
         val errorItem1 = response.errors[0]
         val errorItem2 = response.errors[1]
 
         assertThat(errorItem1.code).isEqualTo(exception1.code)
-        assertThat(errorItem1.message).isEqualTo("${exception1.code}.message(locale=${Locale.KOREAN})")
-        assertThat(errorItem1.description).isEqualTo("${exception1.code}.description(args=${exception1.args},locale=${Locale.KOREAN})")
+        assertThat(errorItem1.message).isEqualTo("${exception1.code}.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(errorItem1.description).isEqualTo("${exception1.code}.description(locale=${Locale.KOREAN},args=${exception1.args})")
         assertThat(errorItem1.source).isEqualTo(exception1.source)
         assertThat(errorItem2.code).isEqualTo(exception2.code)
-        assertThat(errorItem2.message).isEqualTo("${exception2.code}.message(locale=${Locale.KOREAN})")
-        assertThat(errorItem2.description).isEqualTo("${exception2.code}.description(args=${exception2.args},locale=${Locale.KOREAN})")
+        assertThat(errorItem2.message).isEqualTo("${exception2.code}.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(errorItem2.description).isEqualTo("${exception2.code}.description(locale=${Locale.KOREAN},args=${exception2.args})")
         assertThat(errorItem2.source).isEqualTo(exception2.source)
     }
 }
