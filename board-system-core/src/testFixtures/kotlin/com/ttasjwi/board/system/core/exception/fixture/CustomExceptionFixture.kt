@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.core.exception.CustomException
 import com.ttasjwi.board.system.core.exception.ErrorStatus
 
 fun customExceptionFixture(
-    status: ErrorStatus = ErrorStatus.INVALID_ARGUMENT,
+    status: ErrorStatus = ErrorStatus.BAD_REQUEST,
     code: String = "Error.SomeThingWrong",
     args: List<Any?> = emptyList(),
     source: String = "someSource",

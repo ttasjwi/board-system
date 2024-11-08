@@ -15,7 +15,7 @@ class EmailCreatorFixture : EmailCreator {
     override fun create(value: String): Result<Email> = kotlin.runCatching {
         if (value == ERROR_EMAIL) {
             throw customExceptionFixture(
-                status = ErrorStatus.INVALID_ARGUMENT,
+                status = ErrorStatus.BAD_REQUEST,
                 code = "Error.InvalidEmailFormat",
                 args = emptyList(),
                 source = "email",

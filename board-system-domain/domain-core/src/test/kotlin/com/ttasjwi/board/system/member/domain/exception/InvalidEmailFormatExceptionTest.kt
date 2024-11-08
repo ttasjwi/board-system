@@ -14,7 +14,7 @@ class InvalidEmailFormatExceptionTest {
         val emailValue = "1!@gmaicom"
         val exception = InvalidEmailFormatException(emailValue)
 
-        assertThat(exception.status).isEqualTo(ErrorStatus.INVALID_ARGUMENT)
+        assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidEmailFormat")
         assertThat(exception.args).containsExactly(emailValue)
         assertThat(exception.source).isEqualTo("email")

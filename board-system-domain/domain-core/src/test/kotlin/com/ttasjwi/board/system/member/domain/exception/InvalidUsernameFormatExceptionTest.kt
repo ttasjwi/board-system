@@ -15,7 +15,7 @@ class InvalidUsernameFormatExceptionTest {
         val usernameValue = "1!@gma"
         val exception = InvalidUsernameFormatException(usernameValue)
 
-        assertThat(exception.status).isEqualTo(ErrorStatus.INVALID_ARGUMENT)
+        assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidUsernameFormat")
         assertThat(exception.args).containsExactly(Username.MIN_LENGTH, Username.MAX_LENGTH, usernameValue)
         assertThat(exception.source).isEqualTo("username")

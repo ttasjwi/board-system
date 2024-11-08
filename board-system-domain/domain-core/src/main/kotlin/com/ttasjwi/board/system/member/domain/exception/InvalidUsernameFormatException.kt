@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.member.domain.model.Username
 class InvalidUsernameFormatException(
     usernameValue: String,
 ) : CustomException(
-    status = ErrorStatus.INVALID_ARGUMENT,
+    status = ErrorStatus.BAD_REQUEST,
     code = "Error.InvalidUsernameFormat",
     args = listOf(Username.MIN_LENGTH, Username.MAX_LENGTH, usernameValue),
     source = "username",

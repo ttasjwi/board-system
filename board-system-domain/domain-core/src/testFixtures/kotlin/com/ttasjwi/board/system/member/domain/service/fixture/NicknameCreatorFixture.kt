@@ -15,7 +15,7 @@ class NicknameCreatorFixture : NicknameCreator {
     override fun create(value: String): Result<Nickname> = kotlin.runCatching {
         if (value == ERROR_NICKNAME) {
             throw customExceptionFixture(
-                status = ErrorStatus.INVALID_ARGUMENT,
+                status = ErrorStatus.BAD_REQUEST,
                 code = "Error.InvalidNicknameFormat",
                 args = emptyList(),
                 source = "nickname",

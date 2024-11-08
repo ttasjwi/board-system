@@ -15,7 +15,7 @@ class ValidationExceptionCollectorTest {
         val exception = ValidationExceptionCollector()
 
         // then
-        assertThat(exception.status).isEqualTo(ErrorStatus.INVALID_ARGUMENT)
+        assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidArguments")
         assertThat(exception.args).isEmpty()
         assertThat(exception.source).isEqualTo("*")
@@ -105,7 +105,7 @@ class ValidationExceptionCollectorTest {
         @DisplayName("예외가 있으면 자기 자신을 throw 한다.")
         fun throwIfNotEmptyTest1() {
             val exception = customExceptionFixture(
-                status = ErrorStatus.INVALID_ARGUMENT,
+                status = ErrorStatus.BAD_REQUEST,
                 code = "Error.code1",
                 args = listOf("1", "2"),
                 source = "?",

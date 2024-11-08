@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.exception
 
 import com.ttasjwi.board.system.core.exception.ErrorStatus
 import com.ttasjwi.board.system.member.domain.model.Nickname
-import com.ttasjwi.board.system.member.domain.model.Username
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -16,7 +15,7 @@ class InvalidNicknameFormatExceptionTest {
         val nickname = "1!@gma"
         val exception = InvalidNicknameFormatException(nickname)
 
-        assertThat(exception.status).isEqualTo(ErrorStatus.INVALID_ARGUMENT)
+        assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidNicknameFormat")
         assertThat(exception.args).containsExactly(Nickname.MIN_LENGTH, Nickname.MAX_LENGTH, nickname)
         assertThat(exception.source).isEqualTo("nickname")

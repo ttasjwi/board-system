@@ -20,7 +20,7 @@ class ExceptionApiTestController {
         throw customExceptionFixture(
             code = "Error.Fixture",
             source = "controller",
-            status = ErrorStatus.INVALID_ARGUMENT,
+            status = ErrorStatus.BAD_REQUEST,
             args = emptyList(),
             debugMessage = "컨트롤러에서 발생한 예외"
         )

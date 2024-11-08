@@ -10,7 +10,7 @@ package com.ttasjwi.board.system.core.exception
 class NullArgumentException(
     source: String,
 ) : CustomException(
-    status = ErrorStatus.INVALID_ARGUMENT,
+    status = ErrorStatus.BAD_REQUEST,
     code = "Error.NullArgument",
     args = listOf(source),
     source = source,

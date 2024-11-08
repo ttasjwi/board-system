@@ -12,7 +12,7 @@ class CustomExceptionTest {
     @DisplayName("커스텀 예외는 생성시 전달한 값을 가지고 있다.")
     fun test1() {
         // given
-        val status = ErrorStatus.INVALID_ARGUMENT
+        val status = ErrorStatus.BAD_REQUEST
         val code = "Error.SomeError"
         val args = listOf("someArgs1", "someArgs2")
         val source = "someSource"

@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.core.exception.ErrorStatus
 class InvalidEmailFormatException(
     emailValue: String,
 ) : CustomException(
-    status = ErrorStatus.INVALID_ARGUMENT,
+    status = ErrorStatus.BAD_REQUEST,
     code = "Error.InvalidEmailFormat",
     args = listOf(emailValue),
     source = "email",
