@@ -8,6 +8,7 @@ import com.ttasjwi.board.system.member.application.usecase.EmailVerificationResu
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import java.time.ZonedDateTime
 
@@ -19,7 +20,7 @@ class EmailVerificationController(
 ) {
 
     @PostMapping("/api/v1/members/email-verification")
-    fun emailVerification(request: EmailVerificationRequest): ResponseEntity<SuccessResponse<EmailVerificationResponse>> {
+    fun emailVerification(@RequestBody request: EmailVerificationRequest): ResponseEntity<SuccessResponse<EmailVerificationResponse>> {
         // 애플리케이션 서비스에 요청 처리를 위임
         val result = useCase.emailVerification(request)
 
