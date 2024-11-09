@@ -10,6 +10,7 @@ internal constructor(
     email: String,
     username: String,
     nickname: String,
+    roleName: String,
     registeredAt: ZonedDateTime,
 ) : DomainEvent<RegisteredMemberData>(
     occurredAt = registeredAt,
@@ -18,7 +19,8 @@ internal constructor(
         email = email,
         username = username,
         nickname = nickname,
-        registeredAt = registeredAt
+        roleName = roleName,
+        registeredAt = registeredAt,
     )
 ) {
 
@@ -27,6 +29,7 @@ internal constructor(
         val email: String,
         val username: String,
         val nickname: String,
+        val roleName: String,
         val registeredAt: ZonedDateTime,
     )
 }
