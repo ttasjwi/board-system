@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.core.exception.ErrorStatus
 import com.ttasjwi.board.system.member.domain.model.Nickname
 
 class InvalidNicknameFormatException(
-    nicknameValue: String?,
+    nicknameValue: String,
 ) : CustomException(
     status = ErrorStatus.BAD_REQUEST,
     code = "Error.InvalidNicknameFormat",

@@ -1,23 +1,25 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.core.annotation.component.DomainService
+import com.ttasjwi.board.system.member.domain.external.ExternalPasswordHandler
 import com.ttasjwi.board.system.member.domain.model.EncodedPassword
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 
 @DomainService
-internal class PasswordManagerImpl : PasswordManager {
+internal class PasswordManagerImpl(
+    private val externalPasswordHandler: ExternalPasswordHandler
+) : PasswordManager {
 
     override fun createRawPassword(value: String): Result<RawPassword> {
-        TODO("Not yet implemented")
+        return kotlin.runCatching { RawPassword.create(value) }
     }
 
     override fun encode(rawPassword: RawPassword): EncodedPassword {
-        TODO("Not yet implemented")
+        return externalPasswordHandler.encode(rawPassword)
     }
 
     override fun matches(rawPassword: RawPassword, encodedPassword: EncodedPassword): Boolean {
-        TODO("Not yet implemented")
+        return externalPasswordHandler.matches(rawPassword, encodedPassword)
     }
-
 }
