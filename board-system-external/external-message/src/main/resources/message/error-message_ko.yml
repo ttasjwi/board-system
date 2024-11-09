@@ -1,13 +1,10 @@
 Error:
-
   Occurred:
     message: "에러 발생"
     description: "요청 처리에 실패했습니다. 에러가 발생했습니다."
-
   Server:
     message: "서버 에러"
     description: "알 수 없는 에러가 발생했습니다. 문제가 지속되면 고객 지원팀에 문의해 주세요."
-
   NotImplemented:
     message: "미구현 기능"
     description: "요청하신 기능은 현재 미구현 상태입니다. 해당 기능은 개발 중이며, 가까운 시일 내에 추가될 예정입니다."
@@ -15,15 +12,15 @@ Error:
   NullArgument:
     message: "필수값 누락"
     description: "''{0}''은(는) 필수입니다."
-
   InvalidEmailFormat:
     message: "유효하지 않은 이메일 포맷"
     description: "이메일 포맷이 올바르지 않습니다. (email = {0})"
-
+  InvalidPasswordFormat:
+    message: "유효하지 않은 패스워드 포맷"
+    description: "패스워드의 포맷이 유효하지 않습니다. 패스워드는 {0} 자 이상 {1} 이하여야 합니다."
   InvalidUsernameFormat:
     message: "유효하지 않은 사용자아이디 포맷"
     description: "사용자 아이디 포맷이 올바르지 않습니다. 사용자아이디(username)는 {0} 자 이상 {1} 자 이하여야 하며, 영어소문자/숫자/언더바 만 허용됩니다. (username = {2})"
-
   InvalidNicknameFormat:
     message: "유효하지 않은 닉네임 포맷"
     description: "닉네임 포맷이 올바르지 않습니다. 닉네임은 {0} 자 이상, {1} 자 이하의 한글/영어/숫자로만 구성되어야 합니다. (nickname= {2})"
@@ -31,11 +28,22 @@ Error:
   EmailVerificationNotFound:
     message: "이메일인증이 없거나 만료됨"
     description: "이메일에 대응하는 이메일 인증을 찾지 못 했습니다. 없거나 만료됐습니다. 인증처리를 해주세요.(email={0})"
-
   EmailVerificationExpired:
     message: "이메일인증 만료됨"
     description: "이메일인증이 만료됐습니다. 인증처리를 해주세요.(email={0},만료시각={1},현재시각={2})"
-
   InvalidEmailVerificationCode:
     message: "이메일인증 코드가 유효하지 않음"
     description: "이메일인증 코드가 유효하지 않습니다. 올바른 인증 코드를 입력해주세요."
+  EmailNotVerified:
+    message: "인증되지 않은 이메일"
+    description: "이 이메일은 인증되지 않았습니다. 인증을 먼저 수행해주세요.(email={0})"
+
+  DuplicateMemberEmail:
+    message: "이메일 중복"
+    description: "중복되는 이메일의 회원이 존재합니다.(email={0})"
+  DuplicateMemberUsername:
+    message: "사용자 아이디(username) 중복"
+    description: "중복되는 사용자 아이디(username)의 회원이 존재합니다.(username={0})"
+  DuplicateMemberNickname:
+    message: "닉네임 중복"
+    description: "중복되는 닉네임의 회원이 존재합니다.(nickname={0})"

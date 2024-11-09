@@ -8,18 +8,23 @@ Error:
   NotImplemented:
     message: "Feature Not Implemented"
     description: "The requested feature is currently not implemented. It is under development and is expected to be added in the near future."
+
   NullArgument:
     message: "Missing required value"
     description: "The field ''{0}'' is required."
   InvalidEmailFormat:
     message: "Invalid email format"
     description: "The email format is not valid. (email = {0})"
+  InvalidPasswordFormat:
+    message: "Invalid Password Format"
+    description: "The password format is invalid. Passwords must be at least {0} characters long and at most {1} characters."
   InvalidUsernameFormat:
     message: "Invalid username format"
     description: "The username format is incorrect. The username must be at least {0} characters and at most {1} characters, and can only contain lowercase English letters, numbers, and underscores. (username = {2})"
   InvalidNicknameFormat:
     message: "Invalid nickname format"
     description: "The nickname format is incorrect. The nickname must be between {0} and {1} characters, consisting only of Korean letters, English letters, or numbers. (nickname= {2})"
+
   EmailVerificationNotFound:
     message: "Email verification not found or expired"
     description: "Could not find email verification for the provided email. It may not exist or may have expired. Please complete the verification process.(email={0})"
@@ -29,3 +34,16 @@ Error:
   InvalidEmailVerificationCode:
     message: "Invalid email verification code"
     description: "The email verification code is invalid. Please enter a valid verification code."
+  EmailNotVerified:
+    message: "Email Not Verified"
+    description: "This email has not been verified. Please complete the verification first. (email={0})"
+
+  DuplicateMemberEmail:
+    message: "Duplicate Email"
+    description: "A member with a duplicate email exists. (email={0})"
+  DuplicateMemberUsername:
+    message: "Duplicate Username"
+    description: "A member with a duplicate username exists. (username={0})"
+  DuplicateMemberNickname:
+    message: "Duplicate Nickname"
+    description: "A member with a duplicate nickname exists. (nickname={0})"
