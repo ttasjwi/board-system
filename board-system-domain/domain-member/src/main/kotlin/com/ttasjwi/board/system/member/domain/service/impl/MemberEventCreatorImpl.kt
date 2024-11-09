@@ -7,7 +7,8 @@ import com.ttasjwi.board.system.member.domain.service.MemberEventCreator
 
 @DomainService
 internal class MemberEventCreatorImpl : MemberEventCreator {
+
     override fun onMemberRegistered(member: Member): MemberRegisteredEvent {
-        TODO("Not yet implemented")
+        return MemberRegisteredEvent.create(member)
     }
 }

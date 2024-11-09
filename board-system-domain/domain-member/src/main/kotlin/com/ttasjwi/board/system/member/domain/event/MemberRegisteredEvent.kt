@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.member.domain.event
 
 import com.ttasjwi.board.system.core.domain.event.DomainEvent
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent.RegisteredMemberData
+import com.ttasjwi.board.system.member.domain.model.Member
 import java.time.ZonedDateTime
 
 class MemberRegisteredEvent
@@ -24,6 +25,19 @@ internal constructor(
     )
 ) {
 
+    companion object {
+        internal fun create(member: Member): MemberRegisteredEvent {
+            return MemberRegisteredEvent(
+                memberId = member.id!!.value,
+                email = member.email.value,
+                username = member.username.value,
+                nickname = member.nickname.value,
+                roleName = member.role.name,
+                registeredAt = member.registeredAt,
+            )
+        }
+    }
+
     class RegisteredMemberData(
         val memberId: Long,
         val email: String,
@@ -32,4 +46,5 @@ internal constructor(
         val roleName: String,
         val registeredAt: ZonedDateTime,
     )
+
 }
