@@ -15,7 +15,7 @@ class UsernameCreatorFixture : UsernameCreator {
     override fun create(value: String): Result<Username> = kotlin.runCatching {
         if (value == ERROR_USERNAME) {
             throw customExceptionFixture(
-                status = ErrorStatus.INVALID_ARGUMENT,
+                status = ErrorStatus.BAD_REQUEST,
                 code = "Error.InvalidUsernameFormat",
                 args = emptyList(),
                 source = "username",

@@ -17,7 +17,7 @@ class NullArgumentExceptionTest {
         val exception = NullArgumentException(source)
 
         // then
-        assertThat(exception.status).isEqualTo(ErrorStatus.INVALID_ARGUMENT)
+        assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.NullArgument")
         assertThat(exception.args).containsExactly(source)
         assertThat(exception.source).isEqualTo(source)

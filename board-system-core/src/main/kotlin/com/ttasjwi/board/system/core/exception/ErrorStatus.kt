@@ -21,9 +21,9 @@ enum class ErrorStatus {
     UNAUTHENTICATED,
 
     /**
-     * 요청사항이 애플리케이션 연산이 정의한 입력값 조건과 일치하지 않을 때
+     * 요청한 사항이 유효성에 맞지 않을 때, 또는 애플리케이션에서 처리하기 부적절함
      */
-    INVALID_ARGUMENT,
+    BAD_REQUEST,
 
     /**
      * 연산을 수행할 권한이 없을 때

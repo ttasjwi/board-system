@@ -30,7 +30,7 @@ class CustomExceptionFixtureTest {
     @DisplayName("구체적으로 파라미터 - 인자를 지정하여 커스텀 예외 인스턴스를 생성할 수 있다.")
     fun testCustom() {
         // given
-        val status = ErrorStatus.INVALID_ARGUMENT
+        val status = ErrorStatus.BAD_REQUEST
         val code = "Error.InvalidArgumentFixture"
         val args = listOf(1, 2)
         val source = "nickname"

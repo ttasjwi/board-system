@@ -4,7 +4,7 @@ package com.ttasjwi.board.system.core.exception
  * 여러 개의 입력값 검증예외를 군집으로 모아 관리하리하기 위한 목적으로 정의한 특수 예외
  */
 class ValidationExceptionCollector : CustomException(
-    status = ErrorStatus.INVALID_ARGUMENT,
+    status = ErrorStatus.BAD_REQUEST,
     code = "Error.InvalidArguments",
     source = "*",
     args = emptyList(),

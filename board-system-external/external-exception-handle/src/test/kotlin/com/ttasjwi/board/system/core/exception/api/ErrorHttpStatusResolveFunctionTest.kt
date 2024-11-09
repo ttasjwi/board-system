@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus
 class ErrorHttpStatusResolveFunctionTest {
 
     @Test
-    @DisplayName("ErrorStatus.INVALID_ARGUMENT 는 BAD REQUEST 상태코드로 변환한다.")
+    @DisplayName("ErrorStatus.BAD_REQUEST 는 BAD REQUEST 상태코드로 변환한다.")
     fun caseInvalidArgument() {
-        val errorStatus = ErrorStatus.INVALID_ARGUMENT
+        val errorStatus = ErrorStatus.BAD_REQUEST
         val httpStatus = resolveHttpStatus(errorStatus)
         assertThat(httpStatus).isEqualTo(HttpStatus.BAD_REQUEST)
     }

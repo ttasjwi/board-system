@@ -8,17 +8,17 @@ interface EmailVerificationHandler {
     /**
      * code 를 통해 유효한 이메일 인증인 지 확인하고 유효하다면 이메일을 '인증처리'합니다.
      */
-    fun verify(
+    fun codeVerify(
         emailVerification: EmailVerification,
         code: String,
         currentTime: ZonedDateTime
-    ): Result<EmailVerification>
+    ): EmailVerification
 
     /**
      * 이메일 인증이 현재 검증된 상태이면서 유효한지 확인합니다.
      */
-    fun checkCurrentlyValid(
+    fun checkVerifiedAndCurrentlyValid(
         emailVerification: EmailVerification,
         currentTime: ZonedDateTime
-    ): Result<Unit>
+    )
 }

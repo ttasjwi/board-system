@@ -29,10 +29,10 @@ class ErrorStatusTest {
     }
 
     @Test
-    @DisplayName("ErrorStatus.INVALID_ARGUMENT 는 연산에 전달한 값이 유효성에 맞지 않을 때를 나타내는 에러 유형이다.")
-    fun testInvalidArgument() {
-        val invalidArgument = ErrorStatus.INVALID_ARGUMENT
-        assertThat(invalidArgument.name).isEqualTo("INVALID_ARGUMENT")
+    @DisplayName("ErrorStatus.BAD_REQUEST 는 요청한 사항이 유효성에 맞지 않을 때, 또는 애플리케이션에서 처리하기 부적절함을 나타내는 에러 유형이다.")
+    fun testBadRequest() {
+        val invalidArgument = ErrorStatus.BAD_REQUEST
+        assertThat(invalidArgument.name).isEqualTo("BAD_REQUEST")
     }
 
     @Test

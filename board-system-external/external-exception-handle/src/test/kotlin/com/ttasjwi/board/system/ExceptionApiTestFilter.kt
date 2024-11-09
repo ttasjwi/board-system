@@ -27,7 +27,7 @@ class ExceptionApiTestFilter : OncePerRequestFilter() {
             throw customExceptionFixture(
                 code = "Error.Fixture",
                 source = "filter",
-                status = ErrorStatus.INVALID_ARGUMENT,
+                status = ErrorStatus.BAD_REQUEST,
                 args = emptyList(),
                 debugMessage = "필터에서 발생한 예외"
             )

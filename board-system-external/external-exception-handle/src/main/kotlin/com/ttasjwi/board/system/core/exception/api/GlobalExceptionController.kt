@@ -57,7 +57,7 @@ internal class GlobalExceptionController(
     @ExceptionHandler(ValidationExceptionCollector::class)
     fun handleValidationExceptionCollector(exceptionCollector: ValidationExceptionCollector): ResponseEntity<ErrorResponse> {
         return makeMultipleErrorResponse(
-            errorStatus = ErrorStatus.INVALID_ARGUMENT,
+            errorStatus = ErrorStatus.BAD_REQUEST,
             errorItems = makeErrorItems(exceptionCollector.getExceptions())
         )
     }
