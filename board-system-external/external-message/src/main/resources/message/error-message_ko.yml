@@ -27,3 +27,15 @@ Error:
   InvalidNicknameFormat:
     message: "유효하지 않은 닉네임 포맷"
     description: "닉네임 포맷이 올바르지 않습니다. 닉네임은 {0} 자 이상, {1} 자 이하의 한글/영어/숫자로만 구성되어야 합니다. (nickname= {2})"
+
+  EmailVerificationNotFound:
+    message: "이메일인증이 없거나 만료됨"
+    description: "이메일에 대응하는 이메일 인증을 찾지 못 했습니다. 없거나 만료됐습니다. 인증처리를 해주세요.(email={0})"
+
+  EmailVerificationExpired:
+    message: "이메일인증 만료됨"
+    description: "이메일인증이 만료됐습니다. 인증처리를 해주세요.(email={0},만료시각={1},현재시각={2})"
+
+  InvalidEmailVerificationCode:
+    message: "이메일인증 코드가 유효하지 않음"
+    description: "이메일인증 코드가 유효하지 않습니다. 올바른 인증 코드를 입력해주세요."

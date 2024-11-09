@@ -18,8 +18,8 @@ class EmailVerificationStartedEventConsumer(
     fun handleEmailVerificationStartedEvent(event: EmailVerificationStartedEvent) {
         emailSendUseCase.sendEmail(
             address = event.data.email,
-            subject = messageResolver.resolve("EmailVerification.subject", event.data.locale),
-            content = messageResolver.resolve("EmailVerification.content", event.data.locale, listOf(event.data.code)),
+            subject = messageResolver.resolve("EmailVerification.EmailSubject", event.data.locale),
+            content = messageResolver.resolve("EmailVerification.EmailContent", event.data.locale, listOf(event.data.code)),
         )
     }
 }

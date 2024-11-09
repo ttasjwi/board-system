@@ -54,5 +54,8 @@ EmailVerificationStart:
     description: "이메일 인증이 시작됐습니다. 귀하의 이메일로 보내진 코드를 참고하세요."
 
 EmailVerification:
-  subject: "이메일인증 코드입니다"
-  content: "이메일인증 코드: {0}"
+  Complete:
+    message: "이메일인증 완료됨"
+    description: "이메일 인증을 완료했습니다."
+  EmailSubject: "이메일인증 코드입니다"
+  EmailContent: "이메일인증 코드: {0}"

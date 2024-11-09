@@ -54,6 +54,9 @@ EmailVerificationStart:
     description: "Email verification has started. Please refer to the code sent to your email."
 
 EmailVerification:
-  subject: "Your Email Verification Code"
-  content: "Email Verification Code: {0}"
+  Complete:
+    message: "Email verification completed"
+    description: "Your email verification has been successfully completed."
+  EmailSubject: "Your Email Verification Code"
+  EmailContent: "Email Verification Code: {0}"
 
