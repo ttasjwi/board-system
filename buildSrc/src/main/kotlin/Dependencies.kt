@@ -17,6 +17,8 @@ enum class Dependencies(
     SPRING_BOOT_MAIL(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-mail"),
     SPRING_BOOT_TEST(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-test"),
 
+    SPRING_SECURITY_CRYPTO(groupId = "org.springframework.security", artifactId = "spring-security-crypto"),
+
     // p6spy
     P6SPY_DATASOURCE_DECORATOR(groupId = "com.github.gavlyukovskiy", artifactId = "p6spy-spring-boot-starter", version = "1.9.2"),
 
