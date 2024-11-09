@@ -1,14 +1,17 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
+import com.ttasjwi.board.system.member.domain.exception.EmailNotVerifiedException
 import com.ttasjwi.board.system.member.domain.exception.EmailVerificationExpiredException
 import com.ttasjwi.board.system.member.domain.exception.InvalidEmailVerificationCodeException
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
+import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationHandler
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
+@DisplayName("EmailVerificationHandlerImpl: 이메일 인증 처리기")
 class EmailVerificationHandlerImplTest {
 
     private lateinit var emailVerificationHandler: EmailVerificationHandler
@@ -81,7 +84,72 @@ class EmailVerificationHandlerImplTest {
             emailVerificationHandler.codeVerify(emailVerification, "1111", timeFixture(minute = 3))
 
             assertThat(emailVerification.verifiedAt).isEqualTo(timeFixture(minute = 3))
-            assertThat(emailVerification.verificationExpiresAt).isEqualTo(timeFixture(minute = 3).plusMinutes(EmailVerification.VERIFICATION_VALIDITY_MINUTE))
+            assertThat(emailVerification.verificationExpiresAt).isEqualTo(
+                timeFixture(minute = 3).plusMinutes(
+                    EmailVerification.VERIFICATION_VALIDITY_MINUTE
+                )
+            )
+        }
+    }
+
+    @Nested
+    @DisplayName("checkVerifiedAndCurrentlyValid: 이메일 인증이 처리됐는 지, 현재 유효한 지 체크")
+    inner class CheckVerifiedAndCurrentlyValid {
+
+        @Test
+        @DisplayName("성공 - 인증이 됐고, 현재 시간이 만료 시간 이전일 경우")
+        fun testSuccess() {
+            val emailVerification = emailVerificationFixtureVerified(
+                codeCreatedAt = timeFixture(minute = 3),
+                codeExpiresAt = timeFixture(minute = 8),
+                verifiedAt = timeFixture(minute = 7),
+                verificationExpiresAt = timeFixture(minute = 37),
+            )
+            val currentTime = timeFixture(minute = 34)
+            emailVerificationHandler.checkVerifiedAndCurrentlyValid(emailVerification, currentTime)
+        }
+
+        @Test
+        @DisplayName("인증되지 않았다면 예외가 발생한다")
+        fun testNotVerified() {
+            val emailVerification = emailVerificationFixtureNotVerified(
+                codeCreatedAt = timeFixture(minute = 3),
+                codeExpiresAt = timeFixture(minute = 8)
+            )
+            val currentTime = timeFixture(minute = 7)
+            assertThrows<EmailNotVerifiedException> {
+                emailVerificationHandler.checkVerifiedAndCurrentlyValid(emailVerification, currentTime)
+            }
+        }
+
+        @Test
+        @DisplayName("인증이 됐지만, 현재 시간이 만료 시간과 같으면 예외가 발생한다")
+        fun testExpired1() {
+            val emailVerification = emailVerificationFixtureVerified(
+                codeCreatedAt = timeFixture(minute = 3),
+                codeExpiresAt = timeFixture(minute = 8),
+                verifiedAt = timeFixture(minute = 7),
+                verificationExpiresAt = timeFixture(minute = 37),
+            )
+            val currentTime = timeFixture(minute = 37)
+            assertThrows<EmailVerificationExpiredException> {
+                emailVerificationHandler.checkVerifiedAndCurrentlyValid(emailVerification, currentTime)
+            }
+        }
+
+        @Test
+        @DisplayName("인증이 됐지만, 현재 시간이 만료 시간 이후일 경우 예외가 발생한다")
+        fun testExpired2() {
+            val emailVerification = emailVerificationFixtureVerified(
+                codeCreatedAt = timeFixture(minute = 3),
+                codeExpiresAt = timeFixture(minute = 8),
+                verifiedAt = timeFixture(minute = 7),
+                verificationExpiresAt = timeFixture(minute = 37),
+            )
+            val currentTime = timeFixture(minute = 38)
+            assertThrows<EmailVerificationExpiredException> {
+                emailVerificationHandler.checkVerifiedAndCurrentlyValid(emailVerification, currentTime)
+            }
         }
     }
 }

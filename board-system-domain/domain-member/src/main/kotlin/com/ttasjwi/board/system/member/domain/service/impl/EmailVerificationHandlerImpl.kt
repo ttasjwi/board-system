@@ -13,6 +13,6 @@ internal class EmailVerificationHandlerImpl : EmailVerificationHandler {
     }
 
     override fun checkVerifiedAndCurrentlyValid(emailVerification: EmailVerification, currentTime: ZonedDateTime) {
-        TODO("Not yet implemented")
+        emailVerification.checkVerifiedAndCurrentlyValid(currentTime)
     }
 }
