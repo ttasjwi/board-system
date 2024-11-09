@@ -77,6 +77,8 @@ internal constructor(
     }
 
     internal fun checkVerifiedAndCurrentlyValid(currentTime: ZonedDateTime) {
+        log.info{ "이메일 인증이 현재 유효한 지 확인합니다." }
+
         // 인증이 안 됨 -> 다시 인증 해라
         if (this.verifiedAt == null) {
             log.warn{ "해당 이메일은 인증이 되지 않았음. (email=${this.email.value})" }
@@ -88,5 +90,6 @@ internal constructor(
             throw EmailVerificationExpiredException(email.value, verificationExpiresAt!!, currentTime)
         }
         // 그 외: 인증이 됐고, 인증이 만료되지 않은 경우(유효함)
+        log.info{ "이메일 인증이 현재 유효합니다." }
     }
 }
