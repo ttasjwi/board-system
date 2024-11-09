@@ -8,15 +8,11 @@ import java.time.ZonedDateTime
 @DomainService
 internal class EmailVerificationHandlerImpl : EmailVerificationHandler {
 
-    override fun verify(
-        emailVerification: EmailVerification,
-        code: String,
-        currentTime: ZonedDateTime
-    ): Result<EmailVerification> {
-        TODO("Not yet implemented")
+    override fun codeVerify(emailVerification: EmailVerification, code: String, currentTime: ZonedDateTime): EmailVerification {
+        return emailVerification.codeVerify(code, currentTime)
     }
 
-    override fun checkCurrentlyValid(emailVerification: EmailVerification, currentTime: ZonedDateTime): Result<Unit> {
+    override fun checkVerifiedAndCurrentlyValid(emailVerification: EmailVerification, currentTime: ZonedDateTime) {
         TODO("Not yet implemented")
     }
 }
