@@ -23,7 +23,5 @@ class EmailVerificationHandlerFixture : EmailVerificationHandler {
         )
     }
 
-    override fun checkVerifiedAndCurrentlyValid(emailVerification: EmailVerification, currentTime: ZonedDateTime) {
-        TODO("Not yet implemented")
-    }
+    override fun checkVerifiedAndCurrentlyValid(emailVerification: EmailVerification, currentTime: ZonedDateTime) {}
 }
