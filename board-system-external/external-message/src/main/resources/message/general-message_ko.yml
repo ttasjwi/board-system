@@ -59,3 +59,8 @@ EmailVerification:
     description: "이메일 인증을 완료했습니다."
   EmailSubject: "이메일인증 코드입니다"
   EmailContent: "이메일인증 코드: {0}"
+
+RegisterMember:
+  Complete:
+    message: "회원가입 완료됨"
+    description: "회원가입이 완료됐습니다."

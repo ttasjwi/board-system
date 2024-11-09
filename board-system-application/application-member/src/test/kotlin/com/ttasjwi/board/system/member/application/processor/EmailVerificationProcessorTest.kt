@@ -5,12 +5,10 @@ import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationFinder
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationHandlerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationStorageFixture
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -43,7 +41,7 @@ class EmailVerificationProcessorTest {
         val command = EmailVerificationCommand(
             email = emailFixture("hello@gmail.com"),
             code = "1234",
-            currentTime = timeFixture(minute=3)
+            currentTime = timeFixture(minute = 3)
         )
         assertThrows<EmailVerificationNotFoundException> {
             emailVerificationProcessor.verify(command)
@@ -57,15 +55,15 @@ class EmailVerificationProcessorTest {
         val savedEmailVerification = emailVerificationFixtureNotVerified(
             email = "hello@gmail.com",
             code = "1234",
-            codeCreatedAt = timeFixture(minute=0),
-            codeExpiresAt = timeFixture(minute=5),
+            codeCreatedAt = timeFixture(minute = 0),
+            codeExpiresAt = timeFixture(minute = 5),
         )
         emailVerificationStorageFixture.append(savedEmailVerification, savedEmailVerification.codeExpiresAt)
 
         val command = EmailVerificationCommand(
             email = savedEmailVerification.email,
             code = savedEmailVerification.code,
-            currentTime = timeFixture(minute=3)
+            currentTime = timeFixture(minute = 3)
         )
 
         // when

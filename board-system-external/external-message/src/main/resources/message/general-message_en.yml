@@ -60,3 +60,7 @@ EmailVerification:
   EmailSubject: "Your Email Verification Code"
   EmailContent: "Email Verification Code: {0}"
 
+RegisterMember:
+  Complete:
+    message: "Registration Complete"
+    description: "The registration has been completed."

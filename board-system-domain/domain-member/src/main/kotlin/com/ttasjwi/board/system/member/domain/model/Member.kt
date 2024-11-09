@@ -31,6 +31,26 @@ internal constructor(
 
     companion object {
 
+        /**
+         * 가입 회원 생성
+         */
+        internal fun create(
+            email: Email,
+            password: EncodedPassword,
+            username: Username,
+            nickname: Nickname,
+            registeredAt: ZonedDateTime,
+        ): Member {
+            return Member(
+                email = email,
+                password = password,
+                username = username,
+                nickname = nickname,
+                role = Role.USER,
+                registeredAt = registeredAt,
+            )
+        }
+
         fun restore(
             id: Long,
             email: String,

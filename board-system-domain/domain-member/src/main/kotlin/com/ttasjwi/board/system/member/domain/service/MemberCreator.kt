@@ -11,7 +11,6 @@ interface MemberCreator {
 
     fun create(
         email: Email,
-        emailVerified: Boolean,
         password: RawPassword,
         username: Username,
         nickname: Nickname,

@@ -2,12 +2,14 @@ package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
+import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
+@DisplayName("EmailVerificationHandlerFixture 테스트")
 class EmailVerificationHandlerFixtureTest {
 
     private lateinit var emailVerificationHandlerFixture: EmailVerificationHandlerFixture
@@ -18,6 +20,7 @@ class EmailVerificationHandlerFixtureTest {
     }
 
     @Nested
+    @DisplayName("codeVerify: 코드를 받아 이메일 인증을 처리한다.")
     inner class CodeVerify {
 
         @Test
@@ -32,6 +35,19 @@ class EmailVerificationHandlerFixtureTest {
             assertThat(verifiedEmailVerification.verifiedAt).isEqualTo(currentTime)
             assertThat(verifiedEmailVerification.verificationExpiresAt).isEqualTo(currentTime.plusMinutes(EmailVerificationHandlerFixture.VERIFICATION_VALIDITY_MINUTE))
         }
+    }
 
+    @Nested
+    @DisplayName("checkVerifiedAndCurrentlyValid: 이메일 인증이 인증 됐는지, 현재 인증이 유효한 지 체크한다")
+    inner class CheckVerifiedAndCurrentlyValid {
+
+        @Test
+        @DisplayName("픽스쳐 - 아무 것도 안 한다. 실행만 되는 지 테스트")
+        fun test() {
+            val emailVerification = emailVerificationFixtureVerified()
+            val currentTime = timeFixture(minute=6)
+
+            emailVerificationHandlerFixture.checkVerifiedAndCurrentlyValid(emailVerification, currentTime)
+        }
     }
 }

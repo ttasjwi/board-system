@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.member.domain.event
 
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.event.fixture.memberRegisteredEventFixture
+import com.ttasjwi.board.system.member.domain.model.Role
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -16,6 +17,7 @@ class MemberRegisteredEventTest {
         val memberId = 4L
         val email = "bye@gmail.com"
         val username = "ttasjwi"
+        val role = Role.USER
         val nickname = "땃쥐"
 
         val event = memberRegisteredEventFixture(
@@ -23,6 +25,7 @@ class MemberRegisteredEventTest {
             memberId = memberId,
             email = email,
             username = username,
+            role = role,
             nickname = nickname,
         )
         val data = event.data
@@ -32,6 +35,7 @@ class MemberRegisteredEventTest {
         assertThat(data.email).isEqualTo(email)
         assertThat(data.username).isEqualTo(username)
         assertThat(data.nickname).isEqualTo(nickname)
+        assertThat(data.roleName).isEqualTo(role.name)
         assertThat(data.registeredAt).isEqualTo(registeredAt)
     }
 }
