@@ -12,15 +12,18 @@ include(
     // api
     "board-system-api:api-core",
     "board-system-api:api-member",
+    "board-system-api:api-auth",
     "board-system-api:api-deploy",
 
     // application
     "board-system-application:application-core",
     "board-system-application:application-member",
+    "board-system-application:application-auth",
 
     // domain
     "board-system-domain:domain-core",
     "board-system-domain:domain-member",
+    "board-system-domain:domain-auth",
 
     // event
     "board-system-event:event-publisher-member",

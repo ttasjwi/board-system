@@ -4,6 +4,7 @@ dependencies {
     // api
     implementation(project(":board-system-api:api-core"))
     implementation(project(":board-system-api:api-member"))
+    implementation(project(":board-system-api:api-auth"))
     implementation(project(":board-system-api:api-deploy"))
 
     // event
@@ -13,10 +14,12 @@ dependencies {
     // application
     implementation(project(":board-system-application:application-core"))
     implementation(project(":board-system-application:application-member"))
+    implementation(project(":board-system-application:application-auth"))
 
     // domain
     implementation(project(":board-system-domain:domain-core"))
     implementation(project(":board-system-domain:domain-member"))
+    implementation(project(":board-system-domain:domain-auth"))
 
     // external
     implementation(project(":board-system-external:external-message"))
