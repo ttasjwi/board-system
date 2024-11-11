@@ -10,14 +10,13 @@ import com.ttasjwi.board.system.core.annotation.component.DomainService
 internal class RefreshTokenHolderManagerImpl : RefreshTokenHolderManager {
 
     override fun createRefreshTokenHolder(authMember: AuthMember): RefreshTokenHolder {
-        TODO("Not yet implemented")
+        return RefreshTokenHolder.create(authMember)
     }
 
     override fun addNewRefreshToken(
         refreshTokenHolder: RefreshTokenHolder,
         refreshToken: RefreshToken
     ): RefreshTokenHolder {
-        TODO("Not yet implemented")
+        return refreshTokenHolder.addNewRefreshToken(refreshToken)
     }
-
 }
