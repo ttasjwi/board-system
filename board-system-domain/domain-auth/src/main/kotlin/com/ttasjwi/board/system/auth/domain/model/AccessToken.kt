@@ -12,6 +12,8 @@ internal constructor(
 
     companion object {
 
+        internal const val VALIDITY_MINUTE = 30L
+
         fun restore(
             memberId: Long,
             email: String,
