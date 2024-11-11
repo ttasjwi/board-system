@@ -1,10 +1,24 @@
 package com.ttasjwi.board.system.auth.domain.model
 
+import java.util.*
+
 class RefreshTokenId
 internal constructor(
     val value: String
 ) {
     companion object {
+
+        internal const val REFRESH_TOKEN_ID_LENGTH = 6
+
+        internal fun create(): RefreshTokenId {
+            return RefreshTokenId(
+                UUID.randomUUID()
+                    .toString()
+                    .replace("-", "")
+                    .substring(0, REFRESH_TOKEN_ID_LENGTH)
+            )
+        }
+
         fun restore(value: String): RefreshTokenId {
             return RefreshTokenId(value)
         }

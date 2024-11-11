@@ -13,6 +13,9 @@ internal constructor(
 ) {
 
     companion object {
+
+        internal const val VALIDITY_HOURS = 24L
+
         fun restore(
             memberId: Long,
             refreshTokenId: String,
