@@ -10,6 +10,6 @@ import com.ttasjwi.board.system.core.annotation.component.DomainService
 internal class AuthEventCreatorImpl : AuthEventCreator {
 
     override fun onLoginSuccess(accessToken: AccessToken, refreshToken: RefreshToken): LoggedInEvent {
-        TODO("Not yet implemented")
+        return LoggedInEvent.create(accessToken, refreshToken)
     }
 }
