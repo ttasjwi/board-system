@@ -54,7 +54,6 @@ class AuthEventCreatorFixtureTest {
 
             // when
             val event = authEventCreatorFixture.onLoginSuccess(
-                memberId = refreshToken.memberId,
                 accessToken = accessToken,
                 refreshToken = refreshToken,
             )

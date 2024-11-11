@@ -50,7 +50,7 @@ internal class LoginProcessor(
         // 리프레시 토큰 홀더 업데이트
         upsertRefreshTokenHolder(authMember, refreshToken, command.currentTime)
 
-        val loggedInEvent = authEventCreator.onLoginSuccess(member.id!!, accessToken, refreshToken)
+        val loggedInEvent = authEventCreator.onLoginSuccess(accessToken, refreshToken)
 
         log.info { "로그인 처리를 성공했습니다. (email=${command.email.value})" }
 
