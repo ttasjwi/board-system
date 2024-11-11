@@ -9,6 +9,16 @@ import com.ttasjwi.board.system.member.domain.model.Member
 internal class AuthMemberCreatorImpl : AuthMemberCreator {
 
     override fun create(member: Member): AuthMember {
-        TODO("Not yet implemented")
+        return CreatedAuthMember(member)
     }
+
+    private class CreatedAuthMember(
+        member: Member
+    ) : AuthMember(
+        memberId = member.id!!,
+        email = member.email,
+        username = member.username,
+        nickname = member.nickname,
+        role = member.role,
+    )
 }
