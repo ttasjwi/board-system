@@ -1,6 +1,8 @@
 package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
+import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
+import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -48,6 +50,81 @@ class RefreshTokenHolderTest {
             assertThat(refreshTokenHolder.authMember.nickname.value).isEqualTo(nickname)
             assertThat(refreshTokenHolder.authMember.role.name).isEqualTo(roleName)
             assertThat(innerTokens).containsAllEntriesOf(tokens)
+        }
+    }
+
+    @Nested
+    @DisplayName("expiresAt: 리프레시토큰 홀더의 만료시간을 반환한다")
+    inner class ExpiresAt {
+
+        @Test
+        @DisplayName("토큰이 없으면 지금이 만료시점이다.")
+        fun testEmpty() {
+            // given
+            val holder = refreshTokenHolderFixture(memberId = 1L)
+            val currentTime = timeFixture(minute = 0)
+
+            // when
+            val expiresAt = holder.expiresAt(currentTime)
+
+            // then
+            assertThat(expiresAt).isEqualTo(currentTime)
+        }
+
+        @Test
+        @DisplayName("토큰이 하나 있다면 토큰의 만료시점이 만료시점이다.")
+        fun testNotEmpty1() {
+            // given
+            val refreshToken1 = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "tokenId1",
+                issuedAt = timeFixture(minute = 0), expiresAt = timeFixture(minute = 5)
+            )
+
+            val holder = refreshTokenHolderFixture(
+                memberId = 1L,
+                tokens = mutableMapOf(
+                    refreshToken1.refreshTokenId to refreshToken1,
+                )
+            )
+            val currentTime = timeFixture(minute = 3)
+
+            // when
+            val expiresAt = holder.expiresAt(currentTime)
+
+            assertThat(expiresAt).isEqualTo(refreshToken1.expiresAt)
+        }
+
+        @Test
+        @DisplayName("토큰이 여러 개 있다면 가장 만료시간이 최신(최대)인 토큰의 만료시점이 만료시점이다.")
+        fun testNotEmpty2() {
+            // given
+            val refreshToken1 = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "tokenId1",
+                issuedAt = timeFixture(minute = 0), expiresAt = timeFixture(minute = 5)
+            )
+            val refreshToken2 = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "tokenId2",
+                issuedAt = timeFixture(minute = 2), expiresAt = timeFixture(minute = 7)
+            )
+            val refreshToken3 = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "tokenId3",
+                issuedAt = timeFixture(minute = 1), expiresAt = timeFixture(minute = 6)
+            )
+
+            val holder = refreshTokenHolderFixture(
+                memberId = 1L,
+                tokens = mutableMapOf(
+                    refreshToken1.refreshTokenId to refreshToken1,
+                    refreshToken2.refreshTokenId to refreshToken2,
+                    refreshToken3.refreshTokenId to refreshToken3
+                )
+            )
+            val currentTime = timeFixture(minute = 3)
+
+            // when
+            val expiresAt = holder.expiresAt(currentTime)
+
+            assertThat(expiresAt).isEqualTo(refreshToken2.expiresAt)
         }
     }
 }

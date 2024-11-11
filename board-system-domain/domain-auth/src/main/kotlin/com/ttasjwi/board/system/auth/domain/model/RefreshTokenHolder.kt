@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.model
 
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.ZonedDateTime
 
 /**
@@ -65,5 +67,21 @@ internal constructor(
 
     fun getTokens(): Map<RefreshTokenId, RefreshToken> {
         return _tokens.toMap()
+    }
+
+    internal fun expiresAt(currentTime: ZonedDateTime): ZonedDateTime {
+        // 토큰이 없으면 지금이 만료시점
+        if (_tokens.isEmpty()) {
+            return currentTime
+        }
+        // 만료일이 가장 늦은 것을 기준으로 만료시킴
+        // 가장 만료시간이 마지막인 토큰을 기준으로 만료시간을 잡음
+        var maxExpireTime = ZonedDateTime.of(LocalDateTime.MIN, ZoneId.of("Asia/Seoul"))
+        for (token in _tokens.values) {
+            if (token.expiresAt > maxExpireTime) {
+                maxExpireTime = token.expiresAt
+            }
+        }
+        return maxExpireTime
     }
 }
