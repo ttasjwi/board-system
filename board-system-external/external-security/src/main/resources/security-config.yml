@@ -25,8 +25,6 @@ spring:
   config:
     activate:
       on-profile: productionSecret
-    import:
-      - file:/app/config/board-system/security-config-productionSecret.yml
 
 rsa-keypair:
   public-key-path: file:/app/config/board-system/public_key_productionSecret.pem
