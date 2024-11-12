@@ -4,15 +4,18 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.core.annotation.component.AppComponent
 import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
+import java.util.concurrent.ConcurrentHashMap
 
 @AppComponent
-class ExternalRefreshTokenHolderStorage : ExternalRefreshTokenHolderAppender, ExternalRefreshTokenHolderFinder {
+class ExternalRefreshTokenHolderStorageImpl : ExternalRefreshTokenHolderAppender, ExternalRefreshTokenHolderFinder {
+
+    private val store: MutableMap<MemberId, RefreshTokenHolder> = ConcurrentHashMap()
 
     override fun append(memberId: MemberId, refreshTokenHolder: RefreshTokenHolder, expiresAt: ZonedDateTime) {
-        TODO("Not yet implemented")
+        store[memberId] = refreshTokenHolder
     }
 
     override fun findByMemberIdOrNull(memberId: MemberId): RefreshTokenHolder? {
-        TODO("Not yet implemented")
+        return store[memberId]
     }
 }
