@@ -64,3 +64,8 @@ RegisterMember:
   Complete:
     message: "Registration Complete"
     description: "The registration has been completed."
+
+Login:
+  Complete:
+    message: "Login successful"
+    description: "You have successfully logged in."
