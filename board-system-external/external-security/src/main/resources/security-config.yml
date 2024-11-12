@@ -4,9 +4,8 @@ spring:
       on-profile: local
 
 rsa-keypair:
-  public-key-path: rsa-keypair/public_key_local.pem
-  private-key-path: rsa-keypair/private_key_local.pem
-
+  public-key-path: classpath:/rsa-keypair/public_key_local.pem
+  private-key-path: classpath:/rsa-keypair/private_key_local.pem
 
 ---
 
@@ -16,8 +15,8 @@ spring:
       on-profile: test
 
 rsa-keypair:
-  public-key-path: rsa-keypair/public_key_test.pem
-  private-key-path: rsa-keypair/private_key_test.pem
+  public-key-path: classpath:/rsa-keypair/public_key_test.pem
+  private-key-path: classpath:/rsa-keypair/private_key_test.pem
 
 ---
 
@@ -25,11 +24,9 @@ spring:
   config:
     activate:
       on-profile: productionSecret
-    import:
-      - file:/app/config/board-system/security-config-productionSecret.yml
 
 rsa-keypair:
   public-key-path: file:/app/config/board-system/public_key_productionSecret.pem
-  private-key-path: file:/app/config/board-system/public_key_productionSecret.pem
+  private-key-path: file:/app/config/board-system/private_key_productionSecret.pem
 
 ---
