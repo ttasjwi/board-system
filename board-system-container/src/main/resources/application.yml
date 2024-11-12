@@ -9,6 +9,7 @@ spring:
   config:
     import:
       - db-config.yml
+      - security-config.yml
       - email-send-config.yml
       - deploy-config.yml
       - message-config.yml

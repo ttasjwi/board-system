@@ -5,6 +5,7 @@ spring:
   config:
     import:
       - db-config.yml
+      - security-config.yml
       - deploy-config.yml
       - message-config.yml
 
