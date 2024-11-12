@@ -47,3 +47,13 @@ Error:
   DuplicateMemberNickname:
     message: "닉네임 중복"
     description: "중복되는 닉네임의 회원이 존재합니다.(nickname={0})"
+
+  LoginFailure:
+    message: "로그인 실패"
+    description: "로그인에 실패했습니다. 이메일 또는 패스워드가 잘못됐습니다."
+  InvalidAccessTokenFormat:
+    message: "유효하지 않은 액세스토큰 포맷"
+    description: "액세스 토큰 포맷이 유효하지 않습니다. 토큰값이 잘못됐거나, 액세스 토큰이 아닙니다."
+  InvalidRefreshTokenFormat:
+    message: "유효하지 않은 리프레시토큰 포맷"
+    description: "리프레시 토큰 포맷이 유효하지 않습니다. 토큰값이 잘못됐거나, 리프레시 토큰이 아닙니다."

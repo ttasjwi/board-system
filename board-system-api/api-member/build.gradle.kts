@@ -4,5 +4,5 @@ dependencies {
     implementation(Dependencies.SPRING_BOOT_WEB.fullName)
     implementation(Dependencies.KOTLIN_JACKSON.fullName)
 
-    testFixturesImplementation(testFixtures(project(":board-system-application:application-member")))
+    testImplementation(testFixtures(project(":board-system-application:application-member")))
 }

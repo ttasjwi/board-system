@@ -1,0 +1,88 @@
+package com.ttasjwi.board.system.auth.domain.external
+
+import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatException
+import com.ttasjwi.board.system.auth.domain.model.AccessToken
+import com.ttasjwi.board.system.auth.domain.model.AuthMember
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
+import org.springframework.security.oauth2.jwt.*
+import org.springframework.stereotype.Component
+import java.time.ZoneId
+import java.time.ZonedDateTime
+
+@Component
+class ExternalAccessTokenManagerImpl(
+    private val jwtEncoder: JwtEncoder,
+    private val jwtDecoder: JwtDecoder
+) : ExternalAccessTokenManager {
+
+    companion object {
+        private const val TOKEN_TYPE_CLAIM = "tokenType"
+        private const val TOKEN_TYPE_VALUE = "accessToken"
+        private const val USERNAME_CLAIM = "username"
+        private const val NICKNAME_CLAIM = "nickname"
+        private const val EMAIL_CLAIM = "email"
+        private const val ROLE_CLAIM = "role"
+        private const val ISSUER_VALUE = "board-system"
+        private val TIME_ZONE = ZoneId.of("Asia/Seoul")
+    }
+
+    override fun generate(authMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): AccessToken {
+        val jwt = makeJwt(authMember, issuedAt, expiresAt)
+        return makeAccessTokenFromJwt(jwt)
+    }
+
+    override fun parse(tokenValue: String): AccessToken {
+        val jwt: Jwt
+        try {
+            jwt = jwtDecoder.decode(tokenValue)
+        } catch (e: JwtException) {
+            throw InvalidAccessTokenFormatException(e)
+        }
+        val tokenType = jwt.getClaim<String>(TOKEN_TYPE_CLAIM)
+
+        if (tokenType != TOKEN_TYPE_VALUE) {
+            throw InvalidAccessTokenFormatException()
+        }
+        return makeAccessTokenFromJwt(jwt)
+    }
+
+    private fun makeJwt(loginMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): Jwt {
+        val jwsHeader = makeHeader()
+        val jwtClaimsSet = makeClaimSet(loginMember, issuedAt, expiresAt)
+        val params = JwtEncoderParameters.from(jwsHeader, jwtClaimsSet)
+        return jwtEncoder.encode(params)
+    }
+
+    private fun makeHeader(): JwsHeader {
+        val jwsAlgorithm = SignatureAlgorithm.RS256
+        val jwsHeaderBuilder = JwsHeader.with(jwsAlgorithm)
+        return jwsHeaderBuilder.build()
+    }
+
+    private fun makeClaimSet(loginMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): JwtClaimsSet {
+        return JwtClaimsSet.builder()
+            .subject(loginMember.memberId.value.toString())
+            .issuer(ISSUER_VALUE)
+            .issuedAt(issuedAt.toInstant())
+            .expiresAt(expiresAt.toInstant())
+            .claim(TOKEN_TYPE_CLAIM, TOKEN_TYPE_VALUE)
+            .claim(EMAIL_CLAIM, loginMember.email.value)
+            .claim(USERNAME_CLAIM, loginMember.username.value)
+            .claim(NICKNAME_CLAIM, loginMember.nickname.value)
+            .claim(ROLE_CLAIM, loginMember.role.name)
+            .build()
+    }
+
+    private fun makeAccessTokenFromJwt(jwt: Jwt): AccessToken {
+        return AccessToken.restore(
+            memberId = jwt.subject.toLong(),
+            email = jwt.getClaim(EMAIL_CLAIM),
+            username = jwt.getClaim(USERNAME_CLAIM),
+            nickname = jwt.getClaim(NICKNAME_CLAIM),
+            roleName = jwt.getClaim(ROLE_CLAIM),
+            tokenValue = jwt.tokenValue,
+            issuedAt = jwt.issuedAt!!.atZone(TIME_ZONE),
+            expiresAt = jwt.expiresAt!!.atZone(TIME_ZONE)
+        )
+    }
+}

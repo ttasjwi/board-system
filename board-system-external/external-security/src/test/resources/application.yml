@@ -1,0 +1,9 @@
+spring.application.name: board-system-security-test
+
+spring:
+  profiles:
+    active: test
+  config:
+    import: security-config.yml
+
+---

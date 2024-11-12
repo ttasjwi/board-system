@@ -47,3 +47,13 @@ Error:
   DuplicateMemberNickname:
     message: "Duplicate Nickname"
     description: "A member with a duplicate nickname exists. (nickname={0})"
+
+  LoginFailure:
+    message: "Login failed"
+    description: "Login failed. The email or password is incorrect."
+  InvalidAccessTokenFormat:
+    message: "Invalid access token format"
+    description: "The access token format is invalid. The token value is incorrect or it is not an access token."
+  InvalidRefreshTokenFormat:
+    message: "Invalid refresh token format"
+    description: "The refresh token format is invalid. The token value is incorrect or it is not a refresh token."

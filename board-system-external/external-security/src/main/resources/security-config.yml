@@ -1,0 +1,32 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+rsa-keypair:
+  public-key-path: classpath:/rsa-keypair/public_key_local.pem
+  private-key-path: classpath:/rsa-keypair/private_key_local.pem
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+rsa-keypair:
+  public-key-path: classpath:/rsa-keypair/public_key_test.pem
+  private-key-path: classpath:/rsa-keypair/private_key_test.pem
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: productionSecret
+
+rsa-keypair:
+  public-key-path: file:/app/config/board-system/public_key_productionSecret.pem
+  private-key-path: file:/app/config/board-system/private_key_productionSecret.pem
+
+---
