@@ -15,7 +15,7 @@ import com.nimbusds.jwt.proc.JWTClaimsSetVerifier
 import com.ttasjwi.board.system.auth.domain.external.spring.security.X509CertificateThumbprintValidator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.ClassPathResource
+import org.springframework.core.io.ResourceLoader
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder
 import java.nio.charset.StandardCharsets
@@ -28,7 +28,8 @@ import java.util.*
 
 @Configuration
 class NimbusJwtConfig(
-    private val rsaKeyPairProperties: RsaKeyPairProperties
+    private val rsaKeyPairProperties: RsaKeyPairProperties,
+    private val resourceLoader: ResourceLoader
 ) {
 
     @Bean
@@ -48,7 +49,7 @@ class NimbusJwtConfig(
         jwtProcessor.jwsKeySelector = jwsKeySelector
 
         jwtProcessor.jwtClaimsSetVerifier = JWTClaimsSetVerifier { _: JWTClaimsSet?, _: SecurityContext? -> }
-        val encoder =  NimbusJwtDecoder(jwtProcessor)
+        val encoder = NimbusJwtDecoder(jwtProcessor)
 
         // 인코더에서 시간 검증하는 Validator 가 기본 구현체로 등록되어 있는데 이 부분은 우리 코드에서 해야함
         // 이 부분을 커스터마이징 함 -> X509CertificateThumbprintValidator 만 사용하도록함
@@ -76,7 +77,8 @@ class NimbusJwtConfig(
      * 파일로부터 RSA 공개키를 가져온뒤 RSAPublicKey 객체 생성
      */
     private fun loadRSAPublicKey(): RSAPublicKey {
-        val key = String(ClassPathResource(rsaKeyPairProperties.publicKeyPath).inputStream.readAllBytes(), StandardCharsets.UTF_8)
+        val resource = resourceLoader.getResource(rsaKeyPairProperties.publicKeyPath)
+        val key = String(resource.inputStream.readAllBytes(), StandardCharsets.UTF_8)
             .replace("-----BEGIN PUBLIC KEY-----", "")
             .replace("-----END PUBLIC KEY-----", "")
             .replace("\\s".toRegex(), "")
@@ -91,10 +93,9 @@ class NimbusJwtConfig(
      * 파일로부터 RSA 개인키를 가져온뒤 RSAPrivateKey 객체 생성
      */
     private fun loadRSAPrivateKey(): RSAPrivateKey {
-        val key = String(
-            ClassPathResource(rsaKeyPairProperties.privateKeyPath)
-                .inputStream.readAllBytes(), StandardCharsets.UTF_8
-        )
+        val resource = resourceLoader.getResource(rsaKeyPairProperties.privateKeyPath)
+
+        val key = String(resource.inputStream.readAllBytes(), StandardCharsets.UTF_8)
             .replace("-----BEGIN PRIVATE KEY-----", "")
             .replace("-----END PRIVATE KEY-----", "")
             .replace("\\s".toRegex(), "")
