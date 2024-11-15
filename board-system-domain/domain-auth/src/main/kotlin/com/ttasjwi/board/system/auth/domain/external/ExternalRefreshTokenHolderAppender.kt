@@ -7,4 +7,5 @@ import java.time.ZonedDateTime
 interface ExternalRefreshTokenHolderAppender {
 
     fun append(memberId: MemberId, refreshTokenHolder: RefreshTokenHolder, expiresAt: ZonedDateTime)
+    fun removeByMemberId(memberId: MemberId)
 }

@@ -26,6 +26,11 @@ jobs:
           mysql -e "GRANT ALL ON *.* TO '${{ env.DB_TEST_USERNAME }}'@'%';" -uroot -p${{ env.DB_ROOT_PASSWORD }}
           mysql -e "FLUSH PRIVILEGES;" -uroot -p${{ env.DB_ROOT_PASSWORD }}
 
+      - name: Redis 설정
+        uses: supercharge/redis-github-action@1.7.0
+        with:
+          redis-version: 7.4.1
+
       - name: Java 21 설정
         uses: actions/setup-java@v4
         with:
@@ -130,8 +135,9 @@ jobs:
           ssh board-ec2 << 'EOF'
             set -e
           
-            # 필요한 프로필 파일을 서버로 복사합니다.
+            # 필요한 설정 파일들을 서버로 복사합니다.
             echo "${{ secrets.DB_CONFIG_PRODUCTION_YML }}" | base64 --decode > /home/ec2-user/config/board-system/db-config-production.yml
+            echo "${{ secrets.REDIS_CONFIG_PRODUCTIONSECRET_YML }}" | base64 --decode > /home/ec2-user/config/board-system/redis-config-productionSecret.yml
             echo "${{ secrets.EMAIL_SEND_CONFIG_PRODUCTIONSECRET_YML }}" | base64 --decode > /home/ec2-user/config/board-system/email-send-config-productionSecret.yml
             echo "${{ secrets.PUBLIC_KEY_PRODUCTIONSECRET_PEM }}"  > /home/ec2-user/config/board-system/public_key_productionSecret.pem
             echo "${{ secrets.PRIVATE_KEY_PRODUCTIONSECRET_PEM }}"  > /home/ec2-user/config/board-system/private_key_productionSecret.pem

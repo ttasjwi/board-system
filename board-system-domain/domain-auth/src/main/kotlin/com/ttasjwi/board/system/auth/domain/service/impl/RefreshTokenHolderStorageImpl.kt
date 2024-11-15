@@ -20,6 +20,10 @@ internal class RefreshTokenHolderStorageImpl(
         externalRefreshTokenHolderAppender.append(memberId, refreshTokenHolder, expiresAt)
     }
 
+    override fun removeByMemberId(memberId: MemberId) {
+        externalRefreshTokenHolderAppender.removeByMemberId(memberId)
+    }
+
     override fun findByMemberIdOrNull(memberId: MemberId): RefreshTokenHolder? {
         return externalRefreshTokenHolderFinder.findByMemberIdOrNull(memberId)
     }

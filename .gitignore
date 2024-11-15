@@ -9,6 +9,7 @@ build/
 board-system-api/api-deploy/src/main/resources/deploy-config-blue.yml
 board-system-api/api-deploy/src/main/resources/deploy-config-green.yml
 board-system-external/external-db/src/main/resources/db-config-production.yml
+board-system-external/external-redis/src/main/resources/redis-config-productionSecret.yml
 board-system-external/external-email-sender/src/main/resources/email-send-config-localSecret.yml
 board-system-external/external-email-sender/src/main/resources/email-send-config-productionSecret.yml
 board-system-external/external-security/src/main/resources/rsa-keypair/private_key_productionSecret.pem
