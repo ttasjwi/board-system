@@ -16,9 +16,6 @@ internal class AuthMemberCreatorImpl : AuthMemberCreator {
         member: Member
     ) : AuthMember(
         memberId = member.id!!,
-        email = member.email,
-        username = member.username,
-        nickname = member.nickname,
         role = member.role,
     )
 }

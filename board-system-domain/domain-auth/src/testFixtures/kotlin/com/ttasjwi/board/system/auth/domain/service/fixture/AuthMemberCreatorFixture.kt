@@ -10,9 +10,6 @@ class AuthMemberCreatorFixture : AuthMemberCreator {
     override fun create(member: Member): AuthMember {
         return authMemberFixture(
             memberId = member.id!!.value,
-            email = member.email.value,
-            username = member.username.value,
-            nickname = member.nickname.value,
             role = member.role
         )
     }

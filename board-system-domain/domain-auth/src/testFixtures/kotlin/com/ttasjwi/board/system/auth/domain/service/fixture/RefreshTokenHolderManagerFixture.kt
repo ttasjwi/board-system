@@ -11,9 +11,6 @@ class RefreshTokenHolderManagerFixture : RefreshTokenHolderManager {
     override fun createRefreshTokenHolder(authMember: AuthMember): RefreshTokenHolder {
         return refreshTokenHolderFixture(
             memberId = authMember.memberId.value,
-            email = authMember.email.value,
-            username = authMember.username.value,
-            nickname = authMember.nickname.value,
             role = authMember.role,
             tokens = mutableMapOf()
         )
@@ -25,9 +22,6 @@ class RefreshTokenHolderManagerFixture : RefreshTokenHolderManager {
 
         return refreshTokenHolderFixture(
             memberId = refreshTokenHolder.authMember.memberId.value,
-            email = refreshTokenHolder.authMember.email.value,
-            username = refreshTokenHolder.authMember.username.value,
-            nickname = refreshTokenHolder.authMember.nickname.value,
             role = refreshTokenHolder.authMember.role,
             tokens = tokens
         )

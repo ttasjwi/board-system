@@ -19,9 +19,6 @@ class AccessTokenTest {
         fun test() {
             // given
             val memberId = 1L
-            val email = "test@test.com"
-            val username = "ttascat"
-            val nickname = "땃고양이"
             val roleName = "USER"
             val tokenValue = "accessToken1"
             val issuedAt = timeFixture(minute = 0)
@@ -30,9 +27,6 @@ class AccessTokenTest {
             // when
             val accessToken = AccessToken.restore(
                 memberId = memberId,
-                email = email,
-                username = username,
-                nickname = nickname,
                 roleName = roleName,
                 tokenValue = tokenValue,
                 issuedAt = issuedAt,
@@ -41,9 +35,6 @@ class AccessTokenTest {
 
             // then
             assertThat(accessToken.authMember.memberId.value).isEqualTo(memberId)
-            assertThat(accessToken.authMember.email.value).isEqualTo(email)
-            assertThat(accessToken.authMember.username.value).isEqualTo(username)
-            assertThat(accessToken.authMember.nickname.value).isEqualTo(nickname)
             assertThat(accessToken.authMember.role.name).isEqualTo(roleName)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(issuedAt)

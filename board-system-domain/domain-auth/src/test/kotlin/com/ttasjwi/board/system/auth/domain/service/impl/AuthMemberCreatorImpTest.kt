@@ -28,9 +28,6 @@ class AuthMemberCreatorImpTest {
 
         // then
         assertThat(authMember.memberId).isEqualTo(member.id)
-        assertThat(authMember.email).isEqualTo(member.email)
-        assertThat(authMember.username).isEqualTo(member.username)
-        assertThat(authMember.nickname).isEqualTo(member.nickname)
         assertThat(authMember.role).isEqualTo(member.role)
     }
 }

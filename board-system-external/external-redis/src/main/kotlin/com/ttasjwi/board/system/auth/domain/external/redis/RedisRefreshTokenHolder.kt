@@ -13,9 +13,6 @@ class RedisRefreshTokenHolder(
 
     class RedisAuthMember(
         val memberId: Long,
-        val email: String,
-        val nickname: String,
-        val username: String,
         val roleName: String
     )
 
@@ -33,9 +30,6 @@ class RedisRefreshTokenHolder(
             return RedisRefreshTokenHolder(
                 authMember = RedisAuthMember(
                     memberId = refreshTokenHolder.authMember.memberId.value,
-                    email = refreshTokenHolder.authMember.email.value,
-                    nickname = refreshTokenHolder.authMember.nickname.value,
-                    username = refreshTokenHolder.authMember.username.value,
                     roleName = refreshTokenHolder.authMember.role.name
                 ),
                 tokens = refreshTokenHolder.getTokens().map { (refreshTokenId, token) ->
@@ -56,9 +50,6 @@ class RedisRefreshTokenHolder(
     fun restoreDomain(): RefreshTokenHolder {
         return RefreshTokenHolder.restore(
             memberId = authMember.memberId,
-            email = authMember.email,
-            nickname = authMember.nickname,
-            username = authMember.username,
             roleName = authMember.roleName,
             tokens = tokens.map { (refreshTokenId, token) ->
                 val key: RefreshTokenId = RefreshTokenId.restore(refreshTokenId)

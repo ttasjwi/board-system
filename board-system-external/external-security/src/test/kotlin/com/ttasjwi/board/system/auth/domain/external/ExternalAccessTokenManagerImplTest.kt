@@ -25,9 +25,6 @@ class ExternalAccessTokenManagerImplTest
 
     private val authMember = authMemberFixture(
         memberId = 1L,
-        email = "email@test.com",
-        username = "testusername",
-        nickname = "testnickname",
         role = Role.USER
     )
     private val issuedAt = timeFixture(minute = 0)
@@ -51,9 +48,6 @@ class ExternalAccessTokenManagerImplTest
             val accessToken = externalAccessTokenManager.generate(authMember, issuedAt, expiresAt)
 
             assertThat(accessToken.authMember.memberId).isEqualTo(authMember.memberId)
-            assertThat(accessToken.authMember.email).isEqualTo(authMember.email)
-            assertThat(accessToken.authMember.username).isEqualTo(authMember.username)
-            assertThat(accessToken.authMember.nickname).isEqualTo(authMember.nickname)
             assertThat(accessToken.authMember.role).isEqualTo(authMember.role)
         }
 

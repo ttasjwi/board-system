@@ -16,9 +16,6 @@ internal constructor(
 
         fun restore(
             memberId: Long,
-            email: String,
-            username: String,
-            nickname: String,
             roleName: String,
             tokenValue: String,
             issuedAt: ZonedDateTime,
@@ -27,9 +24,6 @@ internal constructor(
             return AccessToken(
                 authMember = AuthMember.restore(
                     memberId = memberId,
-                    email = email,
-                    username = username,
-                    nickname = nickname,
                     roleName = roleName,
                 ),
                 tokenValue = tokenValue,
@@ -56,5 +50,4 @@ internal constructor(
         result = 31 * result + expiresAt.hashCode()
         return result
     }
-
 }

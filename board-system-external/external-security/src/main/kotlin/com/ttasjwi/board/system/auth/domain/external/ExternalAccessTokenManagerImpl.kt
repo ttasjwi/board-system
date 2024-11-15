@@ -18,9 +18,6 @@ class ExternalAccessTokenManagerImpl(
     companion object {
         private const val TOKEN_TYPE_CLAIM = "tokenType"
         private const val TOKEN_TYPE_VALUE = "accessToken"
-        private const val USERNAME_CLAIM = "username"
-        private const val NICKNAME_CLAIM = "nickname"
-        private const val EMAIL_CLAIM = "email"
         private const val ROLE_CLAIM = "role"
         private const val ISSUER_VALUE = "board-system"
     }
@@ -65,9 +62,6 @@ class ExternalAccessTokenManagerImpl(
             .issuedAt(issuedAt.toInstant())
             .expiresAt(expiresAt.toInstant())
             .claim(TOKEN_TYPE_CLAIM, TOKEN_TYPE_VALUE)
-            .claim(EMAIL_CLAIM, loginMember.email.value)
-            .claim(USERNAME_CLAIM, loginMember.username.value)
-            .claim(NICKNAME_CLAIM, loginMember.nickname.value)
             .claim(ROLE_CLAIM, loginMember.role.name)
             .build()
     }
@@ -75,9 +69,6 @@ class ExternalAccessTokenManagerImpl(
     private fun makeAccessTokenFromJwt(jwt: Jwt): AccessToken {
         return AccessToken.restore(
             memberId = jwt.subject.toLong(),
-            email = jwt.getClaim(EMAIL_CLAIM),
-            username = jwt.getClaim(USERNAME_CLAIM),
-            nickname = jwt.getClaim(NICKNAME_CLAIM),
             roleName = jwt.getClaim(ROLE_CLAIM),
             tokenValue = jwt.tokenValue,
             issuedAt = jwt.issuedAt!!.atZone(TimeRule.ZONE_ID),

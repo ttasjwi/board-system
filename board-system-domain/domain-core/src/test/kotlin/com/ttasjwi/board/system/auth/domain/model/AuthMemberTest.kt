@@ -1,8 +1,9 @@
 package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.member.domain.model.*
-import org.assertj.core.api.Assertions.*
+import com.ttasjwi.board.system.member.domain.model.MemberId
+import com.ttasjwi.board.system.member.domain.model.Role
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -18,18 +19,12 @@ class AuthMemberTest {
         @DisplayName("복원된 AuthMember는 내부적으로 각각의 값 필드를 복원하여 가지고 있다.")
         fun test() {
             val memberId = 1L
-            val email = "test@test.com"
-            val username = "username"
-            val nickname = "nickname"
             val roleName = "USER"
 
-            val restoredAuthMember = AuthMember.restore(memberId, email, username, nickname, roleName)
+            val restoredAuthMember = AuthMember.restore(memberId, roleName)
 
             assertThat(restoredAuthMember).isInstanceOf(AuthMember::class.java)
             assertThat(restoredAuthMember.memberId).isEqualTo(MemberId.restore(memberId))
-            assertThat(restoredAuthMember.email).isEqualTo(Email.restore(email))
-            assertThat(restoredAuthMember.username).isEqualTo(Username.restore(username))
-            assertThat(restoredAuthMember.nickname).isEqualTo(Nickname.restore(nickname))
             assertThat(restoredAuthMember.role).isEqualTo(Role.restore(roleName))
         }
     }
@@ -97,50 +92,6 @@ class AuthMemberTest {
             assertThat(equals).isFalse()
         }
 
-
-        @Test
-        @DisplayName("Email 이 다르면 동등하지 않다")
-        fun testDifferentEmail() {
-            // given
-            val authMember = authMemberFixture(email ="hello@gmail.com")
-            val other = authMemberFixture(email= "jello@gmail.com")
-
-            // when
-            val equals = authMember.equals(other)
-
-            // then
-            assertThat(equals).isFalse()
-        }
-
-        @Test
-        @DisplayName("Username 이 다르면 동등하지 않다")
-        fun testDifferentUsername() {
-            // given
-            val authMember = authMemberFixture(username ="pppp")
-            val other = authMemberFixture(username ="eeee")
-
-            // when
-            val equals = authMember.equals(other)
-
-            // then
-            assertThat(equals).isFalse()
-        }
-
-        @Test
-        @DisplayName("Nickname 이 다르면 동등하지 않다")
-        fun testDifferentNickname() {
-            // given
-            val authMember = authMemberFixture(nickname = "molu")
-            val other = authMemberFixture(nickname = "jolu")
-
-            // when
-            val equals = authMember.equals(other)
-
-            // then
-            assertThat(equals).isFalse()
-        }
-
-
         @Test
         @DisplayName("역할이 다르면 동등하지 않다")
         fun testDifferentRole() {
@@ -160,19 +111,12 @@ class AuthMemberTest {
     @DisplayName("toString: 디버깅용 문자열")
     fun testToString() {
         val id = 1L
-        val email = "test@test.com"
-        val username = "username"
-        val nickname = "nickname"
         val role = Role.USER
 
-        val restoredAuthMember = authMemberFixture(id, email, username, nickname, role)
+        val restoredAuthMember = authMemberFixture(id, role)
 
         assertThat(restoredAuthMember.toString()).isEqualTo(
-            "AuthMember(memberId=${MemberId.restore(id)}, email=${
-                Email.restore(
-                    email
-                )
-            }, username=${Username.restore(username)}, nickname=${Nickname.restore(nickname)}, role=${role})"
+            "AuthMember(memberId=${MemberId.restore(id)}, role=${role})"
         )
     }
 }

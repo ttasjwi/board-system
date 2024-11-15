@@ -8,7 +8,6 @@ import com.ttasjwi.board.system.member.domain.model.MemberId
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Component

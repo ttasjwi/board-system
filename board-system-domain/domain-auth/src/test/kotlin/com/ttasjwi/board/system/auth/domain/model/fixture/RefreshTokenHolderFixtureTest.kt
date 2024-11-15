@@ -18,9 +18,6 @@ class RefreshTokenHolderFixtureTest {
 
         // then
         assertThat(refreshTokenHolder.authMember.memberId.value).isNotNull()
-        assertThat(refreshTokenHolder.authMember.email.value).isNotNull()
-        assertThat(refreshTokenHolder.authMember.username.value).isNotNull()
-        assertThat(refreshTokenHolder.authMember.nickname.value).isNotNull()
         assertThat(refreshTokenHolder.authMember.role).isNotNull()
         assertThat(tokens).isEmpty()
     }
@@ -30,9 +27,6 @@ class RefreshTokenHolderFixtureTest {
     fun test2() {
         // given
         val memberId = 3L
-        val email = "jetty1234@gmail.com"
-        val username = "jetty1234"
-        val nickname = "jetty"
         val role = Role.USER
 
         val token1 = refreshTokenFixture(memberId, "refreshToken1", "refreshTokenValue1")
@@ -46,9 +40,6 @@ class RefreshTokenHolderFixtureTest {
         // when
         val refreshTokenHolder = refreshTokenHolderFixture(
             memberId = memberId,
-            email = email,
-            username = username,
-            nickname = nickname,
             role = role,
             tokens = tokens,
         )
@@ -56,9 +47,6 @@ class RefreshTokenHolderFixtureTest {
 
         // then
         assertThat(refreshTokenHolder.authMember.memberId.value).isEqualTo(memberId)
-        assertThat(refreshTokenHolder.authMember.email.value).isEqualTo(email)
-        assertThat(refreshTokenHolder.authMember.username.value).isEqualTo(username)
-        assertThat(refreshTokenHolder.authMember.nickname.value).isEqualTo(nickname)
         assertThat(refreshTokenHolder.authMember.role).isEqualTo(role)
         assertThat(innerTokens).containsAllEntriesOf(tokens)
     }

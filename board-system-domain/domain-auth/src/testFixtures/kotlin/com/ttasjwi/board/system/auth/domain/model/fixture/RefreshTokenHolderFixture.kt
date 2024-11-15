@@ -8,18 +8,12 @@ import com.ttasjwi.board.system.member.domain.model.Role
 
 fun refreshTokenHolderFixture(
     memberId: Long = 1L,
-    email: String = "hello@gmail.com",
-    username: String = "username",
-    nickname: String = "nickname",
     role: Role = Role.USER,
     tokens: MutableMap<RefreshTokenId, RefreshToken> = mutableMapOf()
 ): RefreshTokenHolder {
     return RefreshTokenHolder.testCreate(
         authMember = authMemberFixture(
             memberId = memberId,
-            email = email,
-            username = username,
-            nickname = nickname,
             role = role
         ),
         tokens = tokens

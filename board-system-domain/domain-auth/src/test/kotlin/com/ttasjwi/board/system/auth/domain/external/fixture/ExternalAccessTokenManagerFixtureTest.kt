@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.logging.getLogger
-import com.ttasjwi.board.system.member.domain.model.Role
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -57,22 +56,16 @@ class ExternalAccessTokenManagerFixtureTest {
         @DisplayName("복원 성공 테스트")
         fun testSuccess() {
             // given
-            val tokenValue =
-                "1,test@gmail.com,testuser,테스트닉네임,USER,1980-01-01T00:05+09:00[Asia/Seoul],1980-01-01T00:35+09:00[Asia/Seoul],accessToken"
+            val authMember = authMemberFixture()
+            val issuedAt = timeFixture(minute = 5)
+            val expiresAt = timeFixture(minute = 35)
+            val tokenValue = externalAccessTokenManagerFixture.generate(authMember, issuedAt, expiresAt).tokenValue
 
             // when
             val accessToken = externalAccessTokenManagerFixture.parse(tokenValue)
 
             // then
-            assertThat(accessToken.authMember).isEqualTo(
-                authMemberFixture(
-                    memberId = 1L,
-                    email = "test@gmail.com",
-                    username = "testuser",
-                    nickname = "테스트닉네임",
-                    role = Role.USER
-                )
-            )
+            assertThat(accessToken.authMember).isEqualTo(authMemberFixture())
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 5))
             assertThat(accessToken.expiresAt).isEqualTo(timeFixture(minute = 35))
