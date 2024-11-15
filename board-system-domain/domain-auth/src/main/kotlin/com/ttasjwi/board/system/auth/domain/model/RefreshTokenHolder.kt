@@ -28,18 +28,12 @@ internal constructor(
 
         fun restore(
             memberId: Long,
-            email: String,
-            username: String,
-            nickname: String,
             roleName: String,
             tokens: MutableMap<RefreshTokenId, RefreshToken>
         ): RefreshTokenHolder {
             return RefreshTokenHolder(
                 authMember = AuthMember.restore(
                     memberId = memberId,
-                    email = email,
-                    username = username,
-                    nickname = nickname,
                     roleName = roleName,
                 ),
                 tokens = tokens,

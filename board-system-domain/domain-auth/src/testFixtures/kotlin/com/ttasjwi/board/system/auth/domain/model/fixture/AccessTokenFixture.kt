@@ -7,9 +7,6 @@ import java.time.ZonedDateTime
 
 fun accessTokenFixture(
     memberId: Long = 1L,
-    email: String = "test@gmail.com",
-    username: String = "testuser",
-    nickname: String = "testnick",
     role: Role = Role.USER,
     tokenValue: String = "accessToken",
     issuedAt: ZonedDateTime = timeFixture(minute = 0),
@@ -17,9 +14,6 @@ fun accessTokenFixture(
 ): AccessToken {
     return AccessToken.testCreate(
         memberId = memberId,
-        email = email,
-        username = username,
-        nickname = nickname,
         role = role,
         tokenValue = tokenValue,
         issuedAt = issuedAt,
@@ -29,9 +23,6 @@ fun accessTokenFixture(
 
 private fun AccessToken.Companion.testCreate(
     memberId: Long,
-    email: String,
-    username: String,
-    nickname: String,
     role: Role,
     tokenValue: String,
     issuedAt: ZonedDateTime,
@@ -40,9 +31,6 @@ private fun AccessToken.Companion.testCreate(
     return AccessToken(
         authMember = authMemberFixture(
             memberId = memberId,
-            email = email,
-            username = username,
-            nickname = nickname,
             role = role,
         ),
         tokenValue = tokenValue,

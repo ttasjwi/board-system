@@ -30,17 +30,11 @@ class AuthEventCreatorFixtureTest {
         fun test() {
             // given
             val memberId = 1L
-            val email = "firepunch@gmail.com"
-            val username = "username"
-            val nickname = "nickname"
             val role = Role.ADMIN
             val loggedInAt = timeFixture(minute = 5)
 
             val accessToken = accessTokenFixture(
                 memberId = memberId,
-                email = email,
-                username = username,
-                nickname = nickname,
                 role = role,
                 issuedAt = loggedInAt,
                 tokenValue = "accessToken"
