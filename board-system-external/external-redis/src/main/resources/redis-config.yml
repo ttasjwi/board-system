@@ -1,0 +1,23 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: redis-config-local.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+    import: redis-config-test.yml
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: productionSecret
+    import: file:/app/config/board-system/redis-config-productionSecret.yml
+
+---

@@ -1,4 +1,4 @@
-spring.application.name: board-system-db-test
+spring.application.name: board-system-redis-test
 spring:
   profiles:
     active: test
@@ -9,4 +9,4 @@ spring:
   config:
     activate:
       on-profile: test
-    import: db-config.yml
+    import: redis-config.yml
