@@ -26,6 +26,11 @@ jobs:
           mysql -e "GRANT ALL ON *.* TO '${{ env.DB_TEST_USERNAME }}'@'%';" -uroot -p${{ env.DB_ROOT_PASSWORD }}
           mysql -e "FLUSH PRIVILEGES;" -uroot -p${{ env.DB_ROOT_PASSWORD }}
 
+      - name: Redis 설정
+        uses: supercharge/redis-github-action@1.7.0
+        with:
+          redis-version: 7.4.1
+
       - name: Java 21 설정
         uses: actions/setup-java@v4
         with:
