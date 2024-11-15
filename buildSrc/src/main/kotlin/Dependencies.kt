@@ -15,9 +15,9 @@ enum class Dependencies(
     SPRING_BOOT_WEB(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-web"),
     SPRING_BOOT_DATA_JPA(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-data-jpa"),
     SPRING_BOOT_DATA_REDIS(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-data-redis"),
+    SPRING_BOOT_SECURITY(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-security"),
     SPRING_BOOT_MAIL(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-mail"),
     SPRING_BOOT_TEST(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-test"),
-    SPRING_SECURITY_CRYPTO(groupId = "org.springframework.security", artifactId = "spring-security-crypto"),
     SPRING_SECURITY_JOSE(groupId = "org.springframework.security", artifactId = "spring-security-oauth2-jose"),
 
     // jackson date time
