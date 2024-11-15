@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.time.ZonedDateTime
 
 @DisplayName("ExternalRefreshTokenHolderStorage (Appender, Finder) 픽스쳐 테스트")
 class ExternalRefreshTokenHolderStorageFixtureTest {
@@ -79,8 +80,32 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
         @Test
         @DisplayName("없는 리프레시토큰 홀더 조회 시 null 반환")
         fun testNull() {
-            val findRefreshTokenHolder = externalRefreshTokenHolderStorageFixture.findByMemberIdOrNull(memberIdFixture(2L))
+            val findRefreshTokenHolder =
+                externalRefreshTokenHolderStorageFixture.findByMemberIdOrNull(memberIdFixture(2L))
 
+            assertThat(findRefreshTokenHolder).isNull()
+        }
+    }
+
+    @Nested
+    @DisplayName("removeByMemberId: MemberId로 리프레시토큰 홀더를 제거한다")
+    inner class RemoveByMemberId {
+
+
+        @Test
+        @DisplayName("제거 후 같은 memberId로 찾으면 null 이 반환된다")
+        fun testRemove() {
+            // given
+            val memberId = memberIdFixture(133L)
+            val refreshTokenHolder = refreshTokenHolderFixture(memberId = memberId.value)
+
+            externalRefreshTokenHolderStorageFixture.append(memberId, refreshTokenHolder, ZonedDateTime.now().plusMinutes(30))
+
+            // when
+            externalRefreshTokenHolderStorageFixture.removeByMemberId(memberId)
+
+            // then
+            val findRefreshTokenHolder = externalRefreshTokenHolderStorageFixture.findByMemberIdOrNull(memberId)
             assertThat(findRefreshTokenHolder).isNull()
         }
     }

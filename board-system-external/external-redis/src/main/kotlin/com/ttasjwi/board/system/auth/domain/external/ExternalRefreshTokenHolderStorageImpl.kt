@@ -15,7 +15,12 @@ class ExternalRefreshTokenHolderStorageImpl : ExternalRefreshTokenHolderAppender
         store[memberId] = refreshTokenHolder
     }
 
+    override fun removeByMemberId(memberId: MemberId) {
+        store.remove(memberId)
+    }
+
     override fun findByMemberIdOrNull(memberId: MemberId): RefreshTokenHolder? {
         return store[memberId]
     }
+
 }
