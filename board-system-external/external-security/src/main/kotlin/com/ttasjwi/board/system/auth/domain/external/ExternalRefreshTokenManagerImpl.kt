@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.auth.domain.external
 import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatException
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
+import com.ttasjwi.board.system.core.time.TimeRule
 import com.ttasjwi.board.system.member.domain.model.MemberId
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
@@ -21,7 +22,6 @@ class ExternalRefreshTokenManagerImpl(
         private const val TOKEN_TYPE_CLAIM = "tokenType"
         private const val TOKEN_TYPE_VALUE = "refreshToken"
         private const val ISSUER_VALUE = "board-system"
-        private val TIME_ZONE = ZoneId.of("Asia/Seoul")
     }
 
     override fun generate(
@@ -90,8 +90,8 @@ class ExternalRefreshTokenManagerImpl(
             memberId = jwt.subject.toLong(),
             refreshTokenId = jwt.getClaim(REFRESH_TOKEN_ID_CLAIM),
             tokenValue = jwt.tokenValue,
-            issuedAt = jwt.issuedAt!!.atZone(TIME_ZONE),
-            expiresAt = jwt.expiresAt!!.atZone(TIME_ZONE)
+            issuedAt = jwt.issuedAt!!.atZone(TimeRule.ZONE_ID),
+            expiresAt = jwt.expiresAt!!.atZone(TimeRule.ZONE_ID)
         )
     }
 }
