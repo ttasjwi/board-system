@@ -44,6 +44,8 @@ class AccessTokenManagerFixture : AccessTokenManager {
         )
     }
 
+    override fun checkCurrentlyValid(accessToken: AccessToken, currentTime: ZonedDateTime) {}
+
     private fun makeTokenValue(authMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): String {
         return "${authMember.memberId.value}," + // 0
                 "${authMember.role.name}," + // 1

@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
+import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.logging.getLogger
@@ -67,6 +68,28 @@ class AccessTokenManagerFixtureTest {
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 5))
             assertThat(accessToken.expiresAt).isEqualTo(timeFixture(minute = 35))
+        }
+    }
+
+
+    @Nested
+    @DisplayName("checkCurrentlyValid: 액세스토큰이 현재 유효한 지 검증한다")
+    inner class CheckCurrentlyValid {
+
+
+        @Test
+        @DisplayName("픽스쳐에서는 아무 일도 일어나지 않음")
+        fun test() {
+            // given
+            val accessToken = accessTokenFixture(
+                issuedAt = timeFixture(minute = 0),
+                expiresAt = timeFixture(minute = 2)
+            )
+            val currentTime = timeFixture(minute = 1)
+
+            // when
+            // then
+            accessTokenManagerFixture.checkCurrentlyValid(accessToken, currentTime)
         }
     }
 }

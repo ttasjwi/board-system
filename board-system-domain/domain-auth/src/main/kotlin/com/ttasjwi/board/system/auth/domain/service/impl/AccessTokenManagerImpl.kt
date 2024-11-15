@@ -20,4 +20,8 @@ internal class AccessTokenManagerImpl(
     override fun parse(tokenValue: String): AccessToken {
         return externalAccessTokenManager.parse(tokenValue)
     }
+
+    override fun checkCurrentlyValid(accessToken: AccessToken, currentTime: ZonedDateTime) {
+        accessToken.checkCurrentlyValid(currentTime)
+    }
 }
