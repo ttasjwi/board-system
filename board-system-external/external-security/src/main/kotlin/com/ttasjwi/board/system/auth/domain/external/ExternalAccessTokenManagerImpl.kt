@@ -3,10 +3,10 @@ package com.ttasjwi.board.system.auth.domain.external
 import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatException
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.core.time.TimeRule
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 @Component
@@ -23,7 +23,6 @@ class ExternalAccessTokenManagerImpl(
         private const val EMAIL_CLAIM = "email"
         private const val ROLE_CLAIM = "role"
         private const val ISSUER_VALUE = "board-system"
-        private val TIME_ZONE = ZoneId.of("Asia/Seoul")
     }
 
     override fun generate(authMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): AccessToken {
@@ -81,8 +80,8 @@ class ExternalAccessTokenManagerImpl(
             nickname = jwt.getClaim(NICKNAME_CLAIM),
             roleName = jwt.getClaim(ROLE_CLAIM),
             tokenValue = jwt.tokenValue,
-            issuedAt = jwt.issuedAt!!.atZone(TIME_ZONE),
-            expiresAt = jwt.expiresAt!!.atZone(TIME_ZONE)
+            issuedAt = jwt.issuedAt!!.atZone(TimeRule.ZONE_ID),
+            expiresAt = jwt.expiresAt!!.atZone(TimeRule.ZONE_ID)
         )
     }
 }

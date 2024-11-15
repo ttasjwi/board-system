@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.core.time.fixture
 
+import com.ttasjwi.board.system.core.time.TimeRule
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -11,7 +12,7 @@ fun timeFixture(
     minute: Int = 0,
     second: Int = 0,
     nanoOfSecond: Int = 0,
-    zone: ZoneId = ZoneId.of("Asia/Seoul")
+    zone: ZoneId = TimeRule.ZONE_ID
 ): ZonedDateTime {
     return ZonedDateTime.of(
         year,

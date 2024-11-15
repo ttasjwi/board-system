@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.service.impl.redis
 
+import com.ttasjwi.board.system.core.time.TimeRule
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
-import java.time.ZoneId
 import java.time.ZonedDateTime
 
 class RedisEmailVerification(
@@ -14,8 +14,6 @@ class RedisEmailVerification(
 ) {
 
     companion object {
-
-        private val TIME_ZONE = ZoneId.of("Asia/Seoul")
 
         fun from(emailVerification: EmailVerification): RedisEmailVerification {
             return RedisEmailVerification(
@@ -33,10 +31,10 @@ class RedisEmailVerification(
         return EmailVerification.restore(
             email = this.email,
             code = this.code,
-            codeCreatedAt = this.codeCreatedAt.withZoneSameInstant(TIME_ZONE),
-            codeExpiresAt = this.codeExpiresAt.withZoneSameInstant(TIME_ZONE),
-            verifiedAt = this.verifiedAt?.withZoneSameInstant(TIME_ZONE),
-            verificationExpiresAt = this.verificationExpiresAt?.withZoneSameInstant(TIME_ZONE)
+            codeCreatedAt = this.codeCreatedAt.withZoneSameInstant(TimeRule.ZONE_ID),
+            codeExpiresAt = this.codeExpiresAt.withZoneSameInstant(TimeRule.ZONE_ID),
+            verifiedAt = this.verifiedAt?.withZoneSameInstant(TimeRule.ZONE_ID),
+            verificationExpiresAt = this.verificationExpiresAt?.withZoneSameInstant(TimeRule.ZONE_ID)
         )
     }
 }

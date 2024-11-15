@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.domain.external.redis
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
-import java.time.ZoneId
+import com.ttasjwi.board.system.core.time.TimeRule
 import java.time.ZonedDateTime
 
 class RedisRefreshTokenHolder(
@@ -28,8 +28,6 @@ class RedisRefreshTokenHolder(
     )
 
     companion object {
-
-        private val TIME_ZONE = ZoneId.of("Asia/Seoul")
 
         fun from(refreshTokenHolder: RefreshTokenHolder): RedisRefreshTokenHolder {
             return RedisRefreshTokenHolder(
@@ -68,8 +66,8 @@ class RedisRefreshTokenHolder(
                     memberId = token.memberId,
                     refreshTokenId = token.refreshTokenId,
                     tokenValue = token.tokenValue,
-                    issuedAt = token.issuedAt.withZoneSameInstant(TIME_ZONE),
-                    expiresAt = token.expiresAt.withZoneSameInstant(TIME_ZONE)
+                    issuedAt = token.issuedAt.withZoneSameInstant(TimeRule.ZONE_ID),
+                    expiresAt = token.expiresAt.withZoneSameInstant(TimeRule.ZONE_ID)
                 )
                 key to value
             }.toMap().toMutableMap()
