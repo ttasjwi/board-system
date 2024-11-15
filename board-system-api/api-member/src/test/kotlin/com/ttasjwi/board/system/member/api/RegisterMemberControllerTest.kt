@@ -48,7 +48,7 @@ class RegisterMemberControllerTest {
         val response = responseEntity.body as SuccessResponse<RegisterMemberResponse>
 
         // then
-        assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
+        assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.CREATED.value())
         assertThat(response.isSuccess).isTrue()
         assertThat(response.code).isEqualTo("RegisterMember.Complete")
         assertThat(response.message).isEqualTo("RegisterMember.Complete.message(locale=${Locale.KOREAN},args=[])")

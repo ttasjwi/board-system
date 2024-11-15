@@ -6,6 +6,7 @@ import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResult
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -27,8 +28,8 @@ class RegisterMemberController(
         // 처리 결과로부터 응답 메시지 가공
         val response = makeResponse(result)
 
-        // 200 상태코드와 함께 HTTP 응답
-        return ResponseEntity.ok(response)
+        // 201 상태코드와 함께 HTTP 응답
+        return ResponseEntity.status(HttpStatus.CREATED).body(response)
     }
 
     private fun makeResponse(result: RegisterMemberResult): SuccessResponse<RegisterMemberResponse> {
