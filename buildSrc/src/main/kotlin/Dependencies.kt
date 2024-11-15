@@ -33,8 +33,10 @@ enum class Dependencies(
     YAML_RESOURCE_BUNDLE(groupId = "dev.akkinoc.util", artifactId = "yaml-resource-bundle", version = "2.13.0"),
 
     // email-format-check
-    COMMONS_VALIDATOR(groupId="commons-validator", artifactId ="commons-validator" , version="1.9.0");
+    COMMONS_VALIDATOR(groupId="commons-validator", artifactId ="commons-validator" , version="1.9.0"),
 
+    // mockk
+    MOCKK(groupId="io.mockk", artifactId="mockk" , version="1.13.13");
 
     val fullName: String
         get() {

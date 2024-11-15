@@ -42,6 +42,7 @@ subprojects {
 
         implementation(Dependencies.KOTLIN_REFLECT.fullName)
         testImplementation(Dependencies.SPRING_BOOT_TEST.fullName)
+        testImplementation(Dependencies.MOCKK.fullName)
     }
 
     tasks.getByName("bootJar") {
