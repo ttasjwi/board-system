@@ -1,5 +1,9 @@
 package com.ttasjwi.board.system.core.config
 
+import com.ttasjwi.board.system.auth.domain.external.spring.security.AccessTokenAuthenticationFilter
+import com.ttasjwi.board.system.auth.domain.external.spring.security.BearerTokenResolver
+import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
+import com.ttasjwi.board.system.core.time.TimeManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
@@ -8,10 +12,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.savedrequest.NullRequestCache
+import org.springframework.web.filter.OncePerRequestFilter
 
 @Configuration
-class FilterChainConfig {
+class FilterChainConfig(
+    private val accessTokenManager: AccessTokenManager,
+    private val timeManager: TimeManager,
+) {
 
     @Bean
     @Order(0)
@@ -43,8 +52,17 @@ class FilterChainConfig {
             requestCache {
                 requestCache = NullRequestCache()
             }
+            addFilterBefore<UsernamePasswordAuthenticationFilter>(accessTokenAuthenticationFilter())
         }
         return http.build()
+    }
+
+    private fun accessTokenAuthenticationFilter(): OncePerRequestFilter {
+        return AccessTokenAuthenticationFilter(
+            bearerTokenResolver = BearerTokenResolver(),
+            accessTokenManager = accessTokenManager,
+            timeManager = timeManager,
+        )
     }
 
     @Bean
