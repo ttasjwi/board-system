@@ -1,14 +1,12 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
+import com.ttasjwi.board.system.auth.domain.exception.AccessTokenExpiredException
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.logging.getLogger
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
-import org.junit.jupiter.api.Nested
-import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.*
 
 @DisplayName("AccessTokenManager 픽스쳐 테스트")
 class AccessTokenManagerFixtureTest {
@@ -76,10 +74,9 @@ class AccessTokenManagerFixtureTest {
     @DisplayName("checkCurrentlyValid: 액세스토큰이 현재 유효한 지 검증한다")
     inner class CheckCurrentlyValid {
 
-
         @Test
-        @DisplayName("픽스쳐에서는 아무 일도 일어나지 않음")
-        fun test() {
+        @DisplayName("현재 시간이 만료시간 이전 -> 성공")
+        fun testValid() {
             // given
             val accessToken = accessTokenFixture(
                 issuedAt = timeFixture(minute = 0),
@@ -90,6 +87,43 @@ class AccessTokenManagerFixtureTest {
             // when
             // then
             accessTokenManagerFixture.checkCurrentlyValid(accessToken, currentTime)
+        }
+
+        @Test
+        @DisplayName("현재 시간이 만료시간과 같음 -> 예외")
+        fun testExpired1() {
+            // given
+            val accessToken = accessTokenFixture(
+                issuedAt = timeFixture(minute = 0),
+                expiresAt = timeFixture(minute = 2)
+            )
+            val currentTime = timeFixture(minute = 2)
+
+            // when
+            // then
+            assertThrows<AccessTokenExpiredException> {
+                accessTokenManagerFixture.checkCurrentlyValid(accessToken, currentTime)
+            }
+        }
+
+        @Test
+        @DisplayName("현재 시간이 만료시간 이후 -> 예외")
+        fun testExpired2() {
+            // given
+            val accessToken = accessTokenFixture(
+                issuedAt = timeFixture(minute = 0),
+                expiresAt = timeFixture(minute = 2)
+            )
+            val currentTime = timeFixture(minute = 3)
+
+            // when
+            // then
+            assertThrows<AccessTokenExpiredException> {
+                accessTokenManagerFixture.checkCurrentlyValid(
+                    accessToken,
+                    currentTime
+                )
+            }
         }
     }
 }
