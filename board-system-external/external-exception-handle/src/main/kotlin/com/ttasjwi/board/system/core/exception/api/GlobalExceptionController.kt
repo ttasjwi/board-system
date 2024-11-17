@@ -10,6 +10,7 @@ import com.ttasjwi.board.system.logging.getLogger
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.resource.NoResourceFoundException
 
 @RestControllerAdvice
 internal class GlobalExceptionController(
@@ -59,6 +60,18 @@ internal class GlobalExceptionController(
         return makeMultipleErrorResponse(
             errorStatus = ErrorStatus.BAD_REQUEST,
             errorItems = makeErrorItems(exceptionCollector.getExceptions())
+        )
+    }
+
+    @ExceptionHandler(NoResourceFoundException::class)
+    fun handleNoResourceFoundException(e: NoResourceFoundException): ResponseEntity<ErrorResponse> {
+        return makeSingleErrorResponse(
+            errorStatus = ErrorStatus.NOT_FOUND,
+            errorItem = makeErrorItem(
+                code = "Error.ResourceNotFound",
+                args = listOf(e.httpMethod.name(), "/${e.resourcePath}"),
+                source = "httpMethod,resourcePath",
+            )
         )
     }
 
