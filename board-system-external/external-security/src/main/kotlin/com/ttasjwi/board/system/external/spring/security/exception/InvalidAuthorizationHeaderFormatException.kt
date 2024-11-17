@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.auth.domain.external.spring.security.exception
+package com.ttasjwi.board.system.external.spring.security.exception
 
 import com.ttasjwi.board.system.core.exception.CustomException
 import com.ttasjwi.board.system.core.exception.ErrorStatus

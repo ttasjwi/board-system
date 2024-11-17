@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.core.config
 
-import com.ttasjwi.board.system.auth.domain.external.spring.security.AccessTokenAuthenticationFilter
-import com.ttasjwi.board.system.auth.domain.external.spring.security.BearerTokenResolver
+import com.ttasjwi.board.system.external.spring.security.authentication.AccessTokenAuthenticationFilter
+import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.core.time.TimeManager
 import org.springframework.context.annotation.Bean

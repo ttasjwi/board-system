@@ -12,7 +12,7 @@ import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.proc.ConfigurableJWTProcessor
 import com.nimbusds.jwt.proc.DefaultJWTProcessor
 import com.nimbusds.jwt.proc.JWTClaimsSetVerifier
-import com.ttasjwi.board.system.auth.domain.external.spring.security.X509CertificateThumbprintValidator
+import com.ttasjwi.board.system.external.spring.security.support.X509CertificateThumbprintValidator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.ResourceLoader

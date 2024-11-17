@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.auth.domain.external.spring.security
+package com.ttasjwi.board.system.external.spring.security.authentication
 
 import com.ttasjwi.board.system.auth.domain.model.AuthMember
 import org.springframework.security.core.Authentication

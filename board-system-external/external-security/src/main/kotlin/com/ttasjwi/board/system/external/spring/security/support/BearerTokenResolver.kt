@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.auth.domain.external.spring.security
+package com.ttasjwi.board.system.external.spring.security.support
 
-import com.ttasjwi.board.system.auth.domain.external.spring.security.exception.InvalidAuthorizationHeaderFormatException
+import com.ttasjwi.board.system.external.spring.security.exception.InvalidAuthorizationHeaderFormatException
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.HttpHeaders
 

@@ -1,5 +1,6 @@
-package com.ttasjwi.board.system.auth.domain.external.spring.security.exception
+package com.ttasjwi.board.system.external.spring.security.exception
 
+import com.ttasjwi.board.system.external.spring.security.exception.InvalidAuthorizationHeaderFormatException
 import com.ttasjwi.board.system.core.exception.ErrorStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
