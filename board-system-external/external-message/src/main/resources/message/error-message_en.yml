@@ -8,6 +8,9 @@ Error:
   NotImplemented:
     message: "Feature Not Implemented"
     description: "The requested feature is currently not implemented. It is under development and is expected to be added in the near future."
+  ResourceNotFound:
+    message: "Resource Not Found"
+    description: "The requested resource could not be found. (httpMethod={0}, resourcePath=''{1}'')"
 
   NullArgument:
     message: "Missing required value"
@@ -51,9 +54,21 @@ Error:
   LoginFailure:
     message: "Login failed"
     description: "Login failed. The email or password is incorrect."
+  InvalidAuthorizationHeaderFormat:
+    message: "Invalid Authorization Header"
+    description: "The format of the Authorization header is incorrect. Please send the token in the format ''Bearer [token]'' in the Authorization header."
   InvalidAccessTokenFormat:
     message: "Invalid access token format"
     description: "The access token format is invalid. The token value is incorrect or it is not an access token."
   InvalidRefreshTokenFormat:
     message: "Invalid refresh token format"
     description: "The refresh token format is invalid. The token value is incorrect or it is not a refresh token."
+  AccessTokenExpired:
+    message: "Access Token Expired"
+    description: "The access token has expired and is no longer valid. (Expiration Time={0}, Current Time={1}) Please refresh using a refresh token. If the refresh token has also expired, you will need to log in again."
+  Unauthenticated:
+    message: "Unauthenticated"
+    description: "Access to this resource is denied. Authentication is required to access this resource."
+  AccessDenied:
+    message: "Access Denied"
+    description: "You do not have permission to access this resource."
