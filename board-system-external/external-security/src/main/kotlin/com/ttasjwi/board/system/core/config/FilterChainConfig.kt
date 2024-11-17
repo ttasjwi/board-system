@@ -4,6 +4,9 @@ import com.ttasjwi.board.system.external.spring.security.authentication.AccessTo
 import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.core.time.TimeManager
+import com.ttasjwi.board.system.external.spring.security.exception.CustomAccessDeniedHandler
+import com.ttasjwi.board.system.external.spring.security.exception.CustomAuthenticationEntryPoint
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.annotation.Order
@@ -15,11 +18,14 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.web.filter.OncePerRequestFilter
+import org.springframework.web.servlet.HandlerExceptionResolver
 
 @Configuration
 class FilterChainConfig(
     private val accessTokenManager: AccessTokenManager,
     private val timeManager: TimeManager,
+    @Qualifier(value = "handlerExceptionResolver")
+    private val handlerExceptionResolver: HandlerExceptionResolver,
 ) {
 
     @Bean
@@ -52,6 +58,12 @@ class FilterChainConfig(
             requestCache {
                 requestCache = NullRequestCache()
             }
+
+            exceptionHandling {
+                authenticationEntryPoint = CustomAuthenticationEntryPoint(handlerExceptionResolver)
+                accessDeniedHandler = CustomAccessDeniedHandler(handlerExceptionResolver)
+            }
+
             addFilterBefore<UsernamePasswordAuthenticationFilter>(accessTokenAuthenticationFilter())
         }
         return http.build()
