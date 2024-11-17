@@ -10,7 +10,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import org.springframework.web.servlet.resource.NoResourceFoundException
 import java.util.*
 
 
@@ -101,6 +103,28 @@ class GlobalExceptionControllerTest {
     }
 
     @Test
+    @DisplayName("NoResourceFoundException 처리 테스트")
+    fun handleNoResourceFound() {
+        val e = NoResourceFoundException(HttpMethod.GET, "fire/punch")
+
+        val responseEntity = exceptionController.handleNoResourceFoundException(e)
+        val response = responseEntity.body as ErrorResponse
+
+        assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.NOT_FOUND.value())
+        assertThat(response.isSuccess).isFalse()
+        assertThat(response.code).isEqualTo("Error.Occurred")
+        assertThat(response.message).isEqualTo("Error.Occurred.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.description).isEqualTo("Error.Occurred.description(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.errors.size).isEqualTo(1)
+
+        val errorItem = response.errors[0]
+        assertThat(errorItem.code).isEqualTo("Error.ResourceNotFound")
+        assertThat(errorItem.message).isEqualTo("Error.ResourceNotFound.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(errorItem.description).isEqualTo("Error.ResourceNotFound.description(locale=${Locale.KOREAN},args=[${e.httpMethod.name()}, /${e.resourcePath}])")
+        assertThat(errorItem.source).isEqualTo("httpMethod,resourcePath")
+    }
+
+    @Test
     @DisplayName("ValidationExceptionCollector 을 잘 handle 하는 지 테스트")
     fun handleValidationExceptionCollectorTest() {
         val exceptionCollector = ValidationExceptionCollector()
@@ -132,4 +156,5 @@ class GlobalExceptionControllerTest {
         assertThat(errorItem2.description).isEqualTo("${exception2.code}.description(locale=${Locale.KOREAN},args=${exception2.args})")
         assertThat(errorItem2.source).isEqualTo(exception2.source)
     }
+
 }

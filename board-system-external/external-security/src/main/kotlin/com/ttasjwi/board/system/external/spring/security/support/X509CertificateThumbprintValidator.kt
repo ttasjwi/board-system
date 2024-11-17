@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.auth.domain.external.spring.security
+package com.ttasjwi.board.system.external.spring.security.support
 
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory

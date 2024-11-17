@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.model
 
+import com.ttasjwi.board.system.auth.domain.exception.AccessTokenExpiredException
 import java.time.ZonedDateTime
 
 class AccessToken
@@ -49,5 +50,11 @@ internal constructor(
         result = 31 * result + issuedAt.hashCode()
         result = 31 * result + expiresAt.hashCode()
         return result
+    }
+
+    internal fun checkCurrentlyValid(currentTime: ZonedDateTime) {
+        if (currentTime >= this.expiresAt) {
+            throw AccessTokenExpiredException(expiredAt = this.expiresAt, currentTime = currentTime)
+        }
     }
 }

@@ -8,4 +8,5 @@ interface AccessTokenManager {
 
     fun generate(authMember: AuthMember, issuedAt: ZonedDateTime): AccessToken
     fun parse(tokenValue: String): AccessToken
+    fun checkCurrentlyValid(accessToken: AccessToken, currentTime: ZonedDateTime)
 }

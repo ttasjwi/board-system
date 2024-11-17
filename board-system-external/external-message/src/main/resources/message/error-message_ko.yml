@@ -8,6 +8,9 @@ Error:
   NotImplemented:
     message: "미구현 기능"
     description: "요청하신 기능은 현재 미구현 상태입니다. 해당 기능은 개발 중이며, 가까운 시일 내에 추가될 예정입니다."
+  ResourceNotFound:
+    message: "리소스를 찾을 수 없음"
+    description: "요청한 리소스를 찾을 수 없습니다. (httpMethod={0},resourcePath=''{1}'')"
 
   NullArgument:
     message: "필수값 누락"
@@ -51,9 +54,21 @@ Error:
   LoginFailure:
     message: "로그인 실패"
     description: "로그인에 실패했습니다. 이메일 또는 패스워드가 잘못됐습니다."
+  InvalidAuthorizationHeaderFormat:
+    message: "Authorization 헤더값 오류"
+    description: "잘못된 Authorization 헤더 형식입니다. 토큰값을 Authorization 헤더에 ''Bearer [토큰값]'' 형식으로 보내주세요."
   InvalidAccessTokenFormat:
     message: "유효하지 않은 액세스토큰 포맷"
     description: "액세스 토큰 포맷이 유효하지 않습니다. 토큰값이 잘못됐거나, 액세스 토큰이 아닙니다."
   InvalidRefreshTokenFormat:
     message: "유효하지 않은 리프레시토큰 포맷"
     description: "리프레시 토큰 포맷이 유효하지 않습니다. 토큰값이 잘못됐거나, 리프레시 토큰이 아닙니다."
+  AccessTokenExpired:
+    message: "액세스토큰 만료됨"
+    description: "액세스 토큰이 만료되어 더 이상 유효하지 않습니다.(만료시각={0},현재시각={1}) 리프레시 토큰을 통해 갱신해주세요. 리프레시 토큰도 만료됐다면 로그인을 다시 하셔야합니다."
+  Unauthenticated:
+    message: "인증되지 않음"
+    description: "리소스에 접근할 수 없습니다. 이 리소스에 접근하기 위해서는 인증이 필요합니다."
+  AccessDenied:
+    message: "리소스 접근 권한 없음"
+    description: "리소스에 접근할 수 없습니다. 해당 리소스에 접근할 권한이 없습니다."
