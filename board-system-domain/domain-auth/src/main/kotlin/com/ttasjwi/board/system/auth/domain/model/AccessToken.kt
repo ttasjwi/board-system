@@ -52,7 +52,7 @@ internal constructor(
         return result
     }
 
-    fun checkCurrentlyValid(currentTime: ZonedDateTime) {
+    internal fun checkCurrentlyValid(currentTime: ZonedDateTime) {
         if (currentTime >= this.expiresAt) {
             throw AccessTokenExpiredException(expiredAt = this.expiresAt, currentTime = currentTime)
         }
