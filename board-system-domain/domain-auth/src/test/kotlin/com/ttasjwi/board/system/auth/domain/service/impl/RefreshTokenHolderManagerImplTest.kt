@@ -24,7 +24,6 @@ class RefreshTokenHolderManagerImplTest {
         refreshTokenHolderManager = RefreshTokenHolderManagerImpl()
     }
 
-
     @Nested
     @DisplayName("createRefreshTokenHolder: 빈 리프레시토큰 홀더를 생성한다")
     inner class CreateRefreshTokenHolder {
@@ -152,6 +151,74 @@ class RefreshTokenHolderManagerImplTest {
             assertThat(findTokens).hasSize(RefreshTokenHolder.MAX_TOKEN_COUNT)
             assertThat(findTokens.values).doesNotContain(firstToken)
         }
+    }
 
+    @Nested
+    @DisplayName("changeNewRefreshToken: 리프레시토큰 홀더에 있는 기존 토큰을 제거하고 새 리프레시토큰을 추가한다")
+    inner class ChangeRefreshToken {
+
+
+        @Test
+        @DisplayName("기존 토큰이 제거되고 새 토큰으로 대체되어야 한다.")
+        fun test() {
+            // given
+            val previousToken = refreshTokenFixture(memberId = 1L, refreshTokenId = "token1234")
+            val newToken = refreshTokenFixture(memberId = 1L, refreshTokenId = "token4321")
+            val holder = refreshTokenHolderFixture(
+                memberId = 1L,
+                tokens = mutableMapOf(previousToken.refreshTokenId to previousToken)
+            )
+
+            // when
+            val changedRefreshTokenHolder = refreshTokenHolderManager.changeRefreshToken(holder, previousToken, newToken)
+
+            // then
+            val tokens = changedRefreshTokenHolder.getTokens()
+
+            assertThat(changedRefreshTokenHolder.authMember).isEqualTo(holder.authMember)
+            assertThat(tokens).hasSize(1)
+            assertThat(tokens[previousToken.refreshTokenId]).isNull()
+            assertThat(tokens[newToken.refreshTokenId]).isEqualTo(newToken)
+        }
+
+
+        @Test
+        @DisplayName("홀더에 만료된 토큰이 있다면 제거한 작업을 하고 대체한다.")
+        fun caseRemoveExpiredTokens() {
+            // given
+            val oldToken1 = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "tokenId1",
+                issuedAt = timeFixture(minute = 0), expiresAt = timeFixture(minute = 5)
+            )
+            val oldToken2 = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "tokenId2",
+                issuedAt = timeFixture(minute = 1), expiresAt = timeFixture(minute = 6)
+            )
+            val previousToken = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "previous",
+                issuedAt = timeFixture(minute = 2), expiresAt = timeFixture(minute = 7)
+            )
+            val newToken = refreshTokenFixture(
+                memberId = 1L, refreshTokenId = "newToken",
+                issuedAt = timeFixture(minute = 6), expiresAt = timeFixture(minute = 11)
+            )
+
+            val holder = refreshTokenHolderFixture(
+                memberId = 1L,
+                tokens = mutableMapOf(
+                    oldToken1.refreshTokenId to oldToken1,
+                    oldToken2.refreshTokenId to oldToken2,
+                    previousToken.refreshTokenId to previousToken
+                )
+            )
+
+            // when
+            val addedRefreshTokenHolder = refreshTokenHolderManager.changeRefreshToken(holder, previousToken, newToken)
+
+            // when
+            val tokens = addedRefreshTokenHolder.getTokens()
+            assertThat(tokens).hasSize(1)
+            assertThat(tokens.values).containsExactlyInAnyOrder(newToken)
+        }
     }
 }

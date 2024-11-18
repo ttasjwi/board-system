@@ -5,7 +5,6 @@ import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
-import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.Role
 import java.time.ZonedDateTime
 
@@ -20,8 +19,6 @@ class AccessTokenManagerFixture : AccessTokenManager {
         private const val ISSUED_AT_INDEX = 2
         private const val EXPIRES_AT_INDEX = 3
         private const val TOKEN_TYPE = "accessToken"
-
-        val ERROR_CHECK_TIME = timeFixture(minute = 37)
     }
 
     override fun generate(authMember: AuthMember, issuedAt: ZonedDateTime): AccessToken {

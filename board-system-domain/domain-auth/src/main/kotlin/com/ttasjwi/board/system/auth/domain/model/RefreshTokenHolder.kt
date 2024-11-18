@@ -96,4 +96,17 @@ internal constructor(
             throw ex
         }
     }
+
+    internal fun changeRefreshToken(previousToken: RefreshToken, newToken: RefreshToken): RefreshTokenHolder {
+        // 새로 추가시키는 리프레시토큰의 발행시점을 현재 시각으로 삼아, 오래된 토큰들을 만료시킴
+        val currentTime = newToken.issuedAt
+        removeExpiredTokens(currentTime)
+
+        // 기존 토큰 제거
+        _tokens.remove(previousToken.refreshTokenId)
+
+        // 신규 토큰 추가
+        _tokens[newToken.refreshTokenId] = newToken
+        return this
+    }
 }

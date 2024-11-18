@@ -5,7 +5,6 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
 import com.ttasjwi.board.system.core.annotation.component.DomainService
-import java.time.ZonedDateTime
 
 @DomainService
 internal class RefreshTokenHolderManagerImpl : RefreshTokenHolderManager {
@@ -23,9 +22,9 @@ internal class RefreshTokenHolderManagerImpl : RefreshTokenHolderManager {
 
     override fun changeRefreshToken(
         refreshTokenHolder: RefreshTokenHolder,
-        previousToken: ZonedDateTime,
+        previousToken: RefreshToken,
         newToken: RefreshToken
     ): RefreshTokenHolder {
-        TODO("Not yet implemented")
+        return refreshTokenHolder.changeRefreshToken(previousToken, newToken)
     }
 }

@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
-import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
@@ -159,4 +158,6 @@ class RefreshTokenManagerFixtureTest {
             assertThat(isRefreshRequired).isTrue()
         }
     }
+
+
 }

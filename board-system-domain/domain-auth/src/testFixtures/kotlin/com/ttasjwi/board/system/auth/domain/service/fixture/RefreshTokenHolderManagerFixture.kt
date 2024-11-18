@@ -5,7 +5,6 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
-import java.time.ZonedDateTime
 
 class RefreshTokenHolderManagerFixture : RefreshTokenHolderManager {
 
@@ -30,9 +29,18 @@ class RefreshTokenHolderManagerFixture : RefreshTokenHolderManager {
 
     override fun changeRefreshToken(
         refreshTokenHolder: RefreshTokenHolder,
-        previousToken: ZonedDateTime,
+        previousToken: RefreshToken,
         newToken: RefreshToken
     ): RefreshTokenHolder {
-        TODO("Not yet implemented")
+
+        val tokens = refreshTokenHolder.getTokens().toMutableMap()
+        tokens.remove(previousToken.refreshTokenId)
+        tokens[newToken.refreshTokenId] = newToken
+
+        return refreshTokenHolderFixture(
+            memberId = refreshTokenHolder.authMember.memberId.value,
+            role = refreshTokenHolder.authMember.role,
+            tokens = tokens
+        )
     }
 }
