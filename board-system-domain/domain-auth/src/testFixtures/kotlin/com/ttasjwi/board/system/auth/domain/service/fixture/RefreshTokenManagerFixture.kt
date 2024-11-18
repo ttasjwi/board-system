@@ -17,6 +17,7 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
         private const val ISSUED_AT_INDEX = 2
         private const val EXPIRES_AT_INDEX = 3
         private const val TOKEN_TYPE = "refreshToken"
+        const val REFRESH_REQUIRE_THRESHOLD_HOURS = 8L
     }
 
     override fun generate(memberId: MemberId, issuedAt: ZonedDateTime): RefreshToken {
@@ -52,7 +53,7 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
     ) {}
 
     override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
-        TODO("Not yet implemented")
+        return currentTime >= refreshToken.expiresAt.minusHours(REFRESH_REQUIRE_THRESHOLD_HOURS)
     }
 
     private fun makeTokenValue(

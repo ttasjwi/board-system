@@ -37,6 +37,6 @@ internal class RefreshTokenManagerImpl(
     }
 
     override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
-        TODO("Not yet implemented")
+        return refreshToken.isRefreshRequired(currentTime)
     }
 }
