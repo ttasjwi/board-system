@@ -66,6 +66,9 @@ Error:
   AccessTokenExpired:
     message: "Access Token Expired"
     description: "The access token has expired and is no longer valid. (Expiration Time={0}, Current Time={1}) Please refresh using a refresh token. If the refresh token has also expired, you will need to log in again."
+  RefreshTokenExpired:
+    message: "Refresh token expired"
+    description: "This refresh token is no longer valid. You need to log in again."
   Unauthenticated:
     message: "Unauthenticated"
     description: "Access to this resource is denied. Authentication is required to access this resource."
