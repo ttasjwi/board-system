@@ -11,7 +11,7 @@ import java.util.*
 class RefreshTokenManagerFixture : RefreshTokenManager {
 
     companion object {
-        internal const val VALIDITY_HOURS = 24L
+        const val VALIDITY_HOURS = 24L
         private const val MEMBER_ID_INDEX = 0
         private const val REFRESH_TOKEN_ID_INDEX = 1
         private const val ISSUED_AT_INDEX = 2
