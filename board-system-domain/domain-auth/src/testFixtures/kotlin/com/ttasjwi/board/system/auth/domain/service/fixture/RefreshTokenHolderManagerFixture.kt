@@ -26,4 +26,21 @@ class RefreshTokenHolderManagerFixture : RefreshTokenHolderManager {
             tokens = tokens
         )
     }
+
+    override fun changeRefreshToken(
+        refreshTokenHolder: RefreshTokenHolder,
+        previousToken: RefreshToken,
+        newToken: RefreshToken
+    ): RefreshTokenHolder {
+
+        val tokens = refreshTokenHolder.getTokens().toMutableMap()
+        tokens.remove(previousToken.refreshTokenId)
+        tokens[newToken.refreshTokenId] = newToken
+
+        return refreshTokenHolderFixture(
+            memberId = refreshTokenHolder.authMember.memberId.value,
+            role = refreshTokenHolder.authMember.role,
+            tokens = tokens
+        )
+    }
 }

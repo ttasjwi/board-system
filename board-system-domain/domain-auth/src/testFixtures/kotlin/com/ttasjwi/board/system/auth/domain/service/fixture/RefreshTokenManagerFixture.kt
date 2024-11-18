@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
+import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.member.domain.model.MemberId
@@ -10,12 +11,13 @@ import java.util.*
 class RefreshTokenManagerFixture : RefreshTokenManager {
 
     companion object {
-        internal const val VALIDITY_HOURS = 24L
+        const val VALIDITY_HOURS = 24L
         private const val MEMBER_ID_INDEX = 0
         private const val REFRESH_TOKEN_ID_INDEX = 1
         private const val ISSUED_AT_INDEX = 2
         private const val EXPIRES_AT_INDEX = 3
         private const val TOKEN_TYPE = "refreshToken"
+        const val REFRESH_REQUIRE_THRESHOLD_HOURS = 8L
     }
 
     override fun generate(memberId: MemberId, issuedAt: ZonedDateTime): RefreshToken {
@@ -42,6 +44,16 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
             issuedAt = split[ISSUED_AT_INDEX].let { ZonedDateTime.parse(it) },
             expiresAt = split[EXPIRES_AT_INDEX].let { ZonedDateTime.parse(it) }
         )
+    }
+
+    override fun checkCurrentlyValid(
+        refreshToken: RefreshToken,
+        refreshTokenHolder: RefreshTokenHolder,
+        currentTime: ZonedDateTime
+    ) {}
+
+    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
+        return currentTime >= refreshToken.expiresAt.minusHours(REFRESH_REQUIRE_THRESHOLD_HOURS)
     }
 
     private fun makeTokenValue(

@@ -69,3 +69,8 @@ Login:
   Complete:
     message: "Login successful"
     description: "You have successfully logged in."
+
+TokenRefresh:
+  Complete:
+    message: "Token refresh successful"
+    description: "The token was successfully refreshed."

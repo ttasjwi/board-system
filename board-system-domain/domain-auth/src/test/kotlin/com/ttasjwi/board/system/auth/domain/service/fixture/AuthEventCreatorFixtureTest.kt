@@ -62,4 +62,50 @@ class AuthEventCreatorFixtureTest {
             assertThat(data.refreshTokenExpiresAt).isEqualTo(refreshToken.expiresAt)
         }
     }
+
+    @Nested
+    @DisplayName("onTokenRefreshed: 토큰 재생신됨 이벤트를 생성한다")
+    inner class OnTokenRefreshed {
+
+
+        @Test
+        @DisplayName("토큰 재갱신됨 이벤트가 생성된다")
+        fun test() {
+            // given
+            val memberId = 1L
+            val role = Role.ADMIN
+            val tokenRefreshedAt = timeFixture(minute = 5)
+            val refreshTokenRefreshed = true
+
+            val accessToken = accessTokenFixture(
+                memberId = memberId,
+                role = role,
+                issuedAt = tokenRefreshedAt,
+                tokenValue = "accessToken"
+            )
+            val refreshToken = refreshTokenFixture(
+                memberId = memberId,
+                refreshTokenId = "refreshTokenId1",
+                tokenValue = "toeknValue1",
+                issuedAt = tokenRefreshedAt
+            )
+
+            // when
+            val event = authEventCreatorFixture.onTokenRefreshed(
+                accessToken = accessToken,
+                refreshToken = refreshToken,
+                refreshTokenRefreshed = refreshTokenRefreshed
+            )
+
+            // then
+            val data = event.data
+
+            assertThat(event.occurredAt).isEqualTo(tokenRefreshedAt)
+            assertThat(data.accessToken).isEqualTo(accessToken.tokenValue)
+            assertThat(data.accessTokenExpiresAt).isEqualTo(accessToken.expiresAt)
+            assertThat(data.refreshToken).isEqualTo(refreshToken.tokenValue)
+            assertThat(data.refreshTokenExpiresAt).isEqualTo(refreshToken.expiresAt)
+            assertThat(data.refreshTokenRefreshed).isEqualTo(refreshTokenRefreshed)
+        }
+    }
 }

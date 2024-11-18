@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
+import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
+import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.logging.getLogger
 import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
@@ -69,4 +71,93 @@ class RefreshTokenManagerFixtureTest {
             assertThat(accessToken.expiresAt).isEqualTo(timeFixture(dayOfMonth = 2, minute = 3))
         }
     }
+
+    @Nested
+    @DisplayName("checkCurrentlyValid: 리프레시토큰이 현재 유효한 지 검증")
+    inner class CheckCurrentlyValid {
+
+
+        @Test
+        @DisplayName("아무 것도 하지 않는다")
+        fun test() {
+            // given
+            val refreshToken = refreshTokenFixture()
+            val refreshTokenHolder = refreshTokenHolderFixture()
+            val currentTime = timeFixture()
+
+            // when
+            // then
+            refreshTokenManagerFixture.checkCurrentlyValid(refreshToken, refreshTokenHolder, currentTime)
+        }
+    }
+
+
+    @Nested
+    @DisplayName("isRefreshRequired: 리프레시토큰이 재갱신이 필요한 지 여부를 확인한다")
+    inner class IsRefreshRequired {
+
+        @Test
+        @DisplayName("리프레시토큰의 만료시간 기준 ${RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS} 시간 전보다 이전 시간이면 재생신 필요가 없다.")
+        fun testRefreshNotRequired() {
+            // given
+            val refreshToken = refreshTokenFixture(
+                memberId = 123L,
+                refreshTokenId = "abc",
+                issuedAt = timeFixture(dayOfMonth = 1),
+                expiresAt = timeFixture(dayOfMonth = 2),
+            )
+            val currentTime = refreshToken.expiresAt
+                .minusHours(RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS)
+                .minusNanos(1)
+
+            // when
+            val isRefreshRequired = refreshTokenManagerFixture.isRefreshRequired(refreshToken, currentTime)
+
+            // then
+            assertThat(isRefreshRequired).isFalse()
+        }
+
+        @Test
+        @DisplayName("리프레시토큰의 만료시간 기준 정확히 ${RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS} 시간 전이면 재생신해야한다.")
+        fun testRequired1() {
+            // given
+            val refreshToken = refreshTokenFixture(
+                memberId = 123L,
+                refreshTokenId = "abc",
+                issuedAt = timeFixture(dayOfMonth = 1),
+                expiresAt = timeFixture(dayOfMonth = 2),
+            )
+            val currentTime = refreshToken.expiresAt
+                .minusHours(RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS)
+
+            // when
+            val isRefreshRequired = refreshTokenManagerFixture.isRefreshRequired(refreshToken, currentTime)
+
+            // then
+            assertThat(isRefreshRequired).isTrue()
+        }
+
+        @Test
+        @DisplayName("리프레시토큰의 만료시간 기준 ${RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS} 시간 전보다 이후면 재생신해야한다.")
+        fun testRequired2() {
+            // given
+            val refreshToken = refreshTokenFixture(
+                memberId = 123L,
+                refreshTokenId = "abc",
+                issuedAt = timeFixture(dayOfMonth = 1),
+                expiresAt = timeFixture(dayOfMonth = 2),
+            )
+            val currentTime = refreshToken.expiresAt
+                .minusHours(RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS)
+                .plusNanos(1)
+
+            // when
+            val isRefreshRequired = refreshTokenManagerFixture.isRefreshRequired(refreshToken, currentTime)
+
+            // then
+            assertThat(isRefreshRequired).isTrue()
+        }
+    }
+
+
 }

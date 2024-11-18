@@ -45,6 +45,7 @@ class FilterChainConfig(
                 authorize(HttpMethod.POST, "/api/v1/members", permitAll)
 
                 authorize(HttpMethod.POST, "/api/v1/auth/login", permitAll)
+                authorize(HttpMethod.POST, "/api/v1/auth/token-refresh", permitAll)
 
                 authorize(anyRequest, authenticated)
             }

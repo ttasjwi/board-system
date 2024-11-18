@@ -19,4 +19,12 @@ internal class RefreshTokenHolderManagerImpl : RefreshTokenHolderManager {
     ): RefreshTokenHolder {
         return refreshTokenHolder.addNewRefreshToken(refreshToken)
     }
+
+    override fun changeRefreshToken(
+        refreshTokenHolder: RefreshTokenHolder,
+        previousToken: RefreshToken,
+        newToken: RefreshToken
+    ): RefreshTokenHolder {
+        return refreshTokenHolder.changeRefreshToken(previousToken, newToken)
+    }
 }

@@ -8,4 +8,5 @@ interface RefreshTokenHolderManager {
 
     fun createRefreshTokenHolder(authMember: AuthMember): RefreshTokenHolder
     fun addNewRefreshToken(refreshTokenHolder: RefreshTokenHolder, refreshToken: RefreshToken): RefreshTokenHolder
+    fun changeRefreshToken(refreshTokenHolder: RefreshTokenHolder, previousToken: RefreshToken, newToken: RefreshToken): RefreshTokenHolder
 }

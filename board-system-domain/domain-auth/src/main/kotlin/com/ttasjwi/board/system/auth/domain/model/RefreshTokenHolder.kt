@@ -1,6 +1,8 @@
 package com.ttasjwi.board.system.auth.domain.model
 
+import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.core.time.TimeRule
+import com.ttasjwi.board.system.logging.getLogger
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
@@ -18,6 +20,8 @@ internal constructor(
     companion object {
 
         internal const val MAX_TOKEN_COUNT = 5
+
+        private val log = getLogger(RefreshTokenHolder::class.java)
 
         internal fun create(authMember: AuthMember): RefreshTokenHolder {
             return RefreshTokenHolder(
@@ -77,5 +81,32 @@ internal constructor(
             }
         }
         return maxExpireTime
+    }
+
+    /**
+     * 같은 리프레시토큰이 있는지 검증. 없다면 리프레시토큰이 무효화된 것
+     */
+    internal fun checkRefreshTokenExist(refreshToken: RefreshToken) {
+        // 토큰이 없을 때
+        if (!_tokens.containsKey(refreshToken.refreshTokenId)) {
+            val ex = RefreshTokenExpiredException(
+                debugMessage = "리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId.value},refreshTokenId=${refreshToken.refreshTokenId.value})"
+            )
+            log.warn(ex)
+            throw ex
+        }
+    }
+
+    internal fun changeRefreshToken(previousToken: RefreshToken, newToken: RefreshToken): RefreshTokenHolder {
+        // 새로 추가시키는 리프레시토큰의 발행시점을 현재 시각으로 삼아, 오래된 토큰들을 만료시킴
+        val currentTime = newToken.issuedAt
+        removeExpiredTokens(currentTime)
+
+        // 기존 토큰 제거
+        _tokens.remove(previousToken.refreshTokenId)
+
+        // 신규 토큰 추가
+        _tokens[newToken.refreshTokenId] = newToken
+        return this
     }
 }

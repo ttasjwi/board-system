@@ -65,4 +65,32 @@ class RefreshTokenHolderManagerFixtureTest {
             assertThat(tokens[refreshToken.refreshTokenId]).isEqualTo(refreshToken)
         }
     }
+
+    @Nested
+    @DisplayName("changeNewRefreshToken: 리프레시토큰 홀더에 있는 기존 토큰을 제거하고 새 리프레시토큰을 추가한다")
+    inner class ChangeRefreshToken {
+
+        @Test
+        @DisplayName("기존 토큰이 제거되고 새 토큰으로 대체되어야 한다.")
+        fun test() {
+            // given
+            val previousToken = refreshTokenFixture(memberId = 1L, refreshTokenId = "token1234")
+            val newToken = refreshTokenFixture(memberId = 1L, refreshTokenId = "token4321")
+            val holder = refreshTokenHolderFixture(
+                memberId = 1L,
+                tokens = mutableMapOf(previousToken.refreshTokenId to previousToken)
+            )
+
+            // when
+            val changedRefreshTokenHolder = refreshTokenHolderManagerFixture.changeRefreshToken(holder, previousToken, newToken)
+
+            // then
+            val tokens = changedRefreshTokenHolder.getTokens()
+
+            assertThat(changedRefreshTokenHolder.authMember).isEqualTo(holder.authMember)
+            assertThat(tokens).hasSize(1)
+            assertThat(tokens[previousToken.refreshTokenId]).isNull()
+            assertThat(tokens[newToken.refreshTokenId]).isEqualTo(newToken)
+        }
+    }
 }
