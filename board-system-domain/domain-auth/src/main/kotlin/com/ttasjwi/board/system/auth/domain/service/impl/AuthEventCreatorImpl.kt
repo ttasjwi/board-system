@@ -19,6 +19,13 @@ internal class AuthEventCreatorImpl : AuthEventCreator {
         refreshToken: RefreshToken,
         refreshTokenRefreshed: Boolean
     ): TokenRefreshedEvent {
-        TODO("Not yet implemented")
+        return TokenRefreshedEvent(
+            accessToken = accessToken.tokenValue,
+            accessTokenExpiresAt = accessToken.expiresAt,
+            refreshToken = refreshToken.tokenValue,
+            refreshTokenExpiresAt = refreshToken.expiresAt,
+            refreshTokenRefreshed = refreshTokenRefreshed,
+            refreshedAt = accessToken.issuedAt
+        )
     }
 }

@@ -28,5 +28,4 @@ internal constructor(
         val refreshTokenExpiresAt: ZonedDateTime,
         val refreshTokenRefreshed: Boolean,
     )
-
 }
