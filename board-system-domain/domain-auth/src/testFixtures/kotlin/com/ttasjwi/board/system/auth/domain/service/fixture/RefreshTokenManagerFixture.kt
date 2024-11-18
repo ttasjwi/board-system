@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
+import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.member.domain.model.MemberId
@@ -42,6 +43,18 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
             issuedAt = split[ISSUED_AT_INDEX].let { ZonedDateTime.parse(it) },
             expiresAt = split[EXPIRES_AT_INDEX].let { ZonedDateTime.parse(it) }
         )
+    }
+
+    override fun checkCurrentlyValid(
+        refreshToken: RefreshToken,
+        refreshTokenHolder: RefreshTokenHolder,
+        currentTime: ZonedDateTime
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
+        TODO("Not yet implemented")
     }
 
     private fun makeTokenValue(

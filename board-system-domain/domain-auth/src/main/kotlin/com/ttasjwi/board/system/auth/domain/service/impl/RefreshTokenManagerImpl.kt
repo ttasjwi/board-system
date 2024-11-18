@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.auth.domain.service.impl
 
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
+import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.core.annotation.component.DomainService
@@ -21,5 +22,17 @@ internal class RefreshTokenManagerImpl(
 
     override fun parse(tokenValue: String): RefreshToken {
         return externalRefreshTokenManager.parse(tokenValue)
+    }
+
+    override fun checkCurrentlyValid(
+        refreshToken: RefreshToken,
+        refreshTokenHolder: RefreshTokenHolder,
+        currentTime: ZonedDateTime
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
+        TODO("Not yet implemented")
     }
 }
