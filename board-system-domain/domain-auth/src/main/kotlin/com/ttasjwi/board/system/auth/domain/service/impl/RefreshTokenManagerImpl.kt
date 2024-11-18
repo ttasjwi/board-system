@@ -29,7 +29,11 @@ internal class RefreshTokenManagerImpl(
         refreshTokenHolder: RefreshTokenHolder,
         currentTime: ZonedDateTime
     ) {
-        TODO("Not yet implemented")
+        // 리프레시 토큰 현재 유효성 검증
+        refreshToken.checkCurrentlyValid(currentTime)
+
+        // 리프레시토큰이 리프레시토큰 홀더에 있는 지 검증
+        refreshTokenHolder.checkRefreshTokenExist(refreshToken)
     }
 
     override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {

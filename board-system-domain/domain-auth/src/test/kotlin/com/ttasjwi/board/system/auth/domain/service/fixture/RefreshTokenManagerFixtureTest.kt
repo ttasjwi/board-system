@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.service.fixture
 
+import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
+import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.logging.getLogger
 import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
@@ -67,6 +69,25 @@ class RefreshTokenManagerFixtureTest {
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 3))
             assertThat(accessToken.expiresAt).isEqualTo(timeFixture(dayOfMonth = 2, minute = 3))
+        }
+    }
+
+    @Nested
+    @DisplayName("checkCurrentlyValid: 리프레시토큰이 현재 유효한 지 검증")
+    inner class CheckCurrentlyValid {
+
+
+        @Test
+        @DisplayName("아무 것도 하지 않는다")
+        fun test() {
+            // given
+            val refreshToken = refreshTokenFixture()
+            val refreshTokenHolder = refreshTokenHolderFixture()
+            val currentTime = timeFixture()
+
+            // when
+            // then
+            refreshTokenManagerFixture.checkCurrentlyValid(refreshToken, refreshTokenHolder, currentTime)
         }
     }
 }

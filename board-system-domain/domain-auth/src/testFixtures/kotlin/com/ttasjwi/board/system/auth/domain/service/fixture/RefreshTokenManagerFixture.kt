@@ -49,9 +49,7 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
         refreshToken: RefreshToken,
         refreshTokenHolder: RefreshTokenHolder,
         currentTime: ZonedDateTime
-    ) {
-        TODO("Not yet implemented")
-    }
+    ) {}
 
     override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
         TODO("Not yet implemented")
