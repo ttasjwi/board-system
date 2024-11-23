@@ -20,6 +20,8 @@ enum class Dependencies(
     SPRING_BOOT_MAIL(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-mail"),
     SPRING_BOOT_TEST(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-test"),
 
+    SPRING_SECURITY_OAUTH2_CLIENT(groupId = "org.springframework.security", artifactId="spring-security-oauth2-client"),
+
     // jackson date time
     JACKSON_DATETIME(groupId = "com.fasterxml.jackson.datatype", artifactId ="jackson-datatype-jsr310"),
 

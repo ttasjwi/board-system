@@ -3,36 +3,19 @@ package com.ttasjwi.board.system
 import com.nimbusds.jose.util.StandardCharset
 import com.ttasjwi.board.system.auth.domain.exception.AccessTokenExpiredException
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.auth.domain.service.fixture.AccessTokenManagerFixture
-import com.ttasjwi.board.system.core.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.Role
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
-@SpringBootTest
-@AutoConfigureMockMvc
 @DisplayName("MVC 통합 인증/인가 테스트")
-class MvcTestControllerTest {
-
-    @Autowired
-    private lateinit var mockMvc: MockMvc
-
-    @Autowired
-    private lateinit var accessTokenManagerFixture: AccessTokenManagerFixture
-
-    @Autowired
-    private lateinit var timeManagerFixture: TimeManagerFixture
+class MvcTestControllerTest : SecurityTest() {
 
     @Test
     @DisplayName("유효한 시간 내에 액세스토큰을 전달하면 필터를 통과한다.")

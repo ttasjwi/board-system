@@ -12,6 +12,8 @@ board-system-external/external-db/src/main/resources/db-config-production.yml
 board-system-external/external-redis/src/main/resources/redis-config-productionSecret.yml
 board-system-external/external-email-sender/src/main/resources/email-send-config-localSecret.yml
 board-system-external/external-email-sender/src/main/resources/email-send-config-productionSecret.yml
+board-system-external/external-security/src/main/resources/security-config-localSecret.yml
+board-system-external/external-security/src/main/resources/security-config-productionSecret.yml
 board-system-external/external-security/src/main/resources/rsa-keypair/private_key_productionSecret.pem
 board-system-external/external-security/src/main/resources/rsa-keypair/public_key_productionSecret.pem
 

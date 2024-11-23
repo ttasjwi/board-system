@@ -29,6 +29,8 @@ dependencies {
     implementation(project(":board-system-external:external-exception-handle"))
     implementation(project(":board-system-external:external-email-format-checker"))
     implementation(project(":board-system-external:external-email-sender"))
+
+    testImplementation(Dependencies.SPRING_SECURITY_OAUTH2_CLIENT.fullName)
 }
 
 tasks.getByName("bootJar") {

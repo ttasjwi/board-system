@@ -45,6 +45,16 @@ class FilterChainConfig(
                 authorize(anyRequest, authenticated)
             }
 
+            oauth2Login {
+
+                // oauth2 인가 엔드포인트 (승인 페이지로 리다이렉트 시키는 엔드포인트 설정)
+                authorizationEndpoint {
+                    baseUri = "/api/v1/auth/oauth2/authorization"
+                }
+
+                permitAll()
+            }
+
             csrf { disable() }
 
             sessionManagement {

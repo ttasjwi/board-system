@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.external
 
+import com.ttasjwi.board.system.SecurityTest
 import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatException
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
@@ -10,17 +11,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.oauth2.jwt.JwtException
 
-@SpringBootTest
 @DisplayName("ExternalRefreshTokenManagerImpl 테스트")
-class ExternalRefreshTokenManagerImplTest
-@Autowired constructor(
-    private val externalRefreshTokenManager: ExternalRefreshTokenManager,
-    private val externalAccessTokenManager: ExternalAccessTokenManager,
-) {
+class ExternalRefreshTokenManagerImplTest : SecurityTest() {
 
     private val memberId = memberIdFixture(1L)
     private val refreshTokenId = refreshTokenIdFixture("refreshTokenId")
@@ -65,7 +59,8 @@ class ExternalRefreshTokenManagerImplTest
             val tokenValue = "adadfadgaghadsaf"
 
             // when
-            val exception = assertThrows<InvalidRefreshTokenFormatException> { externalRefreshTokenManager.parse(tokenValue) }
+            val exception =
+                assertThrows<InvalidRefreshTokenFormatException> { externalRefreshTokenManager.parse(tokenValue) }
 
             // then
             assertThat(exception.cause).isInstanceOf(JwtException::class.java)
