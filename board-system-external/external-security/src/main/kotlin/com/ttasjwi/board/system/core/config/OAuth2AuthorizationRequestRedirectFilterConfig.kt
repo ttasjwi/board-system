@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest
 import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.web.servlet.HandlerExceptionResolver
 
@@ -17,6 +19,7 @@ class OAuth2AuthorizationRequestRedirectFilterConfig @Autowired constructor(
     private val clientRegistrationRepository: ClientRegistrationRepository,
     @Qualifier("handlerExceptionResolver")
     private val handlerExceptionResolver: HandlerExceptionResolver,
+    private val authorizationRequestRepository: AuthorizationRequestRepository<OAuth2AuthorizationRequest>
 ) {
 
     companion object {
@@ -28,6 +31,7 @@ class OAuth2AuthorizationRequestRedirectFilterConfig @Autowired constructor(
         val oauth2AuthorizationRequestRedirectFilter = OAuth2AuthorizationRequestRedirectFilter(
             customOAuth2AuthorizationRequestResolver()
         )
+        oauth2AuthorizationRequestRedirectFilter.setAuthorizationRequestRepository(authorizationRequestRepository)
         oauth2AuthorizationRequestRedirectFilter.setRequestCache(NullRequestCache())
         oauth2AuthorizationRequestRedirectFilter.setAuthenticationFailureHandler(
             CustomAuthenticationFailureHandler(

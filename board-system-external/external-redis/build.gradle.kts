@@ -1,5 +1,7 @@
 dependencies {
     implementation(Dependencies.SPRING_BOOT_DATA_REDIS.fullName)
+    implementation(Dependencies.SPRING_SECURITY_OAUTH2_CLIENT.fullName)
+    implementation(Dependencies.SPRING_BOOT_WEB.fullName)
     implementation(Dependencies.KOTLIN_JACKSON.fullName)
     implementation(Dependencies.JACKSON_DATETIME.fullName)
     implementation(project(":board-system-domain:domain-core"))

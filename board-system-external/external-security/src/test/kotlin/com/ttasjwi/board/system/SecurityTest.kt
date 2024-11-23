@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest
 import org.springframework.test.web.servlet.MockMvc
 
 @SpringBootTest
@@ -21,6 +23,9 @@ abstract class SecurityTest {
 
     @MockBean
     private lateinit var clientRegistrationRepository: ClientRegistrationRepository
+
+    @MockBean
+    private lateinit var authorizationRequestRepository: AuthorizationRequestRepository<OAuth2AuthorizationRequest>
 
     @Autowired
     protected lateinit var accessTokenManagerFixture: AccessTokenManagerFixture
