@@ -1,20 +1,21 @@
 package com.ttasjwi.board.system.core.config
 
-import com.ttasjwi.board.system.external.spring.security.authentication.AccessTokenAuthenticationFilter
-import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.core.time.TimeManager
+import com.ttasjwi.board.system.external.spring.security.authentication.AccessTokenAuthenticationFilter
 import com.ttasjwi.board.system.external.spring.security.exception.CustomAccessDeniedHandler
 import com.ttasjwi.board.system.external.spring.security.exception.CustomAuthenticationEntryPoint
+import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.web.filter.OncePerRequestFilter
@@ -26,6 +27,7 @@ class FilterChainConfig(
     private val timeManager: TimeManager,
     @Qualifier(value = "handlerExceptionResolver")
     private val handlerExceptionResolver: HandlerExceptionResolver,
+    private val oAuth2AuthorizationRequestRedirectFilter: OAuth2AuthorizationRequestRedirectFilter,
 ) {
 
     @Bean
@@ -45,15 +47,8 @@ class FilterChainConfig(
                 authorize(anyRequest, authenticated)
             }
 
-            oauth2Login {
-
-                // oauth2 인가 엔드포인트 (승인 페이지로 리다이렉트 시키는 엔드포인트 설정)
-                authorizationEndpoint {
-                    baseUri = "/api/v1/auth/oauth2/authorization"
-                }
-
-                permitAll()
-            }
+            // OAuth2 인가요청 리다이렉트 필터
+            addFilterBefore<OAuth2AuthorizationRequestRedirectFilter>(oAuth2AuthorizationRequestRedirectFilter)
 
             csrf { disable() }
 
@@ -69,7 +64,6 @@ class FilterChainConfig(
                 authenticationEntryPoint = CustomAuthenticationEntryPoint(handlerExceptionResolver)
                 accessDeniedHandler = CustomAccessDeniedHandler(handlerExceptionResolver)
             }
-
             addFilterBefore<UsernamePasswordAuthenticationFilter>(accessTokenAuthenticationFilter())
         }
         return http.build()

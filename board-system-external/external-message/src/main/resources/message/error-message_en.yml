@@ -75,3 +75,6 @@ Error:
   AccessDenied:
     message: "Access Denied"
     description: "You do not have permission to access this resource."
+  InvalidOAuth2ProviderId:
+    message: "Invalid social service provider ID"
+    description: "The provided social service provider ID is not supported by our service. (Provider ID: {0})"
