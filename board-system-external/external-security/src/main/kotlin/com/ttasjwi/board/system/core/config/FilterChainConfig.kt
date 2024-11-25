@@ -1,20 +1,21 @@
 package com.ttasjwi.board.system.core.config
 
-import com.ttasjwi.board.system.external.spring.security.authentication.AccessTokenAuthenticationFilter
-import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.core.time.TimeManager
+import com.ttasjwi.board.system.external.spring.security.authentication.AccessTokenAuthenticationFilter
 import com.ttasjwi.board.system.external.spring.security.exception.CustomAccessDeniedHandler
 import com.ttasjwi.board.system.external.spring.security.exception.CustomAuthenticationEntryPoint
+import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.annotation.Order
 import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
+import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.web.filter.OncePerRequestFilter
@@ -26,29 +27,28 @@ class FilterChainConfig(
     private val timeManager: TimeManager,
     @Qualifier(value = "handlerExceptionResolver")
     private val handlerExceptionResolver: HandlerExceptionResolver,
+    private val oAuth2AuthorizationRequestRedirectFilter: OAuth2AuthorizationRequestRedirectFilter,
 ) {
 
     @Bean
-    @Order(0)
-    fun apiSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http {
-            securityMatcher("/api/**")
             authorizeHttpRequests {
+                authorize(PathRequest.toStaticResources().atCommonLocations(), permitAll)
                 authorize(HttpMethod.GET, "/api/v1/deploy/health-check", permitAll)
-
                 authorize(HttpMethod.GET, "/api/v1/members/email-available", permitAll)
                 authorize(HttpMethod.GET, "/api/v1/members/username-available", permitAll)
                 authorize(HttpMethod.GET, "/api/v1/members/nickname-available", permitAll)
-
                 authorize(HttpMethod.POST, "/api/v1/members/email-verification/start", permitAll)
                 authorize(HttpMethod.POST, "/api/v1/members/email-verification", permitAll)
                 authorize(HttpMethod.POST, "/api/v1/members", permitAll)
-
                 authorize(HttpMethod.POST, "/api/v1/auth/login", permitAll)
                 authorize(HttpMethod.POST, "/api/v1/auth/token-refresh", permitAll)
-
                 authorize(anyRequest, authenticated)
             }
+
+            // OAuth2 인가요청 리다이렉트 필터
+            addFilterBefore<OAuth2AuthorizationRequestRedirectFilter>(oAuth2AuthorizationRequestRedirectFilter)
 
             csrf { disable() }
 
@@ -64,7 +64,6 @@ class FilterChainConfig(
                 authenticationEntryPoint = CustomAuthenticationEntryPoint(handlerExceptionResolver)
                 accessDeniedHandler = CustomAccessDeniedHandler(handlerExceptionResolver)
             }
-
             addFilterBefore<UsernamePasswordAuthenticationFilter>(accessTokenAuthenticationFilter())
         }
         return http.build()
@@ -76,16 +75,5 @@ class FilterChainConfig(
             accessTokenManager = accessTokenManager,
             timeManager = timeManager,
         )
-    }
-
-    @Bean
-    @Order(1)
-    fun staticResourceSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http {
-            authorizeHttpRequests {
-                authorize(anyRequest, permitAll)
-            }
-        }
-        return http.build()
     }
 }

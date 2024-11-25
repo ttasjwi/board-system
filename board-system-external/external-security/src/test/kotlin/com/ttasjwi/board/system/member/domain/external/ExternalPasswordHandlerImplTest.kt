@@ -1,20 +1,14 @@
 package com.ttasjwi.board.system.member.domain.external
 
+import com.ttasjwi.board.system.SecurityTest
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.context.annotation.Profile
 
-@SpringBootTest
-@Profile("test")
 @DisplayName("ExternalPasswordHandlerImpl 테스트")
-class ExternalPasswordHandlerImplTest @Autowired constructor(
-    private val externalPasswordHandler: ExternalPasswordHandler
-) {
+class ExternalPasswordHandlerImplTest : SecurityTest() {
 
     @Nested
     @DisplayName("encode: 패스워드를 인코딩한다")

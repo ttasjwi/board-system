@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.external
 
+import com.ttasjwi.board.system.SecurityTest
 import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatException
 import com.ttasjwi.board.system.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
@@ -11,17 +12,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.oauth2.jwt.JwtException
 
-@SpringBootTest
 @DisplayName("ExternalAccessTokenManagerImpl 테스트")
-class ExternalAccessTokenManagerImplTest
-@Autowired constructor(
-    private val externalAccessTokenManager: ExternalAccessTokenManager,
-    private val externalRefreshTokenManager: ExternalRefreshTokenManager,
-) {
+class ExternalAccessTokenManagerImplTest : SecurityTest() {
 
     private val authMember = authMemberFixture(
         memberId = 1L,
@@ -86,7 +80,8 @@ class ExternalAccessTokenManagerImplTest
         fun test2() {
             val tokenValue = "Adfadfadfadf"
 
-            val exception = assertThrows<InvalidAccessTokenFormatException> { externalAccessTokenManager.parse(tokenValue) }
+            val exception =
+                assertThrows<InvalidAccessTokenFormatException> { externalAccessTokenManager.parse(tokenValue) }
             assertThat(exception.cause).isInstanceOf(JwtException::class.java)
         }
 
