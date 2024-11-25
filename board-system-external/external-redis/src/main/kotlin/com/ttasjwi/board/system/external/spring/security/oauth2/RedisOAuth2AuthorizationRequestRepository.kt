@@ -29,11 +29,15 @@ class RedisOAuth2AuthorizationRequestRepository(
         request: HttpServletRequest,
         response: HttpServletResponse
     ): OAuth2AuthorizationRequest? {
-        val state = getStateParameter(request) ?: return null
 
+        val state = getStateParameter(request) ?: return null
         val key = makeKey(state)
-        redisTemplate.delete(key)
-        return null
+        val authorizationRequest = redisTemplate.opsForValue().get(key)
+
+        if (authorizationRequest != null) {
+            redisTemplate.delete(key)
+        }
+        return authorizationRequest
     }
 
     override fun saveAuthorizationRequest(
