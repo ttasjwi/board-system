@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.external.spring.security.oauth2
 
+import com.ttasjwi.board.system.external.spring.security.oauth2.redis.RedisOAuth2AuthorizationRequest
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.data.redis.core.RedisTemplate
@@ -11,7 +12,7 @@ import java.time.Duration
 
 @Component
 class RedisOAuth2AuthorizationRequestRepository(
-    private val redisTemplate: RedisTemplate<String, OAuth2AuthorizationRequest>
+    private val redisTemplate: RedisTemplate<String, RedisOAuth2AuthorizationRequest>
 ) : AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
     companion object {
@@ -22,22 +23,18 @@ class RedisOAuth2AuthorizationRequestRepository(
     override fun loadAuthorizationRequest(request: HttpServletRequest): OAuth2AuthorizationRequest? {
         val state = getStateParameter(request) ?: return null
         val key = makeKey(state)
-        return redisTemplate.opsForValue().get(key)
+        return redisTemplate.opsForValue().get(key)?.toOAuth2AuthorizationRequest()
     }
 
     override fun removeAuthorizationRequest(
         request: HttpServletRequest,
         response: HttpServletResponse
     ): OAuth2AuthorizationRequest? {
+        val oAuth2AuthorizationRequest = loadAuthorizationRequest(request) ?: return null
 
-        val state = getStateParameter(request) ?: return null
-        val key = makeKey(state)
-        val authorizationRequest = redisTemplate.opsForValue().get(key)
-
-        if (authorizationRequest != null) {
-            redisTemplate.delete(key)
-        }
-        return authorizationRequest
+        val key = makeKey(oAuth2AuthorizationRequest.state)
+        redisTemplate.delete(key)
+        return oAuth2AuthorizationRequest
     }
 
     override fun saveAuthorizationRequest(
@@ -50,7 +47,9 @@ class RedisOAuth2AuthorizationRequestRepository(
             return
         }
         val key = makeKey(authorizationRequest.state)
-        redisTemplate.opsForValue().set(key, authorizationRequest)
+        val redisAuthorizationRequest = RedisOAuth2AuthorizationRequest.from(authorizationRequest)
+
+        redisTemplate.opsForValue().set(key, redisAuthorizationRequest)
         redisTemplate.expire(key, Duration.ofMinutes(VALIDITY_MINUTE))
     }
 

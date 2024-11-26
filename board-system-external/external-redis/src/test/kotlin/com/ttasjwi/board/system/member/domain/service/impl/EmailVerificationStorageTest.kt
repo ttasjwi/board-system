@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
+import com.ttasjwi.board.system.RedisTest
 import com.ttasjwi.board.system.core.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
@@ -7,15 +8,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import java.time.ZonedDateTime
 
-@SpringBootTest
 @DisplayName("EmailVerificationStorage(Appender, Finder) 테스트")
-class EmailVerificationStorageTest @Autowired constructor(
-    private val emailVerificationStorage: EmailVerificationStorage
-) {
+class EmailVerificationStorageTest : RedisTest() {
 
     companion object {
         private val TEST_EMAIL = emailFixture("test12345678@test.com")
