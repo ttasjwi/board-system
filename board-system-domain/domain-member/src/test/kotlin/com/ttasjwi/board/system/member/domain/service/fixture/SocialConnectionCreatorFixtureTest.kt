@@ -18,14 +18,13 @@ class SocialConnectionCreatorFixtureTest {
         socialConnectionCreatorFixture = SocialConnectionCreatorFixture()
     }
 
-
     @Test
     @DisplayName("create: 소셜 연동을 생성한다.")
     fun test() {
         // given
         val memberId = memberIdFixture()
         val providerUser = socialServiceUserFixture()
-        val currentTime = timeFixture()
+        val currentTime = timeFixture(minute = 7)
 
         // when
         val socialConnection = socialConnectionCreatorFixture.create(

@@ -17,7 +17,8 @@ class SocialConnectionCreatorFixture : SocialConnectionCreator {
         return socialConnectionFixtureNotSaved(
             memberId = memberId.value,
             socialService = socialServiceUser.service,
-            socialServiceUserId = socialServiceUser.userId
+            socialServiceUserId = socialServiceUser.userId,
+            linkedAt = currentTime,
         )
     }
 }
