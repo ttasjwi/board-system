@@ -5,31 +5,35 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 
 internal abstract class CustomOAuth2User
 protected constructor(
-    private val _providerName: String,
-    private val _authorities: MutableCollection<out GrantedAuthority>,
-    private val _attributes: MutableMap<String, Any>,
-) : OAuth2User, ProviderUser {
+    socialServiceName: String,
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
+) : OAuth2User, SocialServiceUserPrincipal {
 
-    override fun providerName(): String {
-        return _providerName
+    private val _socialServiceName: String = socialServiceName
+    private val _authorities = authorities
+    private val _attributes = attributes
+
+    override fun socialServiceName(): String {
+        return _socialServiceName
     }
 
     companion object {
 
-        private val oauth2UserFactory: Map<String, (OAuth2User, String) -> CustomOAuth2User> = mapOf(
+        private val oauth2UserFactory: Map<String, (MutableCollection<out GrantedAuthority>, MutableMap<String, Any>) -> CustomOAuth2User> = mapOf(
             "google" to ::GoogleOAuth2User,
             "kakao" to ::KakaoOAuth2User,
             "naver" to ::NaverOAuth2User
         )
 
-        fun of(oauth2User: OAuth2User, providerName: String): CustomOAuth2User {
-            return oauth2UserFactory[providerName]?.invoke(oauth2User, providerName)
-                ?: throw IllegalStateException("지원되지 않는 oauth2 provider: $providerName")
+        fun from(socialServiceName: String, oauth2User: OAuth2User): CustomOAuth2User {
+            return oauth2UserFactory[socialServiceName]?.invoke(oauth2User.authorities, oauth2User.attributes)
+                ?: throw IllegalStateException("지원되지 않는 oauth2 서비스 제공자: $socialServiceName")
         }
     }
 
     override fun getName(): String {
-        return userId()
+        return socialServiceUserId()
     }
 
     override fun getAttributes(): MutableMap<String, Any> {
@@ -42,15 +46,15 @@ protected constructor(
 }
 
 internal class GoogleOAuth2User(
-    oauth2User: OAuth2User,
-    providerName: String,
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
 ) : CustomOAuth2User(
-    _providerName = providerName,
-    _authorities = oauth2User.authorities,
-    _attributes = oauth2User.attributes,
+    socialServiceName = "google",
+    authorities = authorities,
+    attributes = attributes,
 ) {
 
-    override fun userId(): String {
+    override fun socialServiceUserId(): String {
         return attributes["sub"] as String
     }
 
@@ -60,14 +64,15 @@ internal class GoogleOAuth2User(
 }
 
 internal class KakaoOAuth2User(
-    oauth2User: OAuth2User,
-    providerName: String,
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
 ) : CustomOAuth2User(
-    _providerName = providerName,
-    _authorities = oauth2User.authorities,
-    _attributes = oauth2User.attributes,
+    socialServiceName = "kakao",
+    authorities = authorities,
+    attributes = attributes,
 ) {
-    override fun userId(): String {
+
+    override fun socialServiceUserId(): String {
         return attributes["id"] as String
     }
 
@@ -77,15 +82,15 @@ internal class KakaoOAuth2User(
 }
 
 internal class NaverOAuth2User(
-    oauth2User: OAuth2User,
-    providerName: String,
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
 ) : CustomOAuth2User(
-    _providerName = providerName,
-    _authorities = oauth2User.authorities,
-    _attributes = oauth2User.attributes,
+    socialServiceName = "naver",
+    authorities = authorities,
+    attributes = attributes,
 ) {
 
-    override fun userId(): String {
+    override fun socialServiceUserId(): String {
         return (attributes["response"] as Map<*, *>)["id"] as String
     }
 

@@ -7,30 +7,36 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser
 
 internal abstract class CustomOidcUser
 protected constructor(
-    private val _providerName: String,
-    private val _authorities: MutableCollection<out GrantedAuthority>,
-    private val _attributes: MutableMap<String, Any>,
-) : OidcUser, ProviderUser {
+    socialServiceName: String,
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
+) : OidcUser, SocialServiceUserPrincipal {
 
-    override fun providerName(): String {
-        return _providerName
+    private val _socialServiceName = socialServiceName
+    private val _authorities = authorities
+    private val _attributes = attributes
+
+    override fun socialServiceName(): String {
+        return _socialServiceName
     }
 
     companion object {
 
-        private val oidcUserFactory: Map<String, (OidcUser, String) -> CustomOidcUser> = mapOf(
-            "google" to ::GoogleOidcUser,
-            "kakao" to ::KakaoOidcUser,
-        )
 
-        fun of(oidcUser: OidcUser, providerName: String): CustomOidcUser {
-            return oidcUserFactory[providerName]?.invoke(oidcUser, providerName)
-                ?: throw IllegalStateException("지원되지 않는 oidc provider: $providerName")
+        private val oidcUserFactory: Map<String, (MutableCollection<out GrantedAuthority>, MutableMap<String, Any>) -> CustomOidcUser> =
+            mapOf(
+                "google" to ::GoogleOidcUser,
+                "kakao" to ::KakaoOidcUser,
+            )
+
+        fun from(socialServiceName: String, oidcUser: OidcUser): CustomOidcUser {
+            return oidcUserFactory[socialServiceName]?.invoke(oidcUser.authorities, oidcUser.attributes)
+                ?: throw IllegalStateException("지원되지 않는 oidc 서비스 제공자: $socialServiceName")
         }
     }
 
     override fun getName(): String {
-        return userId()
+        return socialServiceUserId()
     }
 
     override fun getAttributes(): MutableMap<String, Any> {
@@ -54,16 +60,17 @@ protected constructor(
     }
 }
 
-internal class GoogleOidcUser(
-    oidcUser: OidcUser,
-    providerName: String,
+internal class GoogleOidcUser
+internal constructor(
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
 ) : CustomOidcUser(
-    _providerName = providerName,
-    _authorities = oidcUser.authorities,
-    _attributes = oidcUser.attributes,
+    socialServiceName = "google",
+    authorities = authorities,
+    attributes = attributes,
 ) {
 
-    override fun userId(): String {
+    override fun socialServiceUserId(): String {
         return attributes["sub"] as String
     }
 
@@ -72,15 +79,17 @@ internal class GoogleOidcUser(
     }
 }
 
-internal class KakaoOidcUser(
-    oidcUser: OidcUser,
-    providerName: String,
+internal class KakaoOidcUser
+internal constructor(
+    authorities: MutableCollection<out GrantedAuthority>,
+    attributes: MutableMap<String, Any>,
 ) : CustomOidcUser(
-    _providerName = providerName,
-    _authorities = oidcUser.authorities,
-    _attributes = oidcUser.attributes,
+    socialServiceName = "kakao",
+    authorities = authorities,
+    attributes = attributes,
 ) {
-    override fun userId(): String {
+
+    override fun socialServiceUserId(): String {
         return attributes["sub"] as String
     }
 

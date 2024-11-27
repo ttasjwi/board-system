@@ -12,9 +12,9 @@ class CustomOAuth2UserService(
         val clientRegistration = userRequest.clientRegistration
         val oauth2User = delegate.loadUser(userRequest)
 
-        return CustomOAuth2User.of(
-            oauth2User = oauth2User,
-            providerName = clientRegistration.registrationId
+        return CustomOAuth2User.from(
+            socialServiceName = clientRegistration.registrationId,
+            oauth2User = oauth2User
         )
     }
 }

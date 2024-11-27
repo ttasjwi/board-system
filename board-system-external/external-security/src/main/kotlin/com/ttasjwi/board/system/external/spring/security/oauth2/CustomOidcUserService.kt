@@ -12,9 +12,9 @@ class CustomOidcUserService(
         val clientRegistration = userRequest.clientRegistration
         val oidcUser = delegate.loadUser(userRequest)
 
-        return CustomOidcUser.of(
-            oidcUser = oidcUser,
-            providerName = clientRegistration.registrationId
+        return CustomOidcUser.from(
+            socialServiceName = clientRegistration.registrationId,
+            oidcUser = oidcUser
         )
     }
 }
