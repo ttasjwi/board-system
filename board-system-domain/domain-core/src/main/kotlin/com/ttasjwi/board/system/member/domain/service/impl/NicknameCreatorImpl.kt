@@ -12,4 +12,8 @@ internal class NicknameCreatorImpl : NicknameCreator {
             Nickname.create(value)
         }
     }
+
+    override fun createRandom(): Nickname {
+        return Nickname.createRandom()
+    }
 }

@@ -44,4 +44,39 @@ class NicknameCreatorFixtureTest {
             assertThat(exception.debugMessage).isEqualTo("닉네임 포맷 예외 - 픽스쳐")
         }
     }
+
+    @Nested
+    @DisplayName("createRandom : 호출하면 정해진 리스트 내의 닉네임을 순회하며 생성한다.")
+    inner class CreateRandom {
+
+        @Test
+        @DisplayName("최초 호출하면 0번째 인덱스 요소의 닉네임이 생성됨")
+        fun test1() {
+            val nickname = nicknameCreatorFixture.createRandom()
+
+            assertThat(nickname.value).isEqualTo(nicknameCreatorFixture.randomNames[0])
+            assertThat(nicknameCreatorFixture.randomNameCursor).isEqualTo(1)
+        }
+
+        @Test
+        @DisplayName("2번째 호출하면 1번째 인덱스 요소의 닉네임이 생성됨")
+        fun test2() {
+            nicknameCreatorFixture.createRandom()
+            val nickname = nicknameCreatorFixture.createRandom()
+
+            assertThat(nickname.value).isEqualTo(nicknameCreatorFixture.randomNames[1])
+            assertThat(nicknameCreatorFixture.randomNameCursor).isEqualTo(0)
+        }
+
+        @Test
+        @DisplayName("3번째 호출하면 0번째 인덱스 요소의 닉네임이 생성됨")
+        fun test3() {
+            nicknameCreatorFixture.createRandom()
+            nicknameCreatorFixture.createRandom()
+            val nickname = nicknameCreatorFixture.createRandom()
+
+            assertThat(nickname.value).isEqualTo(nicknameCreatorFixture.randomNames[0])
+            assertThat(nicknameCreatorFixture.randomNameCursor).isEqualTo(1)
+        }
+    }
 }

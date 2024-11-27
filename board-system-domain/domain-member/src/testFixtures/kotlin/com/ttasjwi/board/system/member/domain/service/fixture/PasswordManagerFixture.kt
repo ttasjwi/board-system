@@ -7,11 +7,13 @@ import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.model.fixture.encodedPasswordFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
+import java.util.*
 
 class PasswordManagerFixture : PasswordManager {
 
     companion object {
         const val ERROR_PASSWORD = "2#!"
+        const val RANDOM_PASSWORD_LENGTH = 16
     }
 
     override fun createRawPassword(value: String): Result<RawPassword> = kotlin.runCatching {
@@ -25,6 +27,13 @@ class PasswordManagerFixture : PasswordManager {
             )
         }
         rawPasswordFixture(value)
+    }
+
+    override fun createRandomRawPassword(): RawPassword {
+        return rawPasswordFixture(
+            UUID.randomUUID().toString().replace("-", "")
+                .substring(0, RANDOM_PASSWORD_LENGTH)
+        )
     }
 
     override fun encode(rawPassword: RawPassword): EncodedPassword {

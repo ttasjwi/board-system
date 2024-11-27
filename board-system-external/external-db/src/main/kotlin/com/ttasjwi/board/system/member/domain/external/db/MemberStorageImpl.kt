@@ -9,7 +9,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
-class MemberStorage(
+class MemberStorageImpl(
     private val jpaMemberRepository: JpaMemberRepository
 ) : MemberAppender, MemberFinder {
 

@@ -12,4 +12,8 @@ internal class UsernameCreatorImpl : UsernameCreator {
             Username.create(value)
         }
     }
+
+    override fun createRandom(): Username {
+        return Username.createRandom()
+    }
 }

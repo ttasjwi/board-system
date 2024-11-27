@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.external
 
+import com.ttasjwi.board.system.RedisTest
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
@@ -8,15 +9,11 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import java.time.ZonedDateTime
 
-@SpringBootTest
 @DisplayName("ExternalRefreshTokenHolderStorageImpl 테스트")
-class ExternalRefreshTokenHolderStorageImplTest @Autowired constructor(
-    private val externalRefreshTokenHolderStorage: ExternalRefreshTokenHolderStorageImpl
-) {
+class ExternalRefreshTokenHolderStorageImplTest : RedisTest() {
+
     companion object {
         private val memberId = memberIdFixture(1557L)
     }

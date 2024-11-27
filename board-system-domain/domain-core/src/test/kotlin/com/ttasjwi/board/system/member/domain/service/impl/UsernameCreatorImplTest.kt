@@ -9,7 +9,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 @DisplayName("UsernameCreatorImpl: 사용자아이디(username) 인스턴스 생성을 책임지는 도메인 서비스")
-class UsernameCreatorTest {
+class UsernameCreatorImplTest {
 
     private lateinit var usernameCreator: UsernameCreator
 
@@ -111,6 +111,20 @@ class UsernameCreatorTest {
             val result = usernameCreator.create(value)
             val exception = assertThrows<InvalidUsernameFormatException> { result.getOrThrow() }
             assertThat(exception.args[2]).isEqualTo(value)
+        }
+    }
+
+
+    @Nested
+    @DisplayName("createRandom : 호출하면 랜덤한 Username 이 생성된다.")
+    inner class CreateRandom {
+
+        @Test
+        @DisplayName("랜덤 Username 이 생성되고 길이는 ${Username.RANDOM_USERNAME_LENGTH} 이다.")
+        fun test() {
+            val username = usernameCreator.createRandom()
+
+            assertThat(username.value.length).isEqualTo(Username.RANDOM_USERNAME_LENGTH)
         }
     }
 }

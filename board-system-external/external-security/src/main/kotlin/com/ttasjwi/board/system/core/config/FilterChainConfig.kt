@@ -1,10 +1,18 @@
 package com.ttasjwi.board.system.core.config
 
+import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
+import com.ttasjwi.board.system.core.locale.LocaleManager
+import com.ttasjwi.board.system.core.message.MessageResolver
 import com.ttasjwi.board.system.core.time.TimeManager
 import com.ttasjwi.board.system.external.spring.security.authentication.AccessTokenAuthenticationFilter
+import com.ttasjwi.board.system.external.spring.security.authentication.CustomOAuth2LoginAuthenticationSuccessHandler
 import com.ttasjwi.board.system.external.spring.security.exception.CustomAccessDeniedHandler
 import com.ttasjwi.board.system.external.spring.security.exception.CustomAuthenticationEntryPoint
+import com.ttasjwi.board.system.external.spring.security.exception.CustomAuthenticationFailureHandler
+import com.ttasjwi.board.system.external.spring.security.oauth2.CustomOAuth2AuthorizationRequestResolver
+import com.ttasjwi.board.system.external.spring.security.oauth2.CustomOAuth2UserService
+import com.ttasjwi.board.system.external.spring.security.oauth2.CustomOidcUserService
 import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
@@ -14,8 +22,19 @@ import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
+import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest
+import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.AuthenticationFailureHandler
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.savedrequest.NullRequestCache
 import org.springframework.web.filter.OncePerRequestFilter
@@ -24,11 +43,19 @@ import org.springframework.web.servlet.HandlerExceptionResolver
 @Configuration
 class FilterChainConfig(
     private val accessTokenManager: AccessTokenManager,
+    private val localeManager: LocaleManager,
+    private val messageResolver: MessageResolver,
     private val timeManager: TimeManager,
+    private val socialLoginUseCase: SocialLoginUseCase,
     @Qualifier(value = "handlerExceptionResolver")
     private val handlerExceptionResolver: HandlerExceptionResolver,
-    private val oAuth2AuthorizationRequestRedirectFilter: OAuth2AuthorizationRequestRedirectFilter,
+    private val clientRegistrationRepository: ClientRegistrationRepository,
+    private val oauth2AuthorizationRequestRepository: AuthorizationRequestRepository<OAuth2AuthorizationRequest>
 ) {
+
+    companion object {
+        private const val OAUTH2_AUTHORIZATION_REQUEST_BASE_URI = "/api/v1/auth/oauth2/authorization"
+    }
 
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -47,8 +74,22 @@ class FilterChainConfig(
                 authorize(anyRequest, authenticated)
             }
 
+            oauth2Login {
+                loginProcessingUrl = "/api/v1/auth/login/oauth2/code/*"
+                authorizationEndpoint {
+                    baseUri = OAUTH2_AUTHORIZATION_REQUEST_BASE_URI
+                    authorizationRequestRepository = oauth2AuthorizationRequestRepository
+                }
+                userInfoEndpoint {
+                    userService = customOAuth2UserService()
+                    oidcUserService = customOidcUserService()
+                }
+                authenticationSuccessHandler = customAuthenticationSuccessHandler()
+                authenticationFailureHandler = customAuthenticationFailureHandler()
+            }
+
             // OAuth2 인가요청 리다이렉트 필터
-            addFilterBefore<OAuth2AuthorizationRequestRedirectFilter>(oAuth2AuthorizationRequestRedirectFilter)
+            addFilterBefore<OAuth2AuthorizationRequestRedirectFilter>(customOauth2AuthorizationRequestRedirectFilter())
 
             csrf { disable() }
 
@@ -75,5 +116,44 @@ class FilterChainConfig(
             accessTokenManager = accessTokenManager,
             timeManager = timeManager,
         )
+    }
+
+    @Bean
+    fun customOauth2AuthorizationRequestRedirectFilter(): OAuth2AuthorizationRequestRedirectFilter {
+        val oauth2AuthorizationRequestRedirectFilter = OAuth2AuthorizationRequestRedirectFilter(
+            customOAuth2AuthorizationRequestResolver()
+        )
+        oauth2AuthorizationRequestRedirectFilter.setAuthorizationRequestRepository(oauth2AuthorizationRequestRepository)
+        oauth2AuthorizationRequestRedirectFilter.setRequestCache(NullRequestCache())
+        oauth2AuthorizationRequestRedirectFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler())
+        return oauth2AuthorizationRequestRedirectFilter
+    }
+
+    private fun customOAuth2AuthorizationRequestResolver(): OAuth2AuthorizationRequestResolver {
+        return CustomOAuth2AuthorizationRequestResolver.of(
+            clientRegistrationRepository = clientRegistrationRepository,
+            authorizationRequestBaseUri = OAUTH2_AUTHORIZATION_REQUEST_BASE_URI
+        )
+    }
+
+    @Bean
+    fun customAuthenticationFailureHandler(): AuthenticationFailureHandler {
+        return CustomAuthenticationFailureHandler(handlerExceptionResolver)
+    }
+
+    private fun customAuthenticationSuccessHandler(): AuthenticationSuccessHandler {
+        return CustomOAuth2LoginAuthenticationSuccessHandler(
+            useCase = socialLoginUseCase,
+            messageResolver = messageResolver,
+            localeManager = localeManager
+        )
+    }
+
+    private fun customOAuth2UserService(): OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+        return CustomOAuth2UserService(DefaultOAuth2UserService())
+    }
+
+    private fun customOidcUserService(): OidcUserService {
+        return CustomOidcUserService(OidcUserService())
     }
 }

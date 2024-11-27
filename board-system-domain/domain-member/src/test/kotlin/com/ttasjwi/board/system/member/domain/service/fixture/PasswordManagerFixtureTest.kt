@@ -46,6 +46,18 @@ class PasswordManagerFixtureTest {
     }
 
     @Nested
+    @DisplayName("createRandomRawPassword: 랜덤 패스워드를 생성한다.")
+    inner class CreateRandomRawPassword {
+
+        @Test
+        @DisplayName("랜덤한 패스워드가 생성되는 지 확인")
+        fun test() {
+            val password = passwordManager.createRandomRawPassword()
+            assertThat(password.value.length).isEqualTo(PasswordManagerFixture.RANDOM_PASSWORD_LENGTH)
+        }
+    }
+
+    @Nested
     @DisplayName("encode: 패스워드를 인코딩한다")
     inner class Encode {
 

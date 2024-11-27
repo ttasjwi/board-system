@@ -15,6 +15,10 @@ internal class PasswordManagerImpl(
         return kotlin.runCatching { RawPassword.create(value) }
     }
 
+    override fun createRandomRawPassword(): RawPassword {
+        return RawPassword.randomCreate()
+    }
+
     override fun encode(rawPassword: RawPassword): EncodedPassword {
         return externalPasswordHandler.encode(rawPassword)
     }

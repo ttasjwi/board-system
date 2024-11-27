@@ -12,6 +12,9 @@ class UsernameCreatorFixture : UsernameCreator {
         const val ERROR_USERNAME = "strange!ad;fklad!username"
     }
 
+    val randomNames = listOf("random1", "random2")
+    internal var randomNameCursor = 0
+
     override fun create(value: String): Result<Username> = kotlin.runCatching {
         if (value == ERROR_USERNAME) {
             throw customExceptionFixture(
@@ -23,5 +26,17 @@ class UsernameCreatorFixture : UsernameCreator {
             )
         }
         usernameFixture(value)
+    }
+
+    override fun createRandom(): Username {
+        val randomName = randomNames[randomNameCursor]
+
+        randomNameCursor++
+
+        if (randomNameCursor == randomNames.size) {
+            randomNameCursor = 0
+        }
+
+        return usernameFixture(randomName)
     }
 }
