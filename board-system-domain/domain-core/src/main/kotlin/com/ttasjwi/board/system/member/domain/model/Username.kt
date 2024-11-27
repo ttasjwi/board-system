@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.member.domain.exception.InvalidUsernameFormatException
+import java.util.*
 
 /**
  * 사용자 관점 아이디
@@ -19,6 +20,7 @@ internal constructor(
         private val pattern = Regex("^[a-z0-9_]+\$")
         internal const val MIN_LENGTH = 4
         internal const val MAX_LENGTH = 15
+        internal const val RANDOM_USERNAME_LENGTH = MAX_LENGTH
 
         /**
          * Username 복원
@@ -34,6 +36,13 @@ internal constructor(
             if (value.length < MIN_LENGTH || value.length > MAX_LENGTH || !value.matches(pattern)) {
                 throw InvalidUsernameFormatException(value)
             }
+            return Username(value)
+        }
+
+        internal fun createRandom(): Username {
+            val value = UUID.randomUUID().toString()
+                .replace("-", "")
+                .substring(0, RANDOM_USERNAME_LENGTH)
             return Username(value)
         }
     }

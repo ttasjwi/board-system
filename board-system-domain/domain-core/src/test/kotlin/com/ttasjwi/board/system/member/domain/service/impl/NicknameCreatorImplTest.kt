@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.member.domain.exception.InvalidNicknameFormatException
 import com.ttasjwi.board.system.member.domain.model.Nickname
+import com.ttasjwi.board.system.member.domain.model.Username
 import com.ttasjwi.board.system.member.domain.service.NicknameCreator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
@@ -98,5 +99,17 @@ class NicknameCreatorImplTest {
             assertThat(exception.args[2]).isEqualTo(value)
         }
 
+    }
+
+    @Nested
+    @DisplayName("createRandom : 호출하면 랜덤한 닉네임이 생성된다.")
+    inner class CreateRandom {
+
+        @Test
+        @DisplayName("랜덤 닉네임이 생성되고 길이는 ${Nickname.RANDOM_NICKNAME_LENGTH} 이다.")
+        fun test() {
+            val nickname = nicknameCreator.createRandom()
+            assertThat(nickname.value.length).isEqualTo(Nickname.RANDOM_NICKNAME_LENGTH)
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.member.domain.exception.InvalidNicknameFormatException
+import java.util.*
 
 class Nickname
 internal constructor(
@@ -16,6 +17,7 @@ internal constructor(
 
         internal const val MIN_LENGTH = 1
         internal const val MAX_LENGTH = 15
+        internal const val RANDOM_NICKNAME_LENGTH = MAX_LENGTH
 
         fun restore(value: String): Nickname {
             return Nickname(value)
@@ -25,6 +27,12 @@ internal constructor(
             if (value.length < MIN_LENGTH || value.length > MAX_LENGTH || !value.matches(pattern)) {
                 throw InvalidNicknameFormatException(value)
             }
+            return Nickname(value)
+        }
+
+        internal fun createRandom(): Nickname {
+            val value = UUID.randomUUID().toString().replace("-", "")
+                .substring(0, RANDOM_NICKNAME_LENGTH)
             return Nickname(value)
         }
     }
