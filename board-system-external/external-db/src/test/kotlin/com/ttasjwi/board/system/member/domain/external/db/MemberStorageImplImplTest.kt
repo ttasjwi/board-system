@@ -1,24 +1,15 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
+import com.ttasjwi.board.system.DbTest
 import com.ttasjwi.board.system.member.domain.model.fixture.*
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.transaction.annotation.Transactional
 
 
-@SpringBootTest
-@ActiveProfiles(value = ["test"])
-@Transactional
-@DisplayName("MemberStorage 테스트")
-class MemberStorageTest @Autowired constructor(
-    private var memberStorage: MemberStorage
-) {
+@DisplayName("MemberStorageImpl 테스트")
+class MemberStorageImplImplTest : DbTest() {
 
     @Nested
     @DisplayName("save: 회원을 저장하고, id 를 발급받아 반환시킨다.")
@@ -31,7 +22,7 @@ class MemberStorageTest @Autowired constructor(
             val member = memberFixtureNotRegistered()
 
             // when
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
 
             // then
             assertThat(savedMember.id).isNotNull
@@ -47,21 +38,22 @@ class MemberStorageTest @Autowired constructor(
         @Test
         fun test2() {
             // given
-            val savedMember = memberStorage.save(
+            val savedMember = memberStorageImpl.save(
                 memberFixtureNotRegistered(
                     password = "1111",
                 )
             )
 
-            val changedMember = memberStorage.save(
+            val changedMember = memberStorageImpl.save(
                 memberFixtureRegistered(
                     id = savedMember.id!!.value,
                     password = "2222",
                 )
             )
+            flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorage.findByIdOrNull(savedMember.id!!)!!
+            val findMember = memberStorageImpl.findByIdOrNull(savedMember.id!!)!!
 
             // then
             assertThat(findMember.id).isEqualTo(savedMember.id)
@@ -80,11 +72,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(memberFixtureNotRegistered())
+            val savedMember = memberStorageImpl.save(memberFixtureNotRegistered())
+            flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorage.findByIdOrNull(savedMember.id!!)!!
-
+            val findMember = memberStorageImpl.findByIdOrNull(savedMember.id!!)!!
 
             // then
             assertThat(findMember).isNotNull
@@ -103,7 +95,7 @@ class MemberStorageTest @Autowired constructor(
             val memberId = memberIdFixture(1557L)
 
             // when
-            val findMember = memberStorage.findByIdOrNull(memberId)
+            val findMember = memberStorageImpl.findByIdOrNull(memberId)
 
             // then
             assertThat(findMember).isNull()
@@ -120,10 +112,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered(email = "test1557@gmail.com")
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorage.findByEmailOrNull(savedMember.email)!!
+            val findMember = memberStorageImpl.findByEmailOrNull(savedMember.email)!!
 
             // then
             assertThat(findMember).isNotNull
@@ -142,7 +135,7 @@ class MemberStorageTest @Autowired constructor(
             val email = emailFixture("ttascat@gmail.com")
 
             // when
-            val findMember = memberStorage.findByEmailOrNull(email)
+            val findMember = memberStorageImpl.findByEmailOrNull(email)
 
             // then
             assertThat(findMember).isNull()
@@ -158,10 +151,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorage.findByNicknameOrNull(savedMember.nickname)!!
+            val findMember = memberStorageImpl.findByNicknameOrNull(savedMember.nickname)!!
 
             // then
             assertThat(findMember).isNotNull
@@ -180,7 +174,7 @@ class MemberStorageTest @Autowired constructor(
             val nickname = nicknameFixture("마늘오리")
 
             // when
-            val findMember = memberStorage.findByNicknameOrNull(nickname)
+            val findMember = memberStorageImpl.findByNicknameOrNull(nickname)
 
             // then
             assertThat(findMember).isNull()
@@ -197,10 +191,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorage.findByUsernameOrNull(savedMember.username)!!
+            val findMember = memberStorageImpl.findByUsernameOrNull(savedMember.username)!!
 
             // then
             assertThat(findMember).isNotNull
@@ -219,7 +214,7 @@ class MemberStorageTest @Autowired constructor(
             val username = usernameFixture("abcd1234")
 
             // when
-            val findMember = memberStorage.findByUsernameOrNull(username)
+            val findMember = memberStorageImpl.findByUsernameOrNull(username)
 
             // then
             assertThat(findMember).isNull()
@@ -235,10 +230,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val isExist = memberStorage.existsById(savedMember.id!!)
+            val isExist = memberStorageImpl.existsById(savedMember.id!!)
 
             // then
             assertThat(isExist).isTrue()
@@ -249,8 +245,9 @@ class MemberStorageTest @Autowired constructor(
         fun test2() {
             // given
             val memberId = memberIdFixture(1557L)
+
             // when
-            val isExist = memberStorage.existsById(memberId)
+            val isExist = memberStorageImpl.existsById(memberId)
 
             // then
             assertThat(isExist).isFalse()
@@ -266,10 +263,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val isExist = memberStorage.existsByEmail(savedMember.email)
+            val isExist = memberStorageImpl.existsByEmail(savedMember.email)
 
             // then
             assertThat(isExist).isTrue()
@@ -282,7 +280,7 @@ class MemberStorageTest @Autowired constructor(
             val email = emailFixture("abcd@gmail.com")
 
             // when
-            val isExist = memberStorage.existsByEmail(email)
+            val isExist = memberStorageImpl.existsByEmail(email)
 
             // then
             assertThat(isExist).isFalse()
@@ -298,10 +296,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val isExist = memberStorage.existsByNickname(savedMember.nickname)
+            val isExist = memberStorageImpl.existsByNickname(savedMember.nickname)
 
             // then
             assertThat(isExist).isTrue()
@@ -312,8 +311,9 @@ class MemberStorageTest @Autowired constructor(
         fun test2() {
             // given
             val nickname = nicknameFixture("페이커")
+
             // when
-            val isExist = memberStorage.existsByNickname(nickname)
+            val isExist = memberStorageImpl.existsByNickname(nickname)
 
             // then
             assertThat(isExist).isFalse()
@@ -329,10 +329,11 @@ class MemberStorageTest @Autowired constructor(
         fun test1() {
             // given
             val member = memberFixtureNotRegistered()
-            val savedMember = memberStorage.save(member)
+            val savedMember = memberStorageImpl.save(member)
+            flushAndClearEntityManager()
 
             // when
-            val isExist = memberStorage.existsByUsername(savedMember.username)
+            val isExist = memberStorageImpl.existsByUsername(savedMember.username)
 
             // then
             assertThat(isExist).isTrue()
@@ -344,7 +345,7 @@ class MemberStorageTest @Autowired constructor(
             // given
             val username = usernameFixture("abcd124")
             // when
-            val isExist = memberStorage.existsByUsername(username)
+            val isExist = memberStorageImpl.existsByUsername(username)
 
             // then
             assertThat(isExist).isFalse()

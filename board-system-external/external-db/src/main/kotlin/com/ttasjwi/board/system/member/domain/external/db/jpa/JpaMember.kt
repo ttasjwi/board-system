@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.member.domain.external.db.jpa
 
+import com.ttasjwi.board.system.core.time.TimeRule
 import com.ttasjwi.board.system.member.domain.model.Member
 import jakarta.persistence.*
 import java.time.ZonedDateTime
@@ -34,7 +35,7 @@ class JpaMember (
 
     companion object {
 
-        fun from(member: Member): JpaMember {
+        internal fun from(member: Member): JpaMember {
             return JpaMember(
                 id = member.id?.value,
                 email = member.email.value,
@@ -47,7 +48,7 @@ class JpaMember (
         }
     }
 
-    fun restoreDomain(): Member {
+    internal fun restoreDomain(): Member {
         return Member.restore(
             id = this.id!!,
             email = this.email,
@@ -55,7 +56,7 @@ class JpaMember (
             username = this.username,
             nickname = this.nickname,
             roleName = this.role,
-            registeredAt = this.registeredAt
+            registeredAt = this.registeredAt.withZoneSameInstant(TimeRule.ZONE_ID)
         )
     }
 }
