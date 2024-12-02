@@ -74,3 +74,8 @@ TokenRefresh:
   Complete:
     message: "토큰 재갱신 성공"
     description: "토큰 재갱신에 성공했습니다."
+
+SocialLogin:
+  Complete:
+    message: "소셜로그인 성공"
+    description: "소셜로그인에 성공했습니다."
