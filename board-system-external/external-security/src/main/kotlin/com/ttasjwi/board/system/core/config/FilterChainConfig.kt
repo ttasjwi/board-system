@@ -13,6 +13,7 @@ import com.ttasjwi.board.system.external.spring.security.exception.CustomAuthent
 import com.ttasjwi.board.system.external.spring.security.oauth2.CustomOAuth2AuthorizationRequestResolver
 import com.ttasjwi.board.system.external.spring.security.oauth2.CustomOAuth2UserService
 import com.ttasjwi.board.system.external.spring.security.oauth2.CustomOidcUserService
+import com.ttasjwi.board.system.external.spring.security.oauth2.NullOAuth2AuthorizedClientRepository
 import com.ttasjwi.board.system.external.spring.security.support.BearerTokenResolver
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest
@@ -30,6 +31,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.web.SecurityFilterChain
@@ -84,7 +86,8 @@ class FilterChainConfig(
                     userService = customOAuth2UserService()
                     oidcUserService = customOidcUserService()
                 }
-                authenticationSuccessHandler = customAuthenticationSuccessHandler()
+                authorizedClientRepository = customOAuth2AuthorizedClientRepository()
+                authenticationSuccessHandler = customOAuth2LoginAuthenticationSuccessHandler()
                 authenticationFailureHandler = customAuthenticationFailureHandler()
             }
 
@@ -141,7 +144,7 @@ class FilterChainConfig(
         return CustomAuthenticationFailureHandler(handlerExceptionResolver)
     }
 
-    private fun customAuthenticationSuccessHandler(): AuthenticationSuccessHandler {
+    private fun customOAuth2LoginAuthenticationSuccessHandler(): AuthenticationSuccessHandler {
         return CustomOAuth2LoginAuthenticationSuccessHandler(
             useCase = socialLoginUseCase,
             messageResolver = messageResolver,
@@ -155,5 +158,9 @@ class FilterChainConfig(
 
     private fun customOidcUserService(): OidcUserService {
         return CustomOidcUserService(OidcUserService())
+    }
+
+    private fun customOAuth2AuthorizedClientRepository(): OAuth2AuthorizedClientRepository {
+        return NullOAuth2AuthorizedClientRepository()
     }
 }
