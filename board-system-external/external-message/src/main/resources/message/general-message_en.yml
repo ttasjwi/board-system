@@ -74,3 +74,8 @@ TokenRefresh:
   Complete:
     message: "Token refresh successful"
     description: "The token was successfully refreshed."
+
+SocialLogin:
+  Complete:
+    message: "Social login successful"
+    description: "You have successfully logged in using social login."
