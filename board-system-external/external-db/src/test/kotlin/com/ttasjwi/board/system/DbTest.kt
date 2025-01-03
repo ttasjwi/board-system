@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system
 
+import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
 import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
 import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
 import jakarta.persistence.EntityManager
@@ -16,6 +17,9 @@ abstract class DbTest {
 
     @Autowired
     protected lateinit var socialConnectionStorage: SocialConnectionStorage
+
+    @Autowired
+    protected lateinit var boardStorageImpl: BoardStorageImpl
 
     @Autowired
     private lateinit var em: EntityManager
