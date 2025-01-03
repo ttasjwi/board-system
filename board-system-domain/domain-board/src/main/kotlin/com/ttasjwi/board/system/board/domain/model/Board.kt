@@ -34,6 +34,22 @@ internal constructor(
 
     companion object {
 
+        internal fun create(
+            name: BoardName,
+            description: BoardDescription,
+            managerId: MemberId,
+            slug: BoardSlug,
+            currentTime: ZonedDateTime
+        ): Board {
+            return Board(
+                name = name,
+                description = description,
+                managerId = managerId,
+                slug = slug,
+                createdAt = currentTime,
+            )
+        }
+
         fun restore(
             id: Long,
             name: String,
