@@ -78,3 +78,19 @@ Error:
   InvalidOAuth2ProviderId:
     message: "Invalid social service provider ID"
     description: "The provided social service provider ID is not supported by our service. (Provider ID: {0})"
+
+  InvalidBoardNameFormat:
+    message: "Invalid board name format"
+    description: "The format of the board name is invalid. It must be between {0} and {1} characters long, without leading or trailing spaces, and can only include English letters, numbers, complete Korean characters, spaces, and /."
+  InvalidBoardDescriptionFormat:
+    message: "Invalid board description format"
+    description: "The format of the board description is invalid. It can only be up to {0} characters long."
+  InvalidBoardSlugFormat:
+    message: "Invalid board slug format"
+    description: "The format of the board slug is invalid. It must be between {0} and {1} characters long and can only include lowercase English letters and numbers."
+  DuplicateBoardName:
+    message: "Duplicate board name"
+    description: "A duplicate board name exists. (Board name={0})"
+  DuplicateBoardSlug:
+    message: "Duplicate board slug"
+    description: "A duplicate board slug exists. (Board slug={0})"
