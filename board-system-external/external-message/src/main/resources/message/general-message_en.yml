@@ -79,3 +79,8 @@ SocialLogin:
   Complete:
     message: "Social login successful"
     description: "You have successfully logged in using social login."
+
+BoardCreate:
+  Complete:
+    message: "Board creation completed"
+    description: "The board has been created."

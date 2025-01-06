@@ -79,3 +79,8 @@ SocialLogin:
   Complete:
     message: "소셜로그인 성공"
     description: "소셜로그인에 성공했습니다."
+
+BoardCreate:
+  Complete:
+    message: "게시판 생성 완료됨"
+    description: "게시판이 생성됐습니다."
