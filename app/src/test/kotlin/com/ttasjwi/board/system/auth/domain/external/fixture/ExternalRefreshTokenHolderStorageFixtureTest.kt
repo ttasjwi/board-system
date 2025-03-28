@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -29,13 +28,13 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
         @DisplayName("동작 테스트")
         fun testSuccess() {
             // given
-            val memberId = memberIdFixture(130L)
+            val memberId = 130L
             val refreshToken = refreshTokenFixture(
-                memberId = memberId.value,
+                memberId = memberId,
                 refreshTokenId = "abc",
             )
             val refreshTokenHolder = refreshTokenHolderFixture(
-                memberId = memberId.value,
+                memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
             val expiresAt = timeFixture(minute = 13)
@@ -54,13 +53,13 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
         @DisplayName("append 후 find 했을 때 잘 찾아지는 지 테스트")
         fun testSuccess() {
             // given
-            val memberId = memberIdFixture(130L)
+            val memberId = 130L
             val refreshToken = refreshTokenFixture(
-                memberId = memberId.value,
+                memberId = memberId,
                 refreshTokenId = "abc",
             )
             val savedRefreshTokenHolder = refreshTokenHolderFixture(
-                memberId = memberId.value,
+                memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
             val expiresAt = timeFixture(minute = 13)
@@ -81,7 +80,7 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
         @DisplayName("없는 리프레시토큰 홀더 조회 시 null 반환")
         fun testNull() {
             val findRefreshTokenHolder =
-                externalRefreshTokenHolderStorageFixture.findByMemberIdOrNull(memberIdFixture(2L))
+                externalRefreshTokenHolderStorageFixture.findByMemberIdOrNull(2L)
 
             assertThat(findRefreshTokenHolder).isNull()
         }
@@ -96,8 +95,8 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
         @DisplayName("제거 후 같은 memberId로 찾으면 null 이 반환된다")
         fun testRemove() {
             // given
-            val memberId = memberIdFixture(133L)
-            val refreshTokenHolder = refreshTokenHolderFixture(memberId = memberId.value)
+            val memberId = 133L
+            val refreshTokenHolder = refreshTokenHolderFixture(memberId = memberId)
 
             externalRefreshTokenHolderStorageFixture.append(
                 memberId,

@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderAppender
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderFinder
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
 
 @DomainService
@@ -15,16 +14,16 @@ internal class RefreshTokenHolderStorageImpl(
     private val externalRefreshTokenHolderFinder: ExternalRefreshTokenHolderFinder,
 ) : RefreshTokenHolderAppender, RefreshTokenHolderFinder {
 
-    override fun append(memberId: MemberId, refreshTokenHolder: RefreshTokenHolder, currentTime: ZonedDateTime) {
+    override fun append(memberId: Long, refreshTokenHolder: RefreshTokenHolder, currentTime: ZonedDateTime) {
         val expiresAt = refreshTokenHolder.expiresAt(currentTime)
         externalRefreshTokenHolderAppender.append(memberId, refreshTokenHolder, expiresAt)
     }
 
-    override fun removeByMemberId(memberId: MemberId) {
+    override fun removeByMemberId(memberId: Long) {
         externalRefreshTokenHolderAppender.removeByMemberId(memberId)
     }
 
-    override fun findByMemberIdOrNull(memberId: MemberId): RefreshTokenHolder? {
+    override fun findByMemberIdOrNull(memberId: Long): RefreshTokenHolder? {
         return externalRefreshTokenHolderFinder.findByMemberIdOrNull(memberId)
     }
 }

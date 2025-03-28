@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
 
 class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
@@ -18,7 +17,7 @@ class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
     }
 
     override fun generate(
-        memberId: MemberId,
+        memberId: Long,
         refreshTokenId: RefreshTokenId,
         issuedAt: ZonedDateTime,
         expiresAt: ZonedDateTime
@@ -26,7 +25,7 @@ class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
         val tokenValue = makeTokenValue(memberId, refreshTokenId.value, issuedAt, expiresAt)
 
         return refreshTokenFixture(
-            memberId = memberId.value,
+            memberId = memberId,
             refreshTokenId = refreshTokenId.value,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
@@ -47,12 +46,12 @@ class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
     }
 
     private fun makeTokenValue(
-        memberId: MemberId,
+        memberId: Long,
         refreshTokenId: String,
         issuedAt: ZonedDateTime,
         expiresAt: ZonedDateTime
     ): String {
-        return "${memberId.value}," + // 0
+        return "${memberId}," + // 0
                 "${refreshTokenId}," + // 1
                 "${issuedAt}," + // 2
                 "${expiresAt}," + // 3

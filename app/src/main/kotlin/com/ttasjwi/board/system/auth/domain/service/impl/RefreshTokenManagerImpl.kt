@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
 
 @DomainService
@@ -14,7 +13,7 @@ internal class RefreshTokenManagerImpl(
     private val externalRefreshTokenManager: ExternalRefreshTokenManager,
 ) : RefreshTokenManager {
 
-    override fun generate(memberId: MemberId, issuedAt: ZonedDateTime): RefreshToken {
+    override fun generate(memberId: Long, issuedAt: ZonedDateTime): RefreshToken {
         val refreshTokenId = RefreshTokenId.create()
         val expiresAt = issuedAt.plusHours(RefreshToken.VALIDITY_HOURS)
         return externalRefreshTokenManager.generate(memberId, refreshTokenId, issuedAt, expiresAt)

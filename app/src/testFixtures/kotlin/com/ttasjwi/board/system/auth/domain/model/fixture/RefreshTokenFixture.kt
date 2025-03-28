@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.auth.domain.model.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import java.time.ZonedDateTime
 
 fun refreshTokenFixture(
@@ -29,7 +28,7 @@ private fun RefreshToken.Companion.testCreate(
     expiresAt: ZonedDateTime,
 ): RefreshToken {
     return RefreshToken(
-        memberId = memberIdFixture(memberId),
+        memberId = memberId,
         refreshTokenId = refreshTokenIdFixture(refreshTokenId),
         tokenValue = tokenValue,
         issuedAt = issuedAt,

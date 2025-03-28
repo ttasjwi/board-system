@@ -10,7 +10,6 @@ import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
@@ -38,7 +37,7 @@ class RefreshTokenManagerImplTest {
         @DisplayName("Generate : 작동 테스트")
         fun test() {
             // given
-            val memberId = memberIdFixture(144L)
+            val memberId = 144L
             val issuedAt = timeFixture(minute = 3)
 
             // when
@@ -70,7 +69,7 @@ class RefreshTokenManagerImplTest {
             val accessToken = refreshTokenManager.parse(tokenValue)
 
             // then
-            assertThat(accessToken.memberId.value).isEqualTo(144L)
+            assertThat(accessToken.memberId).isEqualTo(144L)
             assertThat(accessToken.refreshTokenId.value).isEqualTo("abcdef")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 3))
@@ -156,7 +155,7 @@ class RefreshTokenManagerImplTest {
                 )
             }
             // then
-            assertThat(ex.debugMessage).isEqualTo("리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId.value},refreshTokenId=${refreshToken.refreshTokenId.value})")
+            assertThat(ex.debugMessage).isEqualTo("리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId.value})")
         }
     }
     

@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -20,13 +19,13 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
         const val REFRESH_REQUIRE_THRESHOLD_HOURS = 8L
     }
 
-    override fun generate(memberId: MemberId, issuedAt: ZonedDateTime): RefreshToken {
+    override fun generate(memberId: Long, issuedAt: ZonedDateTime): RefreshToken {
         val expiresAt = issuedAt.plusHours(VALIDITY_HOURS)
         val refreshTokenId = UUID.randomUUID().toString()
         val tokenValue = makeTokenValue(memberId, refreshTokenId, issuedAt, expiresAt)
 
         return refreshTokenFixture(
-            memberId = memberId.value,
+            memberId = memberId,
             refreshTokenId = refreshTokenId,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
@@ -57,12 +56,12 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
     }
 
     private fun makeTokenValue(
-        memberId: MemberId,
+        memberId: Long,
         refreshTokenId: String,
         issuedAt: ZonedDateTime,
         expiresAt: ZonedDateTime
     ): String {
-        return "${memberId.value}," + // 0
+        return "${memberId}," + // 0
                 "${refreshTokenId}," + // 1
                 "${issuedAt}," + // 2
                 "${expiresAt}," + // 3

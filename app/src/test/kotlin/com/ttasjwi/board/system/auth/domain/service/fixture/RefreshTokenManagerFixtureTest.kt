@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -33,7 +32,7 @@ class RefreshTokenManagerFixtureTest {
         @DisplayName("Generate : 작동 테스트")
         fun test() {
             // given
-            val memberId = memberIdFixture(144L)
+            val memberId = 144L
             val issuedAt = timeFixture(minute = 3)
 
             // when
@@ -64,7 +63,7 @@ class RefreshTokenManagerFixtureTest {
             val accessToken = refreshTokenManagerFixture.parse(tokenValue)
 
             // then
-            assertThat(accessToken.memberId.value).isEqualTo(144L)
+            assertThat(accessToken.memberId).isEqualTo(144L)
             assertThat(accessToken.refreshTokenId.value).isEqualTo("abcd")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 3))

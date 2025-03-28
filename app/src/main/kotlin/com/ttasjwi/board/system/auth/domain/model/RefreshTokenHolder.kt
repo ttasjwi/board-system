@@ -91,7 +91,7 @@ internal constructor(
         // 토큰이 없을 때
         if (!_tokens.containsKey(refreshToken.refreshTokenId)) {
             val ex = RefreshTokenExpiredException(
-                debugMessage = "리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId.value},refreshTokenId=${refreshToken.refreshTokenId.value})"
+                debugMessage = "리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId.value})"
             )
             log.warn(ex)
             throw ex

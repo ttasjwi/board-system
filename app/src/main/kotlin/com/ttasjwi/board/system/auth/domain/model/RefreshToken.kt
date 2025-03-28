@@ -2,12 +2,11 @@ package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
 
 class RefreshToken
 internal constructor(
-    val memberId: MemberId,
+    val memberId: Long,
     val refreshTokenId: RefreshTokenId,
     val tokenValue: String,
     val issuedAt: ZonedDateTime,
@@ -29,7 +28,7 @@ internal constructor(
             expiresAt: ZonedDateTime
         ): RefreshToken {
             return RefreshToken(
-                memberId = MemberId.restore(memberId),
+                memberId = memberId,
                 refreshTokenId = RefreshTokenId.restore(refreshTokenId),
                 tokenValue = tokenValue,
                 issuedAt = issuedAt,

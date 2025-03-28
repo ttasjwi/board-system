@@ -16,7 +16,7 @@ class RefreshTokenFixtureTest {
         val refreshToken = refreshTokenFixture()
 
         // then
-        assertThat(refreshToken.memberId.value).isNotNull()
+        assertThat(refreshToken.memberId).isNotNull()
         assertThat(refreshToken.refreshTokenId.value).isNotNull()
         assertThat(refreshToken.tokenValue).isNotNull()
         assertThat(refreshToken.issuedAt).isNotNull()
@@ -43,7 +43,7 @@ class RefreshTokenFixtureTest {
         )
 
         // then
-        assertThat(refreshToken.memberId.value).isEqualTo(memberId)
+        assertThat(refreshToken.memberId).isEqualTo(memberId)
         assertThat(refreshToken.refreshTokenId.value).isEqualTo(refreshTokenId)
         assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)
         assertThat(refreshToken.issuedAt).isEqualTo(issuedAt)
