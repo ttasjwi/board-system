@@ -1,12 +1,27 @@
-spring.application.name: board-system-db-test
 spring:
-  profiles:
-    active: test
+  application:
+    name: board-system-test
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/board_db_test
+    username: ttasjwi
+    password: db1004
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
 
----
-
-spring:
-  config:
-    activate:
-      on-profile: test
-    import: db-config.yml
+logging:
+  level:
+    p6spy: info
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

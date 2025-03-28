@@ -1,12 +1,9 @@
 package com.ttasjwi.board.system
 
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
-class MainTests {
-
+class MainTests : IntegrationTest() {
     @Test
-    fun contextLoads() {}
-
+    fun contextLoads() {
+    }
 }

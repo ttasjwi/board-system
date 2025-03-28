@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 ### secret properties files ###
+app/src/main/resources/application.yml
 board-system-api/api-deploy/src/main/resources/deploy-config-blue.yml
 board-system-api/api-deploy/src/main/resources/deploy-config-green.yml
 board-system-external/external-db/src/main/resources/db-config-production.yml
