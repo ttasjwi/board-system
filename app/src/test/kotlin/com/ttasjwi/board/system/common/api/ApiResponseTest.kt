@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.core.api
+package com.ttasjwi.board.system.common.api
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -28,7 +28,6 @@ class ApiResponseTest {
         assertThat(response.description).isEqualTo("description")
         assertThat(response.data.example).isEqualTo("example")
     }
-
 
     @Test
     @DisplayName("ErrorResponse 의 isSuccess 값은 false 이다.")

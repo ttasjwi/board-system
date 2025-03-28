@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.core.api
+package com.ttasjwi.board.system.common.api
 
 abstract class ApiResponse(
     val isSuccess: Boolean,
