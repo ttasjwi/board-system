@@ -10,9 +10,16 @@ dependencies {
     runtimeOnly(Dependencies.MYSQL_DRIVER.fullName)
     implementation(Dependencies.P6SPY_DATASOURCE_DECORATOR.fullName)
 
-    // for email validator
+    // for redis
+    implementation(Dependencies.SPRING_BOOT_DATA_REDIS.fullName)
+
+    // for email-format-validation
     implementation(Dependencies.COMMONS_VALIDATOR.fullName)
 
     // for logging
     implementation(Dependencies.KOTLIN_LOGGING.fullName)
+
+    // for data-json-serialization
+    implementation(Dependencies.KOTLIN_JACKSON.fullName)
+    implementation(Dependencies.JACKSON_DATETIME.fullName)
 }

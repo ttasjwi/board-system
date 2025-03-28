@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.member.domain.service.impl.redis
+package com.ttasjwi.board.system.member.domain.external.db.redis
 
-import com.ttasjwi.board.system.core.time.TimeRule
+import com.ttasjwi.board.system.common.time.TimeRule
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import java.time.ZonedDateTime
 

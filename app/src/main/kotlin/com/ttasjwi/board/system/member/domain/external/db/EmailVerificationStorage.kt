@@ -1,10 +1,10 @@
-package com.ttasjwi.board.system.member.domain.service.impl
+package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationFinder
-import com.ttasjwi.board.system.member.domain.service.impl.redis.RedisEmailVerification
+import com.ttasjwi.board.system.member.domain.external.db.redis.RedisEmailVerification
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
 import java.time.ZonedDateTime

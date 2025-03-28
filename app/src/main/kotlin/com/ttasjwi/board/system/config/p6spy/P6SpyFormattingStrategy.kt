@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.config
+package com.ttasjwi.board.system.config.p6spy
 
 import com.p6spy.engine.logging.Category
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy

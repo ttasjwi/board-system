@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.member.domain.service.impl.redis
+package com.ttasjwi.board.system.member.domain.external.db.redis
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.data.redis.serializer.RedisSerializer

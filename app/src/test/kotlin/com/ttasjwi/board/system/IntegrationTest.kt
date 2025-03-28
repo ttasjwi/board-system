@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system
 
+import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStorage
 import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
 import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
 import jakarta.persistence.EntityManager
@@ -16,6 +17,9 @@ abstract class IntegrationTest {
 
     @Autowired
     protected lateinit var socialConnectionStorage: SocialConnectionStorage
+
+    @Autowired
+    protected lateinit var emailVerificationStorage: EmailVerificationStorage
 
     @Autowired
     private lateinit var em: EntityManager

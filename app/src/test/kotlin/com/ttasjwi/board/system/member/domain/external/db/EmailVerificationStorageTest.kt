@@ -1,7 +1,7 @@
-package com.ttasjwi.board.system.member.domain.service.impl
+package com.ttasjwi.board.system.member.domain.external.db
 
-import com.ttasjwi.board.system.RedisTest
-import com.ttasjwi.board.system.core.time.fixture.timeFixture
+import com.ttasjwi.board.system.IntegrationTest
+import com.ttasjwi.board.system.common.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.assertThat
@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test
 import java.time.ZonedDateTime
 
 @DisplayName("EmailVerificationStorage(Appender, Finder) 테스트")
-class EmailVerificationStorageTest : RedisTest() {
+class EmailVerificationStorageTest : IntegrationTest() {
 
     companion object {
         private val TEST_EMAIL = emailFixture("test12345678@test.com")
