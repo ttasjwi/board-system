@@ -9,6 +9,7 @@ enum class Dependencies(
     KOTLIN_JACKSON(groupId = "com.fasterxml.jackson.module", artifactId = "jackson-module-kotlin"),
     KOTLIN_REFLECT(groupId = "org.jetbrains.kotlin", artifactId = "kotlin-reflect"),
     KOTLIN_LOGGING(groupId = "io.github.oshai", artifactId = "kotlin-logging", version = "7.0.0"),
+    KOTLIN_TEST_JUNIT_5(groupId="org.jetbrains.kotlin", artifactId = "kotlin-test-junit5"),
 
     // spring
     SPRING_BOOT_STARTER(groupId = "org.springframework.boot", artifactId = "spring-boot-starter"),
@@ -36,6 +37,9 @@ enum class Dependencies(
 
     // email-format-check
     COMMONS_VALIDATOR(groupId="commons-validator", artifactId ="commons-validator" , version="1.9.0"),
+
+    // test
+    JUNIT_PLATFORM_LAUNCHER(groupId = "org.junit.platform", artifactId = "junit-platform-launcher"),
 
     // mockk
     MOCKK(groupId="io.mockk", artifactId="mockk" , version="1.13.13");
