@@ -18,6 +18,9 @@ dependencies {
     // for redis
     implementation(Dependencies.SPRING_BOOT_DATA_REDIS.fullName)
 
+    // for email-send
+    implementation(Dependencies.SPRING_BOOT_MAIL.fullName)
+
     // for email-format-validation
     implementation(Dependencies.COMMONS_VALIDATOR.fullName)
 

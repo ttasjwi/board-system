@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.member.domain.external
+package com.ttasjwi.board.system.member.domain.external.impl
 
 import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.service.EmailSender

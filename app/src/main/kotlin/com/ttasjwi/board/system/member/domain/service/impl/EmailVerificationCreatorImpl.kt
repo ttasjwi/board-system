@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.member.domain.service.EmailVerificationCreator
 import java.time.ZonedDateTime
 
 @DomainService
-internal class EmailverificationCreatorImpl : EmailVerificationCreator {
+internal class EmailVerificationCreatorImpl : EmailVerificationCreator {
 
     override fun create(email: Email, currentTime: ZonedDateTime): EmailVerification {
         return EmailVerification.create(email, currentTime)

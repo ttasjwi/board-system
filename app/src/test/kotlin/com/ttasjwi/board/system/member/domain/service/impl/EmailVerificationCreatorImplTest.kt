@@ -16,7 +16,7 @@ class EmailVerificationCreatorImplTest {
 
     @BeforeEach
     fun setup() {
-        emailVerificationCreator = EmailverificationCreatorImpl()
+        emailVerificationCreator = EmailVerificationCreatorImpl()
     }
 
     @Test
