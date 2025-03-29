@@ -9,10 +9,14 @@ jobs:
   Build-Test:
     runs-on: ubuntu-latest
     env:
-      DB_NAME: board_db_test
-      DB_ROOT_PASSWORD: root
-      DB_TEST_USERNAME: board_user_test
-      DB_TEST_USER_PASSWORD: db1004
+      SERVER_PROFILE: test
+      DATABASE_URL: jdbc:mysql://127.0.0.1:3306/board_db_test
+      DATABASE_NAME: board_db_test
+      DATABASE_ROOT_PASSWORD: root
+      DATABASE_USERNAME: board_user_test
+      DATABASE_PASSWORD: db1004
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
 
     steps:
       - name: Check Out (체크 아웃)
@@ -21,10 +25,10 @@ jobs:
       - name: 데이터베이스 설정
         run: |
           sudo /etc/init.d/mysql start
-          mysql -e "CREATE DATABASE ${{ env.DB_NAME }};" -uroot -p${{ env.DB_ROOT_PASSWORD }}
-          mysql -e "CREATE user '${{ env.DB_TEST_USERNAME }}'@'%' IDENTIFIED BY '${{ env.DB_TEST_USER_PASSWORD }}';" -uroot -p${{ env.DB_ROOT_PASSWORD }}
-          mysql -e "GRANT ALL ON *.* TO '${{ env.DB_TEST_USERNAME }}'@'%';" -uroot -p${{ env.DB_ROOT_PASSWORD }}
-          mysql -e "FLUSH PRIVILEGES;" -uroot -p${{ env.DB_ROOT_PASSWORD }}
+          mysql -e "CREATE DATABASE ${{ env.DATABASE_NAME }};" -uroot -p${{ env.DATABASE_ROOT_PASSWORD }}
+          mysql -e "CREATE user '${{ env.DATABASE_USERNAME }}'@'%' IDENTIFIED BY '${{ env.DATABASE_PASSWORD }}';" -uroot -p${{ env.DATABASE_ROOT_PASSWORD }}
+          mysql -e "GRANT ALL ON *.* TO '${{ env.DATABASE_USERNAME }}'@'%';" -uroot -p${{ env.DATABASE_ROOT_PASSWORD }}
+          mysql -e "FLUSH PRIVILEGES;" -uroot -p${{ env.DATABASE_ROOT_PASSWORD }}
 
       - name: Redis 설정
         uses: supercharge/redis-github-action@1.7.0
