@@ -7,7 +7,6 @@ import com.ttasjwi.board.system.board.domain.model.BoardId
 import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 

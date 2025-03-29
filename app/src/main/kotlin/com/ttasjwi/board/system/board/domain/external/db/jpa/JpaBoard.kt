@@ -1,13 +1,13 @@
 package com.ttasjwi.board.system.board.domain.external.db.jpa
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.core.time.TimeRule
+import com.ttasjwi.board.system.common.time.TimeRule
 import jakarta.persistence.*
 import java.time.ZonedDateTime
 
 @Entity
-@Table(name= "boards")
-class JpaBoard (
+@Table(name = "boards")
+class JpaBoard(
 
     @Id
     @Column(name = "board_id")
@@ -37,7 +37,7 @@ class JpaBoard (
                 id = board.id?.value,
                 name = board.name.value,
                 description = board.description.value,
-                managerId = board.managerId.value,
+                managerId = board.managerId,
                 slug = board.slug.value,
                 createdAt = board.createdAt,
             )

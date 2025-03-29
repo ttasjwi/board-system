@@ -11,7 +11,6 @@ app/src/main/resources/application-productionSecret.yml
 app/src/test/resources/application-test.yml
 app/src/main/resources/rsa-keypair/private_key_productionSecret.pem
 app/src/main/resources/rsa-keypair/public_key_productionSecret.pem
-board-system-external/external-db/src/main/resources/db-config-production.yml
 
 ### STS ###
 .apt_generated

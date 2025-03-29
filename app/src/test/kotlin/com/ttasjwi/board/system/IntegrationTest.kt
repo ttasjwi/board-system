@@ -3,6 +3,7 @@ package com.ttasjwi.board.system
 import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.service.fixture.AccessTokenManagerFixture
+import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStorage
 import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
@@ -32,6 +33,9 @@ abstract class IntegrationTest {
 
     @Autowired
     protected lateinit var socialConnectionStorage: SocialConnectionStorage
+
+    @Autowired
+    protected lateinit var boardStorageImpl: BoardStorageImpl
 
     @Autowired
     protected lateinit var emailVerificationStorage: EmailVerificationStorage

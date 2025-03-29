@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain.external.db
 
-import com.ttasjwi.board.system.DbTest
+import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.board.domain.model.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("BoardStorageImpl 테스트")
-class BoardStorageImplTest : DbTest() {
+class BoardStorageImplTest : IntegrationTest() {
 
     @DisplayName("save 테스트")
     @Nested
@@ -171,9 +171,11 @@ class BoardStorageImplTest : DbTest() {
         @DisplayName("슬러그로 게시판을 조회할 수 있다")
         fun findSuccessTest() {
             // given
-            val board = boardStorageImpl.save(boardFixtureNotRegistered(
-                slug = "food"
-            ))
+            val board = boardStorageImpl.save(
+                boardFixtureNotRegistered(
+                    slug = "food"
+                )
+            )
             flushAndClearEntityManager()
 
             // when
