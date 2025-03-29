@@ -1,12 +1,12 @@
-package com.ttasjwi.board.system.core.exception.api
+package com.ttasjwi.board.system.spring.web.exception
 
-import com.ttasjwi.board.system.core.api.ErrorResponse
-import com.ttasjwi.board.system.core.exception.CustomException
-import com.ttasjwi.board.system.core.exception.ErrorStatus
-import com.ttasjwi.board.system.core.exception.ValidationExceptionCollector
-import com.ttasjwi.board.system.core.locale.LocaleManager
-import com.ttasjwi.board.system.core.message.MessageResolver
-import com.ttasjwi.board.system.logging.getLogger
+import com.ttasjwi.board.system.common.api.ErrorResponse
+import com.ttasjwi.board.system.common.exception.CustomException
+import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.common.locale.LocaleManager
+import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.message.MessageResolver
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice

@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.core.exception.api
+package com.ttasjwi.board.system.spring.web.exception
 
-import com.ttasjwi.board.system.core.exception.ErrorStatus
+import com.ttasjwi.board.system.common.exception.ErrorStatus
 import org.springframework.http.HttpStatus
 
 internal fun resolveHttpStatus(status: ErrorStatus): HttpStatus {

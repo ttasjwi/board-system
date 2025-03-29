@@ -1,10 +1,10 @@
-package com.ttasjwi.board.system.core.exception.api
+package com.ttasjwi.board.system.spring.web.exception
 
-import com.ttasjwi.board.system.core.api.ErrorResponse
-import com.ttasjwi.board.system.core.exception.NullArgumentException
-import com.ttasjwi.board.system.core.exception.ValidationExceptionCollector
-import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
+import com.ttasjwi.board.system.common.api.ErrorResponse
+import com.ttasjwi.board.system.common.exception.NullArgumentException
+import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import jakarta.servlet.ServletException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

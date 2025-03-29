@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.core.config
+package com.ttasjwi.board.system.config.exceptionhandle
 
-import com.ttasjwi.board.system.core.exception.filter.CustomExceptionHandleFilter
+import com.ttasjwi.board.system.spring.web.filter.CustomExceptionHandleFilter
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean

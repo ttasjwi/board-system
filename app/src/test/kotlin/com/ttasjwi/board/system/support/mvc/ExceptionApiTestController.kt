@@ -1,10 +1,11 @@
-package com.ttasjwi.board.system
+package com.ttasjwi.board.system.support.mvc
 
-import com.ttasjwi.board.system.core.exception.ErrorStatus
-import com.ttasjwi.board.system.core.exception.fixture.customExceptionFixture
-import com.ttasjwi.board.system.logging.getLogger
+import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
+import com.ttasjwi.board.system.common.logging.getLogger
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+
 
 @RestController
 class ExceptionApiTestController {
@@ -13,10 +14,9 @@ class ExceptionApiTestController {
         private val log = getLogger(ExceptionApiTestController::class.java)
     }
 
-
     @GetMapping("/api/test-ex")
     fun throwException(): String {
-        log.info{ "컨트롤러에서 예외를 발생시킵니다" }
+        log.info { "컨트롤러에서 예외를 발생시킵니다" }
         throw customExceptionFixture(
             code = "Error.Fixture",
             source = "controller",

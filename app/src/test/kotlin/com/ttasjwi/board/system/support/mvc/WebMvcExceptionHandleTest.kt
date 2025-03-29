@@ -1,8 +1,7 @@
-package com.ttasjwi.board.system.core.exception
+package com.ttasjwi.board.system.support.mvc
 
-import com.ttasjwi.board.system.ExceptionApiTestController
-import com.ttasjwi.board.system.TestConfig
-import com.ttasjwi.board.system.core.config.ExceptionHandleFilterConfig
+import com.ttasjwi.board.system.TestConfiguration
+import com.ttasjwi.board.system.config.exceptionhandle.ExceptionHandleFilterConfig
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +19,7 @@ import java.util.*
 @ActiveProfiles("test")
 @WebMvcTest(controllers = [ExceptionApiTestController::class])
 @AutoConfigureMockMvc
-@Import(TestConfig::class, ExceptionHandleFilterConfig::class)
+@Import(TestConfiguration::class, ExceptionHandleFilterConfig::class)
 @DisplayName("WebMvc에서 예외 처리가 잘 적용되는 지 테스트")
 class WebMvcExceptionHandleTest {
 
