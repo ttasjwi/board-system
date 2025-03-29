@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.auth.api.LoginController.Companion.TOKEN_TYPE
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.LoginResult
 import com.ttasjwi.board.system.auth.application.usecase.LoginUseCase
-import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.locale.LocaleManager
-import com.ttasjwi.board.system.core.message.MessageResolver
+import com.ttasjwi.board.system.common.api.SuccessResponse
+import com.ttasjwi.board.system.common.locale.LocaleManager
+import com.ttasjwi.board.system.common.message.MessageResolver
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

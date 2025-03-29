@@ -2,9 +2,9 @@ package com.ttasjwi.board.system.auth.api
 
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.fixture.TokenRefreshUseCaseFixture
-import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
+import com.ttasjwi.board.system.common.api.SuccessResponse
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
