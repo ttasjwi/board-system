@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.member.event.consumer
+package com.ttasjwi.board.system.member.consumer
 
-import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.usecase.fixture.EmailSendUseCaseFixture
 import com.ttasjwi.board.system.member.domain.event.fixture.emailVerificationStartedEventFixture
 import org.junit.jupiter.api.BeforeEach
