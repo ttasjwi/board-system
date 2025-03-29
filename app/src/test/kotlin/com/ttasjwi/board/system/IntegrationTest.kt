@@ -2,6 +2,7 @@ package com.ttasjwi.board.system
 
 import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
+import com.ttasjwi.board.system.auth.domain.external.impl.ExternalRefreshTokenHolderStorageImpl
 import com.ttasjwi.board.system.auth.domain.service.fixture.AccessTokenManagerFixture
 import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
@@ -9,6 +10,7 @@ import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStora
 import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
 import com.ttasjwi.board.system.member.domain.external.impl.ExternalPasswordHandlerImpl
 import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
+import com.ttasjwi.board.system.spring.security.oauth2.redis.RedisOAuth2AuthorizationRequestRepository
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -60,6 +62,12 @@ abstract class IntegrationTest {
 
     @Autowired
     protected lateinit var externalAccessTokenManager: ExternalAccessTokenManager
+
+    @Autowired
+    protected lateinit var externalRefreshTokenHolderStorage: ExternalRefreshTokenHolderStorageImpl
+
+    @Autowired
+    protected lateinit var redisOAuth2AuthorizationRequestRepository: RedisOAuth2AuthorizationRequestRepository
 
     @Autowired
     private lateinit var em: EntityManager
