@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.core.config
+package com.ttasjwi.board.system.config.message
 
 import dev.akkinoc.util.YamlResourceBundle
 import org.springframework.context.MessageSource

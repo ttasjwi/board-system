@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.core.config
+package com.ttasjwi.board.system.config.message
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.bind.ConstructorBinding

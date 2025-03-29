@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.core.locale
+package com.ttasjwi.board.system.spring.web.filter
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest

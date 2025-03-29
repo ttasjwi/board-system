@@ -1,10 +1,10 @@
-package com.ttasjwi.board.system.core.message
+package com.ttasjwi.board.system.common.message.impl
 
-import com.ttasjwi.board.system.MessageTestController
-import com.ttasjwi.board.system.core.config.LocaleConfig
-import com.ttasjwi.board.system.core.config.MessageConfig
-import com.ttasjwi.board.system.core.config.MessageProperties
-import com.ttasjwi.board.system.core.locale.LocaleManagerImpl
+import com.ttasjwi.board.system.common.locale.impl.LocaleManagerImpl
+import com.ttasjwi.board.system.config.locale.LocaleConfig
+import com.ttasjwi.board.system.config.message.MessageConfig
+import com.ttasjwi.board.system.config.message.MessageProperties
+import com.ttasjwi.board.system.support.mvc.MessageTestController
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -51,8 +51,10 @@ class WebMvcLocaleTest {
     @DisplayName("Accept Language 헤더가 한국어로 설정되면 한국어 메시지가 반환된다.")
     fun test2() {
         mockMvc
-            .perform(get("/api/test")
-                .header("Accept-Language", "ko"))  // 한국어를 우선으로 설정
+            .perform(
+                get("/api/test")
+                    .header("Accept-Language", "ko")
+            )  // 한국어를 우선으로 설정
             .andDo(print())
             .andExpectAll(
                 status().isOk,
@@ -68,8 +70,10 @@ class WebMvcLocaleTest {
     @DisplayName("Accept Language 헤더가 여러 언어를 포함하고, 한국어가 우선시되면 한국어 응답이 나간다.")
     fun test3() {
         mockMvc
-            .perform(get("/api/test")
-                .header("Accept-Language", "ko;q=0.9, en;q=0.8"))  // 한국어를 우선
+            .perform(
+                get("/api/test")
+                    .header("Accept-Language", "ko;q=0.9, en;q=0.8")
+            )  // 한국어를 우선
             .andDo(print())
             .andExpectAll(
                 status().isOk,
@@ -85,8 +89,10 @@ class WebMvcLocaleTest {
     @DisplayName("Accept Language 헤더가 영어로 설정되면 영어 응답이 나간다.")
     fun test4() {
         mockMvc
-            .perform(get("/api/test")
-                .header("Accept-Language", "en"))  // 영어를 우선
+            .perform(
+                get("/api/test")
+                    .header("Accept-Language", "en")
+            )  // 영어를 우선
             .andDo(print())
             .andExpectAll(
                 status().isOk,
@@ -102,8 +108,10 @@ class WebMvcLocaleTest {
     @DisplayName("Accept Language 헤더가 여러 언어를 포함하고, 영어가 우선시되면 영어 응답이 전송된다.")
     fun test5() {
         mockMvc
-            .perform(get("/api/test")
-                .header("Accept-Language", "en;q=0.9, ko;q=0.8"))  // 영어를 우선
+            .perform(
+                get("/api/test")
+                    .header("Accept-Language", "en;q=0.9, ko;q=0.8")
+            )  // 영어를 우선
             .andDo(print())
             .andExpectAll(
                 status().isOk,
@@ -114,5 +122,4 @@ class WebMvcLocaleTest {
                 jsonPath("$.description").value("Example Description(args=1,2,3)"),
             )
     }
-
 }

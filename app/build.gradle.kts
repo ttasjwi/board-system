@@ -27,4 +27,7 @@ dependencies {
     // for data-json-serialization
     implementation(Dependencies.KOTLIN_JACKSON.fullName)
     implementation(Dependencies.JACKSON_DATETIME.fullName)
+
+    // for yaml message
+    implementation(Dependencies.YAML_RESOURCE_BUNDLE.fullName)
 }

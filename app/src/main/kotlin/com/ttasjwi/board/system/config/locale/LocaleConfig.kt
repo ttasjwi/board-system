@@ -1,6 +1,6 @@
-package com.ttasjwi.board.system.core.config
+package com.ttasjwi.board.system.config.locale
 
-import com.ttasjwi.board.system.core.locale.CustomLocaleContextFilter
+import com.ttasjwi.board.system.spring.web.filter.CustomLocaleContextFilter
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

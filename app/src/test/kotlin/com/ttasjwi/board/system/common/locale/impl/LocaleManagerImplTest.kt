@@ -1,5 +1,6 @@
-package com.ttasjwi.board.system.core.locale
+package com.ttasjwi.board.system.common.locale.impl
 
+import com.ttasjwi.board.system.common.locale.LocaleManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

@@ -1,5 +1,6 @@
-package com.ttasjwi.board.system.core.message
+package com.ttasjwi.board.system.common.message.impl
 
+import com.ttasjwi.board.system.common.message.MessageResolver
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.MessageSource
 import org.springframework.stereotype.Component

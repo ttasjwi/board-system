@@ -1,5 +1,6 @@
-package com.ttasjwi.board.system.core.message
+package com.ttasjwi.board.system.common.message.impl
 
+import com.ttasjwi.board.system.common.message.MessageResolver
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

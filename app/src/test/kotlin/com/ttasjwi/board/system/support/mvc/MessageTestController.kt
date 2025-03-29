@@ -1,7 +1,7 @@
-package com.ttasjwi.board.system
+package com.ttasjwi.board.system.support.mvc
 
-import com.ttasjwi.board.system.core.locale.LocaleManager
-import com.ttasjwi.board.system.core.message.MessageResolver
+import com.ttasjwi.board.system.common.locale.LocaleManager
+import com.ttasjwi.board.system.common.message.MessageResolver
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
