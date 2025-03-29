@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.model.fixture
 
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -46,7 +45,7 @@ class BoardFixtureTest {
             assertThat(board.id).isNull()
             assertThat(board.name).isEqualTo(boardNameFixture(name))
             assertThat(board.description).isEqualTo(boardDescriptionFixture(description))
-            assertThat(board.managerId).isEqualTo(memberIdFixture(managerId))
+            assertThat(board.managerId).isEqualTo(managerId)
             assertThat(board.slug).isEqualTo(boardSlugFixture(slug))
             assertThat(board.createdAt).isEqualTo(createdAt)
         }
@@ -90,7 +89,7 @@ class BoardFixtureTest {
             assertThat(board.id).isEqualTo(boardIdFixture(id))
             assertThat(board.name).isEqualTo(boardNameFixture(name))
             assertThat(board.description).isEqualTo(boardDescriptionFixture(description))
-            assertThat(board.managerId).isEqualTo(memberIdFixture(managerId))
+            assertThat(board.managerId).isEqualTo(managerId)
             assertThat(board.slug).isEqualTo(boardSlugFixture(slug))
             assertThat(board.createdAt).isEqualTo(createdAt)
         }

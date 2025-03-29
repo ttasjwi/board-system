@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.board.domain.model.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import java.time.ZonedDateTime
 
 fun boardFixtureNotRegistered(
@@ -15,7 +14,7 @@ fun boardFixtureNotRegistered(
     return Board(
         name = boardNameFixture(name),
         description = boardDescriptionFixture(description),
-        managerId = memberIdFixture(managerId),
+        managerId = managerId,
         slug = boardSlugFixture(slug),
         createdAt = createdAt,
     )
@@ -33,7 +32,7 @@ fun boardFixtureRegistered(
         id = boardIdFixture(id),
         name = boardNameFixture(name),
         description = boardDescriptionFixture(description),
-        managerId = memberIdFixture(managerId),
+        managerId = managerId,
         slug = boardSlugFixture(slug),
         createdAt = createdAt,
     )

@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import java.time.ZonedDateTime
 
 @DomainService
@@ -15,7 +14,7 @@ class BoardManagerImpl : BoardManager {
     override fun create(
         name: BoardName,
         description: BoardDescription,
-        managerId: MemberId,
+        managerId: Long,
         slug: BoardSlug,
         currentTime: ZonedDateTime
     ): Board {
