@@ -1,37 +1,31 @@
 package com.ttasjwi.board.system.deploy.api
 
-import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.core.message.MessageResolver
-import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
-import com.ttasjwi.board.system.deploy.config.DeployProperties
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.MessageResolver
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.util.*
 
-@ActiveProfiles("test")
 @WebMvcTest(controllers = [HealthCheckController::class])
-@EnableConfigurationProperties(DeployProperties::class)
 @AutoConfigureMockMvc
-@Import(HealthCheckControllerMiddleTest.FixtureBeanConfig::class)
+@Import(HealthCheckControllerTest.FixtureBeanConfig::class)
 @DisplayName("HealthCheckController 중형 테스트: 스프링 MVC와 컨트롤러가 잘 결합하여 동작하는가?")
-class HealthCheckControllerMiddleTest {
+class HealthCheckControllerTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
-
 
     @TestConfiguration
     class FixtureBeanConfig {

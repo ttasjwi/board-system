@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.deploy.api
 
-import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.locale.LocaleManager
-import com.ttasjwi.board.system.core.message.MessageResolver
-import com.ttasjwi.board.system.deploy.config.DeployProperties
+import com.ttasjwi.board.system.common.api.SuccessResponse
+import com.ttasjwi.board.system.common.locale.LocaleManager
+import com.ttasjwi.board.system.common.message.MessageResolver
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class HealthCheckController(
     private val messageResolver: MessageResolver,
-    private val deployProperties: DeployProperties,
     private val localeManager: LocaleManager,
+
+    @Value("\${spring.profiles.active}")
+    private val serverProfile: String,
 ) {
 
     @GetMapping("/api/v1/deploy/health-check")
@@ -25,9 +27,13 @@ class HealthCheckController(
             message = messageResolver.resolve("$code.message", locale),
             description = messageResolver.resolve("$code.description", locale, args),
             data = HealthCheckResponse(
-                profile = deployProperties.profile
+                profile = serverProfile
             )
         )
         return ResponseEntity.ok(response)
     }
 }
+
+data class HealthCheckResponse (
+    val profile: String,
+)

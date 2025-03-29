@@ -1,11 +1,13 @@
 spring:
   application:
     name: board-system-test
+  profiles:
+    active: ${SERVER_PROFILE:test}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/board_db_test
-    username: board_user_test
-    password: db1004
+    url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_test}
+    username: ${DATABASE_USERNAME:board_user_test}
+    password: ${DATABASE_PASSWORD:db1004}
   jpa:
     hibernate:
       ddl-auto: create
@@ -15,8 +17,8 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   data:
     redis:
-      host: 127.0.0.1
-      port: 6379
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
 
 logging:
   level:
@@ -25,3 +27,5 @@ decorator:
   datasource:
     p6spy:
       enable-logging: true
+
+---
