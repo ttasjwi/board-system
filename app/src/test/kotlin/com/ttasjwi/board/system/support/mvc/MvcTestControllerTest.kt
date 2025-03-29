@@ -23,7 +23,7 @@ class MvcTestControllerTest : IntegrationTest() {
     fun testAuthenticated() {
         // given
         val authMember = authMemberFixture(memberId = 5544, role = Role.USER)
-        val accessToken = accessTokenManagerFixture.generate(authMember, timeFixture(minute = 5))
+        val accessToken = accessTokenManager.generate(authMember, timeFixture(minute = 5))
         timeManagerFixture.changeCurrentTime(timeFixture(minute = 18))
 
         mockMvc
@@ -47,7 +47,7 @@ class MvcTestControllerTest : IntegrationTest() {
     fun testFailed() {
         // given
         val authMember = authMemberFixture(memberId = 5544, role = Role.USER)
-        val accessToken = accessTokenManagerFixture.generate(authMember, timeFixture(minute = 5))
+        val accessToken = accessTokenManager.generate(authMember, timeFixture(minute = 5))
         timeManagerFixture.changeCurrentTime(timeFixture(minute = 45))
 
         assertThrows<AccessTokenExpiredException> {

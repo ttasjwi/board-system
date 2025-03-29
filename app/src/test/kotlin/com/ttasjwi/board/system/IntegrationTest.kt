@@ -3,8 +3,10 @@ package com.ttasjwi.board.system
 import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.external.impl.ExternalRefreshTokenHolderStorageImpl
-import com.ttasjwi.board.system.auth.domain.service.fixture.AccessTokenManagerFixture
+import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
+import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
+import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStorage
 import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
@@ -28,6 +30,12 @@ abstract class IntegrationTest {
     protected lateinit var mockMvc: MockMvc
 
     @Autowired
+    protected lateinit var timeManagerFixture: TimeManagerFixture
+
+    @Autowired
+    protected lateinit var timeManager: TimeManager
+
+    @Autowired
     protected lateinit var memberStorageImpl: MemberStorageImpl
 
     @Autowired
@@ -43,13 +51,13 @@ abstract class IntegrationTest {
     protected lateinit var externalPasswordHandler: ExternalPasswordHandlerImpl
 
     @Autowired
-    protected lateinit var accessTokenManagerFixture: AccessTokenManagerFixture
-
-    @Autowired
-    protected lateinit var timeManagerFixture: TimeManagerFixture
-
-    @Autowired
     protected lateinit var externalRefreshTokenManager: ExternalRefreshTokenManager
+
+    @Autowired
+    protected lateinit var accessTokenManager: AccessTokenManager
+
+    @Autowired
+    protected lateinit var refreshTokenManager: RefreshTokenManager
 
     @Autowired
     protected lateinit var externalAccessTokenManager: ExternalAccessTokenManager
@@ -70,4 +78,5 @@ abstract class IntegrationTest {
         em.flush()
         em.clear()
     }
+
 }

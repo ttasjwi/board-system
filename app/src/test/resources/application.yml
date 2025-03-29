@@ -52,6 +52,11 @@ rsa-keypair:
   public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_test.pem}
   private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_test.pem}
 
+message:
+  encoding: "UTF-8"
+  errorBaseName: message/error-message
+  generalBasename: message/general-message
+
 logging:
   level:
     p6spy: info
