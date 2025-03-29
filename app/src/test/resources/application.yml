@@ -19,6 +19,38 @@ spring:
     redis:
       host: ${REDIS_HOST:127.0.0.1}
       port: ${REDIS_PORT:6379}
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${GOOGLE_OAUTH2_CLIENT_ID}
+            clientSecret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
+            redirectUri: ${GOOGLE_OAUTH2_REDIRECT_URI}
+            scope: ${GOOGLE_OAUTH2_SCOPE}
+          naver:
+            clientId: ${NAVER_OAUTH2_CLIENT_ID}
+            clientSecret: ${NAVER_OAUTH2_CLIENT_SECRET}
+            authorizationGrantType: ${NAVER_OAUTH2_AUTHORIZATION_GRANT_TYPE}
+            redirectUri: ${NAVER_OAUTH2_REDIRECT_URI}
+            scope: ${NAVER_OAUTH2_SCOPE}
+          kakao:
+            clientId: ${KAKAO_OAUTH2_CLIENT_ID}
+            clientSecret: ${KAKAO_OAUTH2_CLIENT_SECRET}
+            redirectUri: ${KAKAO_OAUTH2_REDIRECT_URI}
+            scope: ${KAKAO_OAUTH2_SCOPE}
+        provider:
+          naver:
+            authorizationUri: ${NAVER_OAUTH2_AUTHORIZATION_URI}
+            tokenUri: ${NAVER_OAUTH2_TOKEN_URI}
+            userInfoUri: ${NAVER_OAUTH2_USER_INFO_URI}
+            userNameAttribute: ${NAVER_OAUTH2_USER_NAME_ATTRIBUTE}
+          kakao:
+            issuerUri: ${NAVER_OAUTH2_ISSUER_URI}
+
+rsa-keypair:
+  public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_test.pem}
+  private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_test.pem}
 
 logging:
   level:

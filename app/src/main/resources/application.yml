@@ -1,0 +1,35 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: ${SERVER_PROFILE:local}
+  application:
+    name: board-system
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_local}
+    username: ${DATABASE_USERNAME:board_user_local}
+    password: ${DATABASE_PASSWORD:db1004}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+
+rsa-keypair:
+  public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_local.pem}
+  private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_local.pem}
+
+logging:
+  level:
+    p6spy: info
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

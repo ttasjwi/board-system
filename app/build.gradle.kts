@@ -3,7 +3,12 @@ plugins {
 }
 
 dependencies {
+    // web
     implementation(Dependencies.SPRING_BOOT_WEB.fullName)
+
+    // security
+    implementation(Dependencies.SPRING_BOOT_SECURITY.fullName)
+    implementation(Dependencies.SPRING_BOOT_OAUTH2_CLIENT.fullName)
 
     // for database
     implementation(Dependencies.SPRING_BOOT_DATA_JPA.fullName)

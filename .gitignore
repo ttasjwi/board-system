@@ -6,17 +6,14 @@ build/
 !**/src/test/**/build/
 
 ### secret properties files ###
-app/src/main/resources/application.yml
-board-system-api/api-deploy/src/main/resources/deploy-config-blue.yml
-board-system-api/api-deploy/src/main/resources/deploy-config-green.yml
+app/src/main/resources/application-local.yml
+app/src/main/resources/application-productionSecret.yml
+app/src/test/resources/application-test.yml
+app/src/main/resources/rsa-keypair/private_key_productionSecret.pem
+app/src/main/resources/rsa-keypair/public_key_productionSecret.pem
 board-system-external/external-db/src/main/resources/db-config-production.yml
-board-system-external/external-redis/src/main/resources/redis-config-productionSecret.yml
 board-system-external/external-email-sender/src/main/resources/email-send-config-localSecret.yml
 board-system-external/external-email-sender/src/main/resources/email-send-config-productionSecret.yml
-board-system-external/external-security/src/main/resources/security-config-localSecret.yml
-board-system-external/external-security/src/main/resources/security-config-productionSecret.yml
-board-system-external/external-security/src/main/resources/rsa-keypair/private_key_productionSecret.pem
-board-system-external/external-security/src/main/resources/rsa-keypair/public_key_productionSecret.pem
 
 ### STS ###
 .apt_generated
