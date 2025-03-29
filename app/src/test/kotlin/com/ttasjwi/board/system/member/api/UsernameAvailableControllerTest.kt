@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.api
 
-import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.core.message.fixture.MessageResolverFixture
+import com.ttasjwi.board.system.common.api.SuccessResponse
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.fixture.UsernameAvailableUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat

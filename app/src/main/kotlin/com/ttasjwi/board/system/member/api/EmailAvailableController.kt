@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.api
 
-import com.ttasjwi.board.system.core.api.SuccessResponse
-import com.ttasjwi.board.system.core.locale.LocaleManager
-import com.ttasjwi.board.system.core.message.MessageResolver
+import com.ttasjwi.board.system.common.api.SuccessResponse
+import com.ttasjwi.board.system.common.locale.LocaleManager
+import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResult
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableUseCase

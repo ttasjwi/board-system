@@ -1,9 +1,0 @@
-spring.application.name: board-system-deploy-api-test
-spring:
-  profiles:
-    active: test
-  config:
-    import:
-      - deploy-config.yml
-
----
