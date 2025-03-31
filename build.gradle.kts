@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
-// 루트 프로젝트
 plugins {
     id(Plugins.KOTLIN_JVM.id) version Plugins.KOTLIN_JVM.version
     id(Plugins.KOTLIN_SPRING.id) version Plugins.KOTLIN_SPRING.version apply false
@@ -9,61 +6,55 @@ plugins {
     id(Plugins.JAVA_TEST_FIXTURES.id)
 }
 
-java {
-    sourceCompatibility = JavaVersion.valueOf("VERSION_${ProjectProperties.JAVA_VERSION}")
-}
+group = ProjectProperties.GROUP_NAME
 
-// 루트 프로젝트 + 서브 프로젝트 전체
 allprojects {
-    group = ProjectProperties.GROUP_NAME
-
-    repositories {
-        mavenCentral()
-    }
-}
-
-// 서브프로젝트에 적용
-subprojects {
     apply { plugin(Plugins.KOTLIN_JVM.id) }
     apply { plugin(Plugins.KOTLIN_SPRING.id) }
     apply { plugin(Plugins.SPRING_BOOT.id) }
     apply { plugin(Plugins.SPRING_DEPENDENCY_MANAGEMENT.id) }
     apply { plugin(Plugins.JAVA_TEST_FIXTURES.id) }
 
-    dependencies {
-
-        val sharedModuleNames = listOf("board-system-core", "board-system-logging")
-
-        if(project.name !in sharedModuleNames) {
-            implementation(project(":board-system-core"))
-            implementation(project(":board-system-logging"))
-            testFixturesImplementation(testFixtures(project(":board-system-core")))
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(ProjectProperties.JAVA_VERSION)
         }
+    }
 
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
         implementation(Dependencies.KOTLIN_REFLECT.fullName)
         testImplementation(Dependencies.SPRING_BOOT_TEST.fullName)
+        testImplementation(Dependencies.KOTLIN_TEST_JUNIT_5.fullName)
         testImplementation(Dependencies.MOCKK.fullName)
+        testRuntimeOnly(Dependencies.JUNIT_PLATFORM_LAUNCHER.fullName)
     }
 
-    tasks.getByName("bootJar") {
-        enabled = false
-    }
-
-    tasks.getByName("jar") {
-        enabled = true
-    }
-
-    tasks.withType<KotlinCompile> {
-        kotlinOptions {
-            freeCompilerArgs += "-Xjsr305=strict"
-            jvmTarget = ProjectProperties.JAVA_VERSION
+    kotlin {
+        compilerOptions {
+            freeCompilerArgs.addAll("-Xjsr305=strict")
         }
     }
 
-    tasks.test {
+    tasks.withType<Test> {
         useJUnitPlatform()
 
-        // 경고 무시(OpenJDK 64-bit Server VM warning: Sharing is only supported for boot loader ...)
-        jvmArgs("-Xshare:off")
+        // 경고 무시
+        // A Java agent has been loaded dynamically...
+        // OpenJDK 64-bit Server VM warning: Sharing is only supported for boot loader ...)
+        jvmArgs(
+            "-XX:+EnableDynamicAgentLoading",
+            "-Xshare:off")
     }
+}
+
+tasks.getByName("bootJar") {
+    enabled = false
+}
+
+tasks.getByName("jar") {
+    enabled = true
 }
