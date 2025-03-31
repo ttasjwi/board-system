@@ -1,8 +1,8 @@
 spring:
-  application:
-    name: board-system-test
   profiles:
     active: ${SERVER_PROFILE:test}
+  application:
+    name: board-system
   web:
     locale: ko
   datasource:
@@ -21,6 +21,18 @@ spring:
     redis:
       host: ${REDIS_HOST:127.0.0.1}
       port: ${REDIS_PORT:6379}
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
   security:
     oauth2:
       client:
@@ -43,21 +55,20 @@ spring:
             scope: ${KAKAO_OAUTH2_SCOPE}
         provider:
           naver:
-            authorizationUri: ${NAVER_OAUTH2_AUTHORIZATION_URI}
-            tokenUri: ${NAVER_OAUTH2_TOKEN_URI}
-            userInfoUri: ${NAVER_OAUTH2_USER_INFO_URI}
-            userNameAttribute: ${NAVER_OAUTH2_USER_NAME_ATTRIBUTE}
+            authorizationUri: https://nid.naver.com/oauth2.0/authorize
+            tokenUri: https://nid.naver.com/oauth2.0/token
+            userInfoUri: https://openapi.naver.com/v1/nid/me
+            userNameAttribute: response
           kakao:
-            issuerUri: ${NAVER_OAUTH2_ISSUER_URI}
-
-rsa-keypair:
-  public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_test.pem}
-  private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_test.pem}
-
+            issuerUri: https://kauth.kakao.com
 message:
   encoding: "UTF-8"
   errorBaseName: message/error-message
   generalBasename: message/general-message
+
+rsa-keypair:
+  public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_local.pem}
+  private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_local.pem}
 
 logging:
   level:
@@ -66,5 +77,3 @@ decorator:
   datasource:
     p6spy:
       enable-logging: true
-
----
