@@ -1,15 +1,8 @@
-HealthCheck.Success:
-  message: "Health check successful"
-  description: "Health check was successful. Please refer to the ''{0}'' field for the current server profile."
-
 Example:
   message: "Example Message"
   description: "Example Description(args={0},{1},{2})"
 
 EmailAvailableCheck:
-  Complete:
-    message: "Email availability check complete"
-    description: "The email availability check has been completed. Please refer to the ''{0}'' field."
   Available:
     message: "Email is available"
     description: "This email is available for use."
@@ -21,9 +14,6 @@ EmailAvailableCheck:
     description: "This email is already in use."
 
 UsernameAvailableCheck:
-  Complete:
-    message: "Username availability check completed"
-    description: "The username availability check has been completed. Please refer to the ''{0}'' field."
   Available:
     message: "Username is available"
     description: "This username is available for use."
@@ -35,9 +25,6 @@ UsernameAvailableCheck:
     description: "The username is already taken."
 
 NicknameAvailableCheck:
-  Complete:
-    message: "Nickname availability check completed"
-    description: "The nickname availability check is finished. Please refer to the ''{0}'' field."
   Available:
     message: "Nickname is available"
     description: "This nickname is available for use."
@@ -48,39 +35,6 @@ NicknameAvailableCheck:
     message: "Nickname is already in use"
     description: "This nickname is already taken."
 
-EmailVerificationStart:
-  Complete:
-    message: "Email verification started"
-    description: "Email verification has started. Please refer to the code sent to your email."
-
 EmailVerification:
-  Complete:
-    message: "Email verification completed"
-    description: "Your email verification has been successfully completed."
   EmailSubject: "Your Email Verification Code"
   EmailContent: "Email Verification Code: {0}"
-
-RegisterMember:
-  Complete:
-    message: "Registration Complete"
-    description: "The registration has been completed."
-
-Login:
-  Complete:
-    message: "Login successful"
-    description: "You have successfully logged in."
-
-TokenRefresh:
-  Complete:
-    message: "Token refresh successful"
-    description: "The token was successfully refreshed."
-
-SocialLogin:
-  Complete:
-    message: "Social login successful"
-    description: "You have successfully logged in using social login."
-
-BoardCreate:
-  Complete:
-    message: "Board creation completed"
-    description: "The board has been created."

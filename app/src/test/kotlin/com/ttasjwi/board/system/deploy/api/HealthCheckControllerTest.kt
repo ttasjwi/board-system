@@ -20,11 +20,7 @@ class HealthCheckControllerTest : IntegrationTest() {
             .andExpectAll(
                 status().isOk,
                 content().contentType(MediaType.APPLICATION_JSON),
-                jsonPath("$.isSuccess").value(true),
-                jsonPath("$.code").value("HealthCheck.Success"),
-                jsonPath("$.message").value("헬스체크 성공"),
-                jsonPath("$.description").value("헬스체크에 성공했습니다. 현재 서버 프로필은 '\$.data.profile'필드를 참고하세요."),
-                jsonPath("$.data.profile").value("test")
+                jsonPath("$.profile").value("test")
             )
     }
 }

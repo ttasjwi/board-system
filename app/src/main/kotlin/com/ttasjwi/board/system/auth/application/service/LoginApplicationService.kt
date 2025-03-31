@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.service
 import com.ttasjwi.board.system.auth.application.mapper.LoginCommandMapper
 import com.ttasjwi.board.system.auth.application.processor.LoginProcessor
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
-import com.ttasjwi.board.system.auth.application.usecase.LoginResult
+import com.ttasjwi.board.system.auth.application.usecase.LoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.LoginUseCase
 import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
 import com.ttasjwi.board.system.common.annotation.component.ApplicationService
@@ -21,7 +21,7 @@ internal class LoginApplicationService(
         private val log = getLogger(LoginApplicationService::class.java)
     }
 
-    override fun login(request: LoginRequest): LoginResult {
+    override fun login(request: LoginRequest): LoginResponse {
         log.info { "로그인 요청을 받았습니다." }
 
         // 유효성 검사를 거쳐서 명령으로 변환
@@ -35,11 +35,11 @@ internal class LoginApplicationService(
         log.info { "로그인 됨" }
 
         // 처리 결과로 가공, 반환
-        return makeResult(event)
+        return makeResponse(event)
     }
 
-    private fun makeResult(event: LoggedInEvent): LoginResult {
-        return LoginResult(
+    private fun makeResponse(event: LoggedInEvent): LoginResponse {
+        return LoginResponse(
             accessToken = event.data.accessToken,
             accessTokenExpiresAt = event.data.accessTokenExpiresAt,
             refreshToken = event.data.refreshToken,

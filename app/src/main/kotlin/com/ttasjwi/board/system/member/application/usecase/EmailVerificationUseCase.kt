@@ -7,7 +7,7 @@ interface EmailVerificationUseCase {
     /**
      * 회원 가입을 위한 이메일 인증을 처리합니다.
      */
-    fun emailVerification(request: EmailVerificationRequest): EmailVerificationResult
+    fun emailVerification(request: EmailVerificationRequest): EmailVerificationResponse
 }
 
 data class EmailVerificationRequest(
@@ -15,7 +15,7 @@ data class EmailVerificationRequest(
     val code: String?,
 )
 
-data class EmailVerificationResult(
+data class EmailVerificationResponse(
     val email: String,
     val verificationExpiresAt: ZonedDateTime,
 )

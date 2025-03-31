@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.service
 import com.ttasjwi.board.system.auth.application.mapper.TokenRefreshCommandMapper
 import com.ttasjwi.board.system.auth.application.processor.TokenRefreshProcessor
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResult
+import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
 import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
 import com.ttasjwi.board.system.common.annotation.component.ApplicationService
@@ -21,7 +21,7 @@ internal class TokenRefreshApplicationService(
         private val log = getLogger(TokenRefreshApplicationService::class.java)
     }
 
-    override fun tokenRefresh(request: TokenRefreshRequest): TokenRefreshResult {
+    override fun tokenRefresh(request: TokenRefreshRequest): TokenRefreshResponse {
         log.info { "토큰 재갱신 요청을 받았습니다." }
 
         // 유효성 검사를 거쳐서 명령으로 변환
@@ -38,8 +38,8 @@ internal class TokenRefreshApplicationService(
         return makeResult(event)
     }
 
-    private fun makeResult(event: TokenRefreshedEvent): TokenRefreshResult {
-        return TokenRefreshResult(
+    private fun makeResult(event: TokenRefreshedEvent): TokenRefreshResponse {
+        return TokenRefreshResponse(
             accessToken = event.data.accessToken,
             accessTokenExpiresAt = event.data.accessTokenExpiresAt,
             refreshToken = event.data.refreshToken,

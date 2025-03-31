@@ -3,8 +3,7 @@ package com.ttasjwi.board.system.auth.application.usecase
 import java.time.ZonedDateTime
 
 interface LoginUseCase {
-
-    fun login(request: LoginRequest): LoginResult
+    fun login(request: LoginRequest): LoginResponse
 }
 
 data class LoginRequest(
@@ -12,9 +11,10 @@ data class LoginRequest(
     val password: String?,
 )
 
-data class LoginResult(
+data class LoginResponse(
     val accessToken: String,
     val accessTokenExpiresAt: ZonedDateTime,
+    val accessTokenType: String = "Bearer",
     val refreshToken: String,
     val refreshTokenExpiresAt: ZonedDateTime,
 )

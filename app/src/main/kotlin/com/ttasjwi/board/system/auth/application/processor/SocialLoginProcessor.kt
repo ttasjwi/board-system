@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.application.processor
 
 import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
-import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResult
+import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.*
@@ -30,7 +30,7 @@ internal class SocialLoginProcessor(
     private val refreshTokenHolderAppender: RefreshTokenHolderAppender,
 ) {
 
-    fun socialLogin(command: SocialLoginCommand): SocialLoginResult {
+    fun socialLogin(command: SocialLoginCommand): SocialLoginResponse {
         // 회원 획득 (없다면 생성)
         val (memberCreated, member) = getMemberOrCreate(command)
 
@@ -44,7 +44,7 @@ internal class SocialLoginProcessor(
         upsertRefreshTokenHolder(authMember, refreshToken, command.currentTime)
 
         // 소셜 로그인 결과 생성
-        return makeResult(accessToken, refreshToken, memberCreated, member)
+        return makeResponse(accessToken, refreshToken, memberCreated, member)
     }
 
     /**
@@ -133,20 +133,21 @@ internal class SocialLoginProcessor(
     /**
      * 소셜 로그인 결과를 생성합니다.
      */
-    private fun makeResult(
+    private fun makeResponse(
         accessToken: AccessToken,
         refreshToken: RefreshToken,
         memberCreated: Boolean,
         member: Member
-    ): SocialLoginResult {
-        return SocialLoginResult(
+    ): SocialLoginResponse {
+        return SocialLoginResponse(
             accessToken = accessToken.tokenValue,
+            accessTokenType = "Bearer",
             accessTokenExpiresAt = accessToken.expiresAt,
             refreshToken = refreshToken.tokenValue,
             refreshTokenExpiresAt = refreshToken.expiresAt,
             memberCreated = memberCreated,
             createdMember = if (memberCreated) {
-                SocialLoginResult.CreatedMember(
+                SocialLoginResponse.CreatedMember(
                     memberId = member.id!!.value,
                     email = member.email.value,
                     username = member.username.value,

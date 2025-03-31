@@ -1,15 +1,8 @@
-HealthCheck.Success:
-  message: "헬스체크 성공"
-  description: "헬스체크에 성공했습니다. 현재 서버 프로필은 ''{0}''필드를 참고하세요."
-
 Example:
   message: "예제 메시지"
   description: "예제 설명(args={0},{1},{2})"
 
 EmailAvailableCheck:
-  Complete:
-    message: "이메일 사용가능여부 확인 완료"
-    description: "이메일 사용가능여부 확인을 마무리했습니다. ''{0}'' 필드를 참고하세요."
   Available:
     message: "사용 가능한 이메일"
     description: "이 이메일은 사용 가능합니다."
@@ -21,9 +14,6 @@ EmailAvailableCheck:
     description: "이미 사용 중인 이메일입니다."
 
 UsernameAvailableCheck:
-  Complete:
-    message: "사용자아이디(username) 사용가능여부 확인 완료"
-    description: "사용자아이디(username) 사용가능여부 확인을 마무리했습니다. ''{0}'' 필드를 참고하세요."
   Available:
     message: "사용 가능한 사용자아이디(username)"
     description: "이 사용자아이디(username)는 사용 가능합니다."
@@ -35,9 +25,6 @@ UsernameAvailableCheck:
     description: "이미 사용 중인 사용자아이디(username) 입니다."
 
 NicknameAvailableCheck:
-  Complete:
-    message: "닉네임 사용가능여부 확인 완료"
-    description: "닉네임 사용가능여부 확인을 마무리했습니다. ''{0}'' 필드를 참고하세요."
   Available:
     message: "사용 가능한 닉네임"
     description: "이 닉네임은 사용 가능합니다."
@@ -48,39 +35,6 @@ NicknameAvailableCheck:
     message: "사용 중인 닉네임"
     description: "이미 사용 중인 닉네임입니다."
 
-EmailVerificationStart:
-  Complete:
-    message: "이메일인증 시작됨"
-    description: "이메일 인증이 시작됐습니다. 귀하의 이메일로 보내진 코드를 참고하세요."
-
 EmailVerification:
-  Complete:
-    message: "이메일인증 완료됨"
-    description: "이메일 인증을 완료했습니다."
   EmailSubject: "이메일인증 코드입니다"
   EmailContent: "이메일인증 코드: {0}"
-
-RegisterMember:
-  Complete:
-    message: "회원가입 완료됨"
-    description: "회원가입이 완료됐습니다."
-
-Login:
-  Complete:
-    message: "로그인 성공"
-    description: "로그인에 성공했습니다."
-
-TokenRefresh:
-  Complete:
-    message: "토큰 재갱신 성공"
-    description: "토큰 재갱신에 성공했습니다."
-
-SocialLogin:
-  Complete:
-    message: "소셜로그인 성공"
-    description: "소셜로그인에 성공했습니다."
-
-BoardCreate:
-  Complete:
-    message: "게시판 생성 완료됨"
-    description: "게시판이 생성됐습니다."

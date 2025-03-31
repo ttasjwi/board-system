@@ -28,14 +28,14 @@ class BoardCreateUseCaseFixtureTest {
         )
 
         // when
-        val createdBoard = useCaseFixture.createBoard(request).createdBoard
+        val response = useCaseFixture.createBoard(request)
 
         // then
-        assertThat(createdBoard.boardId).isNotNull()
-        assertThat(createdBoard.name).isEqualTo(request.name)
-        assertThat(createdBoard.description).isEqualTo(request.description)
-        assertThat(createdBoard.managerId).isNotNull()
-        assertThat(createdBoard.slug).isEqualTo(request.slug)
-        assertThat(createdBoard.createdAt).isNotNull()
+        assertThat(response.boardId).isNotNull()
+        assertThat(response.name).isEqualTo(request.name)
+        assertThat(response.description).isEqualTo(request.description)
+        assertThat(response.managerId).isNotNull()
+        assertThat(response.slug).isEqualTo(request.slug)
+        assertThat(response.createdAt).isNotNull()
     }
 }

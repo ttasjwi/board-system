@@ -7,14 +7,14 @@ interface EmailVerificationStartUseCase {
     /**
      * 이메일 검증 절차를 시작합니다.
      */
-    fun startEmailVerification(request: EmailVerificationStartRequest): EmailVerificationStartResult
+    fun startEmailVerification(request: EmailVerificationStartRequest): EmailVerificationStartResponse
 }
 
 data class EmailVerificationStartRequest(
     val email: String?,
 )
 
-data class EmailVerificationStartResult(
+data class EmailVerificationStartResponse(
     val email: String,
     val codeExpiresAt: ZonedDateTime,
 )

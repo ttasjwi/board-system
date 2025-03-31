@@ -1,6 +1,8 @@
 package com.ttasjwi.board.system.member.application.service
 
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.EmailAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.EmailAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
@@ -10,6 +12,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.util.Locale
 
 @DisplayName("EmailAvailableService: 이메일 사용 가능 여부 확인을 수행하는 애플리케이션 서비스")
 class EmailAvailableApplicationServiceTest {
@@ -23,6 +26,8 @@ class EmailAvailableApplicationServiceTest {
             processor = EmailAvailableProcessor(
                 emailCreator = EmailCreatorFixture(),
                 memberFinder = MemberStorageFixture(),
+                messageResolver = MessageResolverFixture(),
+                localeManager = LocaleManagerFixture(),
             ),
             transactionRunner = TransactionRunnerFixture()
         )
@@ -35,8 +40,10 @@ class EmailAvailableApplicationServiceTest {
         val result = applicationService.checkEmailAvailable(request)
 
         assertThat(result).isNotNull
-        assertThat(result.email).isEqualTo(request.email)
+        assertThat(result.yourEmail).isEqualTo(request.email)
         assertThat(result.isAvailable).isTrue()
         assertThat(result.reasonCode).isEqualTo("EmailAvailableCheck.Available")
+        assertThat(result.reasonMessage).isEqualTo("EmailAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
+        assertThat(result.reasonDescription).isEqualTo("EmailAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
     }
 }

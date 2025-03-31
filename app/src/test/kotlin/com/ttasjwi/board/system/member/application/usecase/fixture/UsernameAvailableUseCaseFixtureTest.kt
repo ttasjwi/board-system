@@ -27,7 +27,7 @@ class UsernameAvailableUseCaseFixtureTest {
         val result = useCaseFixture.checkUsernameAvailable(request)
 
         // then
-        assertThat(result.username).isEqualTo(username)
+        assertThat(result.yourUsername).isEqualTo(username)
         assertThat(result.isAvailable).isTrue()
         assertThat(result.reasonCode).isEqualTo("UsernameAvailableCheck.Available")
     }

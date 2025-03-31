@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandMapper
 import com.ttasjwi.board.system.member.application.processor.RegisterMemberProcessor
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResult
+import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
 
@@ -22,7 +22,7 @@ internal class RegisterMemberApplicationService(
     }
 
 
-    override fun register(request: RegisterMemberRequest): RegisterMemberResult {
+    override fun register(request: RegisterMemberRequest): RegisterMemberResponse {
         log.info { "회원 가입을 시작합니다." }
 
         // 유효성 검사를 거쳐서 명령으로 변환
@@ -35,12 +35,12 @@ internal class RegisterMemberApplicationService(
 
         log.info { "회원가입 됨(id=${event.data.memberId},email = ${event.data.email})" }
 
-        // 처리 결과로 가공, 반환
-        return makeResult(event)
+        // 응답 가공, 반환
+        return makeResponse(event)
     }
 
-    private fun makeResult(event: MemberRegisteredEvent): RegisterMemberResult {
-        return RegisterMemberResult(
+    private fun makeResponse(event: MemberRegisteredEvent): RegisterMemberResponse {
+        return RegisterMemberResponse(
             memberId = event.data.memberId,
             email = event.data.email,
             username = event.data.username,
@@ -49,5 +49,4 @@ internal class RegisterMemberApplicationService(
             registeredAt = event.data.registeredAt,
         )
     }
-
 }

@@ -69,18 +69,16 @@ class BoardCreateApplicationServiceTest {
         )
 
         // when
-        val result = applicationService.createBoard(request)
+        val response = applicationService.createBoard(request)
 
         // then
-        val createdBoard = result.createdBoard
-        val findBoard = boardStorageFixture.findByIdOrNull(boardIdFixture(createdBoard.boardId))!!
-
-        assertThat(createdBoard.boardId).isNotNull()
-        assertThat(createdBoard.name).isEqualTo(request.name)
-        assertThat(createdBoard.description).isEqualTo(request.description)
-        assertThat(createdBoard.managerId).isEqualTo(authMember.memberId)
-        assertThat(createdBoard.slug).isEqualTo(request.slug)
-        assertThat(createdBoard.createdAt).isEqualTo(currentTime)
+        val findBoard = boardStorageFixture.findByIdOrNull(boardIdFixture(response.boardId.toLong()))!!
+        assertThat(response.boardId).isNotNull()
+        assertThat(response.name).isEqualTo(request.name)
+        assertThat(response.description).isEqualTo(request.description)
+        assertThat(response.managerId).isEqualTo(authMember.memberId.toString())
+        assertThat(response.slug).isEqualTo(request.slug)
+        assertThat(response.createdAt).isEqualTo(currentTime)
         assertThat(findBoard).isNotNull
     }
 }

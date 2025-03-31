@@ -27,7 +27,7 @@ class EmailAvailableUseCaseFixtureTest {
         val result = useCaseFixture.checkEmailAvailable(request)
 
         // then
-        assertThat(result.email).isEqualTo(email)
+        assertThat(result.yourEmail).isEqualTo(email)
         assertThat(result.isAvailable).isTrue()
         assertThat(result.reasonCode).isEqualTo("EmailAvailableCheck.Available")
     }

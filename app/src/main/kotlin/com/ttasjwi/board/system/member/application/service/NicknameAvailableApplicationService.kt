@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.NicknameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.NicknameAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
-import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResult
+import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResponse
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableUseCase
 
 @ApplicationService
@@ -20,7 +20,7 @@ internal class NicknameAvailableApplicationService(
         private val log = getLogger(NicknameAvailableApplicationService::class.java)
     }
 
-    override fun checkNicknameAvailable(request: NicknameAvailableRequest): NicknameAvailableResult {
+    override fun checkNicknameAvailable(request: NicknameAvailableRequest): NicknameAvailableResponse {
         log.info { "닉네임 사용가능여부를 확인합니다." }
 
         // 유효성 검사를 거쳐서 '질의'로 변환

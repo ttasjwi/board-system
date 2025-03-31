@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationStartCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationStartProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
-import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartResult
+import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartResponse
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartUseCase
 import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
@@ -23,7 +23,7 @@ internal class EmailVerificationStartApplicationService(
         private val log = getLogger(EmailVerificationStartApplicationService::class.java)
     }
 
-    override fun startEmailVerification(request: EmailVerificationStartRequest): EmailVerificationStartResult {
+    override fun startEmailVerification(request: EmailVerificationStartRequest): EmailVerificationStartResponse {
         log.info{ "이메일 인증 시작 요청을 받았습니다."}
 
         // 유효성 검사를 거쳐서 명령으로 변환
@@ -39,12 +39,12 @@ internal class EmailVerificationStartApplicationService(
 
         log.info{ "이메일 인증 시작됨 (email = ${event.data.email}"}
 
-        // 처리 결과로 가공, 반환
-        return makeResult(event)
+        // 응답 가공, 반환
+        return makeResponse(event)
     }
 
-    private fun makeResult(event: EmailVerificationStartedEvent): EmailVerificationStartResult {
-        return EmailVerificationStartResult(
+    private fun makeResponse(event: EmailVerificationStartedEvent): EmailVerificationStartResponse {
+        return EmailVerificationStartResponse(
             email = event.data.email,
             codeExpiresAt = event.data.codeExpiresAt,
         )

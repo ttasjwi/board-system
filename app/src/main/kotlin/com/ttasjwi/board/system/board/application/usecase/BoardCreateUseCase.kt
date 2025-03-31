@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.board.application.usecase
 import java.time.ZonedDateTime
 
 interface BoardCreateUseCase {
-    fun createBoard(request: BoardCreateRequest): BoardCreateResult
+    fun createBoard(request: BoardCreateRequest): BoardCreateResponse
 }
 
 data class BoardCreateRequest(
@@ -12,16 +12,11 @@ data class BoardCreateRequest(
     val slug: String?,
 )
 
-data class BoardCreateResult(
-    val createdBoard: CreatedBoard
-) {
-
-    data class CreatedBoard(
-        val boardId: Long,
-        val name: String,
-        val description: String,
-        val managerId: Long,
-        val slug: String,
-        val createdAt: ZonedDateTime,
-    )
-}
+data class BoardCreateResponse(
+    val boardId: String,
+    val name: String,
+    val description: String,
+    val managerId: String,
+    val slug: String,
+    val createdAt: ZonedDateTime,
+)

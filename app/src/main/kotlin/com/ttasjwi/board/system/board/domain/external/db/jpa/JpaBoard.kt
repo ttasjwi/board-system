@@ -20,7 +20,7 @@ class JpaBoard(
     @Column(name = "description", nullable = false)
     var description: String,
 
-    @Column(name = "manger_id", nullable = false)
+    @Column(name = "manager_id", nullable = false)
     var managerId: Long,
 
     @Column(name = "slug", unique = true, nullable = false)

@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.board.application.processor
 import com.ttasjwi.board.system.board.application.dto.BoardCreateCommand
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardNameException
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardSlugException
-import com.ttasjwi.board.system.board.application.usecase.BoardCreateResult
+import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
@@ -20,7 +20,7 @@ internal class BoardCreateProcessor(
         private val log = getLogger(BoardCreateProcessor::class.java)
     }
 
-    fun createBoard(command: BoardCreateCommand): BoardCreateResult {
+    fun createBoard(command: BoardCreateCommand): BoardCreateResponse {
         // 중복 체크
         checkDuplication(command)
 
@@ -31,7 +31,7 @@ internal class BoardCreateProcessor(
         val savedBoard = boardStorage.save(board)
 
         // 결과 생성, 반환
-        return makeResult(savedBoard)
+        return makeResponse(savedBoard)
     }
 
     private fun checkDuplication(command: BoardCreateCommand) {
@@ -60,16 +60,14 @@ internal class BoardCreateProcessor(
         )
     }
 
-    private fun makeResult(board: Board): BoardCreateResult {
-        return BoardCreateResult(
-            createdBoard = BoardCreateResult.CreatedBoard(
-                boardId = board.id!!.value,
-                name = board.name.value,
-                description = board.description.value,
-                managerId = board.managerId,
-                slug = board.slug.value,
-                createdAt = board.createdAt
-            ),
+    private fun makeResponse(board: Board): BoardCreateResponse {
+        return BoardCreateResponse(
+            boardId = board.id!!.value.toString(),
+            name = board.name.value,
+            description = board.description.value,
+            managerId = board.managerId.toString(),
+            slug = board.slug.value,
+            createdAt = board.createdAt
         )
     }
 }

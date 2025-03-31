@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.member.application.processor
 
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.dto.UsernameAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.util.*
 
 @DisplayName("UsernameAvailableProcessor: 사용자아이디(username)가 사용가능한 지 여부를 실질적으로 확인하는 처리자")
 class UsernameAvailableProcessorTest {
@@ -23,7 +26,9 @@ class UsernameAvailableProcessorTest {
         val usernameCreatorFixture = UsernameCreatorFixture()
         processor = UsernameAvailableProcessor(
             usernameCreator = usernameCreatorFixture,
-            memberFinder = memberStorageFixture
+            memberFinder = memberStorageFixture,
+            messageResolver = MessageResolverFixture(),
+            localeManager = LocaleManagerFixture(),
         )
         savedMember = memberStorageFixture.save(
             memberFixtureNotRegistered(
@@ -43,9 +48,11 @@ class UsernameAvailableProcessorTest {
 
             val result = processor.checkUsernameAvailable(query)
 
-            assertThat(result.username).isEqualTo(query.username)
+            assertThat(result.yourUsername).isEqualTo(query.username)
             assertThat(result.isAvailable).isFalse()
             assertThat(result.reasonCode).isEqualTo("UsernameAvailableCheck.InvalidFormat")
+            assertThat(result.reasonMessage).isEqualTo("UsernameAvailableCheck.InvalidFormat.message(locale=${Locale.KOREAN},args=[])")
+            assertThat(result.reasonDescription).isEqualTo("UsernameAvailableCheck.InvalidFormat.description(locale=${Locale.KOREAN},args=[])")
         }
 
         @Test
@@ -55,9 +62,11 @@ class UsernameAvailableProcessorTest {
 
             val result = processor.checkUsernameAvailable(query)
 
-            assertThat(result.username).isEqualTo(query.username)
+            assertThat(result.yourUsername).isEqualTo(query.username)
             assertThat(result.isAvailable).isFalse()
             assertThat(result.reasonCode).isEqualTo("UsernameAvailableCheck.Taken")
+            assertThat(result.reasonMessage).isEqualTo("UsernameAvailableCheck.Taken.message(locale=${Locale.KOREAN},args=[])")
+            assertThat(result.reasonDescription).isEqualTo("UsernameAvailableCheck.Taken.description(locale=${Locale.KOREAN},args=[])")
         }
 
         @Test
@@ -67,9 +76,11 @@ class UsernameAvailableProcessorTest {
 
             val result = processor.checkUsernameAvailable(query)
 
-            assertThat(result.username).isEqualTo(query.username)
+            assertThat(result.yourUsername).isEqualTo(query.username)
             assertThat(result.isAvailable).isTrue()
             assertThat(result.reasonCode).isEqualTo("UsernameAvailableCheck.Available")
+            assertThat(result.reasonMessage).isEqualTo("UsernameAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
+            assertThat(result.reasonDescription).isEqualTo("UsernameAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
         }
     }
 }
