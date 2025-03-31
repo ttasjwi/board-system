@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.board.domain.model
 
-import com.ttasjwi.board.system.common.domain.model.DomainEntity
 import java.time.ZonedDateTime
 
 /**
@@ -8,13 +7,13 @@ import java.time.ZonedDateTime
  */
 class Board
 internal constructor(
-    id: BoardId? = null,
+    val id: Long,
     name: BoardName,
     description: BoardDescription,
     managerId: Long,
     slug: BoardSlug,
     createdAt: ZonedDateTime,
-) : DomainEntity<BoardId>(id) {
+) {
 
     var name: BoardName = name
         private set
@@ -34,6 +33,7 @@ internal constructor(
     companion object {
 
         internal fun create(
+            id: Long,
             name: BoardName,
             description: BoardDescription,
             managerId: Long,
@@ -41,6 +41,7 @@ internal constructor(
             currentTime: ZonedDateTime
         ): Board {
             return Board(
+                id = id,
                 name = name,
                 description = description,
                 managerId = managerId,
@@ -58,7 +59,7 @@ internal constructor(
             createdAt: ZonedDateTime,
         ): Board {
             return Board(
-                id = BoardId.restore(id),
+                id = id,
                 name = BoardName.restore(name),
                 description = BoardDescription.restore(description),
                 managerId = managerId,

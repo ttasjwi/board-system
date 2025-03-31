@@ -9,7 +9,7 @@ import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
@@ -32,7 +32,7 @@ class LoginApplicationServiceTest {
         val memberStorageFixture = MemberStorageFixture()
 
         savedMember = memberStorageFixture.save(
-            memberFixtureNotRegistered(
+            memberFixture(
                 email = "hello@gmail.com",
                 password = "1234",
                 username = "username",

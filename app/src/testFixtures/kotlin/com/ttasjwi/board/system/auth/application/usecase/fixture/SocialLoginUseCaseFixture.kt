@@ -16,7 +16,7 @@ class SocialLoginUseCaseFixture : SocialLoginUseCase {
             refreshTokenExpiresAt = timeFixture(dayOfMonth = 2, minute = 0),
             memberCreated = true,
             createdMember = SocialLoginResponse.CreatedMember(
-                memberId = 1L,
+                memberId = "1",
                 email = request.email,
                 username = "createdusername",
                 nickname = "creatednickname",

@@ -9,7 +9,7 @@ class RegisterMemberUseCaseFixture : RegisterMemberUseCase {
 
     override fun register(request: RegisterMemberRequest): RegisterMemberResponse {
         return RegisterMemberResponse(
-            memberId = 1L,
+            memberId = "1",
             email = request.email!!,
             username = request.username!!,
             nickname = request.nickname!!,

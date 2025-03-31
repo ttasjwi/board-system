@@ -69,7 +69,7 @@ internal class LoginProcessor(
             log.warn(ex)
             throw ex
         }
-        log.info { "로그인 처리 - 회원이 조회됐습니다. (memberId=${member.id!!.value},email=${command.email.value})" }
+        log.info { "로그인 처리 - 회원이 조회됐습니다. (memberId=${member.id},email=${command.email.value})" }
         return member
     }
 

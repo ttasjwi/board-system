@@ -8,7 +8,6 @@ import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.MemberId
 import com.ttasjwi.board.system.member.domain.service.*
 import java.time.ZonedDateTime
 
@@ -62,7 +61,7 @@ internal class SocialLoginProcessor(
         // 소셜 연동은 없지만 이메일에 해당하는 회원이 있으면, 소셜 연동 시키고 회원을 그대로 반환
         val member = memberFinder.findByEmailOrNull(command.email)
         if (member != null) {
-            createSocialConnectionAndSave(member.id!!, command)
+            createSocialConnectionAndSave(member.id, command)
             return Pair(false, member)
         }
 
@@ -86,7 +85,7 @@ internal class SocialLoginProcessor(
         )
         // 회원 저장
         val savedMember = memberAppender.save(member)
-        createSocialConnectionAndSave(savedMember.id!!, command)
+        createSocialConnectionAndSave(savedMember.id, command)
         return Pair(true, member)
     }
 
@@ -94,7 +93,7 @@ internal class SocialLoginProcessor(
      * 소셜 연동을 생성하고, 저장합니다.
      */
     private fun createSocialConnectionAndSave(
-        memberId: MemberId,
+        memberId: Long,
         command: SocialLoginCommand
     ) {
         val socialConnection = socialConnectionCreator.create(
@@ -148,7 +147,7 @@ internal class SocialLoginProcessor(
             memberCreated = memberCreated,
             createdMember = if (memberCreated) {
                 SocialLoginResponse.CreatedMember(
-                    memberId = member.id!!.value,
+                    memberId = member.id.toString(),
                     email = member.email.value,
                     username = member.username.value,
                     nickname = member.nickname.value,

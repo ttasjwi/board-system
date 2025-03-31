@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.board.domain.external.db
 import com.ttasjwi.board.system.board.domain.external.db.jpa.JpaBoard
 import com.ttasjwi.board.system.board.domain.external.db.jpa.JpaBoardRepository
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardId
 import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
@@ -17,17 +16,12 @@ class BoardStorageImpl(
 
     override fun save(board: Board): Board {
         val jpaModel = JpaBoard.from(board)
-        val savedJpaModel = jpaBoardRepository.save(jpaModel)
-
-        if (board.id == null) {
-            val id = BoardId.restore(savedJpaModel.id!!)
-            board.initId(id)
-        }
+        jpaBoardRepository.save(jpaModel)
         return board
     }
 
-    override fun findByIdOrNull(id: BoardId): Board? {
-        return jpaBoardRepository.findByIdOrNull(id.value)?.restoreDomain()
+    override fun findByIdOrNull(id: Long): Board? {
+        return jpaBoardRepository.findByIdOrNull(id)?.restoreDomain()
     }
 
     override fun existsByName(name: BoardName): Boolean {

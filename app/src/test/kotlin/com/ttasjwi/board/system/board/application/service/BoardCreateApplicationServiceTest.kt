@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.board.application.service
 import com.ttasjwi.board.system.board.application.mapper.BoardCreateCommandMapper
 import com.ttasjwi.board.system.board.application.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.domain.model.fixture.boardIdFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.*
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
@@ -72,7 +71,7 @@ class BoardCreateApplicationServiceTest {
         val response = applicationService.createBoard(request)
 
         // then
-        val findBoard = boardStorageFixture.findByIdOrNull(boardIdFixture(response.boardId.toLong()))!!
+        val findBoard = boardStorageFixture.findByIdOrNull(response.boardId.toLong())!!
         assertThat(response.boardId).isNotNull()
         assertThat(response.name).isEqualTo(request.name)
         assertThat(response.description).isEqualTo(request.description)

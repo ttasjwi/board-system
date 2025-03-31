@@ -15,7 +15,7 @@ internal class AuthMemberCreatorImpl : AuthMemberCreator {
     private class CreatedAuthMember(
         member: Member
     ) : AuthMember(
-        memberId = member.id!!.value,
+        memberId = member.id,
         role = member.role,
     )
 }

@@ -2,9 +2,7 @@ package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureRegistered
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -37,7 +35,7 @@ class MemberTest {
             )
 
             assertThat(member).isNotNull
-            assertThat(member.id).isEqualTo(MemberId.restore(id))
+            assertThat(member.id).isEqualTo(id)
             assertThat(member.email).isEqualTo(Email.restore(email))
             assertThat(member.password.value).isEqualTo(password)
             assertThat(member.username).isEqualTo(Username.restore(username))
@@ -55,7 +53,7 @@ class MemberTest {
         @Test
         @DisplayName("toString 이 의도한 대로 문자열을 반환하는 지 테스트")
         fun test() {
-            val member = memberFixtureRegistered()
+            val member = memberFixture()
 
             assertThat(member.toString()).isEqualTo(
                 "Member(id=${member.id}, email=${member.email}, password=${member.password}, username=${member.username}, nickname=${member.nickname}, role=${member.role}, registeredAt=${member.registeredAt})"
@@ -63,17 +61,4 @@ class MemberTest {
         }
     }
 
-    @Nested
-    @DisplayName("initId : 회원의 아이디를 초기화한다.")
-    inner class InitId {
-
-        @Test
-        @DisplayName("initId : 아이디 초기화")
-        fun initIdTest() {
-            val member = memberFixtureNotRegistered()
-            val memberId = memberIdFixture(value = 133L)
-            member.initId(memberId)
-            assertThat(member.id).isEqualTo(memberId)
-        }
-    }
 }

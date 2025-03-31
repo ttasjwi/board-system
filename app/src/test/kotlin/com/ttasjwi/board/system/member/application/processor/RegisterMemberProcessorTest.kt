@@ -37,7 +37,8 @@ class RegisterMemberProcessorTest {
             memberEventCreator = MemberEventCreatorFixture()
         )
         registeredMember = memberStorageFixture.save(
-            memberFixtureNotRegistered(
+            memberFixture(
+                id = 12345L,
                 email = "registered@gmail.com",
                 username = "registered",
                 nickname = "가입된회원쟝",
@@ -74,7 +75,7 @@ class RegisterMemberProcessorTest {
 
         // then
         val data = event.data
-        val findMember = memberStorageFixture.findByIdOrNull(memberIdFixture(data.memberId))!!
+        val findMember = memberStorageFixture.findByIdOrNull(data.memberId)!!
         val findEmailVerification = emailVerificationStorageFixture.findByEmailOrNull(email)
 
         assertThat(event.occurredAt).isEqualTo(currentTime)
@@ -86,7 +87,7 @@ class RegisterMemberProcessorTest {
         assertThat(data.registeredAt).isEqualTo(currentTime)
 
         assertThat(findEmailVerification).isNull()
-        assertThat(findMember.id!!.value).isEqualTo(data.memberId)
+        assertThat(findMember.id).isEqualTo(data.memberId)
         assertThat(findMember.email).isEqualTo(command.email)
         assertThat(findMember.password.value).isEqualTo(command.rawPassword.value)
         assertThat(findMember.username).isEqualTo(command.username)

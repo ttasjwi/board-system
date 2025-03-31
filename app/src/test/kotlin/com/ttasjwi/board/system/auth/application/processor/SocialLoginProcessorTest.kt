@@ -10,8 +10,8 @@ import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
-import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixtureNotSaved
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialServiceUserFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
@@ -62,10 +62,11 @@ class SocialLoginProcessorTest {
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
         val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixtureNotRegistered(email = email.value))
+        val member = memberStorageFixture.save(memberFixture(email = email.value))
         socialConnectionStorageFixture.save(
-            socialConnectionFixtureNotSaved(
-                memberId = member.id!!.value,
+            socialConnectionFixture(
+                id = 15567L,
+                memberId = member.id,
                 socialService = socialService,
                 socialServiceUserId = socialServiceUserId,
                 linkedAt = timeFixture(minute = 3)
@@ -98,7 +99,7 @@ class SocialLoginProcessorTest {
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
         val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixtureNotRegistered(email = email.value))
+        val member = memberStorageFixture.save(memberFixture(email = email.value))
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
@@ -156,7 +157,7 @@ class SocialLoginProcessorTest {
         assertThat(result.memberCreated).isTrue()
         assertThat(result.createdMember).isEqualTo(
             SocialLoginResponse.CreatedMember(
-                memberId = findMember.id!!.value,
+                memberId = findMember.id.toString(),
                 email = findMember.email.value,
                 username = findMember.username.value,
                 nickname = findMember.nickname.value,
@@ -185,23 +186,24 @@ class SocialLoginProcessorTest {
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
         val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixtureNotRegistered(email = email.value))
+        val member = memberStorageFixture.save(memberFixture(email = email.value))
         socialConnectionStorageFixture.save(
-            socialConnectionFixtureNotSaved(
-                memberId = member.id!!.value,
+            socialConnectionFixture(
+                id = 14567L,
+                memberId = member.id,
                 socialService = socialService,
                 socialServiceUserId = socialServiceUserId,
                 linkedAt = timeFixture(minute = 3)
             )
         )
         refreshTokenHolderStorageFixture.append(
-            memberId = member.id!!.value,
+            memberId = member.id,
             refreshTokenHolder = refreshTokenHolderFixture(
-                memberId = member.id!!.value,
+                memberId = member.id,
                 role = member.role,
                 tokens = mutableMapOf(
                     refreshTokenIdFixture("tokenId1") to refreshTokenFixture(
-                        memberId = member.id!!.value,
+                        memberId = member.id,
                         refreshTokenId = "tokenId1",
                         tokenValue = "tokenValue",
                         issuedAt = timeFixture(minute = 0),
@@ -219,7 +221,7 @@ class SocialLoginProcessorTest {
 
         // when
         val result = socialLoginProcessor.socialLogin(command)
-        val findRefreshTokenHolder = refreshTokenHolderStorageFixture.findByMemberIdOrNull(member.id!!.value)!!
+        val findRefreshTokenHolder = refreshTokenHolderStorageFixture.findByMemberIdOrNull(member.id)!!
 
         // then
         assertThat(result.accessToken).isNotNull()

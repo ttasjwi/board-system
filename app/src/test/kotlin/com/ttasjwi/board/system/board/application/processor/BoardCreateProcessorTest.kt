@@ -31,7 +31,8 @@ class BoardCreateProcessorTest {
             boardManager = BoardManagerFixture()
         )
         savedBoard = boardStorageFixture.save(
-            boardFixtureNotRegistered(
+            boardFixture(
+                id = 1234L,
                 name = "등록된",
                 slug = "registered"
             )
@@ -55,7 +56,7 @@ class BoardCreateProcessorTest {
         val response = processor.createBoard(command)
 
         // then
-        val findBoard = boardStorageFixture.findByIdOrNull(boardIdFixture(response.boardId.toLong()))!!
+        val findBoard = boardStorageFixture.findByIdOrNull(response.boardId.toLong())!!
 
         assertThat(response.boardId).isNotNull()
         assertThat(response.name).isEqualTo(command.boardName.value)

@@ -31,7 +31,7 @@ class BoardTest {
                 createdAt = createdAt
             )
 
-            assertThat(board.id).isEqualTo(boardIdFixture(id))
+            assertThat(board.id).isEqualTo(id)
             assertThat(board.name).isEqualTo(boardNameFixture(name))
             assertThat(board.description).isEqualTo(boardDescriptionFixture(description))
             assertThat(board.managerId).isEqualTo(managerId)
@@ -47,7 +47,7 @@ class BoardTest {
         @Test
         @DisplayName("toString 이 의도한 대로 문자열을 반환하는 지 테스트")
         fun test() {
-            val board = boardFixtureRegistered()
+            val board = boardFixture()
 
             assertThat(board.toString()).isEqualTo(
                 "Board(id=${board.id}, name=${board.name}, description=${board.description}, managerId=${board.managerId}, slug=${board.slug}, createdAt=${board.createdAt})"
@@ -55,17 +55,4 @@ class BoardTest {
         }
     }
 
-    @Nested
-    @DisplayName("initId : 게시판의 아이디를 초기화한다.")
-    inner class InitId {
-
-        @Test
-        @DisplayName("initId : 아이디 초기화")
-        fun initIdTest() {
-            val board = boardFixtureNotRegistered()
-            val boardId = boardIdFixture(value = 133L)
-            board.initId(boardId)
-            assertThat(board.id).isEqualTo(boardId)
-        }
-    }
 }

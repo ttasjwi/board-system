@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @DisplayName("MemberStorageImpl 테스트")
-class MemberStorageImplImplTest : IntegrationTest() {
+class MemberStorageImplTest : IntegrationTest() {
 
     @Nested
     @DisplayName("save: 회원을 저장하고, id 를 발급받아 반환시킨다.")
@@ -20,7 +20,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
 
             // when
             val savedMember = memberStorageImpl.save(member)
@@ -41,14 +41,15 @@ class MemberStorageImplImplTest : IntegrationTest() {
         fun test2() {
             // given
             val savedMember = memberStorageImpl.save(
-                memberFixtureNotRegistered(
+                memberFixture(
+                    id = 1L,
                     password = "1111",
                 )
             )
 
             val changedMember = memberStorageImpl.save(
-                memberFixtureRegistered(
-                    id = savedMember.id!!.value,
+                memberFixture(
+                    id = savedMember.id,
                     password = "2222",
                 )
             )
@@ -73,12 +74,12 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
-            val savedMember = memberStorageImpl.save(memberFixtureNotRegistered())
+            val member = memberFixture()
+            val savedMember = memberStorageImpl.save(memberFixture())
             flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorageImpl.findByIdOrNull(savedMember.id!!)!!
+            val findMember = memberStorageImpl.findByIdOrNull(savedMember.id)!!
 
             // then
             assertThat(findMember).isNotNull
@@ -94,7 +95,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val memberId = memberIdFixture(1557L)
+            val memberId = 1557L
 
             // when
             val findMember = memberStorageImpl.findByIdOrNull(memberId)
@@ -113,7 +114,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered(email = "test1557@gmail.com")
+            val member = memberFixture(email = "test1557@gmail.com")
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 
@@ -152,7 +153,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 
@@ -192,7 +193,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 
@@ -231,7 +232,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 
@@ -246,7 +247,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val memberId = memberIdFixture(1557L)
+            val memberId = 1557L
 
             // when
             val isExist = memberStorageImpl.existsById(memberId)
@@ -264,7 +265,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 
@@ -297,7 +298,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 
@@ -330,7 +331,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageImpl.save(member)
             flushAndClearEntityManager()
 

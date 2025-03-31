@@ -8,8 +8,8 @@ import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixt
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
-import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixtureNotSaved
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -70,10 +70,10 @@ class SocialLoginApplicationServiceTest {
         val currentTime = timeFixture(minute = 5)
         timeManagerFixture.changeCurrentTime(currentTime)
 
-        val member = memberStorageFixture.save(memberFixtureNotRegistered(email = email))
+        val member = memberStorageFixture.save(memberFixture(email = email))
         socialConnectionStorageFixture.save(
-            socialConnectionFixtureNotSaved(
-                memberId = member.id!!.value,
+            socialConnectionFixture(
+                memberId = member.id,
                 socialService = SocialService.GOOGLE,
                 socialServiceUserId = socialServiceUserId,
                 linkedAt = timeFixture(minute = 3)

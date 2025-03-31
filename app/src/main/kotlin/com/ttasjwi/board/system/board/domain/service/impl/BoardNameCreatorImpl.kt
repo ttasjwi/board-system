@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.common.annotation.component.DomainService
 
 @DomainService
 class BoardNameCreatorImpl : BoardNameCreator {
-
     override fun create(value: String): Result<BoardName> {
         return kotlin.runCatching {
             BoardName.create(value)

@@ -11,8 +11,7 @@ class JpaMember (
 
     @Id
     @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long,
 
     @Column(name = "email")
     var email: String,
@@ -37,7 +36,7 @@ class JpaMember (
 
         internal fun from(member: Member): JpaMember {
             return JpaMember(
-                id = member.id?.value,
+                id = member.id,
                 email = member.email.value,
                 password = member.password.value,
                 username = member.username.value,
@@ -50,7 +49,7 @@ class JpaMember (
 
     internal fun restoreDomain(): Member {
         return Member.restore(
-            id = this.id!!,
+            id = this.id,
             email = this.email,
             password = this.password,
             username = this.username,
