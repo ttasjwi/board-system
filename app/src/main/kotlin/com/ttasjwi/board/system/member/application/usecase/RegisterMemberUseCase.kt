@@ -18,7 +18,7 @@ data class RegisterMemberRequest(
 )
 
 data class RegisterMemberResponse(
-    val memberId: Long,
+    val memberId: String,
     val email: String,
     val username: String,
     val nickname: String,

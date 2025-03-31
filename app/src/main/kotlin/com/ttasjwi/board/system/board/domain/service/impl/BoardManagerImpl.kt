@@ -6,10 +6,13 @@ import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.common.idgerator.IdGenerator
 import java.time.ZonedDateTime
 
 @DomainService
 class BoardManagerImpl : BoardManager {
+
+    private val idGenerator: IdGenerator = IdGenerator.create()
 
     override fun create(
         name: BoardName,
@@ -19,6 +22,7 @@ class BoardManagerImpl : BoardManager {
         currentTime: ZonedDateTime
     ): Board {
         return Board.create(
+            id = idGenerator.nextId(),
             name = name,
             description = description,
             managerId = managerId,

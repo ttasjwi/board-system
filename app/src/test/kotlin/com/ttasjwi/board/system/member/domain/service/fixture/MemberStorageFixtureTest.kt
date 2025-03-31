@@ -26,7 +26,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
 
             // when
             val savedMember = memberStorageFixture.save(member)
@@ -46,20 +46,20 @@ class MemberStorageFixtureTest {
         fun test2() {
             // given
             val savedMember = memberStorageFixture.save(
-                memberFixtureNotRegistered(
+                memberFixture(
                     password = "1111",
                 )
             )
 
             val changedMember = memberStorageFixture.save(
-                memberFixtureRegistered(
-                    id = savedMember.id!!.value,
+                memberFixture(
+                    id = savedMember.id,
                     password = "2222",
                 )
             )
 
             // when
-            val findMember = memberStorageFixture.findByIdOrNull(savedMember.id!!)!!
+            val findMember = memberStorageFixture.findByIdOrNull(savedMember.id)!!
 
             // then
             assertThat(findMember.id).isEqualTo(savedMember.id)
@@ -77,11 +77,11 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
-            val savedMember = memberStorageFixture.save(memberFixtureNotRegistered())
+            val member = memberFixture()
+            val savedMember = memberStorageFixture.save(memberFixture())
 
             // when
-            val findMember = memberStorageFixture.findByIdOrNull(savedMember.id!!)!!
+            val findMember = memberStorageFixture.findByIdOrNull(savedMember.id)!!
 
 
             // then
@@ -98,7 +98,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val memberId = memberIdFixture(1557L)
+            val memberId = 1557L
 
             // when
             val findMember = memberStorageFixture.findByIdOrNull(memberId)
@@ -117,7 +117,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered(email = "test1557@gmail.com")
+            val member = memberFixture(email = "test1557@gmail.com")
             val savedMember = memberStorageFixture.save(member)
 
             // when
@@ -155,7 +155,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageFixture.save(member)
 
             // when
@@ -194,7 +194,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageFixture.save(member)
 
             // when
@@ -232,11 +232,11 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageFixture.save(member)
 
             // when
-            val isExist = memberStorageFixture.existsById(savedMember.id!!)
+            val isExist = memberStorageFixture.existsById(savedMember.id)
 
             // then
             assertThat(isExist).isTrue()
@@ -246,7 +246,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val memberId = memberIdFixture(1557L)
+            val memberId = 1557L
             // when
             val isExist = memberStorageFixture.existsById(memberId)
 
@@ -263,7 +263,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageFixture.save(member)
 
             // when
@@ -295,7 +295,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageFixture.save(member)
 
             // when
@@ -326,7 +326,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = memberFixtureNotRegistered()
+            val member = memberFixture()
             val savedMember = memberStorageFixture.save(member)
 
             // when

@@ -28,7 +28,7 @@ internal constructor(
     companion object {
         internal fun create(member: Member): MemberRegisteredEvent {
             return MemberRegisteredEvent(
-                memberId = member.id!!.value,
+                memberId = member.id,
                 email = member.email.value,
                 username = member.username.value,
                 nickname = member.nickname.value,
@@ -46,5 +46,4 @@ internal constructor(
         val roleName: String,
         val registeredAt: ZonedDateTime,
     )
-
 }

@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.common.domain.model.DomainEntity
 import java.time.ZonedDateTime
 
 /**
@@ -8,20 +7,22 @@ import java.time.ZonedDateTime
  */
 class SocialConnection
 internal constructor(
-    id: SocialConnectionId? = null,
-    val memberId: MemberId,
+    val id: Long,
+    val memberId: Long,
     val socialServiceUser: SocialServiceUser,
     val linkedAt: ZonedDateTime,
-) : DomainEntity<SocialConnectionId>(id) {
+) {
 
     companion object {
 
         internal fun create(
-            memberId: MemberId,
+            id: Long,
+            memberId: Long,
             socialServiceUser: SocialServiceUser,
             currentTime: ZonedDateTime
         ): SocialConnection {
             return SocialConnection(
+                id = id,
                 memberId = memberId,
                 socialServiceUser = socialServiceUser,
                 linkedAt = currentTime,
@@ -36,8 +37,8 @@ internal constructor(
             linkedAt: ZonedDateTime
         ): SocialConnection {
             return SocialConnection(
-                id = SocialConnectionId.restore(id),
-                memberId = MemberId.restore(memberId),
+                id = id,
+                memberId = memberId,
                 socialServiceUser = SocialServiceUser.restore(socialServiceName, socialServiceUserId),
                 linkedAt = linkedAt
             )

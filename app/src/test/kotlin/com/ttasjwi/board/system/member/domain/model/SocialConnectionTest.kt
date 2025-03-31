@@ -33,8 +33,8 @@ class SocialConnectionTest {
             )
 
             // then
-            assertThat(socialConnection.id).isEqualTo(SocialConnectionId.restore(id))
-            assertThat(socialConnection.memberId).isEqualTo(MemberId.restore(memberId))
+            assertThat(socialConnection.id).isEqualTo(id)
+            assertThat(socialConnection.memberId).isEqualTo(memberId)
             assertThat(socialConnection.socialServiceUser).isEqualTo(
                 SocialServiceUser.restore(
                     socialServiceName,

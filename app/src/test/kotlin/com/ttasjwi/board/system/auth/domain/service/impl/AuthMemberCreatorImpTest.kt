@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.service.impl
 
 import com.ttasjwi.board.system.auth.domain.service.AuthMemberCreator
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureRegistered
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -21,13 +21,13 @@ class AuthMemberCreatorImpTest {
     @DisplayName("create: AuthMember 를 생성한다")
     fun testCreate() {
         // given
-        val member = memberFixtureRegistered()
+        val member = memberFixture()
 
         // when
         val authMember = authMemberCreator.create(member)
 
         // then
-        assertThat(authMember.memberId).isEqualTo(member.id!!.value)
+        assertThat(authMember.memberId).isEqualTo(member.id)
         assertThat(authMember.role).isEqualTo(member.role)
     }
 }

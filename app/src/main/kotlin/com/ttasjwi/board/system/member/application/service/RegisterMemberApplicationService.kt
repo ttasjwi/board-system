@@ -41,7 +41,7 @@ internal class RegisterMemberApplicationService(
 
     private fun makeResponse(event: MemberRegisteredEvent): RegisterMemberResponse {
         return RegisterMemberResponse(
-            memberId = event.data.memberId,
+            memberId = event.data.memberId.toString(),
             email = event.data.email,
             username = event.data.username,
             nickname = event.data.nickname,

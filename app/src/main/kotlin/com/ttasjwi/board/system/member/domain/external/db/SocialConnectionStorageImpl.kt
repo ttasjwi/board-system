@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.member.domain.external.db
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaSocialConnection
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaSocialConnectionRepository
 import com.ttasjwi.board.system.member.domain.model.SocialConnection
-import com.ttasjwi.board.system.member.domain.model.SocialConnectionId
 import com.ttasjwi.board.system.member.domain.model.SocialServiceUser
 import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
 import org.springframework.stereotype.Component
@@ -15,8 +14,7 @@ class SocialConnectionStorageImpl(
 
     override fun save(socialConnection: SocialConnection): SocialConnection {
         val jpaModel = JpaSocialConnection.from(socialConnection)
-        val savedJpaModel = jpaSocialConnectionRepository.save(jpaModel)
-        socialConnection.initId(SocialConnectionId.restore(savedJpaModel.id!!))
+        jpaSocialConnectionRepository.save(jpaModel)
         return socialConnection
     }
 

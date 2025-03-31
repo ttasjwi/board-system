@@ -28,7 +28,7 @@ data class SocialLoginResponse(
 ) {
 
     data class CreatedMember(
-        val memberId: Long,
+        val memberId: String,
         val email: String,
         val username: String,
         val nickname: String,

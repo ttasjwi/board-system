@@ -11,8 +11,7 @@ class JpaSocialConnection(
 
     @Id
     @Column(name = "social_connection_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long,
 
     @Column(name = "member_id")
     val memberId: Long,
@@ -32,8 +31,8 @@ class JpaSocialConnection(
 
         fun from(socialConnection: SocialConnection): JpaSocialConnection {
             return JpaSocialConnection(
-                id = socialConnection.id?.value,
-                memberId = socialConnection.memberId.value,
+                id = socialConnection.id,
+                memberId = socialConnection.memberId,
                 socialService = socialConnection.socialServiceUser.service.name,
                 socialServiceUserId = socialConnection.socialServiceUser.userId,
                 linkedAt = socialConnection.linkedAt
@@ -43,7 +42,7 @@ class JpaSocialConnection(
 
     fun toDomainEntity(): SocialConnection {
         return SocialConnection.restore(
-            id = this.id!!,
+            id = this.id,
             memberId = this.memberId,
             socialServiceName = this.socialService,
             socialServiceUserId = this.socialServiceUserId,

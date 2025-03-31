@@ -9,7 +9,7 @@ class AuthMemberCreatorFixture : AuthMemberCreator {
 
     override fun create(member: Member): AuthMember {
         return authMemberFixture(
-            memberId = member.id!!.value,
+            memberId = member.id,
             role = member.role
         )
     }

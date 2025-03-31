@@ -21,39 +21,25 @@ class BoardStorageFixtureTest {
     @Nested
     inner class Save {
 
+        @DisplayName("저장되어 있는 게시판을 다시 저장하면, 상태가 변경된다.")
         @Test
-        @DisplayName("save 후 아이디가 생성된다")
         fun test() {
             // given
-            val board = boardFixtureNotRegistered()
-
-            // when
-            val savedBoard = boardStorageFixture.save(board)
-
-            // then
-            assertThat(savedBoard.id).isNotNull
-        }
-
-
-        @DisplayName("id 가 있는 게시판을 저장하고 조회하면 기존 게시판 정보를 덮어쓴 채 조회된다.")
-        @Test
-        fun test2() {
-            // given
             val savedBoard = boardStorageFixture.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     name = "음식"
                 )
             )
 
             val changedBoard = boardStorageFixture.save(
-                boardFixtureRegistered(
-                    id = savedBoard.id!!.value,
+                boardFixture(
+                    id = savedBoard.id,
                     name = "요리"
                 )
             )
 
             // when
-            val findBoard = boardStorageFixture.findByIdOrNull(savedBoard.id!!)!!
+            val findBoard = boardStorageFixture.findByIdOrNull(savedBoard.id)!!
 
             // then
             assertThat(findBoard.id).isEqualTo(savedBoard.id)
@@ -72,10 +58,10 @@ class BoardStorageFixtureTest {
         @DisplayName("식별자로 게시판을 조회할 수 있다")
         fun findSuccessTest() {
             // given
-            val board = boardStorageFixture.save(boardFixtureNotRegistered())
+            val board = boardStorageFixture.save(boardFixture())
 
             // when
-            val findBoard = boardStorageFixture.findByIdOrNull(board.id!!)!!
+            val findBoard = boardStorageFixture.findByIdOrNull(board.id)!!
 
             // then
             assertThat(findBoard.id).isNotNull
@@ -91,7 +77,7 @@ class BoardStorageFixtureTest {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val boardId = boardIdFixture(1557L)
+            val boardId = 1557L
 
             // when
             val board = boardStorageFixture.findByIdOrNull(boardId)
@@ -111,7 +97,7 @@ class BoardStorageFixtureTest {
         fun test1() {
             // given
             val savedBoard = boardStorageFixture.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     name = "음식"
                 )
             )
@@ -144,7 +130,7 @@ class BoardStorageFixtureTest {
         fun test1() {
             // given
             val savedBoard = boardStorageFixture.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     slug = "food"
                 )
             )
@@ -177,7 +163,7 @@ class BoardStorageFixtureTest {
         fun findSuccessTest() {
             // given
             val board = boardStorageFixture.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     slug = "food"
                 )
             )

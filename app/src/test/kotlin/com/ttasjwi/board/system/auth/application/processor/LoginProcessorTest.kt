@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
@@ -30,7 +30,8 @@ class LoginProcessorTest {
         val memberStorageFixture = MemberStorageFixture()
 
         savedMember = memberStorageFixture.save(
-            memberFixtureNotRegistered(
+            memberFixture(
+                id = 1543L,
                 email = "hello@gmail.com",
                 password = "1234",
                 username = "username",
@@ -68,7 +69,7 @@ class LoginProcessorTest {
 
         // then
         val data = event.data
-        val refreshTokenHolder = refreshTokenHolderStorageFixture.findByMemberIdOrNull(savedMember.id!!.value)!!
+        val refreshTokenHolder = refreshTokenHolderStorageFixture.findByMemberIdOrNull(savedMember.id)!!
         val tokens = refreshTokenHolder.getTokens()
 
         assertThat(event.occurredAt).isEqualTo(successCommand.currentTime)
@@ -76,7 +77,7 @@ class LoginProcessorTest {
         assertThat(data.accessTokenExpiresAt).isNotNull()
         assertThat(data.refreshToken).isNotNull()
         assertThat(data.refreshTokenExpiresAt).isNotNull()
-        assertThat(refreshTokenHolder.authMember.memberId).isEqualTo(savedMember.id!!.value)
+        assertThat(refreshTokenHolder.authMember.memberId).isEqualTo(savedMember.id)
         assertThat(refreshTokenHolder.authMember.role).isEqualTo(savedMember.role)
         assertThat(tokens.size).isEqualTo(1)
         assertThat(refreshTokenHolder.getTokens().values.map { it.tokenValue }).containsExactly(data.refreshToken)
@@ -98,7 +99,7 @@ class LoginProcessorTest {
         val secondLoginEventData = processor.login(secondLoginCommand).data
 
         // then
-        val refreshTokenHolder = refreshTokenHolderStorageFixture.findByMemberIdOrNull(savedMember.id!!.value)!!
+        val refreshTokenHolder = refreshTokenHolderStorageFixture.findByMemberIdOrNull(savedMember.id)!!
         val tokens = refreshTokenHolder.getTokens()
 
         assertThat(tokens.size).isEqualTo(2)

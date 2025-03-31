@@ -16,20 +16,15 @@ class MemberStorageImpl(
     override fun save(member: Member): Member {
         val jpaMember = JpaMember.from(member)
         jpaMemberRepository.save(jpaMember)
-
-        if (member.id == null) {
-            val id = MemberId.restore(jpaMember.id!!)
-            member.initId(id)
-        }
         return member
     }
 
-    override fun findByIdOrNull(id: MemberId): Member? {
-        return jpaMemberRepository.findByIdOrNull(id.value)?.restoreDomain()
+    override fun findByIdOrNull(id: Long): Member? {
+        return jpaMemberRepository.findByIdOrNull(id)?.restoreDomain()
     }
 
-    override fun existsById(id: MemberId): Boolean {
-        return jpaMemberRepository.existsById(id.value)
+    override fun existsById(id: Long): Boolean {
+        return jpaMemberRepository.existsById(id)
     }
 
     override fun findByEmailOrNull(email: Email): Member? {

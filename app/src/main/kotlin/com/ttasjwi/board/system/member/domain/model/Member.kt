@@ -1,19 +1,18 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.domain.model.DomainEntity
 import java.time.ZonedDateTime
 
 class Member
 internal constructor(
-    id: MemberId? = null,
+    val id: Long,
     email: Email,
     password: EncodedPassword,
     username: Username,
     nickname: Nickname,
     role: Role,
     val registeredAt: ZonedDateTime,
-) : DomainEntity<MemberId>(id) {
+) {
 
     var email: Email = email
         private set
@@ -36,6 +35,7 @@ internal constructor(
          * 가입 회원 생성
          */
         internal fun create(
+            id: Long,
             email: Email,
             password: EncodedPassword,
             username: Username,
@@ -43,6 +43,7 @@ internal constructor(
             registeredAt: ZonedDateTime,
         ): Member {
             return Member(
+                id = id,
                 email = email,
                 password = password,
                 username = username,
@@ -62,7 +63,7 @@ internal constructor(
             registeredAt: ZonedDateTime
         ): Member {
             return Member(
-                id = MemberId.restore(id),
+                id = id,
                 email = Email.restore(email),
                 password = EncodedPassword.restore(password),
                 username = Username.restore(username),

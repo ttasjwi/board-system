@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.dto.NicknameAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.NicknameCreatorFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -31,7 +31,7 @@ class NicknameAvailableProcessorTest {
             localeManager = LocaleManagerFixture(),
             )
         savedMember = memberStorageFixture.save(
-            memberFixtureNotRegistered(
+            memberFixture(
                 nickname = "saved"
             )
         )

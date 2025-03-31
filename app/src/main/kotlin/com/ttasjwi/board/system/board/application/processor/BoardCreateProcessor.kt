@@ -62,7 +62,7 @@ internal class BoardCreateProcessor(
 
     private fun makeResponse(board: Board): BoardCreateResponse {
         return BoardCreateResponse(
-            boardId = board.id!!.value.toString(),
+            boardId = board.id.toString(),
             name = board.name.value,
             description = board.description.value,
             managerId = board.managerId.toString(),

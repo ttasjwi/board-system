@@ -11,8 +11,7 @@ class JpaBoard(
 
     @Id
     @Column(name = "board_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    val id: Long,
 
     @Column(name = "name", unique = true, nullable = false)
     var name: String,
@@ -34,7 +33,7 @@ class JpaBoard(
 
         internal fun from(board: Board): JpaBoard {
             return JpaBoard(
-                id = board.id?.value,
+                id = board.id,
                 name = board.name.value,
                 description = board.description.value,
                 managerId = board.managerId,
@@ -46,7 +45,7 @@ class JpaBoard(
 
     internal fun restoreDomain(): Board {
         return Board.restore(
-            id = this.id!!,
+            id = this.id,
             name = this.name,
             description = this.description,
             managerId = this.managerId,

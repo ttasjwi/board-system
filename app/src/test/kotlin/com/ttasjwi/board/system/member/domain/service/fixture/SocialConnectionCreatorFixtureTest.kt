@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.memberIdFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialServiceUserFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -22,7 +21,7 @@ class SocialConnectionCreatorFixtureTest {
     @DisplayName("create: 소셜 연동을 생성한다.")
     fun test() {
         // given
-        val memberId = memberIdFixture()
+        val memberId = 1234556L
         val providerUser = socialServiceUserFixture()
         val currentTime = timeFixture(minute = 7)
 
@@ -34,7 +33,7 @@ class SocialConnectionCreatorFixtureTest {
         )
 
         // then
-        assertThat(socialConnection.id).isNull()
+        assertThat(socialConnection.id).isNotNull()
         assertThat(socialConnection.memberId).isEqualTo(memberId)
         assertThat(socialConnection.socialServiceUser).isEqualTo(providerUser)
         assertThat(socialConnection.linkedAt).isEqualTo(currentTime)

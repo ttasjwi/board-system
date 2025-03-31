@@ -37,7 +37,7 @@ class BoardManagerImplTest {
             currentTime = currentTime
         )
 
-        assertThat(board.id).isNull()
+        assertThat(board.id).isNotNull()
         assertThat(board.name).isEqualTo(name)
         assertThat(board.description).isEqualTo(description)
         assertThat(board.managerId).isEqualTo(managerId)

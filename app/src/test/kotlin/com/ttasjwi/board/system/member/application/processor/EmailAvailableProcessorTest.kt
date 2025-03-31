@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -31,7 +31,7 @@ class EmailAvailableProcessorTest {
             localeManager = LocaleManagerFixture()
         )
         savedMember = memberStorageFixture.save(
-            memberFixtureNotRegistered(
+            memberFixture(
                 email = "registered@gmail.com"
             )
         )

@@ -44,7 +44,7 @@ class MemberCreatorFixtureTest {
             )
 
             assertThat(member).isNotNull()
-            assertThat(member.id).isNull()
+            assertThat(member.id).isNotNull()
             assertThat(member.email).isEqualTo(email)
             assertThat(member.username).isEqualTo(username)
             assertThat(member.nickname).isEqualTo(nickname)

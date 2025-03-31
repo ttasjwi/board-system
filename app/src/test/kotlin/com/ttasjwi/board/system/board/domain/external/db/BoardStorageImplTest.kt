@@ -16,40 +16,27 @@ class BoardStorageImplTest : IntegrationTest() {
     @Nested
     inner class Save {
 
-        @Test
-        @DisplayName("save 후 아이디가 생성된다")
-        fun test() {
-            // given
-            val board = boardFixtureNotRegistered()
-
-            // when
-            val savedBoard = boardStorageImpl.save(board)
-
-            // then
-            assertThat(savedBoard.id).isNotNull
-        }
-
-
-        @DisplayName("id 가 있는 게시판을 저장하고 조회하면 기존 게시판 정보를 덮어쓴 채 조회된다.")
+        @DisplayName("저장되어 있는 게시판을 다시 저장하면, 상태가 변경된다.")
         @Test
         fun test2() {
             // given
             val savedBoard = boardStorageImpl.save(
-                boardFixtureNotRegistered(
+                boardFixture(
+                    id = 1234L,
                     name = "음식"
                 )
             )
 
             val changedBoard = boardStorageImpl.save(
-                boardFixtureRegistered(
-                    id = savedBoard.id!!.value,
+                boardFixture(
+                    id = savedBoard.id,
                     name = "요리"
                 )
             )
             flushAndClearEntityManager()
 
             // when
-            val findBoard = boardStorageImpl.findByIdOrNull(savedBoard.id!!)!!
+            val findBoard = boardStorageImpl.findByIdOrNull(savedBoard.id)!!
 
             // then
             assertThat(findBoard.id).isEqualTo(savedBoard.id)
@@ -68,11 +55,13 @@ class BoardStorageImplTest : IntegrationTest() {
         @DisplayName("식별자로 게시판을 조회할 수 있다")
         fun findSuccessTest() {
             // given
-            val board = boardStorageImpl.save(boardFixtureNotRegistered())
+            val board = boardStorageImpl.save(boardFixture(
+                id = 12345677L,
+            ))
             flushAndClearEntityManager()
 
             // when
-            val findBoard = boardStorageImpl.findByIdOrNull(board.id!!)!!
+            val findBoard = boardStorageImpl.findByIdOrNull(board.id)!!
 
             // then
             assertThat(findBoard.id).isNotNull
@@ -88,7 +77,7 @@ class BoardStorageImplTest : IntegrationTest() {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val boardId = boardIdFixture(1557L)
+            val boardId = 15788900L
 
             // when
             val board = boardStorageImpl.findByIdOrNull(boardId)
@@ -108,7 +97,7 @@ class BoardStorageImplTest : IntegrationTest() {
         fun test1() {
             // given
             val savedBoard = boardStorageImpl.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     name = "음식"
                 )
             )
@@ -141,7 +130,7 @@ class BoardStorageImplTest : IntegrationTest() {
         fun test1() {
             // given
             val savedBoard = boardStorageImpl.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     slug = "food"
                 )
             )
@@ -174,7 +163,7 @@ class BoardStorageImplTest : IntegrationTest() {
         fun findSuccessTest() {
             // given
             val board = boardStorageImpl.save(
-                boardFixtureNotRegistered(
+                boardFixture(
                     slug = "food"
                 )
             )

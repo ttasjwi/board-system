@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureRegistered
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.MemberEventCreator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -26,7 +26,7 @@ class MemberEventCreatorFixtureTest {
         @DisplayName("onMemberRegistered: 회원 가입됨 이벤트를 생성한다")
         fun test() {
             // given
-            val member = memberFixtureRegistered()
+            val member = memberFixture()
 
             // when
             val event = memberEventCreator.onMemberRegistered(member)
@@ -34,7 +34,7 @@ class MemberEventCreatorFixtureTest {
 
             // then
             assertThat(event.occurredAt).isEqualTo(member.registeredAt)
-            assertThat(data.memberId).isEqualTo(member.id!!.value)
+            assertThat(data.memberId).isEqualTo(member.id)
             assertThat(data.email).isEqualTo(member.email.value)
             assertThat(data.username).isEqualTo(member.username.value)
             assertThat(data.nickname).isEqualTo(member.nickname.value)
