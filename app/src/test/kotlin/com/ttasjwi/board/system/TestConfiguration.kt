@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system
 
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.support.mvc.ExceptionApiTestFilter
+import com.ttasjwi.board.system.integration.support.ExceptionApiTestFilter
 import org.springframework.boot.test.context.TestConfiguration
 import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean

@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.support.mvc
+package com.ttasjwi.board.system.integration.support
 
 import com.ttasjwi.board.system.common.locale.LocaleManager
 import com.ttasjwi.board.system.common.message.MessageResolver
@@ -6,13 +6,16 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * 메시지 기능 동작 확인용 컨트롤러
+ */
 @RestController
 class MessageTestController(
     private val messageResolver: MessageResolver,
     private val localeManager: LocaleManager,
 ) {
 
-    @GetMapping("/api/test")
+    @GetMapping("/api/v1/test/message")
     fun test(): ResponseEntity<MessageTestResponse> {
         val locale = localeManager.getCurrentLocale()
 

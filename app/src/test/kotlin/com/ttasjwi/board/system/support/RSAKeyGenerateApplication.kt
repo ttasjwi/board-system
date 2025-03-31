@@ -32,8 +32,8 @@ fun main() {
         val privateKeyPem = formatAsPem(privateKeyEncoded, "PRIVATE KEY")
 
         // 키를 파일로 저장
-        File("${DIRECTORY}/public_key_xxx.pem").writeText(publicKeyPem)
-        File("${DIRECTORY}/private_key_xxx.pem").writeText(privateKeyPem)
+        File("$DIRECTORY/public_key_xxx.pem").writeText(publicKeyPem)
+        File("$DIRECTORY/private_key_xxx.pem").writeText(privateKeyPem)
 
         println("RSA 키 쌍이 생성되어 파일에 저장되었습니다.")
     } catch (e: Exception) {

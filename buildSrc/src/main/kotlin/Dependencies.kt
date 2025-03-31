@@ -12,7 +12,6 @@ enum class Dependencies(
     KOTLIN_TEST_JUNIT_5(groupId="org.jetbrains.kotlin", artifactId = "kotlin-test-junit5"),
 
     // spring
-    SPRING_BOOT_STARTER(groupId = "org.springframework.boot", artifactId = "spring-boot-starter"),
     SPRING_BOOT_WEB(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-web"),
     SPRING_BOOT_DATA_JPA(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-data-jpa"),
     SPRING_BOOT_DATA_REDIS(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-data-redis"),
@@ -20,8 +19,6 @@ enum class Dependencies(
     SPRING_BOOT_OAUTH2_CLIENT(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-oauth2-client"),
     SPRING_BOOT_MAIL(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-mail"),
     SPRING_BOOT_TEST(groupId = "org.springframework.boot", artifactId = "spring-boot-starter-test"),
-
-    SPRING_SECURITY_OAUTH2_CLIENT(groupId = "org.springframework.security", artifactId="spring-security-oauth2-client"),
 
     // jackson date time
     JACKSON_DATETIME(groupId = "com.fasterxml.jackson.datatype", artifactId ="jackson-datatype-jsr310"),

@@ -6,7 +6,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.springframework.transaction.annotation.Transactional
 
+@Transactional
 @DisplayName("MemberStorageImpl 테스트")
 class MemberStorageImplImplTest : IntegrationTest() {
 
@@ -34,6 +36,7 @@ class MemberStorageImplImplTest : IntegrationTest() {
         }
 
         @DisplayName("id 가 있는 회원을 저장하고 조회하면 기존 회원 정보를 덮어쓴 채 조회된다.")
+        @Transactional
         @Test
         fun test2() {
             // given

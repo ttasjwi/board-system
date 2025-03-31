@@ -3,6 +3,8 @@ spring:
     name: board-system-test
   profiles:
     active: ${SERVER_PROFILE:test}
+  web:
+    locale: ko
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_test}

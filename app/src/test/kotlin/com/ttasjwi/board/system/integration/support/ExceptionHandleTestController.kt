@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.support.mvc
+package com.ttasjwi.board.system.integration.support
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
@@ -7,14 +7,17 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 
+/**
+ * 예외 처리 동작 확인을 위한 컨트롤러
+ */
 @RestController
-class ExceptionApiTestController {
+class ExceptionHandleTestController {
 
     companion object {
-        private val log = getLogger(ExceptionApiTestController::class.java)
+        private val log = getLogger(ExceptionHandleTestController::class.java)
     }
 
-    @GetMapping("/api/test-ex")
+    @GetMapping("/api/v1/test/throw-ex")
     fun throwException(): String {
         log.info { "컨트롤러에서 예외를 발생시킵니다" }
         throw customExceptionFixture(
@@ -26,7 +29,7 @@ class ExceptionApiTestController {
         )
     }
 
-    @GetMapping("/api/test-success")
+    @GetMapping("/api/v1/test/no-ex")
     fun success(): String {
         return "hello"
     }

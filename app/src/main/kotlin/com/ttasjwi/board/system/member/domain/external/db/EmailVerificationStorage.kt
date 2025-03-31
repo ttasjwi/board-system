@@ -15,7 +15,9 @@ class EmailVerificationStorage(
 ) : EmailVerificationAppender, EmailVerificationFinder {
 
     companion object {
-        private const val PREFIX = "Board-System:EmailVerification:"
+
+        // Board-System:EmailVerification:{email}
+        private const val KEY_PREFIX = "Board-System:EmailVerification:"
     }
 
     override fun append(emailVerification: EmailVerification, expiresAt: ZonedDateTime) {
@@ -37,6 +39,6 @@ class EmailVerificationStorage(
     }
 
     private fun makeKey(email: Email): String {
-        return PREFIX + email.value
+        return KEY_PREFIX + email.value
     }
 }

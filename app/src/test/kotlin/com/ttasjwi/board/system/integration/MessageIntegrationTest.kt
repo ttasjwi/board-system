@@ -1,41 +1,28 @@
-package com.ttasjwi.board.system.common.message.impl
+package com.ttasjwi.board.system.integration
 
-import com.ttasjwi.board.system.common.locale.impl.LocaleManagerImpl
-import com.ttasjwi.board.system.config.locale.LocaleConfig
-import com.ttasjwi.board.system.config.message.MessageConfig
-import com.ttasjwi.board.system.config.message.MessageProperties
-import com.ttasjwi.board.system.support.mvc.MessageTestController
+import com.ttasjwi.board.system.IntegrationTest
+import com.ttasjwi.board.system.common.time.fixture.timeFixture
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.context.annotation.Import
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import java.util.*
 
-@ActiveProfiles("test")
-@WebMvcTest(controllers = [MessageTestController::class])
-@EnableConfigurationProperties(MessageProperties::class)
-@Import(value = [MessageConfig::class, LocaleConfig::class, MessageResolverImpl::class, LocaleManagerImpl::class])
-@AutoConfigureMockMvc
 @DisplayName("WebMvc에서 메시지/국제화가 잘 적용되는 지 테스트")
-class WebMvcLocaleTest {
-
-    @Autowired
-    private lateinit var mockMvc: MockMvc
+class MessageIntegrationTest : IntegrationTest() {
 
     @Test
     @DisplayName("Accept Language 헤더가 없을 때 디폴트 로케일인 한국어 메시지 설정을 따른다.")
     fun test1() {
+        timeManagerFixture.changeCurrentTime(timeFixture())
         mockMvc
-            .perform(get("/api/test"))
+            .perform(
+                get("/api/v1/test/message")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer ${generateAccessTokenValue()}")
+            )
             .andDo(print())
             .andExpectAll(
                 status().isOk,
@@ -50,9 +37,12 @@ class WebMvcLocaleTest {
     @Test
     @DisplayName("Accept Language 헤더가 한국어로 설정되면 한국어 메시지가 반환된다.")
     fun test2() {
+        timeManagerFixture.changeCurrentTime(timeFixture())
+
         mockMvc
             .perform(
-                get("/api/test")
+                get("/api/v1/test/message")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer ${generateAccessTokenValue()}")
                     .header("Accept-Language", "ko")
             )  // 한국어를 우선으로 설정
             .andDo(print())
@@ -69,9 +59,12 @@ class WebMvcLocaleTest {
     @Test
     @DisplayName("Accept Language 헤더가 여러 언어를 포함하고, 한국어가 우선시되면 한국어 응답이 나간다.")
     fun test3() {
+        timeManagerFixture.changeCurrentTime(timeFixture())
+
         mockMvc
             .perform(
-                get("/api/test")
+                get("/api/v1/test/message")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer ${generateAccessTokenValue()}")
                     .header("Accept-Language", "ko;q=0.9, en;q=0.8")
             )  // 한국어를 우선
             .andDo(print())
@@ -88,9 +81,12 @@ class WebMvcLocaleTest {
     @Test
     @DisplayName("Accept Language 헤더가 영어로 설정되면 영어 응답이 나간다.")
     fun test4() {
+        timeManagerFixture.changeCurrentTime(timeFixture())
+
         mockMvc
             .perform(
-                get("/api/test")
+                get("/api/v1/test/message")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer ${generateAccessTokenValue()}")
                     .header("Accept-Language", "en")
             )  // 영어를 우선
             .andDo(print())
@@ -107,9 +103,12 @@ class WebMvcLocaleTest {
     @Test
     @DisplayName("Accept Language 헤더가 여러 언어를 포함하고, 영어가 우선시되면 영어 응답이 전송된다.")
     fun test5() {
+        timeManagerFixture.changeCurrentTime(timeFixture())
+
         mockMvc
             .perform(
-                get("/api/test")
+                get("/api/v1/test/message")
+                    .header(HttpHeaders.AUTHORIZATION, "Bearer ${generateAccessTokenValue()}")
                     .header("Accept-Language", "en;q=0.9, ko;q=0.8")
             )  // 영어를 우선
             .andDo(print())

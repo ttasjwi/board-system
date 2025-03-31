@@ -5,6 +5,8 @@ spring:
     active: ${SERVER_PROFILE:local}
   application:
     name: board-system
+  web:
+    locale: ko
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_local}

@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.support.mvc
+package com.ttasjwi.board.system.integration.support
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
@@ -13,7 +13,6 @@ class ExceptionApiTestFilter : OncePerRequestFilter() {
     companion object {
         private val log = getLogger(ExceptionApiTestFilter::class.java)
     }
-
 
     override fun doFilterInternal(
         request: HttpServletRequest,

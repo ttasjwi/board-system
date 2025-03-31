@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.support.mvc
+package com.ttasjwi.board.system.integration.support
 
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.auth.domain.service.AuthMemberLoader
@@ -6,8 +6,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
+/**
+ * 인증 기능 동작 확인용 컨트롤러
+ */
 @RestController
-class MvcTestController(
+class AuthenticationTestController(
     private val authMemberLoader: AuthMemberLoader
 ) {
 
