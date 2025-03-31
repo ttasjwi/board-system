@@ -2,8 +2,6 @@ package com.ttasjwi.board.system.config.spring.security
 
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
-import com.ttasjwi.board.system.common.locale.LocaleManager
-import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.spring.security.authentication.AccessTokenAuthenticationFilter
 import com.ttasjwi.board.system.spring.security.authentication.CustomOAuth2LoginAuthenticationSuccessHandler
@@ -45,8 +43,6 @@ import org.springframework.web.servlet.HandlerExceptionResolver
 @Configuration
 class FilterChainConfig(
     private val accessTokenManager: AccessTokenManager,
-    private val localeManager: LocaleManager,
-    private val messageResolver: MessageResolver,
     private val timeManager: TimeManager,
     private val socialLoginUseCase: SocialLoginUseCase,
     @Qualifier(value = "handlerExceptionResolver")
@@ -147,8 +143,6 @@ class FilterChainConfig(
     private fun customOAuth2LoginAuthenticationSuccessHandler(): AuthenticationSuccessHandler {
         return CustomOAuth2LoginAuthenticationSuccessHandler(
             useCase = socialLoginUseCase,
-            messageResolver = messageResolver,
-            localeManager = localeManager
         )
     }
 

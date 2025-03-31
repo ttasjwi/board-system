@@ -1,16 +1,13 @@
 package com.ttasjwi.board.system.auth.api
 
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
+import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.fixture.TokenRefreshUseCaseFixture
-import com.ttasjwi.board.system.common.api.SuccessResponse
-import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import java.util.*
 
 @DisplayName("TokenRefreshController 테스트")
 class TokenRefreshControllerTest {
@@ -19,37 +16,26 @@ class TokenRefreshControllerTest {
 
     @BeforeEach
     fun setup() {
-        controller = TokenRefreshController(
-            useCase = TokenRefreshUseCaseFixture(),
-            messageResolver = MessageResolverFixture(),
-            localeManager = LocaleManagerFixture()
-        )
+        controller = TokenRefreshController(TokenRefreshUseCaseFixture())
     }
 
     @Test
-    @DisplayName("유즈케이스를 호출하고 그 결과를 기반으로 200 코드와 함께 응답을 반환한다.")
+    @DisplayName("유즈케이스를 호출하고 200 응답을 반환한다.")
     fun test() {
         // given
         val request = TokenRefreshRequest("token")
 
         // when
         val responseEntity = controller.login(request)
-        val response = responseEntity.body as SuccessResponse<TokenRefreshResponse>
+        val response = responseEntity.body as TokenRefreshResponse
 
         // then
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
-        assertThat(response.isSuccess).isTrue()
-        assertThat(response.code).isEqualTo("TokenRefresh.Complete")
-        assertThat(response.message).isEqualTo("TokenRefresh.Complete.message(locale=${Locale.KOREAN},args=[])")
-        assertThat(response.description).isEqualTo("TokenRefresh.Complete.description(locale=${Locale.KOREAN},args=[])")
-
-        val tokenRefreshResult = response.data.tokenRefreshResult
-
-        assertThat(tokenRefreshResult.accessToken).isNotNull()
-        assertThat(tokenRefreshResult.accessTokenExpiresAt).isNotNull()
-        assertThat(tokenRefreshResult.tokenType).isEqualTo(LoginController.TOKEN_TYPE)
-        assertThat(tokenRefreshResult.refreshToken).isNotNull()
-        assertThat(tokenRefreshResult.refreshTokenExpiresAt).isNotNull()
-        assertThat(tokenRefreshResult.refreshTokenExpiresAt).isNotNull()
+        assertThat(response.accessToken).isNotNull()
+        assertThat(response.accessTokenType).isEqualTo("Bearer")
+        assertThat(response.accessTokenExpiresAt).isNotNull()
+        assertThat(response.refreshToken).isNotNull()
+        assertThat(response.refreshTokenExpiresAt).isNotNull()
+        assertThat(response.refreshTokenExpiresAt).isNotNull()
     }
 }

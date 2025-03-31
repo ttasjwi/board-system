@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.member.application.processor
 
+import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixtureNotRegistered
@@ -10,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import java.util.*
 
 @DisplayName("EmailAvailableProcessor: 이메일이 사용가능한 지 여부를 실질적으로 확인하는 처리자")
 class EmailAvailableProcessorTest {
@@ -23,7 +26,9 @@ class EmailAvailableProcessorTest {
         val emailCreatorFixture = EmailCreatorFixture()
         processor = EmailAvailableProcessor(
             emailCreator = emailCreatorFixture,
-            memberFinder = memberStorageFixture
+            memberFinder = memberStorageFixture,
+            messageResolver = MessageResolverFixture(),
+            localeManager = LocaleManagerFixture()
         )
         savedMember = memberStorageFixture.save(
             memberFixtureNotRegistered(
@@ -43,9 +48,11 @@ class EmailAvailableProcessorTest {
 
             val result = processor.checkEmailAvailable(query)
 
-            assertThat(result.email).isEqualTo(query.email)
+            assertThat(result.yourEmail).isEqualTo(query.email)
             assertThat(result.isAvailable).isFalse()
             assertThat(result.reasonCode).isEqualTo("EmailAvailableCheck.InvalidFormat")
+            assertThat(result.reasonMessage).isEqualTo("EmailAvailableCheck.InvalidFormat.message(locale=${Locale.KOREAN},args=[])")
+            assertThat(result.reasonDescription).isEqualTo("EmailAvailableCheck.InvalidFormat.description(locale=${Locale.KOREAN},args=[])")
         }
 
         @Test
@@ -55,9 +62,11 @@ class EmailAvailableProcessorTest {
 
             val result = processor.checkEmailAvailable(query)
 
-            assertThat(result.email).isEqualTo(query.email)
+            assertThat(result.yourEmail).isEqualTo(query.email)
             assertThat(result.isAvailable).isFalse()
             assertThat(result.reasonCode).isEqualTo("EmailAvailableCheck.Taken")
+            assertThat(result.reasonMessage).isEqualTo("EmailAvailableCheck.Taken.message(locale=${Locale.KOREAN},args=[])")
+            assertThat(result.reasonDescription).isEqualTo("EmailAvailableCheck.Taken.description(locale=${Locale.KOREAN},args=[])")
         }
 
         @Test
@@ -67,9 +76,11 @@ class EmailAvailableProcessorTest {
 
             val result = processor.checkEmailAvailable(query)
 
-            assertThat(result.email).isEqualTo(query.email)
+            assertThat(result.yourEmail).isEqualTo(query.email)
             assertThat(result.isAvailable).isTrue()
             assertThat(result.reasonCode).isEqualTo("EmailAvailableCheck.Available")
+            assertThat(result.reasonMessage).isEqualTo("EmailAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
+            assertThat(result.reasonDescription).isEqualTo("EmailAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
         }
     }
 }

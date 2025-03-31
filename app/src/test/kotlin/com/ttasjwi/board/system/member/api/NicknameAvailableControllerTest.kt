@@ -1,56 +1,40 @@
 package com.ttasjwi.board.system.member.api
 
-import com.ttasjwi.board.system.common.api.SuccessResponse
-import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
+import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResponse
 import com.ttasjwi.board.system.member.application.usecase.fixture.NicknameAvailableUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
-import java.util.*
 
 @DisplayName("NicknameAvailableController 테스트")
 class NicknameAvailableControllerTest {
 
     private lateinit var controller: NicknameAvailableController
-    private lateinit var useCaseFixture: NicknameAvailableUseCaseFixture
-    private lateinit var messageResolverFixture: MessageResolverFixture
-    private lateinit var localeManagerFixture: LocaleManagerFixture
 
     @BeforeEach
     fun setup() {
-        useCaseFixture = NicknameAvailableUseCaseFixture()
-        messageResolverFixture = MessageResolverFixture()
-        localeManagerFixture = LocaleManagerFixture()
-        controller = NicknameAvailableController(useCaseFixture, messageResolverFixture, localeManagerFixture)
+        controller = NicknameAvailableController(NicknameAvailableUseCaseFixture())
     }
 
     @Test
-    @DisplayName("유즈케이스를 호출하고 그 결과를 기반으로 200 코드와 함께 응답을 반환한다.")
+    @DisplayName("유즈케이스를 호출하고 200 응답을 반환한다.")
     fun test() {
         // given
         val request = NicknameAvailableRequest(nickname = "hello")
 
         // when
         val responseEntity = controller.checkNicknameAvailable(request)
-        val response = responseEntity.body as SuccessResponse<NicknameAvailableResponse>
+        val response = responseEntity.body as NicknameAvailableResponse
 
         // then
         assertThat(responseEntity.statusCode.value()).isEqualTo(HttpStatus.OK.value())
-        assertThat(response.isSuccess).isTrue()
-        assertThat(response.code).isEqualTo("NicknameAvailableCheck.Complete")
-        assertThat(response.message).isEqualTo("NicknameAvailableCheck.Complete.message(locale=${Locale.KOREAN},args=[])")
-        assertThat(response.description).isEqualTo("NicknameAvailableCheck.Complete.description(locale=${Locale.KOREAN},args=[\$.data.nicknameAvailable])")
-
-        val nicknameAvailable = response.data.nicknameAvailable
-
-        assertThat(nicknameAvailable.nickname).isEqualTo(request.nickname)
-        assertThat(nicknameAvailable.isAvailable).isEqualTo(true)
-        assertThat(nicknameAvailable.reasonCode).isEqualTo("NicknameAvailableCheck.Available")
-        assertThat(nicknameAvailable.message).isEqualTo("NicknameAvailableCheck.Available.message(locale=${Locale.KOREAN},args=[])")
-        assertThat(nicknameAvailable.description).isEqualTo("NicknameAvailableCheck.Available.description(locale=${Locale.KOREAN},args=[])")
+        assertThat(response.yourNickname).isEqualTo(request.nickname)
+        assertThat(response.isAvailable).isEqualTo(true)
+        assertThat(response.reasonCode).isEqualTo("NicknameAvailableCheck.Available")
+        assertThat(response.reasonMessage).isEqualTo("사용 가능한 닉네임")
+        assertThat(response.reasonDescription).isEqualTo("이 닉네임은 사용 가능합니다.")
     }
 }

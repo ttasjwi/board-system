@@ -31,6 +31,7 @@ class LoginUseCaseFixtureTest {
 
         // then
         assertThat(result.accessToken).isNotNull()
+        assertThat(result.accessTokenType).isEqualTo("Bearer")
         assertThat(result.accessTokenExpiresAt).isNotNull()
         assertThat(result.refreshToken).isNotNull()
         assertThat(result.refreshTokenExpiresAt).isNotNull()

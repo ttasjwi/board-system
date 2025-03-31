@@ -67,6 +67,7 @@ class TokenRefreshApplicationServiceTest {
 
         // then
         assertThat(result.accessToken).isNotNull()
+        assertThat(result.accessTokenType).isEqualTo("Bearer")
         assertThat(result.accessTokenExpiresAt).isNotNull()
         assertThat(result.refreshToken).isEqualTo(refreshToken.tokenValue)
         assertThat(result.refreshTokenExpiresAt).isEqualTo(refreshToken.expiresAt)

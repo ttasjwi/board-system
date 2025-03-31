@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.application.processor
 
 import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
-import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResult
+import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
@@ -83,6 +83,7 @@ class SocialLoginProcessorTest {
 
         // then
         assertThat(result.accessToken).isNotNull()
+        assertThat(result.accessTokenType).isEqualTo("Bearer")
         assertThat(result.accessTokenExpiresAt).isNotNull()
         assertThat(result.refreshToken).isNotNull()
         assertThat(result.refreshTokenExpiresAt).isNotNull()
@@ -154,7 +155,7 @@ class SocialLoginProcessorTest {
         assertThat(result.refreshTokenExpiresAt).isNotNull()
         assertThat(result.memberCreated).isTrue()
         assertThat(result.createdMember).isEqualTo(
-            SocialLoginResult.CreatedMember(
+            SocialLoginResponse.CreatedMember(
                 memberId = findMember.id!!.value,
                 email = findMember.email.value,
                 username = findMember.username.value,
@@ -198,12 +199,14 @@ class SocialLoginProcessorTest {
             refreshTokenHolder = refreshTokenHolderFixture(
                 memberId = member.id!!.value,
                 role = member.role,
-                tokens = mutableMapOf(refreshTokenIdFixture("tokenId1") to refreshTokenFixture(
-                    memberId = member.id!!.value,
-                    refreshTokenId = "tokenId1",
-                    tokenValue = "tokenValue",
-                    issuedAt = timeFixture(minute = 0),
-                ))
+                tokens = mutableMapOf(
+                    refreshTokenIdFixture("tokenId1") to refreshTokenFixture(
+                        memberId = member.id!!.value,
+                        refreshTokenId = "tokenId1",
+                        tokenValue = "tokenValue",
+                        issuedAt = timeFixture(minute = 0),
+                    )
+                )
             ),
             currentTime = timeFixture(minute = 0),
         )

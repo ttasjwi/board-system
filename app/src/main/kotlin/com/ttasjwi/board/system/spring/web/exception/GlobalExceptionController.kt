@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.spring.web.exception
 
 import com.ttasjwi.board.system.common.api.ErrorResponse
+import com.ttasjwi.board.system.common.api.ErrorResponseElement
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
@@ -37,7 +38,7 @@ internal class GlobalExceptionController(
 
         return makeSingleErrorResponse(
             errorStatus = ErrorStatus.APPLICATION_ERROR,
-            errorItem = makeErrorItem("Error.Server", emptyList(), "server"),
+            errorItem = makeElement("Error.Server", emptyList(), "server"),
         )
     }
 
@@ -48,7 +49,7 @@ internal class GlobalExceptionController(
     fun handleCustomException(e: CustomException): ResponseEntity<ErrorResponse> {
         return makeSingleErrorResponse(
             errorStatus = e.status,
-            errorItem = makeErrorItem(code = e.code, args = e.args, source = e.source)
+            errorItem = makeElement(code = e.code, args = e.args, source = e.source)
         )
     }
 
@@ -59,7 +60,7 @@ internal class GlobalExceptionController(
     fun handleValidationExceptionCollector(exceptionCollector: ValidationExceptionCollector): ResponseEntity<ErrorResponse> {
         return makeMultipleErrorResponse(
             errorStatus = ErrorStatus.BAD_REQUEST,
-            errorItems = makeErrorItems(exceptionCollector.getExceptions())
+            errorItems = makeElements(exceptionCollector.getExceptions())
         )
     }
 
@@ -67,7 +68,7 @@ internal class GlobalExceptionController(
     fun handleNoResourceFoundException(e: NoResourceFoundException): ResponseEntity<ErrorResponse> {
         return makeSingleErrorResponse(
             errorStatus = ErrorStatus.NOT_FOUND,
-            errorItem = makeErrorItem(
+            errorItem = makeElement(
                 code = "Error.ResourceNotFound",
                 args = listOf(e.httpMethod.name(), "/${e.resourcePath}"),
                 source = "httpMethod,resourcePath",
@@ -80,43 +81,37 @@ internal class GlobalExceptionController(
 
         return makeSingleErrorResponse(
             errorStatus = ErrorStatus.NOT_IMPLEMENTED,
-            errorItem = makeErrorItem(code = "Error.NotImplemented", source = "server")
+            errorItem = makeElement(code = "Error.NotImplemented", source = "server")
         )
     }
 
-
     private fun makeSingleErrorResponse(
         errorStatus: ErrorStatus,
-        errorItem: ErrorResponse.ErrorItem,
+        errorItem: ErrorResponseElement,
     ): ResponseEntity<ErrorResponse> {
         return makeMultipleErrorResponse(errorStatus, listOf(errorItem))
     }
 
     private fun makeMultipleErrorResponse(
         errorStatus: ErrorStatus,
-        errorItems: List<ErrorResponse.ErrorItem>
+        errorItems: List<ErrorResponseElement>
     ): ResponseEntity<ErrorResponse> {
-        val commonCode = "Error.Occurred"
-        val locale = localeManager.getCurrentLocale()
         return ResponseEntity
             .status(resolveHttpStatus(errorStatus))
             .body(
                 ErrorResponse(
-                    code = commonCode,
-                    message = messageResolver.resolve("$commonCode.message", locale),
-                    description = messageResolver.resolve("$commonCode.description", locale),
                     errors = errorItems
                 )
             )
     }
 
-    private fun makeErrorItem(
+    private fun makeElement(
         code: String,
         args: List<Any?> = emptyList(),
         source: String,
-    ): ErrorResponse.ErrorItem {
+    ): ErrorResponseElement {
         val locale = localeManager.getCurrentLocale()
-        return ErrorResponse.ErrorItem(
+        return ErrorResponseElement(
             code = code,
             message = messageResolver.resolve("$code.message", locale),
             description = messageResolver.resolve("$code.description", locale, args),
@@ -124,11 +119,11 @@ internal class GlobalExceptionController(
         )
     }
 
-    private fun makeErrorItems(
+    private fun makeElements(
         exceptions: List<CustomException>
-    ): List<ErrorResponse.ErrorItem> {
+    ): List<ErrorResponseElement> {
         return exceptions.map {
-            makeErrorItem(
+            makeElement(
                 code = it.code,
                 args = it.args,
                 source = it.source,

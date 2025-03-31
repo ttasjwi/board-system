@@ -52,18 +52,17 @@ class BoardCreateProcessorTest {
         )
 
         // when
-        val result = processor.createBoard(command)
+        val response = processor.createBoard(command)
 
         // then
-        val createdBoard = result.createdBoard
-        val findBoard = boardStorageFixture.findByIdOrNull(boardIdFixture(createdBoard.boardId))!!
+        val findBoard = boardStorageFixture.findByIdOrNull(boardIdFixture(response.boardId.toLong()))!!
 
-        assertThat(createdBoard.boardId).isNotNull()
-        assertThat(createdBoard.name).isEqualTo(command.boardName.value)
-        assertThat(createdBoard.description).isEqualTo(command.boardDescription.value)
-        assertThat(createdBoard.managerId).isEqualTo(command.creator.memberId)
-        assertThat(createdBoard.slug).isEqualTo(command.boardSlug.value)
-        assertThat(createdBoard.createdAt).isEqualTo(command.currentTime)
+        assertThat(response.boardId).isNotNull()
+        assertThat(response.name).isEqualTo(command.boardName.value)
+        assertThat(response.description).isEqualTo(command.boardDescription.value)
+        assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
+        assertThat(response.slug).isEqualTo(command.boardSlug.value)
+        assertThat(response.createdAt).isEqualTo(command.currentTime)
         assertThat(findBoard).isNotNull
     }
 

@@ -7,7 +7,7 @@ interface RegisterMemberUseCase {
     /**
      * 회원 가입을 수행합니다.
      */
-    fun register(request: RegisterMemberRequest): RegisterMemberResult
+    fun register(request: RegisterMemberRequest): RegisterMemberResponse
 }
 
 data class RegisterMemberRequest(
@@ -17,7 +17,7 @@ data class RegisterMemberRequest(
     val nickname: String?,
 )
 
-data class RegisterMemberResult(
+data class RegisterMemberResponse(
     val memberId: Long,
     val email: String,
     val username: String,
