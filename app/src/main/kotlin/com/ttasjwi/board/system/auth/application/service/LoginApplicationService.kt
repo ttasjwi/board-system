@@ -6,15 +6,13 @@ import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.LoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.LoginUseCase
 import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
-import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class LoginApplicationService(
     private val commandMapper: LoginCommandMapper,
     private val processor: LoginProcessor,
-    private val transactionRunner: TransactionRunner,
 ) : LoginUseCase {
 
     companion object {
@@ -28,9 +26,7 @@ internal class LoginApplicationService(
         val command = commandMapper.mapToCommand(request)
 
         // 프로세서에 위임
-        val event = transactionRunner.run {
-            processor.login(command)
-        }
+        val event = processor.login(command)
 
         log.info { "로그인 됨" }
 

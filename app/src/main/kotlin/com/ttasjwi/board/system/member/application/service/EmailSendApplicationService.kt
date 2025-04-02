@@ -1,11 +1,11 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.member.application.usecase.EmailSendUseCase
 import com.ttasjwi.board.system.member.domain.service.EmailCreator
 import com.ttasjwi.board.system.member.domain.service.EmailSender
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class EmailSendApplicationService(
     private val emailCreator: EmailCreator,
     private val emailSender: EmailSender,

@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.locale.LocaleManager
 import com.ttasjwi.board.system.common.logging.getLogger
@@ -8,8 +7,9 @@ import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
 import com.ttasjwi.board.system.member.domain.service.EmailCreator
+import org.springframework.stereotype.Component
 
-@ApplicationCommandMapper
+@Component
 internal class EmailVerificationStartCommandMapper(
     private val emailCreator: EmailCreator,
     private val localeManager: LocaleManager,

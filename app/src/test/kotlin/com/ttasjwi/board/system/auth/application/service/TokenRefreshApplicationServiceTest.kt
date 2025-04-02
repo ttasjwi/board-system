@@ -5,7 +5,6 @@ import com.ttasjwi.board.system.auth.application.processor.TokenRefreshProcessor
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -37,7 +36,6 @@ class TokenRefreshApplicationServiceTest {
                 refreshTokenHolderAppender = refreshTokenHolderStorageFixture,
                 authEventCreator = AuthEventCreatorFixture()
             ),
-            transactionRunner = TransactionRunnerFixture()
         )
         memberId = 147L
     }

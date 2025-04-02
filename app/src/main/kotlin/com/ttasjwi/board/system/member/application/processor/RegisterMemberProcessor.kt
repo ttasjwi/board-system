@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
@@ -11,8 +10,10 @@ import com.ttasjwi.board.system.member.application.exception.EmailVerificationNo
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.*
+import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
-@ApplicationProcessor
+@Component
 internal class RegisterMemberProcessor(
     private val memberFinder: MemberFinder,
     private val emailVerificationFinder: EmailVerificationFinder,
@@ -27,6 +28,7 @@ internal class RegisterMemberProcessor(
         private val log = getLogger(RegisterMemberProcessor::class.java)
     }
 
+    @Transactional
     fun register(command: RegisterMemberCommand): MemberRegisteredEvent {
         checkDuplicate(command)
         checkEmailVerificationAndRemove(command)

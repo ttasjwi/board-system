@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system
 
-import com.ttasjwi.board.system.common.annotation.component.AppComponent
+import com.ttasjwi.board.system.common.annotation.component.DomainService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
@@ -14,7 +14,7 @@ import org.springframework.scheduling.annotation.EnableAsync
     includeFilters = [ComponentScan.Filter(
         type = FilterType.ANNOTATION,
         classes = [
-            AppComponent::class,
+            DomainService::class,
         ]
     )]
 )

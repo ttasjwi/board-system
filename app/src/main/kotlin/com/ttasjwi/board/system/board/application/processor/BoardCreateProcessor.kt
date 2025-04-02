@@ -7,10 +7,11 @@ import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.logging.getLogger
+import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
-@ApplicationProcessor
+@Component
 internal class BoardCreateProcessor(
     private val boardStorage: BoardStorage,
     private val boardManager: BoardManager,
@@ -20,6 +21,7 @@ internal class BoardCreateProcessor(
         private val log = getLogger(BoardCreateProcessor::class.java)
     }
 
+    @Transactional
     fun createBoard(command: BoardCreateCommand): BoardCreateResponse {
         // 중복 체크
         checkDuplication(command)

@@ -6,15 +6,13 @@ import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
 import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
-import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class TokenRefreshApplicationService(
     private val commandMapper: TokenRefreshCommandMapper,
     private val processor: TokenRefreshProcessor,
-    private val transactionRunner: TransactionRunner,
 ) : TokenRefreshUseCase {
 
     companion object {
@@ -28,9 +26,7 @@ internal class TokenRefreshApplicationService(
         val command = commandMapper.mapToCommand(request)
 
         // 프로세서에 위임
-        val event = transactionRunner.run {
-            processor.tokenRefresh(command)
-        }
+        val event = processor.tokenRefresh(command)
 
         log.info { "토큰 재갱신됨" }
 

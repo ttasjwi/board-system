@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.EmailAvailableQueryMapper
@@ -12,7 +11,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.util.Locale
+import java.util.*
 
 @DisplayName("EmailAvailableService: 이메일 사용 가능 여부 확인을 수행하는 애플리케이션 서비스")
 class EmailAvailableApplicationServiceTest {
@@ -29,7 +28,6 @@ class EmailAvailableApplicationServiceTest {
                 messageResolver = MessageResolverFixture(),
                 localeManager = LocaleManagerFixture(),
             ),
-            transactionRunner = TransactionRunnerFixture()
         )
     }
 

@@ -1,7 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
-import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandMapper
 import com.ttasjwi.board.system.member.application.processor.RegisterMemberProcessor
@@ -9,12 +7,12 @@ import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class RegisterMemberApplicationService(
     private val commandMapper: RegisterMemberCommandMapper,
     private val processor: RegisterMemberProcessor,
-    private val transactionRunner: TransactionRunner
 ) : RegisterMemberUseCase {
 
     companion object {
@@ -29,9 +27,7 @@ internal class RegisterMemberApplicationService(
         val command = commandMapper.mapToCommand(request)
 
         // 프로세서에 위임
-        val event = transactionRunner.run {
-            processor.register(command)
-        }
+        val event = processor.register(command)
 
         log.info { "회원가입 됨(id=${event.data.memberId},email = ${event.data.email})" }
 

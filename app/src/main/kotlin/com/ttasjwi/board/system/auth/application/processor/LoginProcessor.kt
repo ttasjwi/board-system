@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.*
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.AppDateTime
@@ -15,8 +14,10 @@ import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
+import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
-@ApplicationProcessor
+@Component
 internal class LoginProcessor(
     private val memberFinder: MemberFinder,
     private val passwordManager: PasswordManager,
@@ -33,6 +34,7 @@ internal class LoginProcessor(
         private val log = getLogger(LoginProcessor::class.java)
     }
 
+    @Transactional
     fun login(command: LoginCommand): LoggedInEvent {
         log.info { "로그인 처리를 시작합니다. (email=${command.email.value})" }
         // 회원 조회
