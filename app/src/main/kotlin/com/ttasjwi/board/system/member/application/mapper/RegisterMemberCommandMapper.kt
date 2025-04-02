@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logging.getLogger
@@ -15,8 +14,9 @@ import com.ttasjwi.board.system.member.domain.service.EmailCreator
 import com.ttasjwi.board.system.member.domain.service.NicknameCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import com.ttasjwi.board.system.member.domain.service.UsernameCreator
+import org.springframework.stereotype.Component
 
-@ApplicationCommandMapper
+@Component
 internal class RegisterMemberCommandMapper(
     private val emailCreator: EmailCreator,
     private val passwordManager: PasswordManager,

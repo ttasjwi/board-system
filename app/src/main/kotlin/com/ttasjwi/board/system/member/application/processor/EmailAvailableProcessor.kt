@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.locale.LocaleManager
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.message.MessageResolver
@@ -8,8 +7,9 @@ import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResponse
 import com.ttasjwi.board.system.member.domain.service.EmailCreator
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
+import org.springframework.stereotype.Component
 
-@ApplicationProcessor
+@Component
 internal class EmailAvailableProcessor(
     private val emailCreator: EmailCreator,
     private val memberFinder: MemberFinder,

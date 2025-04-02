@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.auth.application.mapper
 import com.ttasjwi.board.system.auth.application.dto.LoginCommand
 import com.ttasjwi.board.system.auth.application.exception.LoginFailureException
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
-import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logging.getLogger
@@ -12,8 +11,9 @@ import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.EmailCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
+import org.springframework.stereotype.Component
 
-@ApplicationCommandMapper
+@Component
 internal class LoginCommandMapper(
     private val emailCreator: EmailCreator,
     private val passwordManager: PasswordManager,

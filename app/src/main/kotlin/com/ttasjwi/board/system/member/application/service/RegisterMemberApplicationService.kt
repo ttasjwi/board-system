@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandMapper
@@ -9,8 +8,9 @@ import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class RegisterMemberApplicationService(
     private val commandMapper: RegisterMemberCommandMapper,
     private val processor: RegisterMemberProcessor,

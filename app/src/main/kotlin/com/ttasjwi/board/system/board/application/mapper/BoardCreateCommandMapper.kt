@@ -8,14 +8,14 @@ import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardDescriptionCreator
 import com.ttasjwi.board.system.board.domain.service.BoardNameCreator
 import com.ttasjwi.board.system.board.domain.service.BoardSlugCreator
-import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
 import com.ttasjwi.board.system.common.auth.domain.service.AuthMemberLoader
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
+import org.springframework.stereotype.Component
 
-@ApplicationCommandMapper
+@Component
 internal class BoardCreateCommandMapper(
     private val boardNameCreator: BoardNameCreator,
     private val boardDescriptionCreator: BoardDescriptionCreator,

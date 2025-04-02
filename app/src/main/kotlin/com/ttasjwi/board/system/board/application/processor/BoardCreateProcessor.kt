@@ -7,10 +7,10 @@ import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.logging.getLogger
+import org.springframework.stereotype.Component
 
-@ApplicationProcessor
+@Component
 internal class BoardCreateProcessor(
     private val boardStorage: BoardStorage,
     private val boardManager: BoardManager,

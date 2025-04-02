@@ -1,10 +1,10 @@
 package com.ttasjwi.board.system.member.domain.external.impl
 
-import com.ttasjwi.board.system.common.annotation.component.AppComponent
 import com.ttasjwi.board.system.member.domain.external.ExternalEmailFormatChecker
 import org.apache.commons.validator.routines.EmailValidator
+import org.springframework.stereotype.Component
 
-@AppComponent
+@Component
 internal class ApacheEmailFormatCheckerImpl : ExternalEmailFormatChecker {
 
     private val apacheEmailValidator = EmailValidator.getInstance()

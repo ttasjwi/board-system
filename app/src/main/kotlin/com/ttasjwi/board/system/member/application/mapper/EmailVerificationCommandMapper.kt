@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logging.getLogger
@@ -9,8 +8,9 @@ import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.service.EmailCreator
+import org.springframework.stereotype.Component
 
-@ApplicationCommandMapper
+@Component
 internal class EmailVerificationCommandMapper(
     private val emailCreator: EmailCreator,
     private val timeManager: TimeManager,

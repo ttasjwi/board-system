@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationStartCommandMapper
@@ -10,8 +9,9 @@ import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStar
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartUseCase
 import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class EmailVerificationStartApplicationService(
     private val commandMapper: EmailVerificationStartCommandMapper,
     private val processor: EmailVerificationStartProcessor,

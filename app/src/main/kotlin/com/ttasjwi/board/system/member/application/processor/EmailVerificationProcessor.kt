@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
@@ -10,8 +9,9 @@ import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationEventCreator
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationFinder
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationHandler
+import org.springframework.stereotype.Component
 
-@ApplicationProcessor
+@Component
 internal class EmailVerificationProcessor(
     private val emailVerificationFinder: EmailVerificationFinder,
     private val emailVerificationHandler: EmailVerificationHandler,

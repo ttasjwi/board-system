@@ -5,13 +5,13 @@ import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.*
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.*
+import org.springframework.stereotype.Component
 
-@ApplicationProcessor
+@Component
 internal class SocialLoginProcessor(
     private val memberFinder: MemberFinder,
     private val socialConnectionCreator: SocialConnectionCreator,

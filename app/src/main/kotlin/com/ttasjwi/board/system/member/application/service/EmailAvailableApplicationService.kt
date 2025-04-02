@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.EmailAvailableQueryMapper
@@ -8,8 +7,9 @@ import com.ttasjwi.board.system.member.application.processor.EmailAvailableProce
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResponse
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableUseCase
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class EmailAvailableApplicationService(
     private val queryMapper: EmailAvailableQueryMapper,
     private val processor: EmailAvailableProcessor,

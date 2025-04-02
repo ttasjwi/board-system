@@ -5,10 +5,10 @@ import com.ttasjwi.board.system.board.application.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateUseCase
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.common.application.TransactionRunner
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class BoardCreateApplicationService(
     private val commandMapper: BoardCreateCommandMapper,
     private val processor: BoardCreateProcessor,

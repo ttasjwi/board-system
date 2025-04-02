@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.locale.LocaleManager
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.message.MessageResolver
@@ -8,8 +7,9 @@ import com.ttasjwi.board.system.member.application.dto.NicknameAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResponse
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.NicknameCreator
+import org.springframework.stereotype.Component
 
-@ApplicationProcessor
+@Component
 internal class NicknameAvailableProcessor(
     private val nicknameCreator: NicknameCreator,
     private val memberFinder: MemberFinder,

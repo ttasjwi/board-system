@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.NicknameAvailableQueryMapper
@@ -8,8 +7,9 @@ import com.ttasjwi.board.system.member.application.processor.NicknameAvailablePr
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResponse
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableUseCase
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class NicknameAvailableApplicationService(
     private val queryMapper: NicknameAvailableQueryMapper,
     private val processor: NicknameAvailableProcessor,

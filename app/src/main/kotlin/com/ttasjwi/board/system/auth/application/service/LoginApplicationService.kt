@@ -6,11 +6,11 @@ import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.LoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.LoginUseCase
 import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
-import com.ttasjwi.board.system.common.annotation.component.ApplicationService
 import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
+import org.springframework.stereotype.Service
 
-@ApplicationService
+@Service
 internal class LoginApplicationService(
     private val commandMapper: LoginCommandMapper,
     private val processor: LoginProcessor,
