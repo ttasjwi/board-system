@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.exception
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -12,8 +12,8 @@ class AccessTokenExpiredExceptionTest {
     @Test
     @DisplayName("예외 기본값 테스트")
     fun test1() {
-        val expiredAt = timeFixture(minute = 3)
-        val currentTime = timeFixture(minute = 5)
+        val expiredAt = appDateTimeFixture(minute = 3)
+        val currentTime = appDateTimeFixture(minute = 5)
         val exception = AccessTokenExpiredException(expiredAt, currentTime)
 
         assertThat(exception.status).isEqualTo(ErrorStatus.UNAUTHENTICATED)

@@ -1,17 +1,17 @@
 package com.ttasjwi.board.system.common.time.fixture
 
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.TimeManager
-import java.time.ZonedDateTime
 
 class TimeManagerFixture(
-    private var currentTime: ZonedDateTime = timeFixture()
+    private var currentTime: AppDateTime = appDateTimeFixture()
 ) : TimeManager {
 
-    override fun now(): ZonedDateTime {
+    override fun now(): AppDateTime {
         return currentTime
     }
 
-    fun changeCurrentTime(currentTime: ZonedDateTime) {
+    fun changeCurrentTime(currentTime: AppDateTime) {
         this.currentTime = currentTime
     }
 }

@@ -3,12 +3,12 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.time.ZonedDateTime
 
 @DisplayName("ExternalRefreshTokenHolderStorageImpl 테스트")
 class ExternalRefreshTokenHolderStorageImplTest : IntegrationTest() {
@@ -38,7 +38,7 @@ class ExternalRefreshTokenHolderStorageImplTest : IntegrationTest() {
                 memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
-            val expiresAt = ZonedDateTime.now().plusMinutes(30)
+            val expiresAt = AppDateTime.now().plusMinutes(30)
 
             // when
             // then
@@ -62,7 +62,7 @@ class ExternalRefreshTokenHolderStorageImplTest : IntegrationTest() {
                 memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
-            val expiresAt = ZonedDateTime.now().plusMinutes(30)
+            val expiresAt = AppDateTime.now().plusMinutes(30)
             externalRefreshTokenHolderStorage.append(memberId, savedRefreshTokenHolder, expiresAt)
 
             // when
@@ -96,7 +96,7 @@ class ExternalRefreshTokenHolderStorageImplTest : IntegrationTest() {
             // given
             val refreshTokenHolder = refreshTokenHolderFixture(memberId = memberId)
 
-            externalRefreshTokenHolderStorage.append(memberId, refreshTokenHolder, ZonedDateTime.now().plusMinutes(30))
+            externalRefreshTokenHolderStorage.append(memberId, refreshTokenHolder, AppDateTime.now().plusMinutes(30))
 
             // when
             externalRefreshTokenHolderStorage.removeByMemberId(memberId)

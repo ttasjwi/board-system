@@ -9,9 +9,10 @@ import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStorage
 import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
 import com.ttasjwi.board.system.member.domain.external.impl.ExternalPasswordHandlerImpl
@@ -19,7 +20,6 @@ import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEv
 import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
 import com.ttasjwi.board.system.spring.security.oauth2.redis.RedisOAuth2AuthorizationRequestRepository
 import jakarta.persistence.EntityManager
-import org.hibernate.usertype.internal.ZonedDateTimeCompositeUserType.ZonedDateTimeEmbeddable
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -83,11 +83,11 @@ abstract class IntegrationTest {
         em.clear()
     }
 
-    protected fun generateAccessToken(memberId: Long = 1557L, role: Role = Role.USER, issuedAt: ZonedDateTime = timeFixture()): AccessToken {
+    protected fun generateAccessToken(memberId: Long = 1557L, role: Role = Role.USER, issuedAt: AppDateTime = appDateTimeFixture()): AccessToken {
         return accessTokenManager.generate(authMemberFixture(memberId, role), issuedAt)
     }
 
-    protected fun generateAccessTokenValue(memberId: Long = 1557L, role: Role = Role.USER, issuedAt: ZonedDateTime = timeFixture()): String {
+    protected fun generateAccessTokenValue(memberId: Long = 1557L, role: Role = Role.USER, issuedAt: AppDateTime = appDateTimeFixture()): String {
         return generateAccessToken(memberId, role, issuedAt).tokenValue
     }
 }

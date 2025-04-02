@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationCreatorFixture
@@ -39,7 +39,7 @@ class EmailVerificationStartProcessorTest {
         // given
         val command = EmailVerificationStartCommand(
             email = emailFixture("hell@gmail.com"),
-            currenTime = timeFixture(minute = 3),
+            currenTime = appDateTimeFixture(minute = 3),
             locale = Locale.KOREAN
         )
 

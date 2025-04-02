@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationHandler
-import java.time.ZonedDateTime
 
 class EmailVerificationHandlerFixture : EmailVerificationHandler {
 
@@ -12,7 +12,11 @@ class EmailVerificationHandlerFixture : EmailVerificationHandler {
         const val VERIFICATION_VALIDITY_MINUTE = 30L
     }
 
-    override fun codeVerify(emailVerification: EmailVerification, code: String, currentTime: ZonedDateTime): EmailVerification {
+    override fun codeVerify(
+        emailVerification: EmailVerification,
+        code: String,
+        currentTime: AppDateTime
+    ): EmailVerification {
         return emailVerificationFixtureVerified(
             email = emailVerification.email.value,
             code = emailVerification.code,
@@ -23,5 +27,5 @@ class EmailVerificationHandlerFixture : EmailVerificationHandler {
         )
     }
 
-    override fun checkVerifiedAndCurrentlyValid(emailVerification: EmailVerification, currentTime: ZonedDateTime) {}
+    override fun checkVerifiedAndCurrentlyValid(emailVerification: EmailVerification, currentTime: AppDateTime) {}
 }

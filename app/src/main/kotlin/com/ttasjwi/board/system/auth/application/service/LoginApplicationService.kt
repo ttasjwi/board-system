@@ -41,9 +41,9 @@ internal class LoginApplicationService(
     private fun makeResponse(event: LoggedInEvent): LoginResponse {
         return LoginResponse(
             accessToken = event.data.accessToken,
-            accessTokenExpiresAt = event.data.accessTokenExpiresAt,
+            accessTokenExpiresAt = event.data.accessTokenExpiresAt.toZonedDateTime(),
             refreshToken = event.data.refreshToken,
-            refreshTokenExpiresAt = event.data.refreshTokenExpiresAt,
+            refreshTokenExpiresAt = event.data.refreshTokenExpiresAt.toZonedDateTime(),
         )
     }
 }

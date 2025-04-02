@@ -2,11 +2,11 @@ package com.ttasjwi.board.system.auth.domain.exception
 
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.ErrorStatus
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 class AccessTokenExpiredException(
-    expiredAt: ZonedDateTime,
-    currentTime: ZonedDateTime
+    expiredAt: AppDateTime,
+    currentTime: AppDateTime
 ) : CustomException(
     status = ErrorStatus.UNAUTHENTICATED,
     code = "Error.AccessTokenExpired",

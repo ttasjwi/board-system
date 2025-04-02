@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.event.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -31,9 +31,9 @@ class LoggedInEventFixtureTest {
         // given
         val accessToken = "accessToken1234"
         val refreshToken = "refreshToken45676"
-        val accessTokenExpiresAt = timeFixture(minute = 5)
-        val refreshTokenExpiresAt = timeFixture(dayOfMonth = 30)
-        val loggedInAt = timeFixture(minute = 0)
+        val accessTokenExpiresAt = appDateTimeFixture(minute = 5)
+        val refreshTokenExpiresAt = appDateTimeFixture(dayOfMonth = 30)
+        val loggedInAt = appDateTimeFixture(minute = 0)
 
         // when
         val event = loggedInEventFixture(

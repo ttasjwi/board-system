@@ -2,15 +2,16 @@ package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.common.logging.getLogger
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import java.time.Instant
 
 class RefreshToken
 internal constructor(
     val memberId: Long,
     val refreshTokenId: RefreshTokenId,
     val tokenValue: String,
-    val issuedAt: ZonedDateTime,
-    val expiresAt: ZonedDateTime,
+    val issuedAt: AppDateTime,
+    val expiresAt: AppDateTime,
 ) {
 
     companion object {
@@ -24,15 +25,15 @@ internal constructor(
             memberId: Long,
             refreshTokenId: String,
             tokenValue: String,
-            issuedAt: ZonedDateTime,
-            expiresAt: ZonedDateTime
+            issuedAt: Instant,
+            expiresAt: Instant
         ): RefreshToken {
             return RefreshToken(
                 memberId = memberId,
                 refreshTokenId = RefreshTokenId.restore(refreshTokenId),
                 tokenValue = tokenValue,
-                issuedAt = issuedAt,
-                expiresAt = expiresAt
+                issuedAt = AppDateTime.from(issuedAt),
+                expiresAt = AppDateTime.from(expiresAt)
             )
         }
     }
@@ -60,7 +61,7 @@ internal constructor(
     /**
      * 리프레시토큰이 현재 유효한 지 검증
      */
-    internal fun checkCurrentlyValid(currentTime: ZonedDateTime) {
+    internal fun checkCurrentlyValid(currentTime: AppDateTime) {
         if (currentTime >= this.expiresAt) {
             val ex = RefreshTokenExpiredException(
                 debugMessage = "리프레시토큰 유효시간이 경과되어 만료됨(currentTime=${currentTime},expiresAt=${this.expiresAt})"
@@ -75,7 +76,7 @@ internal constructor(
      * 재갱신이 필요함을 알리기 위해 true를 반환하고,
      * 그렇지 않을 경우 false 를 반환합니다.
      */
-    internal fun isRefreshRequired(currentTime: ZonedDateTime): Boolean {
+    internal fun isRefreshRequired(currentTime: AppDateTime): Boolean {
         return currentTime >= this.expiresAt.minusHours(REFRESH_REQUIRE_THRESHOLD_HOURS)
     }
 }

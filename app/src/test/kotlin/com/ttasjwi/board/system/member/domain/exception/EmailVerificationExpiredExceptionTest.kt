@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.exception
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -13,8 +13,8 @@ class EmailVerificationExpiredExceptionTest {
     @DisplayName("예외 기본값 테스트")
     fun test() {
         val email = "hello@gmail.com"
-        val expiredAt = timeFixture(minute = 5)
-        val currentTime = timeFixture(minute = 8)
+        val expiredAt = appDateTimeFixture(minute = 5)
+        val currentTime = appDateTimeFixture(minute = 8)
 
         val exception = EmailVerificationExpiredException(email, expiredAt, currentTime)
 

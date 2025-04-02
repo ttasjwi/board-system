@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
@@ -27,7 +27,7 @@ class LoginApplicationServiceTest {
     @BeforeEach
     fun setup() {
         val timeManagerFixture = TimeManagerFixture()
-        timeManagerFixture.changeCurrentTime(timeFixture(minute = 10))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 10))
 
         val memberStorageFixture = MemberStorageFixture()
 
@@ -38,7 +38,7 @@ class LoginApplicationServiceTest {
                 username = "username",
                 nickname = "nickname",
                 role = Role.USER,
-                registeredAt = timeFixture(minute = 6)
+                registeredAt = appDateTimeFixture(minute = 6)
             )
         )
 

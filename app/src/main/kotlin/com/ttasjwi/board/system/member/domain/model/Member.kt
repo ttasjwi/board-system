@@ -1,7 +1,8 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import java.time.LocalDateTime
 
 class Member
 internal constructor(
@@ -11,7 +12,7 @@ internal constructor(
     username: Username,
     nickname: Nickname,
     role: Role,
-    val registeredAt: ZonedDateTime,
+    val registeredAt: AppDateTime,
 ) {
 
     var email: Email = email
@@ -40,7 +41,7 @@ internal constructor(
             password: EncodedPassword,
             username: Username,
             nickname: Nickname,
-            registeredAt: ZonedDateTime,
+            registeredAt: AppDateTime,
         ): Member {
             return Member(
                 id = id,
@@ -60,7 +61,7 @@ internal constructor(
             username: String,
             nickname: String,
             roleName: String,
-            registeredAt: ZonedDateTime
+            registeredAt: LocalDateTime
         ): Member {
             return Member(
                 id = id,
@@ -69,7 +70,7 @@ internal constructor(
                 username = Username.restore(username),
                 nickname = Nickname.restore(nickname),
                 role = Role.restore(roleName),
-                registeredAt = registeredAt
+                registeredAt = AppDateTime.from(registeredAt)
             )
         }
 

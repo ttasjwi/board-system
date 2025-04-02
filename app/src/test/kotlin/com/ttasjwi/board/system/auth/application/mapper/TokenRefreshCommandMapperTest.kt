@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.mapper
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -39,7 +39,7 @@ class TokenRefreshCommandMapperTest {
     @DisplayName("리프레시토큰값이 있으면 성공한다.")
     fun testSuccess() {
         // given
-        timeManagerFixture.changeCurrentTime(timeFixture(minute = 30))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 30))
         val request = TokenRefreshRequest("token")
 
         // when
@@ -47,6 +47,6 @@ class TokenRefreshCommandMapperTest {
 
         // then
         assertThat(command.refreshToken).isEqualTo(request.refreshToken)
-        assertThat(command.currentTime).isEqualTo(timeFixture(minute = 30))
+        assertThat(command.currentTime).isEqualTo(appDateTimeFixture(minute = 30))
     }
 }

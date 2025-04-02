@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.event
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.event.fixture.memberRegisteredEventFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import org.assertj.core.api.Assertions.assertThat
@@ -13,7 +13,7 @@ class MemberRegisteredEventTest {
     @Test
     @DisplayName("회원이 가입됨을 나타내는 이벤트로, 이벤트 구독자들에게 필요한 최소한의 프로퍼티만을 가져야한다.")
     fun test() {
-        val registeredAt = timeFixture(year = 2024)
+        val registeredAt = appDateTimeFixture(year = 2024)
         val memberId = 4L
         val email = "bye@gmail.com"
         val username = "ttasjwi"

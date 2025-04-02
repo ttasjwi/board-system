@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.auth.application.dto
 
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 internal class TokenRefreshCommand(
     val refreshToken: String,
-    val currentTime: ZonedDateTime,
+    val currentTime: AppDateTime,
 )

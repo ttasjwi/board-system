@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import java.time.LocalDateTime
 
 /**
  * 소셜 연동
@@ -10,7 +11,7 @@ internal constructor(
     val id: Long,
     val memberId: Long,
     val socialServiceUser: SocialServiceUser,
-    val linkedAt: ZonedDateTime,
+    val linkedAt: AppDateTime,
 ) {
 
     companion object {
@@ -19,7 +20,7 @@ internal constructor(
             id: Long,
             memberId: Long,
             socialServiceUser: SocialServiceUser,
-            currentTime: ZonedDateTime
+            currentTime: AppDateTime
         ): SocialConnection {
             return SocialConnection(
                 id = id,
@@ -34,13 +35,13 @@ internal constructor(
             memberId: Long,
             socialServiceName: String,
             socialServiceUserId: String,
-            linkedAt: ZonedDateTime
+            linkedAt: LocalDateTime
         ): SocialConnection {
             return SocialConnection(
                 id = id,
                 memberId = memberId,
                 socialServiceUser = SocialServiceUser.restore(socialServiceName, socialServiceUserId),
-                linkedAt = linkedAt
+                linkedAt = AppDateTime.from(linkedAt)
             )
         }
     }

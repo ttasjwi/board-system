@@ -15,15 +15,15 @@ class TimeManagerFixtureTest {
         timeManagerFixture = TimeManagerFixture()
 
         val currentTime = timeManagerFixture.now()
-        assertThat(currentTime).isEqualTo(timeFixture())
+        assertThat(currentTime).isEqualTo(appDateTimeFixture())
     }
 
     @Test
     @DisplayName("생성자로 시간 지정했을 때 테스트")
     fun constructorTest() {
-        timeManagerFixture = TimeManagerFixture(timeFixture(minute = 3))
+        timeManagerFixture = TimeManagerFixture(appDateTimeFixture(minute = 3))
         val currentTime = timeManagerFixture.now()
-        assertThat(currentTime).isEqualTo(timeFixture(minute = 3))
+        assertThat(currentTime).isEqualTo(appDateTimeFixture(minute = 3))
     }
 
     @Test
@@ -31,8 +31,8 @@ class TimeManagerFixtureTest {
     fun changeTest() {
         timeManagerFixture = TimeManagerFixture()
 
-        timeManagerFixture.changeCurrentTime(timeFixture(minute=5))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute=5))
         val currentTime = timeManagerFixture.now()
-        assertThat(currentTime).isEqualTo(timeFixture(minute=5))
+        assertThat(currentTime).isEqualTo(appDateTimeFixture(minute=5))
     }
 }

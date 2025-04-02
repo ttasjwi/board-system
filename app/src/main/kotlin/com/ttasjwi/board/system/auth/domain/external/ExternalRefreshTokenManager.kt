@@ -2,10 +2,16 @@ package com.ttasjwi.board.system.auth.domain.external
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 interface ExternalRefreshTokenManager {
 
-    fun generate(memberId: Long, refreshTokenId: RefreshTokenId, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): RefreshToken
+    fun generate(
+        memberId: Long,
+        refreshTokenId: RefreshTokenId,
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
+    ): RefreshToken
+
     fun parse(tokenValue: String): RefreshToken
 }

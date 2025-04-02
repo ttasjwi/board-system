@@ -1,16 +1,15 @@
 package com.ttasjwi.board.system.member.domain.external.db.redis
 
-import com.ttasjwi.board.system.common.time.TimeRule
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
-import java.time.ZonedDateTime
+import java.time.Instant
 
 class RedisEmailVerification(
     val email: String,
     val code: String,
-    val codeCreatedAt: ZonedDateTime,
-    val codeExpiresAt: ZonedDateTime,
-    val verifiedAt: ZonedDateTime?,
-    val verificationExpiresAt: ZonedDateTime?
+    val codeCreatedAt: Instant,
+    val codeExpiresAt: Instant,
+    val verifiedAt: Instant?,
+    val verificationExpiresAt: Instant?
 ) {
 
     companion object {
@@ -19,10 +18,10 @@ class RedisEmailVerification(
             return RedisEmailVerification(
                 email = emailVerification.email.value,
                 code = emailVerification.code,
-                codeCreatedAt = emailVerification.codeCreatedAt,
-                codeExpiresAt = emailVerification.codeExpiresAt,
-                verifiedAt = emailVerification.verifiedAt,
-                verificationExpiresAt = emailVerification.verificationExpiresAt
+                codeCreatedAt = emailVerification.codeCreatedAt.toInstant(),
+                codeExpiresAt = emailVerification.codeExpiresAt.toInstant(),
+                verifiedAt = emailVerification.verifiedAt?.toInstant(),
+                verificationExpiresAt = emailVerification.verificationExpiresAt?.toInstant()
             )
         }
     }
@@ -31,10 +30,10 @@ class RedisEmailVerification(
         return EmailVerification.restore(
             email = this.email,
             code = this.code,
-            codeCreatedAt = this.codeCreatedAt.withZoneSameInstant(TimeRule.ZONE_ID),
-            codeExpiresAt = this.codeExpiresAt.withZoneSameInstant(TimeRule.ZONE_ID),
-            verifiedAt = this.verifiedAt?.withZoneSameInstant(TimeRule.ZONE_ID),
-            verificationExpiresAt = this.verificationExpiresAt?.withZoneSameInstant(TimeRule.ZONE_ID)
+            codeCreatedAt = this.codeCreatedAt,
+            codeExpiresAt = this.codeExpiresAt,
+            verifiedAt = this.verifiedAt,
+            verificationExpiresAt = this.verificationExpiresAt
         )
     }
 }

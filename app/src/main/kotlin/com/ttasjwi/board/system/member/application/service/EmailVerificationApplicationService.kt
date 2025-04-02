@@ -29,7 +29,7 @@ internal class EmailVerificationApplicationService(
     private fun makeResponse(event: EmailVerifiedEvent): EmailVerificationResponse {
         return EmailVerificationResponse(
             email = event.data.email,
-            verificationExpiresAt = event.data.verificationExpiresAt,
+            verificationExpiresAt = event.data.verificationExpiresAt.toZonedDateTime(),
         )
     }
 }

@@ -2,13 +2,18 @@ package com.ttasjwi.board.system.auth.domain.service
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 interface RefreshTokenManager {
 
-    fun generate(memberId: Long, issuedAt: ZonedDateTime): RefreshToken
+    fun generate(memberId: Long, issuedAt: AppDateTime): RefreshToken
     fun parse(tokenValue: String): RefreshToken
 
-    fun checkCurrentlyValid(refreshToken: RefreshToken, refreshTokenHolder: RefreshTokenHolder, currentTime: ZonedDateTime)
-    fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean
+    fun checkCurrentlyValid(
+        refreshToken: RefreshToken,
+        refreshTokenHolder: RefreshTokenHolder,
+        currentTime: AppDateTime
+    )
+
+    fun isRefreshRequired(refreshToken: RefreshToken, currentTime: AppDateTime): Boolean
 }

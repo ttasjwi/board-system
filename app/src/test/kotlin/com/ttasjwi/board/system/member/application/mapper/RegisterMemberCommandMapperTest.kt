@@ -3,8 +3,9 @@ package com.ttasjwi.board.system.member.application.mapper
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
@@ -18,18 +19,17 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.time.ZonedDateTime
 
 @DisplayName("RegisterMemberCommandMapper 테스트")
 class RegisterMemberCommandMapperTest {
 
     private lateinit var commandMapper: RegisterMemberCommandMapper
-    private lateinit var currentTime: ZonedDateTime
+    private lateinit var currentTime: AppDateTime
 
     @BeforeEach
     fun setup() {
         val timeManager = TimeManagerFixture()
-        currentTime = timeFixture(minute = 6)
+        currentTime = appDateTimeFixture(minute = 6)
         timeManager.changeCurrentTime(currentTime)
 
         commandMapper = RegisterMemberCommandMapper(

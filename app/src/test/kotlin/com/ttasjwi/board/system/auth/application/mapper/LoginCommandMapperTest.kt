@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -34,7 +34,7 @@ class LoginCommandMapperTest {
     @DisplayName("성공테스트")
     fun testSuccess() {
         // given
-        timeManagerFixture.changeCurrentTime(timeFixture(minute = 0))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 0))
 
         val email = "hello@gmail.com"
         val password = "1234"
@@ -46,7 +46,7 @@ class LoginCommandMapperTest {
         // then
         assertThat(command.email.value).isEqualTo(email)
         assertThat(command.rawPassword.value).isEqualTo(password)
-        assertThat(command.currentTime).isEqualTo(timeFixture(minute = 0))
+        assertThat(command.currentTime).isEqualTo(appDateTimeFixture(minute = 0))
     }
 
     @Test

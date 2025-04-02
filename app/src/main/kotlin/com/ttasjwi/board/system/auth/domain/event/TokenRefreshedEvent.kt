@@ -1,16 +1,16 @@
 package com.ttasjwi.board.system.auth.domain.event
 
 import com.ttasjwi.board.system.common.domain.event.DomainEvent
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 class TokenRefreshedEvent
 internal constructor(
     accessToken: String,
-    accessTokenExpiresAt: ZonedDateTime,
+    accessTokenExpiresAt: AppDateTime,
     refreshToken: String,
-    refreshTokenExpiresAt: ZonedDateTime,
+    refreshTokenExpiresAt: AppDateTime,
     refreshTokenRefreshed: Boolean,
-    refreshedAt: ZonedDateTime,
+    refreshedAt: AppDateTime,
 ) : DomainEvent<TokenRefreshedEvent.Data>(
     occurredAt = refreshedAt, data = Data(
         accessToken = accessToken,
@@ -23,9 +23,9 @@ internal constructor(
 
     class Data(
         val accessToken: String,
-        val accessTokenExpiresAt: ZonedDateTime,
+        val accessTokenExpiresAt: AppDateTime,
         val refreshToken: String,
-        val refreshTokenExpiresAt: ZonedDateTime,
+        val refreshTokenExpiresAt: AppDateTime,
         val refreshTokenRefreshed: Boolean,
     )
 }

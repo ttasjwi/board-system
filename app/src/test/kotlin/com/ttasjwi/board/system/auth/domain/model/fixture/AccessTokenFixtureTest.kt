@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.model.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -32,8 +32,8 @@ class AccessTokenFixtureTest {
         val memberId = 2L
         val role = Role.ADMIN
         val tokenValue = "tokentoken"
-        val issuedAt = timeFixture(minute = 3)
-        val expiresAt = timeFixture(minute = 33)
+        val issuedAt = appDateTimeFixture(minute = 3)
+        val expiresAt = appDateTimeFixture(minute = 33)
 
         // when
         val accessToken = accessTokenFixture(

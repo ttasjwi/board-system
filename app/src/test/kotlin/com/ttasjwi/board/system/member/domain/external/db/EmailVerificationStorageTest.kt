@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.ZonedDateTime
 
 @DisplayName("EmailVerificationStorage(Appender, Finder) 테스트")
 class EmailVerificationStorageTest : IntegrationTest() {
@@ -26,7 +26,7 @@ class EmailVerificationStorageTest : IntegrationTest() {
     @DisplayName("이메일 인증을 저장하고 이메일로 다시 찾을 수 있다")
     fun appendAndFind() {
         val emailVerification = emailVerificationFixtureVerified(email = TEST_EMAIL.value)
-        emailVerificationStorage.append(emailVerification, ZonedDateTime.now().plusMinutes(30))
+        emailVerificationStorage.append(emailVerification, AppDateTime.now().plusMinutes(30))
 
         val findEmailVerification = emailVerificationStorage.findByEmailOrNull(emailVerification.email)!!
 
@@ -49,7 +49,7 @@ class EmailVerificationStorageTest : IntegrationTest() {
     @DisplayName("remove 테스트")
     fun remove() {
         val emailVerification = emailVerificationFixtureVerified(TEST_EMAIL.value)
-        emailVerificationStorage.append(emailVerification, timeFixture())
+        emailVerificationStorage.append(emailVerification, appDateTimeFixture())
 
         emailVerificationStorage.removeByEmail(emailVerification.email)
 

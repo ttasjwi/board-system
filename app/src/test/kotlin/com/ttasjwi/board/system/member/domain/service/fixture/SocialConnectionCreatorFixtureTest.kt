@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialServiceUserFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -23,7 +23,7 @@ class SocialConnectionCreatorFixtureTest {
         // given
         val memberId = 1234556L
         val providerUser = socialServiceUserFixture()
-        val currentTime = timeFixture(minute = 7)
+        val currentTime = appDateTimeFixture(minute = 7)
 
         // when
         val socialConnection = socialConnectionCreatorFixture.create(

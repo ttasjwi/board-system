@@ -4,7 +4,7 @@ import com.nimbusds.jose.util.StandardCharset
 import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
@@ -24,9 +24,9 @@ class AuthenticationIntegrationTest : IntegrationTest() {
         val accessTokenValue = generateAccessTokenValue(
             memberId = authMember.memberId,
             role = authMember.role,
-            issuedAt = timeFixture()
+            issuedAt = appDateTimeFixture()
         )
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(
@@ -52,9 +52,9 @@ class AuthenticationIntegrationTest : IntegrationTest() {
         val accessTokenValue = generateAccessTokenValue(
             memberId = authMember.memberId,
             role = authMember.role,
-            issuedAt = timeFixture()
+            issuedAt = appDateTimeFixture()
         )
-        timeManagerFixture.changeCurrentTime(timeFixture(minute = 50))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 50))
 
         mockMvc
             .perform(

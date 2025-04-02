@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.domain.service.fixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -31,7 +31,7 @@ class AuthEventCreatorFixtureTest {
             // given
             val memberId = 1L
             val role = Role.ADMIN
-            val loggedInAt = timeFixture(minute = 5)
+            val loggedInAt = appDateTimeFixture(minute = 5)
 
             val accessToken = accessTokenFixture(
                 memberId = memberId,
@@ -74,7 +74,7 @@ class AuthEventCreatorFixtureTest {
             // given
             val memberId = 1L
             val role = Role.ADMIN
-            val tokenRefreshedAt = timeFixture(minute = 5)
+            val tokenRefreshedAt = appDateTimeFixture(minute = 5)
             val refreshTokenRefreshed = true
 
             val accessToken = accessTokenFixture(

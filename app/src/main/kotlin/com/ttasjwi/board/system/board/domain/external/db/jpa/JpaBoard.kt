@@ -1,8 +1,9 @@
 package com.ttasjwi.board.system.board.domain.external.db.jpa
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.common.time.TimeRule
 import jakarta.persistence.*
+import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
 @Entity
@@ -26,7 +27,7 @@ class JpaBoard(
     var slug: String,
 
     @Column(name = "created_at", nullable = false)
-    var createdAt: ZonedDateTime,
+    val createdAt: LocalDateTime,
 ) {
 
     companion object {
@@ -38,7 +39,7 @@ class JpaBoard(
                 description = board.description.value,
                 managerId = board.managerId,
                 slug = board.slug.value,
-                createdAt = board.createdAt,
+                createdAt = board.createdAt.toLocalDateTime(),
             )
         }
     }
@@ -50,7 +51,7 @@ class JpaBoard(
             description = this.description,
             managerId = this.managerId,
             slug = this.slug,
-            createdAt = this.createdAt.withZoneSameInstant(TimeRule.ZONE_ID)
+            createdAt = this.createdAt
         )
     }
 }

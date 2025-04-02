@@ -9,20 +9,20 @@ import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.auth.domain.service.fixture.AuthMemberLoaderFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.ZonedDateTime
 
 @DisplayName("BoardCreateApplicationService: 게시판 생성 요청을 받아 처리하는 애플리케이션 서비스")
 class BoardCreateApplicationServiceTest {
 
     private lateinit var applicationService: BoardCreateApplicationService
     private lateinit var authMember: AuthMember
-    private lateinit var currentTime: ZonedDateTime
+    private lateinit var currentTime: AppDateTime
     private lateinit var boardStorageFixture: BoardStorageFixture
 
     @BeforeEach
@@ -35,7 +35,7 @@ class BoardCreateApplicationServiceTest {
         authMemberLoader.changeAuthMember(authMember)
 
         val timeManager = TimeManagerFixture()
-        currentTime = timeFixture(minute = 6)
+        currentTime = appDateTimeFixture(minute = 6)
         timeManager.changeCurrentTime(currentTime)
 
         boardStorageFixture = BoardStorageFixture()
@@ -77,7 +77,7 @@ class BoardCreateApplicationServiceTest {
         assertThat(response.description).isEqualTo(request.description)
         assertThat(response.managerId).isEqualTo(authMember.memberId.toString())
         assertThat(response.slug).isEqualTo(request.slug)
-        assertThat(response.createdAt).isEqualTo(currentTime)
+        assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
         assertThat(findBoard).isNotNull
     }
 }

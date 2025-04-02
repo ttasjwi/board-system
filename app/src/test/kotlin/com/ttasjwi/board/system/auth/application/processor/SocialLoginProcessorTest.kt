@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixt
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
@@ -69,14 +69,14 @@ class SocialLoginProcessorTest {
                 memberId = member.id,
                 socialService = socialService,
                 socialServiceUserId = socialServiceUserId,
-                linkedAt = timeFixture(minute = 3)
+                linkedAt = appDateTimeFixture(minute = 3)
             )
         )
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
             email = email,
-            currentTime = timeFixture(minute = 5),
+            currentTime = appDateTimeFixture(minute = 5),
         )
 
         // when
@@ -104,7 +104,7 @@ class SocialLoginProcessorTest {
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
             email = email,
-            currentTime = timeFixture(minute = 5),
+            currentTime = appDateTimeFixture(minute = 5),
         )
 
         // when
@@ -138,7 +138,7 @@ class SocialLoginProcessorTest {
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
             email = email,
-            currentTime = timeFixture(minute = 5),
+            currentTime = appDateTimeFixture(minute = 5),
         )
 
         // when
@@ -162,7 +162,7 @@ class SocialLoginProcessorTest {
                 username = findMember.username.value,
                 nickname = findMember.nickname.value,
                 role = findMember.role.name,
-                registeredAt = findMember.registeredAt
+                registeredAt = findMember.registeredAt.toZonedDateTime()
             )
         )
         assertThat(findSocialConnection.id).isNotNull
@@ -193,7 +193,7 @@ class SocialLoginProcessorTest {
                 memberId = member.id,
                 socialService = socialService,
                 socialServiceUserId = socialServiceUserId,
-                linkedAt = timeFixture(minute = 3)
+                linkedAt = appDateTimeFixture(minute = 3)
             )
         )
         refreshTokenHolderStorageFixture.append(
@@ -206,17 +206,17 @@ class SocialLoginProcessorTest {
                         memberId = member.id,
                         refreshTokenId = "tokenId1",
                         tokenValue = "tokenValue",
-                        issuedAt = timeFixture(minute = 0),
+                        issuedAt = appDateTimeFixture(minute = 0),
                     )
                 )
             ),
-            currentTime = timeFixture(minute = 0),
+            currentTime = appDateTimeFixture(minute = 0),
         )
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
             email = email,
-            currentTime = timeFixture(minute = 5),
+            currentTime = appDateTimeFixture(minute = 5),
         )
 
         // when

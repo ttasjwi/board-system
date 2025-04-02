@@ -14,26 +14,26 @@ import com.ttasjwi.board.system.common.auth.domain.service.fixture.AuthMemberLoa
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.time.ZonedDateTime
 
 @DisplayName("BoardCreateCommandMapper: 게시판 생성명령 매퍼")
 class BoardCreateCommandMapperTest {
 
     private lateinit var commandMapper: BoardCreateCommandMapper
-    private lateinit var currentTime: ZonedDateTime
+    private lateinit var currentTime: AppDateTime
     private lateinit var authMember: AuthMember
 
     @BeforeEach
     fun setup() {
         val timeManager = TimeManagerFixture()
-        currentTime = timeFixture(minute = 6)
+        currentTime = appDateTimeFixture(minute = 6)
         timeManager.changeCurrentTime(currentTime)
 
         val authMemberLoader = AuthMemberLoaderFixture()

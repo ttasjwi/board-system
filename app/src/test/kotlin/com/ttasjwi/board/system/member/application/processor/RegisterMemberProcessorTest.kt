@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberEmailException
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNicknameException
@@ -50,16 +50,16 @@ class RegisterMemberProcessorTest {
     @DisplayName("성공 테스트")
     fun testSuccess() {
         val email = emailFixture("hello@gmail.com")
-        val currentTime = timeFixture(minute = 6)
+        val currentTime = appDateTimeFixture(minute = 6)
         emailVerificationStorageFixture.append(
             emailVerificationFixtureVerified(
                 email = email.value,
                 code = "code",
-                codeCreatedAt = timeFixture(minute = 0),
-                codeExpiresAt = timeFixture(minute = 5),
-                verifiedAt = timeFixture(minute = 3),
-                verificationExpiresAt = timeFixture(minute = 33),
-            ), timeFixture(minute = 33)
+                codeCreatedAt = appDateTimeFixture(minute = 0),
+                codeExpiresAt = appDateTimeFixture(minute = 5),
+                verifiedAt = appDateTimeFixture(minute = 3),
+                verificationExpiresAt = appDateTimeFixture(minute = 33),
+            ), appDateTimeFixture(minute = 33)
         )
 
         val command = RegisterMemberCommand(
@@ -104,7 +104,7 @@ class RegisterMemberProcessorTest {
             rawPassword = rawPasswordFixture("1234"),
             username = usernameFixture("testuser"),
             nickname = nicknameFixture("testnick"),
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
 
         assertThrows<DuplicateMemberEmailException> { processor.register(command) }
@@ -118,7 +118,7 @@ class RegisterMemberProcessorTest {
             rawPassword = rawPasswordFixture("1234"),
             username = registeredMember.username,
             nickname = nicknameFixture("testnick"),
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
 
         assertThrows<DuplicateMemberUsernameException> { processor.register(command) }
@@ -132,7 +132,7 @@ class RegisterMemberProcessorTest {
             rawPassword = rawPasswordFixture("1234"),
             username = usernameFixture("testuser"),
             nickname = registeredMember.nickname,
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
 
         assertThrows<DuplicateMemberNicknameException> { processor.register(command) }
@@ -146,7 +146,7 @@ class RegisterMemberProcessorTest {
             rawPassword = rawPasswordFixture("1234"),
             username = usernameFixture("testuser"),
             nickname = nicknameFixture("testnick"),
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
         assertThrows<EmailVerificationNotFoundException> { processor.register(command) }
     }

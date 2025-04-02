@@ -3,15 +3,15 @@ package com.ttasjwi.board.system.auth.domain.model.fixture
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 fun accessTokenFixture(
     memberId: Long = 1L,
     role: Role = Role.USER,
     tokenValue: String = "accessToken",
-    issuedAt: ZonedDateTime = timeFixture(minute = 0),
-    expiresAt: ZonedDateTime = issuedAt.plusMinutes(30),
+    issuedAt: AppDateTime = appDateTimeFixture(minute = 0),
+    expiresAt: AppDateTime = issuedAt.plusMinutes(30),
 ): AccessToken {
     return AccessToken.testCreate(
         memberId = memberId,
@@ -26,8 +26,8 @@ private fun AccessToken.Companion.testCreate(
     memberId: Long,
     role: Role,
     tokenValue: String,
-    issuedAt: ZonedDateTime,
-    expiresAt: ZonedDateTime
+    issuedAt: AppDateTime,
+    expiresAt: AppDateTime
 ): AccessToken {
     return AccessToken(
         authMember = authMemberFixture(

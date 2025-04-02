@@ -1,13 +1,13 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.member.domain.external.db.redis.RedisEmailVerification
 import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationFinder
-import com.ttasjwi.board.system.member.domain.external.db.redis.RedisEmailVerification
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
-import java.time.ZonedDateTime
 
 @Component
 class EmailVerificationStorage(
@@ -20,7 +20,7 @@ class EmailVerificationStorage(
         private const val KEY_PREFIX = "Board-System:EmailVerification:"
     }
 
-    override fun append(emailVerification: EmailVerification, expiresAt: ZonedDateTime) {
+    override fun append(emailVerification: EmailVerification, expiresAt: AppDateTime) {
         val key = makeKey(emailVerification.email)
         val redisModel = RedisEmailVerification.from(emailVerification)
 

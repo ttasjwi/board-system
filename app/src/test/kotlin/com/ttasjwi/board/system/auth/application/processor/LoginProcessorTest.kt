@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.application.dto.LoginCommand
 import com.ttasjwi.board.system.auth.application.exception.LoginFailureException
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
@@ -37,13 +37,13 @@ class LoginProcessorTest {
                 username = "username",
                 nickname = "nickname",
                 role = Role.USER,
-                registeredAt = timeFixture(minute = 6)
+                registeredAt = appDateTimeFixture(minute = 6)
             )
         )
         successCommand = LoginCommand(
             email = emailFixture("hello@gmail.com"),
             rawPassword = rawPasswordFixture("1234"),
-            currentTime = timeFixture(minute = 10)
+            currentTime = appDateTimeFixture(minute = 10)
         )
 
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
@@ -91,7 +91,7 @@ class LoginProcessorTest {
         val secondLoginCommand = LoginCommand(
             email = firstLoginCommand.email,
             rawPassword = firstLoginCommand.rawPassword,
-            currentTime = timeFixture(minute = 12)
+            currentTime = appDateTimeFixture(minute = 12)
         )
         val firstLoginEventData = processor.login(firstLoginCommand).data
 

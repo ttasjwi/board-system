@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.member.domain.event
 
 import com.ttasjwi.board.system.common.domain.event.DomainEvent
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent.RegisteredMemberData
 import com.ttasjwi.board.system.member.domain.model.Member
-import java.time.ZonedDateTime
 
 class MemberRegisteredEvent
 internal constructor(
@@ -12,7 +12,7 @@ internal constructor(
     username: String,
     nickname: String,
     roleName: String,
-    registeredAt: ZonedDateTime,
+    registeredAt: AppDateTime,
 ) : DomainEvent<RegisteredMemberData>(
     occurredAt = registeredAt,
     data = RegisteredMemberData(
@@ -44,6 +44,6 @@ internal constructor(
         val username: String,
         val nickname: String,
         val roleName: String,
-        val registeredAt: ZonedDateTime,
+        val registeredAt: AppDateTime,
     )
 }

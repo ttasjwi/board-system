@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.event.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -28,8 +28,8 @@ class EmailVerificationStartedEventFixtureTest {
     fun test2() {
         val email = "fire@gmail.com"
         val code = "54321"
-        val codeCreatedAt = timeFixture(minute = 5)
-        val codeExpiresAt = timeFixture(minute = 10)
+        val codeCreatedAt = appDateTimeFixture(minute = 5)
+        val codeExpiresAt = appDateTimeFixture(minute = 10)
         val locale = Locale.ENGLISH
 
         val event = emailVerificationStartedEventFixture(

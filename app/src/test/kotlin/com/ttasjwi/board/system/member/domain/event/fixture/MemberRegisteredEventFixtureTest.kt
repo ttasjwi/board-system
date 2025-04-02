@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.event.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -25,7 +25,7 @@ class MemberRegisteredEventFixtureTest {
     @Test
     @DisplayName("값을 지정하여 생성하면 그 값을 가지고 있다.")
     fun test2() {
-        val registeredAt = timeFixture(year = 2024)
+        val registeredAt = appDateTimeFixture(year = 2024)
         val memberId = 4L
         val email = "bye@gmail.com"
         val username = "ttasjwi"

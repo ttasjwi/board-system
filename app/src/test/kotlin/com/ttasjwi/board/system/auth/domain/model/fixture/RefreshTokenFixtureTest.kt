@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.model.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -30,8 +30,8 @@ class RefreshTokenFixtureTest {
         val memberId = 2L
         val refreshTokenId = "refreshToken2"
         val tokenValue = "tokentoken"
-        val issuedAt = timeFixture(dayOfMonth = 1)
-        val expiresAt = timeFixture(dayOfMonth = 2)
+        val issuedAt = appDateTimeFixture(dayOfMonth = 1)
+        val expiresAt = appDateTimeFixture(dayOfMonth = 2)
 
         // when
         val refreshToken = refreshTokenFixture(

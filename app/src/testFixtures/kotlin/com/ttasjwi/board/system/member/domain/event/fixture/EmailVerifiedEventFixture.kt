@@ -1,13 +1,13 @@
 package com.ttasjwi.board.system.member.domain.event.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.event.EmailVerifiedEvent
-import java.time.ZonedDateTime
 
 fun emailVerifiedEventFixture(
     email: String = "hello@gmail.com",
-    verifiedAt: ZonedDateTime = timeFixture(minute = 0),
-    verificationExpiresAt: ZonedDateTime = verifiedAt.plusMinutes(30)
+    verifiedAt: AppDateTime = appDateTimeFixture(minute = 0),
+    verificationExpiresAt: AppDateTime = verifiedAt.plusMinutes(30)
 ): EmailVerifiedEvent {
     return EmailVerifiedEvent(
         email = email,

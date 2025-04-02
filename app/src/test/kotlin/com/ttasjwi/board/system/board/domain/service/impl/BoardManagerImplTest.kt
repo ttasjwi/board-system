@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.board.domain.model.fixture.boardDescriptionFixtu
 import com.ttasjwi.board.system.board.domain.model.fixture.boardNameFixture
 import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.board.domain.service.BoardManager
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -27,7 +27,7 @@ class BoardManagerImplTest {
         val description = boardDescriptionFixture("경제 게시판입니다.")
         val managerId = 13L
         val slug = boardSlugFixture("economy")
-        val currentTime = timeFixture()
+        val currentTime = appDateTimeFixture()
 
         val board = boardManager.create(
             name = name,

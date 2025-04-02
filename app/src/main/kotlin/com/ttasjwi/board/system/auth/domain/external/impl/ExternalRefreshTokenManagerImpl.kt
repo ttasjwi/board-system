@@ -4,11 +4,10 @@ import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatE
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
-import com.ttasjwi.board.system.common.time.TimeRule
+import com.ttasjwi.board.system.common.time.AppDateTime
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component
-import java.time.ZonedDateTime
 
 @Component
 class ExternalRefreshTokenManagerImpl(
@@ -26,8 +25,8 @@ class ExternalRefreshTokenManagerImpl(
     override fun generate(
         memberId: Long,
         refreshTokenId: RefreshTokenId,
-        issuedAt: ZonedDateTime,
-        expiresAt: ZonedDateTime
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
     ): RefreshToken {
         val jwt = makeJwt(memberId, refreshTokenId, issuedAt, expiresAt)
         return makeRefreshTokenFromJwt(jwt)
@@ -52,8 +51,8 @@ class ExternalRefreshTokenManagerImpl(
     private fun makeJwt(
         memberId: Long,
         refreshTokenId: RefreshTokenId,
-        issuedAt: ZonedDateTime,
-        expiresAt: ZonedDateTime
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
     ): Jwt {
         val jwsHeader = makeHeader()
         val jwtClaimsSet = makeClaimSet(memberId, refreshTokenId, issuedAt, expiresAt)
@@ -71,8 +70,8 @@ class ExternalRefreshTokenManagerImpl(
     private fun makeClaimSet(
         memberId: Long,
         refreshTokenId: RefreshTokenId,
-        issuedAt: ZonedDateTime,
-        expiresAt: ZonedDateTime
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
     ): JwtClaimsSet {
         return JwtClaimsSet.builder()
             .subject(memberId.toString())
@@ -89,8 +88,8 @@ class ExternalRefreshTokenManagerImpl(
             memberId = jwt.subject.toLong(),
             refreshTokenId = jwt.getClaim(REFRESH_TOKEN_ID_CLAIM),
             tokenValue = jwt.tokenValue,
-            issuedAt = jwt.issuedAt!!.atZone(TimeRule.ZONE_ID),
-            expiresAt = jwt.expiresAt!!.atZone(TimeRule.ZONE_ID)
+            issuedAt = jwt.issuedAt!!,
+            expiresAt = jwt.expiresAt!!
         )
     }
 }

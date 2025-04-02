@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.integration
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
@@ -16,7 +16,7 @@ class ExceptionHandleIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("'/api/v1/test/no-ex' 엔드포인트를 호출하면 hello 문자열이 반환된다.")
     fun caseTestSuccessEndPointSuccess() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
         mockMvc
             .perform(
                 get("/api/v1/test/no-ex")
@@ -33,7 +33,7 @@ class ExceptionHandleIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("'/api/v1/test/no-ex' 엔드포인트 호출시 ex=true 파라미터를 전달하면 필터에서 예외가 발생하고, 이를 앞단의 필터가 처리한다.")
     fun caseFilterException() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(
@@ -55,7 +55,7 @@ class ExceptionHandleIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("컨트롤러에서 예외 발생하면 HandlerExceptionResolver 에서 처리한다.")
     fun caseControllerException() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(

@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
@@ -33,7 +33,7 @@ class EmailVerificationCommandMapperTest {
     @Test
     @DisplayName("성공 테스트")
     fun testSuccess() {
-        timeManagerFixture.changeCurrentTime(timeFixture(minute = 3))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 3))
         val email = "hello@gmail.com"
         val code = "1234"
 
@@ -43,7 +43,7 @@ class EmailVerificationCommandMapperTest {
 
         assertThat(command.email).isEqualTo(emailFixture(email))
         assertThat(command.code).isEqualTo(code)
-        assertThat(command.currentTime).isEqualTo(timeFixture(minute = 3))
+        assertThat(command.currentTime).isEqualTo(appDateTimeFixture(minute = 3))
     }
 
     @Test

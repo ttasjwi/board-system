@@ -9,7 +9,7 @@ import com.ttasjwi.board.system.board.domain.service.fixture.BoardManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardStorageFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -49,7 +49,7 @@ class BoardCreateProcessorTest {
             boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
             boardSlug = boardSlugFixture("cat"),
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
 
         // when
@@ -63,7 +63,7 @@ class BoardCreateProcessorTest {
         assertThat(response.description).isEqualTo(command.boardDescription.value)
         assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
         assertThat(response.slug).isEqualTo(command.boardSlug.value)
-        assertThat(response.createdAt).isEqualTo(command.currentTime)
+        assertThat(response.createdAt).isEqualTo(command.currentTime.toZonedDateTime())
         assertThat(findBoard).isNotNull
     }
 
@@ -77,7 +77,7 @@ class BoardCreateProcessorTest {
             boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
             boardSlug = boardSlugFixture("cat"),
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
 
         // when
@@ -93,7 +93,7 @@ class BoardCreateProcessorTest {
             boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
             boardSlug = savedBoard.slug,
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
-            currentTime = timeFixture(minute = 6)
+            currentTime = appDateTimeFixture(minute = 6)
         )
 
         // when

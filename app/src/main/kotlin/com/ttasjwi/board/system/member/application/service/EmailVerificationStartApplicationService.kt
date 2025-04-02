@@ -46,7 +46,7 @@ internal class EmailVerificationStartApplicationService(
     private fun makeResponse(event: EmailVerificationStartedEvent): EmailVerificationStartResponse {
         return EmailVerificationStartResponse(
             email = event.data.email,
-            codeExpiresAt = event.data.codeExpiresAt,
+            codeExpiresAt = event.data.codeExpiresAt.toZonedDateTime(),
         )
     }
 }

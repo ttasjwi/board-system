@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.member.domain.event.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
-import java.time.ZonedDateTime
 
 fun memberRegisteredEventFixture(
     memberId: Long = 1L,
@@ -11,7 +11,7 @@ fun memberRegisteredEventFixture(
     username: String = "username",
     nickname: String = "테스트닉네임",
     role: Role = Role.USER,
-    registeredAt: ZonedDateTime = timeFixture(),
+    registeredAt: AppDateTime = appDateTimeFixture(),
 ): MemberRegisteredEvent {
     return MemberRegisteredEvent(
         memberId = memberId,

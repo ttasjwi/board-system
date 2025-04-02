@@ -3,8 +3,7 @@ package com.ttasjwi.board.system.auth.domain.external.impl.redis
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
-import com.ttasjwi.board.system.common.time.TimeRule
-import java.time.ZonedDateTime
+import java.time.Instant
 
 class RedisRefreshTokenHolder(
     val authMember: RedisAuthMember,
@@ -20,8 +19,8 @@ class RedisRefreshTokenHolder(
         val memberId: Long,
         val refreshTokenId: String,
         val tokenValue: String,
-        val issuedAt: ZonedDateTime,
-        val expiresAt: ZonedDateTime
+        val issuedAt: Instant,
+        val expiresAt: Instant
     )
 
     companion object {
@@ -38,8 +37,8 @@ class RedisRefreshTokenHolder(
                         memberId = token.memberId,
                         refreshTokenId = token.refreshTokenId.value,
                         tokenValue = token.tokenValue,
-                        issuedAt = token.issuedAt,
-                        expiresAt = token.expiresAt
+                        issuedAt = token.issuedAt.toInstant(),
+                        expiresAt = token.expiresAt.toInstant()
                     )
                     key to value
                 }.toMap()
@@ -57,8 +56,8 @@ class RedisRefreshTokenHolder(
                     memberId = token.memberId,
                     refreshTokenId = token.refreshTokenId,
                     tokenValue = token.tokenValue,
-                    issuedAt = token.issuedAt.withZoneSameInstant(TimeRule.ZONE_ID),
-                    expiresAt = token.expiresAt.withZoneSameInstant(TimeRule.ZONE_ID)
+                    issuedAt = token.issuedAt,
+                    expiresAt = token.expiresAt
                 )
                 key to value
             }.toMap().toMutableMap()

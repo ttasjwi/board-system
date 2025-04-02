@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.usecase.fixture
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 class TokenRefreshUseCaseFixture : TokenRefreshUseCase {
 
@@ -11,9 +11,9 @@ class TokenRefreshUseCaseFixture : TokenRefreshUseCase {
         return TokenRefreshResponse(
             accessToken = "newAccessToken",
             accessTokenType = "Bearer",
-            accessTokenExpiresAt = timeFixture(minute = 30),
+            accessTokenExpiresAt = appDateTimeFixture(minute = 30).toZonedDateTime(),
             refreshToken = request.refreshToken!!,
-            refreshTokenExpiresAt = timeFixture(dayOfMonth = 2),
+            refreshTokenExpiresAt = appDateTimeFixture(dayOfMonth = 2).toZonedDateTime(),
             refreshTokenRefreshed = false,
         )
     }

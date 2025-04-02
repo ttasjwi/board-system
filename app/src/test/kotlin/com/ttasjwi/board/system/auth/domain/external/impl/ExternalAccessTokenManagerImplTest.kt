@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatEx
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -20,8 +20,8 @@ class ExternalAccessTokenManagerImplTest : IntegrationTest() {
         memberId = 1L,
         role = Role.USER
     )
-    private val issuedAt = timeFixture(minute = 0)
-    private val expiresAt = timeFixture(minute = 30)
+    private val issuedAt = appDateTimeFixture(minute = 0)
+    private val expiresAt = appDateTimeFixture(minute = 30)
 
     @Nested
     @DisplayName("generate: 로그인 한 회원의 인증정보를 담은 액세스 토큰 인스턴스를 생성한다.")

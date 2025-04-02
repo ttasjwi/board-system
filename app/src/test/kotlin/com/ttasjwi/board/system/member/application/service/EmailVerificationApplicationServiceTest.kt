@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.member.application.service
 
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
@@ -49,11 +49,11 @@ class EmailVerificationApplicationServiceTest {
         val savedEmailVerification = emailVerificationFixtureNotVerified(
             email = "hello@gmail.com",
             code = "1234",
-            codeCreatedAt = timeFixture(minute = 0),
-            codeExpiresAt = timeFixture(minute = 5),
+            codeCreatedAt = appDateTimeFixture(minute = 0),
+            codeExpiresAt = appDateTimeFixture(minute = 5),
         )
         emailVerificationStorageFixture.append(savedEmailVerification, savedEmailVerification.codeExpiresAt)
-        timeManagerFixture.changeCurrentTime(timeFixture(minute = 3))
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 3))
 
         val request = EmailVerificationRequest(
             email = savedEmailVerification.email.value,
@@ -61,14 +61,14 @@ class EmailVerificationApplicationServiceTest {
         )
 
         // when
-        val result = emailVerificationApplicationService.emailVerification(request)
+        val response = emailVerificationApplicationService.emailVerification(request)
 
         // then
-        assertThat(result.email).isEqualTo(request.email)
-        assertThat(result.verificationExpiresAt).isEqualTo(
-            timeFixture(minute = 3).plusMinutes(
+        assertThat(response.email).isEqualTo(request.email)
+        assertThat(response.verificationExpiresAt).isEqualTo(
+            appDateTimeFixture(minute = 3).plusMinutes(
                 EmailVerificationHandlerFixture.VERIFICATION_VALIDITY_MINUTE
-            )
+            ).toZonedDateTime()
         )
     }
 

@@ -2,13 +2,13 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.time.ZonedDateTime
 
 @DisplayName("ExternalRefreshTokenHolderStorage (Appender, Finder) 픽스쳐 테스트")
 class ExternalRefreshTokenHolderStorageFixtureTest {
@@ -37,7 +37,7 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
                 memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
-            val expiresAt = timeFixture(minute = 13)
+            val expiresAt = appDateTimeFixture(minute = 13)
 
             // when
             // then
@@ -62,7 +62,7 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
                 memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
-            val expiresAt = timeFixture(minute = 13)
+            val expiresAt = appDateTimeFixture(minute = 13)
             externalRefreshTokenHolderStorageFixture.append(memberId, savedRefreshTokenHolder, expiresAt)
 
             // when
@@ -101,7 +101,7 @@ class ExternalRefreshTokenHolderStorageFixtureTest {
             externalRefreshTokenHolderStorageFixture.append(
                 memberId,
                 refreshTokenHolder,
-                ZonedDateTime.now().plusMinutes(30)
+                AppDateTime.now().plusMinutes(30)
             )
 
             // when

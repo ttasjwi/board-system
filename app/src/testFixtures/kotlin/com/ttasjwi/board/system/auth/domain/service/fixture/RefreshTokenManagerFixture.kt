@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
+import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -19,7 +20,7 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
         const val REFRESH_REQUIRE_THRESHOLD_HOURS = 8L
     }
 
-    override fun generate(memberId: Long, issuedAt: ZonedDateTime): RefreshToken {
+    override fun generate(memberId: Long, issuedAt: AppDateTime): RefreshToken {
         val expiresAt = issuedAt.plusHours(VALIDITY_HOURS)
         val refreshTokenId = UUID.randomUUID().toString()
         val tokenValue = makeTokenValue(memberId, refreshTokenId, issuedAt, expiresAt)
@@ -40,26 +41,27 @@ class RefreshTokenManagerFixture : RefreshTokenManager {
             memberId = split[MEMBER_ID_INDEX].toLong(),
             refreshTokenId = split[REFRESH_TOKEN_ID_INDEX],
             tokenValue = tokenValue,
-            issuedAt = split[ISSUED_AT_INDEX].let { ZonedDateTime.parse(it) },
-            expiresAt = split[EXPIRES_AT_INDEX].let { ZonedDateTime.parse(it) }
+            issuedAt = split[ISSUED_AT_INDEX].let { AppDateTime.from(ZonedDateTime.parse(it)) },
+            expiresAt = split[EXPIRES_AT_INDEX].let { AppDateTime.from(ZonedDateTime.parse(it)) }
         )
     }
 
     override fun checkCurrentlyValid(
         refreshToken: RefreshToken,
         refreshTokenHolder: RefreshTokenHolder,
-        currentTime: ZonedDateTime
-    ) {}
+        currentTime: AppDateTime
+    ) {
+    }
 
-    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
+    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: AppDateTime): Boolean {
         return currentTime >= refreshToken.expiresAt.minusHours(REFRESH_REQUIRE_THRESHOLD_HOURS)
     }
 
     private fun makeTokenValue(
         memberId: Long,
         refreshTokenId: String,
-        issuedAt: ZonedDateTime,
-        expiresAt: ZonedDateTime
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
     ): String {
         return "${memberId}," + // 0
                 "${refreshTokenId}," + // 1

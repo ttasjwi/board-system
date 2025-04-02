@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -33,8 +33,8 @@ class ExternalRefreshTokenManagerFixtureTest {
             // given
             val memberId = 144L
             val refreshTokenId = refreshTokenIdFixture("abcdef")
-            val issuedAt = timeFixture(minute = 3)
-            val expiresAt = timeFixture(dayOfMonth = 2, minute = 3)
+            val issuedAt = appDateTimeFixture(minute = 3)
+            val expiresAt = appDateTimeFixture(dayOfMonth = 2, minute = 3)
 
             // when
             val refreshToken =
@@ -60,7 +60,7 @@ class ExternalRefreshTokenManagerFixtureTest {
         fun testSuccess() {
             // given
             val tokenValue =
-                "144,abcdef,1980-01-01T00:03+09:00[Asia/Seoul],1980-01-02T00:03+09:00[Asia/Seoul],refreshToken"
+                "144,abcdef,2025-01-01T00:03+09:00[Asia/Seoul],2025-01-02T00:03+09:00[Asia/Seoul],refreshToken"
             // when
             val accessToken = externalRefreshTokenManagerFixture.parse(tokenValue)
 
@@ -68,8 +68,8 @@ class ExternalRefreshTokenManagerFixtureTest {
             assertThat(accessToken.memberId).isEqualTo(144L)
             assertThat(accessToken.refreshTokenId.value).isEqualTo("abcdef")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
-            assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 3))
-            assertThat(accessToken.expiresAt).isEqualTo(timeFixture(dayOfMonth = 2, minute = 3))
+            assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 3))
+            assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(dayOfMonth = 2, minute = 3))
         }
     }
 }

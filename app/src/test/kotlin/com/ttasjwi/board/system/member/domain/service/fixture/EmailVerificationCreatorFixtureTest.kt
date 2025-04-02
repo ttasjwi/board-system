@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -21,7 +21,7 @@ class EmailVerificationCreatorFixtureTest {
     @DisplayName("Create: 이메일 인증을 생성한다")
     fun testCode() {
         val email = emailFixture("soso@gmail.com")
-        val currentTime = timeFixture(minute = 0)
+        val currentTime = appDateTimeFixture(minute = 0)
 
         val emailVerification = emailVerificationCreatorFixture.create(
             email = email,
@@ -31,7 +31,7 @@ class EmailVerificationCreatorFixtureTest {
         assertThat(emailVerification.email).isEqualTo(email)
         assertThat(emailVerification.code).isEqualTo("code")
         assertThat(emailVerification.codeCreatedAt).isEqualTo(currentTime)
-        assertThat(emailVerification.codeExpiresAt).isEqualTo(timeFixture(minute = 5))
+        assertThat(emailVerification.codeExpiresAt).isEqualTo(appDateTimeFixture(minute = 5))
         assertThat(emailVerification.verifiedAt).isNull()
         assertThat(emailVerification.verificationExpiresAt).isNull()
 

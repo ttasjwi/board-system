@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.event.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -24,8 +24,8 @@ class EmailVerifiedEventFixtureTest {
     @DisplayName("커스텀하게 필드를 지정할 수 있다.")
     fun test2() {
         val email = "fire@gmail.com"
-        val verifiedAt = timeFixture(minute = 11)
-        val verificationExpiresAt = timeFixture(minute = 41)
+        val verifiedAt = appDateTimeFixture(minute = 11)
+        val verificationExpiresAt = appDateTimeFixture(minute = 41)
 
         val event = emailVerifiedEventFixture(
             email = email,

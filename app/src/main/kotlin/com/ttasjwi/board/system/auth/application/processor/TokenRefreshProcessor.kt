@@ -9,7 +9,7 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.logging.getLogger
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 @ApplicationProcessor
 internal class TokenRefreshProcessor(
@@ -49,7 +49,7 @@ internal class TokenRefreshProcessor(
         }
     }
 
-    private fun getRefreshTokenHolder(refreshToken: RefreshToken, currentTime: ZonedDateTime): RefreshTokenHolder {
+    private fun getRefreshTokenHolder(refreshToken: RefreshToken, currentTime: AppDateTime): RefreshTokenHolder {
         val findRefreshTokenHolder = refreshTokenHolderFinder.findByMemberIdOrNull(refreshToken.memberId)
 
         if (findRefreshTokenHolder == null) {
@@ -69,7 +69,7 @@ internal class TokenRefreshProcessor(
         accessToken: AccessToken,
         refreshToken: RefreshToken,
         refreshTokenHolder: RefreshTokenHolder,
-        currentTime: ZonedDateTime,
+        currentTime: AppDateTime,
     ): TokenRefreshedEvent {
 
         // 리프레시 토큰 재생성

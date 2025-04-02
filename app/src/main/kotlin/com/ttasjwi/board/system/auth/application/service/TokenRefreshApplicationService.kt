@@ -34,16 +34,16 @@ internal class TokenRefreshApplicationService(
 
         log.info { "토큰 재갱신됨" }
 
-        // 처리 결과로 가공, 반환
-        return makeResult(event)
+        // 응답 생성, 반환
+        return makeResponse(event)
     }
 
-    private fun makeResult(event: TokenRefreshedEvent): TokenRefreshResponse {
+    private fun makeResponse(event: TokenRefreshedEvent): TokenRefreshResponse {
         return TokenRefreshResponse(
             accessToken = event.data.accessToken,
-            accessTokenExpiresAt = event.data.accessTokenExpiresAt,
+            accessTokenExpiresAt = event.data.accessTokenExpiresAt.toZonedDateTime(),
             refreshToken = event.data.refreshToken,
-            refreshTokenExpiresAt = event.data.refreshTokenExpiresAt,
+            refreshTokenExpiresAt = event.data.refreshTokenExpiresAt.toZonedDateTime(),
             refreshTokenRefreshed = event.data.refreshTokenRefreshed,
         )
     }

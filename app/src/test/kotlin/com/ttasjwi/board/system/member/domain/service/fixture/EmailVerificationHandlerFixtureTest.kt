@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.*
@@ -28,7 +28,7 @@ class EmailVerificationHandlerFixtureTest {
                 "이메일 인증의 만료시점은 인증시각 기준 ${EmailVerificationHandlerFixture.VERIFICATION_VALIDITY_MINUTE} 분 뒤까지이다.")
         fun test() {
             val emailVerification = emailVerificationFixtureNotVerified()
-            val currentTime = timeFixture(minute=3)
+            val currentTime = appDateTimeFixture(minute=3)
 
             val verifiedEmailVerification = emailVerificationHandlerFixture.codeVerify(emailVerification, emailVerification.code, currentTime)
 
@@ -45,7 +45,7 @@ class EmailVerificationHandlerFixtureTest {
         @DisplayName("픽스쳐 - 아무 것도 안 한다. 실행만 되는 지 테스트")
         fun test() {
             val emailVerification = emailVerificationFixtureVerified()
-            val currentTime = timeFixture(minute=6)
+            val currentTime = appDateTimeFixture(minute=6)
 
             emailVerificationHandlerFixture.checkVerifiedAndCurrentlyValid(emailVerification, currentTime)
         }

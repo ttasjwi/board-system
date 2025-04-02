@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
@@ -58,7 +58,7 @@ class EmailVerificationStartCommandMapperTest {
         @DisplayName("이메일 포맷이 유효할 경우 -> 성공")
         fun testSuccess() {
             localeManagerFixture.changeLocale(Locale.ENGLISH)
-            timeManagerFixture.changeCurrentTime(timeFixture(minute = 3))
+            timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 3))
 
             val request = EmailVerificationStartRequest(email = "hello@gmail.com")
 
@@ -67,7 +67,7 @@ class EmailVerificationStartCommandMapperTest {
             assertThat(command).isNotNull
             assertThat(command.email).isEqualTo(emailFixture("hello@gmail.com"))
             assertThat(command.locale).isEqualTo(Locale.ENGLISH)
-            assertThat(command.currenTime).isEqualTo(timeFixture(minute = 3))
+            assertThat(command.currenTime).isEqualTo(appDateTimeFixture(minute = 3))
         }
     }
 }

@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.auth.application.mapper
 
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -28,7 +28,7 @@ class SocialLoginCommandMapperTest {
     @DisplayName("변환이 잘 되는 지 테스트")
     fun test() {
         // given
-        val currentTime = timeFixture(minute = 13)
+        val currentTime = appDateTimeFixture(minute = 13)
         timeManagerFixture.changeCurrentTime(currentTime)
 
         val request = SocialLoginRequest(

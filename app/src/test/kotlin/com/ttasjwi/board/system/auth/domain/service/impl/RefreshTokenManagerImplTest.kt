@@ -9,7 +9,7 @@ import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixt
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
@@ -38,7 +38,7 @@ class RefreshTokenManagerImplTest {
         fun test() {
             // given
             val memberId = 144L
-            val issuedAt = timeFixture(minute = 3)
+            val issuedAt = appDateTimeFixture(minute = 3)
 
             // when
             val refreshToken = refreshTokenManager.generate(memberId, issuedAt)
@@ -64,7 +64,7 @@ class RefreshTokenManagerImplTest {
         fun testSuccess() {
             // given
             val tokenValue =
-                "144,abcdef,1980-01-01T00:03+09:00[Asia/Seoul],1980-01-02T00:03+09:00[Asia/Seoul],refreshToken"
+                "144,abcdef,2025-01-01T00:03+09:00[Asia/Seoul],2025-01-02T00:03+09:00[Asia/Seoul],refreshToken"
             // when
             val accessToken = refreshTokenManager.parse(tokenValue)
 
@@ -72,8 +72,8 @@ class RefreshTokenManagerImplTest {
             assertThat(accessToken.memberId).isEqualTo(144L)
             assertThat(accessToken.refreshTokenId.value).isEqualTo("abcdef")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
-            assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 3))
-            assertThat(accessToken.expiresAt).isEqualTo(timeFixture(dayOfMonth = 2, minute = 3))
+            assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 3))
+            assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(dayOfMonth = 2, minute = 3))
         }
     }
 
@@ -88,14 +88,14 @@ class RefreshTokenManagerImplTest {
             val refreshToken = refreshTokenFixture(
                 memberId = 123L,
                 refreshTokenId = "abc",
-                issuedAt = timeFixture(dayOfMonth = 1),
-                expiresAt = timeFixture(dayOfMonth = 2),
+                issuedAt = appDateTimeFixture(dayOfMonth = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2),
             )
             val refreshTokenHolder = refreshTokenHolderFixture(
                 memberId = 123L,
                 tokens = mutableMapOf(refreshTokenIdFixture("abc") to refreshToken)
             )
-            val currentTime = timeFixture(dayOfMonth = 1, minute = 5)
+            val currentTime = appDateTimeFixture(dayOfMonth = 1, minute = 5)
 
             // when
             // then
@@ -109,14 +109,14 @@ class RefreshTokenManagerImplTest {
             val refreshToken = refreshTokenFixture(
                 memberId = 123L,
                 refreshTokenId = "abc",
-                issuedAt = timeFixture(dayOfMonth = 1),
-                expiresAt = timeFixture(dayOfMonth = 2),
+                issuedAt = appDateTimeFixture(dayOfMonth = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2),
             )
             val refreshTokenHolder = refreshTokenHolderFixture(
                 memberId = 123L,
                 tokens = mutableMapOf(refreshTokenIdFixture("abc") to refreshToken)
             )
-            val currentTime = timeFixture(dayOfMonth = 2, minute = 10)
+            val currentTime = appDateTimeFixture(dayOfMonth = 2, minute = 10)
 
             // when
             val ex = assertThrows<RefreshTokenExpiredException> {
@@ -137,14 +137,14 @@ class RefreshTokenManagerImplTest {
             val refreshToken = refreshTokenFixture(
                 memberId = 123L,
                 refreshTokenId = "abc",
-                issuedAt = timeFixture(dayOfMonth = 1),
-                expiresAt = timeFixture(dayOfMonth = 2),
+                issuedAt = appDateTimeFixture(dayOfMonth = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2),
             )
             val refreshTokenHolder = refreshTokenHolderFixture(
                 memberId = 123L,
                 tokens = mutableMapOf()
             )
-            val currentTime = timeFixture(dayOfMonth = 1, minute = 10)
+            val currentTime = appDateTimeFixture(dayOfMonth = 1, minute = 10)
 
             // when
             val ex = assertThrows<RefreshTokenExpiredException> {
@@ -158,7 +158,7 @@ class RefreshTokenManagerImplTest {
             assertThat(ex.debugMessage).isEqualTo("리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId.value})")
         }
     }
-    
+
     @Nested
     @DisplayName("isRefreshRequired: 리프레시토큰이 재갱신이 필요한 지 여부를 확인한다")
     inner class IsRefreshRequired {
@@ -170,12 +170,12 @@ class RefreshTokenManagerImplTest {
             val refreshToken = refreshTokenFixture(
                 memberId = 123L,
                 refreshTokenId = "abc",
-                issuedAt = timeFixture(dayOfMonth = 1),
-                expiresAt = timeFixture(dayOfMonth = 2),
+                issuedAt = appDateTimeFixture(dayOfMonth = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2),
             )
             val currentTime = refreshToken.expiresAt
                 .minusHours(RefreshToken.REFRESH_REQUIRE_THRESHOLD_HOURS)
-                .minusNanos(1)
+                .minusSeconds(1)
 
             // when
             val isRefreshRequired = refreshTokenManager.isRefreshRequired(refreshToken, currentTime)
@@ -191,8 +191,8 @@ class RefreshTokenManagerImplTest {
             val refreshToken = refreshTokenFixture(
                 memberId = 123L,
                 refreshTokenId = "abc",
-                issuedAt = timeFixture(dayOfMonth = 1),
-                expiresAt = timeFixture(dayOfMonth = 2),
+                issuedAt = appDateTimeFixture(dayOfMonth = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2),
             )
             val currentTime = refreshToken.expiresAt
                 .minusHours(RefreshToken.REFRESH_REQUIRE_THRESHOLD_HOURS)
@@ -211,12 +211,12 @@ class RefreshTokenManagerImplTest {
             val refreshToken = refreshTokenFixture(
                 memberId = 123L,
                 refreshTokenId = "abc",
-                issuedAt = timeFixture(dayOfMonth = 1),
-                expiresAt = timeFixture(dayOfMonth = 2),
+                issuedAt = appDateTimeFixture(dayOfMonth = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2),
             )
             val currentTime = refreshToken.expiresAt
                 .minusHours(RefreshToken.REFRESH_REQUIRE_THRESHOLD_HOURS)
-                .plusNanos(1)
+                .plusSeconds(1)
 
             // when
             val isRefreshRequired = refreshTokenManager.isRefreshRequired(refreshToken, currentTime)
