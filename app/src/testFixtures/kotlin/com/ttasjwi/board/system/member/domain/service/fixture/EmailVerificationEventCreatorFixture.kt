@@ -12,7 +12,7 @@ class EmailVerificationEventCreatorFixture : EmailVerificationEventCreator {
 
     override fun onVerificationStarted(emailVerification: EmailVerification, locale: Locale): EmailVerificationStartedEvent {
         return emailVerificationStartedEventFixture(
-            email = emailVerification.email.value,
+            email = emailVerification.email,
             code = emailVerification.code,
             codeCreatedAt = emailVerification.codeCreatedAt,
             codeExpiresAt = emailVerification.codeExpiresAt,
@@ -22,7 +22,7 @@ class EmailVerificationEventCreatorFixture : EmailVerificationEventCreator {
 
     override fun onVerified(emailVerification: EmailVerification): EmailVerifiedEvent {
         return emailVerifiedEventFixture(
-            email = emailVerification.email.value,
+            email = emailVerification.email,
             verifiedAt = emailVerification.verifiedAt!!,
             verificationExpiresAt = emailVerification.verificationExpiresAt!!,
         )

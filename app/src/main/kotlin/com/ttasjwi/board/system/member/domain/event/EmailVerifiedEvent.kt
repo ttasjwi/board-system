@@ -23,7 +23,7 @@ class EmailVerifiedEvent(
 
         internal fun create(emailVerification: EmailVerification): EmailVerifiedEvent {
             return EmailVerifiedEvent(
-                email = emailVerification.email.value,
+                email = emailVerification.email,
                 verifiedAt = emailVerification.verifiedAt!!,
                 verificationExpiresAt = emailVerification.verificationExpiresAt!!
             )

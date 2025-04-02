@@ -1,6 +1,8 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.member.domain.model.fixture.*
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.usernameFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -137,7 +139,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("ttascat@gmail.com")
+            val email = "ttascat@gmail.com"
 
             // when
             val findMember = memberStorageFixture.findByEmailOrNull(email)
@@ -277,7 +279,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("abcd@gmail.com")
+            val email = "abcd@gmail.com"
 
             // when
             val isExist = memberStorageFixture.existsByEmail(email)

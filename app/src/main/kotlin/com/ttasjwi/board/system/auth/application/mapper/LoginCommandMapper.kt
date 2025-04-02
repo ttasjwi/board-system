@@ -7,15 +7,12 @@ import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.RawPassword
-import com.ttasjwi.board.system.member.domain.service.EmailCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import org.springframework.stereotype.Component
 
 @Component
 internal class LoginCommandMapper(
-    private val emailCreator: EmailCreator,
     private val passwordManager: PasswordManager,
     private val timeManager: TimeManager,
 ) {
@@ -29,13 +26,12 @@ internal class LoginCommandMapper(
         log.info { "로그인 요청 필드의 유효성을 확인합니다." }
         checkNullField(request)
 
-        val email = getEmail(request)
         val password = getPassword(request)
 
         log.info { "로그인 요청 필드는 유효합니다." }
 
         return LoginCommand(
-            email = email,
+            email = request.email!!,
             rawPassword = password,
             currentTime = timeManager.now()
         )
@@ -58,15 +54,6 @@ internal class LoginCommandMapper(
                 }
         }
         exceptionCollector.throwIfNotEmpty()
-    }
-
-    private fun getEmail(request: LoginRequest): Email {
-        return emailCreator.create(request.email!!)
-            .getOrElse {
-                val ex = LoginFailureException("로그인 실패 - 이메일 포맷이 유효하지 않음")
-                log.warn(ex)
-                throw ex
-            }
     }
 
     private fun getPassword(request: LoginRequest): RawPassword {

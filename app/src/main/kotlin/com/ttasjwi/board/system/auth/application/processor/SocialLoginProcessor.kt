@@ -150,7 +150,7 @@ internal class SocialLoginProcessor(
             createdMember = if (memberCreated) {
                 SocialLoginResponse.CreatedMember(
                     memberId = member.id.toString(),
-                    email = member.email.value,
+                    email = member.email,
                     username = member.username.value,
                     nickname = member.nickname.value,
                     role = member.role.name,

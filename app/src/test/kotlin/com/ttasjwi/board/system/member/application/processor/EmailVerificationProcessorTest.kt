@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.member.application.processor
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationHandlerFixture
@@ -39,7 +38,7 @@ class EmailVerificationProcessorTest {
     @DisplayName("명령의 이메일에 대응하는 이메일 인증을 조회하지 못 했다면, 예외가 발생한다")
     fun testNotFound() {
         val command = EmailVerificationCommand(
-            email = emailFixture("hello@gmail.com"),
+            email = "hello@gmail.com",
             code = "1234",
             currentTime = appDateTimeFixture(minute = 3)
         )
@@ -74,7 +73,7 @@ class EmailVerificationProcessorTest {
         val findEmailVerification = emailVerificationStorageFixture.findByEmailOrNull(savedEmailVerification.email)!!
 
         assertThat(event.occurredAt).isEqualTo(command.currentTime)
-        assertThat(data.email).isEqualTo(savedEmailVerification.email.value)
+        assertThat(data.email).isEqualTo(savedEmailVerification.email)
         assertThat(data.verifiedAt).isEqualTo(command.currentTime)
         assertThat(data.verificationExpiresAt).isEqualTo(command.currentTime.plusMinutes(EmailVerificationHandlerFixture.VERIFICATION_VALIDITY_MINUTE))
         assertThat(findEmailVerification.verifiedAt).isEqualTo(data.verifiedAt)

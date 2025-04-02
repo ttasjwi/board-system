@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.domain.external.impl
 
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.service.EmailSender
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
@@ -18,7 +17,7 @@ class EmailSenderImplManualTest @Autowired constructor(
     @Test
     @DisplayName("이메일이 전송되어 잘 보내져야한다.")
     fun test() {
-        val email = emailFixture("ttasjwi920@gmail.com")
+        val email = "ttasjwi920@gmail.com"
         val subject = "테스트 이메일"
         val content = "땃쥐에게 이메일이 갔어요!"
         emailSender.send(email, subject, content)

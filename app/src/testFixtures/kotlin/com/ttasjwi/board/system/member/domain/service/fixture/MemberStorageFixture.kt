@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.model.Username
@@ -24,11 +23,11 @@ class MemberStorageFixture : MemberAppender, MemberFinder {
         return storage.containsKey(id)
     }
 
-    override fun findByEmailOrNull(email: Email): Member? {
+    override fun findByEmailOrNull(email: String): Member? {
         return storage.values.firstOrNull { it.email == email }
     }
 
-    override fun existsByEmail(email: Email): Boolean {
+    override fun existsByEmail(email: String): Boolean {
         return storage.values.any { it.email == email }
     }
 

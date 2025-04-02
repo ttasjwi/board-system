@@ -9,7 +9,6 @@ import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialServiceUserFixture
@@ -61,8 +60,8 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixture(email = email.value))
+        val email = "hello@gmail.com"
+        val member = memberStorageFixture.save(memberFixture(email = email))
         socialConnectionStorageFixture.save(
             socialConnectionFixture(
                 id = 15567L,
@@ -98,8 +97,8 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixture(email = email.value))
+        val email = "hello@gmail.com"
+        val member = memberStorageFixture.save(memberFixture(email = email))
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
@@ -133,7 +132,7 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
+        val email = "hello@gmail.com"
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
@@ -158,7 +157,7 @@ class SocialLoginProcessorTest {
         assertThat(result.createdMember).isEqualTo(
             SocialLoginResponse.CreatedMember(
                 memberId = findMember.id.toString(),
-                email = findMember.email.value,
+                email = findMember.email,
                 username = findMember.username.value,
                 nickname = findMember.nickname.value,
                 role = findMember.role.name,
@@ -185,8 +184,8 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixture(email = email.value))
+        val email = "hello@gmail.com"
+        val member = memberStorageFixture.save(memberFixture(email = email))
         socialConnectionStorageFixture.save(
             socialConnectionFixture(
                 id = 14567L,

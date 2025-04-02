@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.application.processor
 
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationStorageFixture
@@ -38,7 +37,7 @@ class EmailVerificationStartProcessorTest {
 
         // given
         val command = EmailVerificationStartCommand(
-            email = emailFixture("hell@gmail.com"),
+            email = "hell@gmail.com",
             currenTime = appDateTimeFixture(minute = 3),
             locale = Locale.KOREAN
         )
@@ -50,7 +49,7 @@ class EmailVerificationStartProcessorTest {
         val findEmailVerification = emailVerificationStorageFixture.findByEmailOrNull(command.email)!!
         val data = event.data
 
-        assertThat(findEmailVerification.email.value).isEqualTo(data.email)
+        assertThat(findEmailVerification.email).isEqualTo(data.email)
         assertThat(findEmailVerification.code).isEqualTo("code")
         assertThat(findEmailVerification.codeCreatedAt).isEqualTo(command.currenTime)
         assertThat(findEmailVerification.codeExpiresAt).isEqualTo(command.currenTime.plusMinutes(5))
@@ -58,7 +57,7 @@ class EmailVerificationStartProcessorTest {
         assertThat(findEmailVerification.verificationExpiresAt).isNull()
 
         assertThat(event.occurredAt).isEqualTo(findEmailVerification.codeCreatedAt)
-        assertThat(data.email).isEqualTo(findEmailVerification.email.value)
+        assertThat(data.email).isEqualTo(findEmailVerification.email)
         assertThat(data.code).isEqualTo(findEmailVerification.code)
         assertThat(data.codeCreatedAt).isEqualTo(findEmailVerification.codeCreatedAt)
         assertThat(data.codeExpiresAt).isEqualTo(findEmailVerification.codeExpiresAt)

@@ -6,11 +6,10 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.model.Username
-import com.ttasjwi.board.system.member.domain.service.EmailCreator
+import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
 import com.ttasjwi.board.system.member.domain.service.NicknameCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import com.ttasjwi.board.system.member.domain.service.UsernameCreator
@@ -18,7 +17,7 @@ import org.springframework.stereotype.Component
 
 @Component
 internal class RegisterMemberCommandMapper(
-    private val emailCreator: EmailCreator,
+    private val emailFormatPolicy: EmailFormatPolicy,
     private val passwordManager: PasswordManager,
     private val usernameCreator: UsernameCreator,
     private val nicknameCreator: NicknameCreator,
@@ -50,13 +49,13 @@ internal class RegisterMemberCommandMapper(
         )
     }
 
-    private fun getEmail(email: String?, exceptionCollector: ValidationExceptionCollector): Email? {
+    private fun getEmail(email: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (email == null) {
             log.warn { "이메일이 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("email"))
             return null
         }
-        return emailCreator.create(email)
+        return emailFormatPolicy.validate(email)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)

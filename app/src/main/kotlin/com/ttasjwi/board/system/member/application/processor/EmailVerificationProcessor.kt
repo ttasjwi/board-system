@@ -40,14 +40,14 @@ internal class EmailVerificationProcessor(
     }
 
     private fun getEmailVerification(command: EmailVerificationCommand): EmailVerification {
-        log.info { "이메일(email=${command.email.value})에 대응하는 이메일 인증을 조회합니다." }
+        log.info { "이메일(email=${command.email})에 대응하는 이메일 인증을 조회합니다." }
         val emailVerification = emailVerificationFinder.findByEmailOrNull(command.email)
 
         if (emailVerification == null) {
-            log.warn { "이메일(email=${command.email.value})에 대응하는 이메일 인증이 없습니다. 없거나, 만료됐습니다." }
-            throw EmailVerificationNotFoundException(command.email.value)
+            log.warn { "이메일(email=${command.email})에 대응하는 이메일 인증이 없습니다. 없거나, 만료됐습니다." }
+            throw EmailVerificationNotFoundException(command.email)
         }
-        log.info { "이메일(email=${command.email.value})에 대응하는 이메일 인증을 찾았습니다. (codeCreatedAt=${emailVerification.codeCreatedAt},codeExpiresAt=${emailVerification.codeExpiresAt})" }
+        log.info { "이메일(email=${command.email})에 대응하는 이메일 인증을 찾았습니다. (codeCreatedAt=${emailVerification.codeCreatedAt},codeExpiresAt=${emailVerification.codeExpiresAt})" }
         return emailVerification
     }
 }

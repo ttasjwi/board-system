@@ -39,7 +39,7 @@ class JpaMember (
         internal fun from(member: Member): JpaMember {
             return JpaMember(
                 id = member.id,
-                email = member.email.value,
+                email = member.email,
                 password = member.password.value,
                 username = member.username.value,
                 nickname = member.nickname.value,

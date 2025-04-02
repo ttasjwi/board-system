@@ -36,7 +36,7 @@ class MemberTest {
 
             assertThat(member).isNotNull
             assertThat(member.id).isEqualTo(id)
-            assertThat(member.email).isEqualTo(Email.restore(email))
+            assertThat(member.email).isEqualTo(email)
             assertThat(member.password.value).isEqualTo(password)
             assertThat(member.username).isEqualTo(Username.restore(username))
             assertThat(member.nickname).isEqualTo(Nickname.restore(nickname))

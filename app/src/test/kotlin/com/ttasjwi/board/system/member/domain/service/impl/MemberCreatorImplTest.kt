@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.usernameFixture
@@ -34,7 +33,7 @@ class MemberCreatorImplTest {
         @Test
         @DisplayName("생성하면 일반 사용자 권한을 가진 사용자가 id 없는 상태로 생성된다.")
         fun test() {
-            val email = emailFixture()
+            val email = "jello@gmail.com"
             val username = usernameFixture()
             val nickname = nicknameFixture()
             val rawPassword = rawPasswordFixture("1111")

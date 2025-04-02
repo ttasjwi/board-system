@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.member.application.mapper.EmailVerificationComma
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
+import com.ttasjwi.board.system.member.domain.policy.fixture.EmailFormatPolicyFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationHandlerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationStorageFixture
@@ -28,7 +28,7 @@ class EmailVerificationApplicationServiceTest {
         emailVerificationStorageFixture = EmailVerificationStorageFixture()
         emailVerificationApplicationService = EmailVerificationApplicationService(
             commandMapper = EmailVerificationCommandMapper(
-                emailCreator = EmailCreatorFixture(),
+                emailFormatPolicy = EmailFormatPolicyFixture(),
                 timeManager = timeManagerFixture
             ),
             processor = EmailVerificationProcessor(
@@ -54,7 +54,7 @@ class EmailVerificationApplicationServiceTest {
         timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 3))
 
         val request = EmailVerificationRequest(
-            email = savedEmailVerification.email.value,
+            email = savedEmailVerification.email,
             code = savedEmailVerification.code
         )
 

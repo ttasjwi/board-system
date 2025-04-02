@@ -36,7 +36,6 @@ class SocialLoginApplicationServiceTest {
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
         applicationService = SocialLoginApplicationService(
             commandMapper = SocialLoginCommandMapper(
-                emailCreator = EmailCreatorFixture(),
                 timeManager = timeManagerFixture
             ),
             processor = SocialLoginProcessor(

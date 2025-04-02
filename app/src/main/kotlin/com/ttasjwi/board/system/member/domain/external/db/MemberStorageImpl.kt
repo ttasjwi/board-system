@@ -27,12 +27,12 @@ class MemberStorageImpl(
         return jpaMemberRepository.existsById(id)
     }
 
-    override fun findByEmailOrNull(email: Email): Member? {
-        return jpaMemberRepository.findByEmailOrNull(email.value)?.restoreDomain()
+    override fun findByEmailOrNull(email: String): Member? {
+        return jpaMemberRepository.findByEmailOrNull(email)?.restoreDomain()
     }
 
-    override fun existsByEmail(email: Email): Boolean {
-        return jpaMemberRepository.existsByEmail(email.value)
+    override fun existsByEmail(email: String): Boolean {
+        return jpaMemberRepository.existsByEmail(email)
     }
 
     override fun findByUsernameOrNull(username: Username): Member? {

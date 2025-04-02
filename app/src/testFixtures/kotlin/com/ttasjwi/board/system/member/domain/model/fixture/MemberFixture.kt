@@ -16,7 +16,7 @@ fun memberFixture(
 ): Member {
     return Member(
         id = id,
-        email = emailFixture(email),
+        email = email,
         password = encodedPasswordFixture(password),
         username = usernameFixture(username),
         nickname = nicknameFixture(nickname),

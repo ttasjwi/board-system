@@ -36,7 +36,7 @@ internal class LoginProcessor(
 
     @Transactional
     fun login(command: LoginCommand): LoggedInEvent {
-        log.info { "로그인 처리를 시작합니다. (email=${command.email.value})" }
+        log.info { "로그인 처리를 시작합니다. (email=${command.email})" }
         // 회원 조회
         val member = findMember(command)
 
@@ -54,7 +54,7 @@ internal class LoginProcessor(
 
         val loggedInEvent = authEventCreator.onLoginSuccess(accessToken, refreshToken)
 
-        log.info { "로그인 처리를 성공했습니다. (email=${command.email.value})" }
+        log.info { "로그인 처리를 성공했습니다. (email=${command.email})" }
 
         return loggedInEvent
     }
@@ -63,15 +63,15 @@ internal class LoginProcessor(
      * 로그인을 할 회원 조회
      */
     private fun findMember(command: LoginCommand): Member {
-        log.info { "로그인 처리 - 회원을 조회합니다. (email=${command.email.value})" }
+        log.info { "로그인 처리 - 회원을 조회합니다. (email=${command.email})" }
         val member = memberFinder.findByEmailOrNull(command.email)
 
         if (member == null) {
-            val ex = LoginFailureException("로그인 실패 - 일치하는 이메일(email=${command.email.value})의 회원을 찾지 못 함")
+            val ex = LoginFailureException("로그인 실패 - 일치하는 이메일(email=${command.email})의 회원을 찾지 못 함")
             log.warn(ex)
             throw ex
         }
-        log.info { "로그인 처리 - 회원이 조회됐습니다. (memberId=${member.id},email=${command.email.value})" }
+        log.info { "로그인 처리 - 회원이 조회됐습니다. (memberId=${member.id},email=${command.email})" }
         return member
     }
 

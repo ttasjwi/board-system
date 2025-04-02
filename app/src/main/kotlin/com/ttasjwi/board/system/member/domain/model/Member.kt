@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 class Member
 internal constructor(
     val id: Long,
-    email: Email,
+    email: String,
     password: EncodedPassword,
     username: Username,
     nickname: Nickname,
@@ -15,7 +15,7 @@ internal constructor(
     val registeredAt: AppDateTime,
 ) {
 
-    var email: Email = email
+    var email: String = email
         private set
 
     var password: EncodedPassword = password
@@ -37,7 +37,7 @@ internal constructor(
          */
         internal fun create(
             id: Long,
-            email: Email,
+            email: String,
             password: EncodedPassword,
             username: Username,
             nickname: Nickname,
@@ -65,7 +65,7 @@ internal constructor(
         ): Member {
             return Member(
                 id = id,
-                email = Email.restore(email),
+                email = email,
                 password = EncodedPassword.restore(password),
                 username = Username.restore(username),
                 nickname = Nickname.restore(nickname),

@@ -7,10 +7,9 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.usernameFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
+import com.ttasjwi.board.system.member.domain.policy.fixture.EmailFormatPolicyFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.NicknameCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.UsernameCreatorFixture
@@ -33,7 +32,7 @@ class RegisterMemberCommandMapperTest {
         timeManager.changeCurrentTime(currentTime)
 
         commandMapper = RegisterMemberCommandMapper(
-            emailCreator = EmailCreatorFixture(),
+            emailFormatPolicy = EmailFormatPolicyFixture(),
             passwordManager = PasswordManagerFixture(),
             usernameCreator = UsernameCreatorFixture(),
             nicknameCreator = NicknameCreatorFixture(),
@@ -56,7 +55,7 @@ class RegisterMemberCommandMapperTest {
         val command = commandMapper.mapToCommand(request)
 
         // then
-        assertThat(command.email).isEqualTo(emailFixture(request.email!!))
+        assertThat(command.email).isEqualTo(request.email)
         assertThat(command.rawPassword.value).isEqualTo(request.password)
         assertThat(command.username).isEqualTo(usernameFixture(request.username!!))
         assertThat(command.nickname).isEqualTo(nicknameFixture(request.nickname!!))
@@ -151,7 +150,7 @@ class RegisterMemberCommandMapperTest {
     @DisplayName("이메일 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidEmailFormat() {
         val request = RegisterMemberRequest(
-            email = EmailCreatorFixture.ERROR_EMAIL,
+            email = EmailFormatPolicyFixture.ERROR_EMAIL,
             password = "1234",
             username = "ttasjwi",
             nickname = "땃쥐",

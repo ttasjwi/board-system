@@ -49,11 +49,11 @@ class RegisterMemberProcessorTest {
     @Test
     @DisplayName("성공 테스트")
     fun testSuccess() {
-        val email = emailFixture("hello@gmail.com")
+        val email = "hello@gmail.com"
         val currentTime = appDateTimeFixture(minute = 6)
         emailVerificationStorageFixture.append(
             emailVerificationFixtureVerified(
-                email = email.value,
+                email = email,
                 code = "code",
                 codeCreatedAt = appDateTimeFixture(minute = 0),
                 codeExpiresAt = appDateTimeFixture(minute = 5),
@@ -80,7 +80,7 @@ class RegisterMemberProcessorTest {
 
         assertThat(event.occurredAt).isEqualTo(currentTime)
         assertThat(data.memberId).isNotNull()
-        assertThat(data.email).isEqualTo(email.value)
+        assertThat(data.email).isEqualTo(email)
         assertThat(data.username).isEqualTo(command.username.value)
         assertThat(data.nickname).isEqualTo(command.nickname.value)
         assertThat(data.roleName).isEqualTo(findMember.role.name)
@@ -114,7 +114,7 @@ class RegisterMemberProcessorTest {
     @DisplayName("중복되는 사용자 아이디(username)의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateUsername() {
         val command = RegisterMemberCommand(
-            email = emailFixture("hello@gmail.com"),
+            email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
             username = registeredMember.username,
             nickname = nicknameFixture("testnick"),
@@ -128,7 +128,7 @@ class RegisterMemberProcessorTest {
     @DisplayName("중복되는 닉네임의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateNickname() {
         val command = RegisterMemberCommand(
-            email = emailFixture("hello@gmail.com"),
+            email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
             username = usernameFixture("testuser"),
             nickname = registeredMember.nickname,
@@ -142,7 +142,7 @@ class RegisterMemberProcessorTest {
     @DisplayName("이메일 인증을 조회하지 못 했을 경우(만료됐거나, 없음) 예외가 발생한다.")
     fun testEmailVerificationNotFound() {
         val command = RegisterMemberCommand(
-            email = emailFixture("hello@gmail.com"),
+            email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
             username = usernameFixture("testuser"),
             nickname = nicknameFixture("testnick"),

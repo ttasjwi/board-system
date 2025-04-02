@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.usernameFixture
@@ -30,7 +29,7 @@ class MemberCreatorFixtureTest {
         @Test
         @DisplayName("가입되지 않은 일반 사용자(USER)가 생성되고, id는 null 이다.")
         fun test() {
-            val email = emailFixture()
+            val email = "hello@gmail.com"
             val username = usernameFixture()
             val nickname = nicknameFixture()
             val rawPassword = rawPasswordFixture("1111")

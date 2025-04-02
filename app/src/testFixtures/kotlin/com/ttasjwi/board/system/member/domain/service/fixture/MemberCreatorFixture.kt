@@ -12,7 +12,7 @@ class MemberCreatorFixture : MemberCreator {
     private val sequence = AtomicLong(0)
 
     override fun create(
-        email: Email,
+        email: String,
         password: RawPassword,
         username: Username,
         nickname: Nickname,
@@ -20,7 +20,7 @@ class MemberCreatorFixture : MemberCreator {
     ): Member {
         return memberFixture(
             id = sequence.incrementAndGet(),
-            email = email.value,
+            email = email,
             password = password.value,
             username = username.value,
             nickname = nickname.value,

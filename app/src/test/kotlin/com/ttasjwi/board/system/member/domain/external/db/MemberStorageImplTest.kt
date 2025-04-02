@@ -135,7 +135,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("ttascat@gmail.com")
+            val email = "ttascat@gmail.com"
 
             // when
             val findMember = memberStorageImpl.findByEmailOrNull(email)
@@ -280,7 +280,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("abcd@gmail.com")
+            val email = "abcd@gmail.com"
 
             // when
             val isExist = memberStorageImpl.existsByEmail(email)

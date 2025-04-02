@@ -38,7 +38,7 @@ class EmailVerificationFixtureTest {
                 codeCreatedAt = codeCreatedAt,
                 codeExpiresAt = codeExpiresAt
             )
-            assertThat(emailVerification.email).isEqualTo(emailFixture(email))
+            assertThat(emailVerification.email).isEqualTo(email)
             assertThat(emailVerification.code).isEqualTo(code)
             assertThat(emailVerification.codeCreatedAt).isEqualTo(codeCreatedAt)
             assertThat(emailVerification.codeExpiresAt).isEqualTo(codeExpiresAt)
@@ -80,7 +80,7 @@ class EmailVerificationFixtureTest {
                 verifiedAt = verifiedAt,
                 verificationExpiresAt = verificationExpiresAt
             )
-            assertThat(emailVerification.email).isEqualTo(emailFixture(email))
+            assertThat(emailVerification.email).isEqualTo(email)
             assertThat(emailVerification.code).isEqualTo(code)
             assertThat(emailVerification.codeCreatedAt).isEqualTo(codeCreatedAt)
             assertThat(emailVerification.codeExpiresAt).isEqualTo(codeExpiresAt)

@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.member.domain.model.*
 interface MemberCreator {
 
     fun create(
-        email: Email,
+        email: String,
         password: RawPassword,
         username: Username,
         nickname: Nickname,

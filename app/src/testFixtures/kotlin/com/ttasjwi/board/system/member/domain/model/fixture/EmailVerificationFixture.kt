@@ -11,7 +11,7 @@ fun emailVerificationFixtureNotVerified(
     codeExpiresAt: AppDateTime = codeCreatedAt.plusMinutes(5),
 ): EmailVerification {
     return EmailVerification(
-        email = emailFixture(email),
+        email = email,
         code = code,
         codeCreatedAt = codeCreatedAt,
         codeExpiresAt = codeExpiresAt,
@@ -29,7 +29,7 @@ fun emailVerificationFixtureVerified(
     verificationExpiresAt: AppDateTime = verifiedAt.plusMinutes(30)
 ): EmailVerification {
     return EmailVerification(
-        email = emailFixture(email),
+        email = email,
         code = code,
         codeCreatedAt = codeCreatedAt,
         codeExpiresAt = codeExpiresAt,

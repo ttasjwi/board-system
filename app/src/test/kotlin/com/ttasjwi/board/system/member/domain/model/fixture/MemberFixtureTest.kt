@@ -45,7 +45,7 @@ class MemberFixtureTest {
         )
 
         assertThat(member.id).isEqualTo(id)
-        assertThat(member.email).isEqualTo(emailFixture(email))
+        assertThat(member.email).isEqualTo(email)
         assertThat(member.password.value).isEqualTo(encodedPasswordFixture(password).value)
         assertThat(member.username).isEqualTo(usernameFixture(username))
         assertThat(member.nickname).isEqualTo(nicknameFixture(nickname))

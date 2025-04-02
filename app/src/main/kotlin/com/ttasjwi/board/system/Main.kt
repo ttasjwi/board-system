@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system
 
+import com.ttasjwi.board.system.common.annotation.component.DomainPolicy
 import com.ttasjwi.board.system.common.annotation.component.DomainService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
@@ -15,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableAsync
         type = FilterType.ANNOTATION,
         classes = [
             DomainService::class,
+            DomainPolicy::class,
         ]
     )]
 )
