@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.UsernameAvailableQueryMapper
@@ -29,7 +28,6 @@ class UsernameAvailableApplicationServiceTest {
                 messageResolver = MessageResolverFixture(),
                 localeManager = LocaleManagerFixture(),
             ),
-            transactionRunner = TransactionRunnerFixture()
         )
     }
 

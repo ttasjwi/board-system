@@ -9,6 +9,7 @@ import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
 import com.ttasjwi.board.system.common.logging.getLogger
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 internal class BoardCreateProcessor(
@@ -20,6 +21,7 @@ internal class BoardCreateProcessor(
         private val log = getLogger(BoardCreateProcessor::class.java)
     }
 
+    @Transactional
     fun createBoard(command: BoardCreateCommand): BoardCreateResponse {
         // 중복 체크
         checkDuplication(command)

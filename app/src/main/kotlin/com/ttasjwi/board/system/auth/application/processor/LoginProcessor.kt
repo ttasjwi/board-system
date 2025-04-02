@@ -15,6 +15,7 @@ import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 internal class LoginProcessor(
@@ -33,6 +34,7 @@ internal class LoginProcessor(
         private val log = getLogger(LoginProcessor::class.java)
     }
 
+    @Transactional
     fun login(command: LoginCommand): LoggedInEvent {
         log.info { "로그인 처리를 시작합니다. (email=${command.email.value})" }
         // 회원 조회

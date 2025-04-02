@@ -10,6 +10,7 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.*
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 internal class SocialLoginProcessor(
@@ -29,6 +30,7 @@ internal class SocialLoginProcessor(
     private val refreshTokenHolderAppender: RefreshTokenHolderAppender,
 ) {
 
+    @Transactional
     fun socialLogin(command: SocialLoginCommand): SocialLoginResponse {
         // 회원 획득 (없다면 생성)
         val (memberCreated, member) = getMemberOrCreate(command)

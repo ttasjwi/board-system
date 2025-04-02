@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
@@ -33,7 +32,6 @@ class EmailVerificationStartApplicationServiceTest {
                 emailVerificationAppender = EmailVerificationStorageFixture(),
                 emailVerificationEventCreator = EmailVerificationEventCreatorFixture()
             ),
-            transactionRunner = TransactionRunnerFixture(),
             eventPublisher = EmailVerificationStartedEventPublisherFixture()
         )
     }

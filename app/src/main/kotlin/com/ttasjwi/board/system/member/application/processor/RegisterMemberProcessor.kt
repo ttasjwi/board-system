@@ -11,6 +11,7 @@ import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.*
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 
 @Component
 internal class RegisterMemberProcessor(
@@ -27,6 +28,7 @@ internal class RegisterMemberProcessor(
         private val log = getLogger(RegisterMemberProcessor::class.java)
     }
 
+    @Transactional
     fun register(command: RegisterMemberCommand): MemberRegisteredEvent {
         checkDuplicate(command)
         checkEmailVerificationAndRemove(command)

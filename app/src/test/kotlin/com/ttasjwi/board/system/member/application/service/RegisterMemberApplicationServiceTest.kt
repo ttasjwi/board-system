@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
@@ -47,7 +46,6 @@ class RegisterMemberApplicationServiceTest {
                 memberAppender = memberStorageFixture,
                 memberEventCreator = MemberEventCreatorFixture()
             ),
-            transactionRunner = TransactionRunnerFixture()
         )
     }
 

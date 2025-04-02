@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.NicknameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.NicknameAvailableProcessor
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service
 internal class NicknameAvailableApplicationService(
     private val queryMapper: NicknameAvailableQueryMapper,
     private val processor: NicknameAvailableProcessor,
-    private val transactionRunner: TransactionRunner,
 ) : NicknameAvailableUseCase {
 
     companion object {
@@ -27,9 +25,7 @@ internal class NicknameAvailableApplicationService(
         val query = queryMapper.mapToQuery(request)
 
         // 프로세서에 위임
-        val result = transactionRunner.runReadOnly {
-            processor.checkNicknameAvailable(query)
-        }
+        val result = processor.checkNicknameAvailable(query)
 
         // 처리 결과 반환
         log.info { "닉네임 사용가능여부 확인을 마칩니다." }

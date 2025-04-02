@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.board.application.mapper.BoardCreateCommandMappe
 import com.ttasjwi.board.system.board.application.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.domain.service.fixture.*
-import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
@@ -52,7 +51,6 @@ class BoardCreateApplicationServiceTest {
                 authMemberLoader = authMemberLoader,
                 timeManager = timeManager
             ),
-            transactionRunner = TransactionRunnerFixture()
         )
     }
 

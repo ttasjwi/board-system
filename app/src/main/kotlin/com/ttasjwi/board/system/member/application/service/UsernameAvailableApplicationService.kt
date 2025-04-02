@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.UsernameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.UsernameAvailableProcessor
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service
 internal class UsernameAvailableApplicationService(
     private val queryMapper: UsernameAvailableQueryMapper,
     private val processor: UsernameAvailableProcessor,
-    private val transactionRunner: TransactionRunner,
 ) : UsernameAvailableUseCase {
 
     companion object {
@@ -27,9 +25,7 @@ internal class UsernameAvailableApplicationService(
         val query = queryMapper.mapToQuery(request)
 
         // 프로세서에 위임
-        val response = transactionRunner.runReadOnly {
-            processor.checkUsernameAvailable(query)
-        }
+        val response = processor.checkUsernameAvailable(query)
 
         log.info { "사용자 아이디(username) 사용가능여부 확인을 마칩니다." }
         return response

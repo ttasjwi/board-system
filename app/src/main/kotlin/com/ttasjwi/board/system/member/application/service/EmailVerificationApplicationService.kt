@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.application.TransactionRunner
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
@@ -13,16 +12,11 @@ import org.springframework.stereotype.Service
 internal class EmailVerificationApplicationService(
     private val commandMapper: EmailVerificationCommandMapper,
     private val processor: EmailVerificationProcessor,
-    private val transactionRunner: TransactionRunner,
 ) : EmailVerificationUseCase {
 
     override fun emailVerification(request: EmailVerificationRequest): EmailVerificationResponse {
         val command = commandMapper.mapToCommand(request)
-
-        val event = transactionRunner.run {
-            processor.verify(command)
-        }
-
+        val event = processor.verify(command)
         return makeResponse(event)
     }
 
