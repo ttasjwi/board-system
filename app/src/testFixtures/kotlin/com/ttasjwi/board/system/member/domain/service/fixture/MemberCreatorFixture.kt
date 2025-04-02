@@ -1,10 +1,10 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.*
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
-import java.time.ZonedDateTime
 import java.util.concurrent.atomic.AtomicLong
 
 class MemberCreatorFixture : MemberCreator {
@@ -16,7 +16,7 @@ class MemberCreatorFixture : MemberCreator {
         password: RawPassword,
         username: Username,
         nickname: Nickname,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ): Member {
         return memberFixture(
             id = sequence.incrementAndGet(),

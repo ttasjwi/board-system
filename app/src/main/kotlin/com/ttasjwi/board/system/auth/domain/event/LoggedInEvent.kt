@@ -3,15 +3,16 @@ package com.ttasjwi.board.system.auth.domain.event
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.common.domain.event.DomainEvent
+import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.ZonedDateTime
 
 class LoggedInEvent
 internal constructor(
     accessToken: String,
-    accessTokenExpiresAt: ZonedDateTime,
+    accessTokenExpiresAt: AppDateTime,
     refreshToken: String,
-    refreshTokenExpiresAt: ZonedDateTime,
-    loggedInAt: ZonedDateTime,
+    refreshTokenExpiresAt: AppDateTime,
+    loggedInAt: AppDateTime,
 ) : DomainEvent<LoggedInEvent.Data>(
     occurredAt = loggedInAt, data = Data(
         accessToken = accessToken,
@@ -23,9 +24,9 @@ internal constructor(
 
     class Data(
         val accessToken: String,
-        val accessTokenExpiresAt: ZonedDateTime,
+        val accessTokenExpiresAt: AppDateTime,
         val refreshToken: String,
-        val refreshTokenExpiresAt: ZonedDateTime,
+        val refreshTokenExpiresAt: AppDateTime,
     )
 
     companion object {

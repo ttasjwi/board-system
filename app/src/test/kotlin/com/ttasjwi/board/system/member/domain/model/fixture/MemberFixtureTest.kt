@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -33,7 +33,7 @@ class MemberFixtureTest {
         val username = "test"
         val nickname = "kyaru"
         val role = Role.USER
-        val registeredAt = timeFixture()
+        val registeredAt = appDateTimeFixture()
         val member = memberFixture(
             id = id,
             email = email,

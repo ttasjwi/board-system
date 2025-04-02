@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.domain.exception.AccessTokenExpiredExceptio
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
@@ -32,7 +32,7 @@ class AccessTokenManagerFixtureTest {
         fun test() {
             // given
             val authMember = authMemberFixture()
-            val issuedAt = timeFixture(minute = 5)
+            val issuedAt = appDateTimeFixture(minute = 5)
 
             // when
             val accessToken = accessTokenManagerFixture.generate(authMember, issuedAt)
@@ -56,7 +56,7 @@ class AccessTokenManagerFixtureTest {
         fun testSuccess() {
             // given
             val authMember = authMemberFixture()
-            val issuedAt = timeFixture(minute = 5)
+            val issuedAt = appDateTimeFixture(minute = 5)
             val tokenValue = accessTokenManagerFixture.generate(authMember, issuedAt).tokenValue
             // when
             val accessToken = accessTokenManagerFixture.parse(tokenValue)
@@ -64,8 +64,8 @@ class AccessTokenManagerFixtureTest {
             // then
             assertThat(accessToken.authMember).isEqualTo(authMemberFixture())
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
-            assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 5))
-            assertThat(accessToken.expiresAt).isEqualTo(timeFixture(minute = 35))
+            assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 5))
+            assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(minute = 35))
         }
     }
 
@@ -79,10 +79,10 @@ class AccessTokenManagerFixtureTest {
         fun testValid() {
             // given
             val accessToken = accessTokenFixture(
-                issuedAt = timeFixture(minute = 0),
-                expiresAt = timeFixture(minute = 2)
+                issuedAt = appDateTimeFixture(minute = 0),
+                expiresAt = appDateTimeFixture(minute = 2)
             )
-            val currentTime = timeFixture(minute = 1)
+            val currentTime = appDateTimeFixture(minute = 1)
 
             // when
             // then
@@ -94,10 +94,10 @@ class AccessTokenManagerFixtureTest {
         fun testExpired1() {
             // given
             val accessToken = accessTokenFixture(
-                issuedAt = timeFixture(minute = 0),
-                expiresAt = timeFixture(minute = 2)
+                issuedAt = appDateTimeFixture(minute = 0),
+                expiresAt = appDateTimeFixture(minute = 2)
             )
-            val currentTime = timeFixture(minute = 2)
+            val currentTime = appDateTimeFixture(minute = 2)
 
             // when
             // then
@@ -111,10 +111,10 @@ class AccessTokenManagerFixtureTest {
         fun testExpired2() {
             // given
             val accessToken = accessTokenFixture(
-                issuedAt = timeFixture(minute = 0),
-                expiresAt = timeFixture(minute = 2)
+                issuedAt = appDateTimeFixture(minute = 0),
+                expiresAt = appDateTimeFixture(minute = 2)
             )
-            val currentTime = timeFixture(minute = 3)
+            val currentTime = appDateTimeFixture(minute = 3)
 
             // when
             // then

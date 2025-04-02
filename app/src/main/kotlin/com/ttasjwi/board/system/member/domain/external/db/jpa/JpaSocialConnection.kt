@@ -1,9 +1,8 @@
 package com.ttasjwi.board.system.member.domain.external.db.jpa
 
-import com.ttasjwi.board.system.common.time.TimeRule
 import com.ttasjwi.board.system.member.domain.model.*
 import jakarta.persistence.*
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "social_connections")
@@ -23,7 +22,7 @@ class JpaSocialConnection(
     val socialServiceUserId: String,
 
     @Column(name = "linked_at")
-    val linkedAt: ZonedDateTime
+    val linkedAt: LocalDateTime
 ) {
 
 
@@ -35,7 +34,7 @@ class JpaSocialConnection(
                 memberId = socialConnection.memberId,
                 socialService = socialConnection.socialServiceUser.service.name,
                 socialServiceUserId = socialConnection.socialServiceUser.userId,
-                linkedAt = socialConnection.linkedAt
+                linkedAt = socialConnection.linkedAt.toLocalDateTime()
             )
         }
     }
@@ -46,7 +45,7 @@ class JpaSocialConnection(
             memberId = this.memberId,
             socialServiceName = this.socialService,
             socialServiceUserId = this.socialServiceUserId,
-            linkedAt = this.linkedAt.withZoneSameInstant(TimeRule.ZONE_ID)
+            linkedAt = this.linkedAt
         )
     }
 }

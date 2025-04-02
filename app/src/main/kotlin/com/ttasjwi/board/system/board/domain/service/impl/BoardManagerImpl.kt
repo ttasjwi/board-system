@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgerator.IdGenerator
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 @DomainService
 class BoardManagerImpl : BoardManager {
@@ -19,7 +19,7 @@ class BoardManagerImpl : BoardManager {
         description: BoardDescription,
         managerId: Long,
         slug: BoardSlug,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ): Board {
         return Board.create(
             id = idGenerator.nextId(),

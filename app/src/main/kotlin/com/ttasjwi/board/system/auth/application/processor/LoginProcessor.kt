@@ -9,12 +9,12 @@ import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.EncodedPassword
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
-import java.time.ZonedDateTime
 
 @ApplicationProcessor
 internal class LoginProcessor(
@@ -93,7 +93,7 @@ internal class LoginProcessor(
     /**
      * 액세스 토큰, 리프레시 토큰 생성
      */
-    private fun createTokens(authMember: AuthMember, currentTime: ZonedDateTime): Pair<AccessToken, RefreshToken> {
+    private fun createTokens(authMember: AuthMember, currentTime: AppDateTime): Pair<AccessToken, RefreshToken> {
         val accessToken = accessTokenManager.generate(authMember, currentTime)
         val refreshToken = refreshTokenManager.generate(authMember.memberId, currentTime)
         return Pair(accessToken, refreshToken)
@@ -105,7 +105,7 @@ internal class LoginProcessor(
     private fun upsertRefreshTokenHolder(
         authMember: AuthMember,
         refreshToken: RefreshToken,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ) {
         val refreshTokenHolder = refreshTokenHolderFinder.findByMemberIdOrNull(authMember.memberId)
             ?: refreshTokenHolderManager.createRefreshTokenHolder(authMember)

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -30,8 +30,8 @@ class EmailVerificationFixtureTest {
         fun test2() {
             val email = "hello@gmail.com"
             val code = "12357dadf54"
-            val codeCreatedAt = timeFixture(minute = 0)
-            val codeExpiresAt = timeFixture(minute = 5)
+            val codeCreatedAt = appDateTimeFixture(minute = 0)
+            val codeExpiresAt = appDateTimeFixture(minute = 5)
             val emailVerification = emailVerificationFixtureNotVerified(
                 email = email,
                 code = code,
@@ -68,10 +68,10 @@ class EmailVerificationFixtureTest {
         fun test2() {
             val email = "hello@gmail.com"
             val code = "12357dadf54"
-            val codeCreatedAt = timeFixture(minute = 0)
-            val codeExpiresAt = timeFixture(minute = 5)
-            val verifiedAt = timeFixture(minute = 1)
-            val verificationExpiresAt = timeFixture(minute = 31)
+            val codeCreatedAt = appDateTimeFixture(minute = 0)
+            val codeExpiresAt = appDateTimeFixture(minute = 5)
+            val verifiedAt = appDateTimeFixture(minute = 1)
+            val verificationExpiresAt = appDateTimeFixture(minute = 31)
             val emailVerification = emailVerificationFixtureVerified(
                 email = email,
                 code = code,

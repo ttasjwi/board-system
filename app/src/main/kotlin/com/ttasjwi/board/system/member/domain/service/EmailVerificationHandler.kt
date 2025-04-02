@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.service
 
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
-import java.time.ZonedDateTime
 
 interface EmailVerificationHandler {
 
@@ -11,7 +11,7 @@ interface EmailVerificationHandler {
     fun codeVerify(
         emailVerification: EmailVerification,
         code: String,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ): EmailVerification
 
     /**
@@ -19,6 +19,6 @@ interface EmailVerificationHandler {
      */
     fun checkVerifiedAndCurrentlyValid(
         emailVerification: EmailVerification,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     )
 }

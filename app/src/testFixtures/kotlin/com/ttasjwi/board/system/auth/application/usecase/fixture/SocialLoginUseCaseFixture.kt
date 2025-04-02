@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.usecase.fixture
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 class SocialLoginUseCaseFixture : SocialLoginUseCase {
 
@@ -11,9 +11,9 @@ class SocialLoginUseCaseFixture : SocialLoginUseCase {
         return SocialLoginResponse(
             accessToken = "accessToken",
             accessTokenType = "Bearer",
-            accessTokenExpiresAt = timeFixture(minute = 30),
+            accessTokenExpiresAt = appDateTimeFixture(minute = 30).toZonedDateTime(),
             refreshToken = "refreshToken",
-            refreshTokenExpiresAt = timeFixture(dayOfMonth = 2, minute = 0),
+            refreshTokenExpiresAt = appDateTimeFixture(dayOfMonth = 2, minute = 0).toZonedDateTime(),
             memberCreated = true,
             createdMember = SocialLoginResponse.CreatedMember(
                 memberId = "1",
@@ -21,7 +21,7 @@ class SocialLoginUseCaseFixture : SocialLoginUseCase {
                 username = "createdusername",
                 nickname = "creatednickname",
                 role = "USER",
-                registeredAt = timeFixture(minute = 0)
+                registeredAt = appDateTimeFixture(minute = 0).toZonedDateTime()
             )
         )
     }

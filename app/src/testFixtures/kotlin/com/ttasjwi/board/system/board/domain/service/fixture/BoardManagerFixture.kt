@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.service.BoardManager
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 import java.util.concurrent.atomic.AtomicLong
 
 class BoardManagerFixture : BoardManager {
@@ -18,7 +18,7 @@ class BoardManagerFixture : BoardManager {
         description: BoardDescription,
         managerId: Long,
         slug: BoardSlug,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ): Board {
         return boardFixture(
             id = sequence.incrementAndGet(),

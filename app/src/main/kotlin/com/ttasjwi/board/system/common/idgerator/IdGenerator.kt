@@ -17,13 +17,13 @@ class IdGenerator private constructor() {
         private const val NODE_ID_BITS: Int = 10
         private const val SEQUENCE_BITS: Int = 12
 
-        private const val MAX_NODE_ID: Long = (1L shl NODE_ID_BITS) -1
+        private const val MAX_NODE_ID: Long = (1L shl NODE_ID_BITS) - 1
         private const val MAX_SEQUENCE: Long = (1L shl SEQUENCE_BITS) - 1
 
         private val NODE_ID = RandomGenerator.getDefault().nextLong(MAX_NODE_ID + 1)
 
-        // UTC = 2024-03-31T00:00:00Z
-        private val START_TIME_MILLIS = 1743346800000L
+        // 2025-01-01T00:00:00+0900
+        private val START_TIME_MILLIS = 1735657200000
 
         private var lastTimeMillis = START_TIME_MILLIS
         private var sequence = 0L

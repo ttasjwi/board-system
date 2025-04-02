@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
@@ -67,7 +67,7 @@ class SocialLoginApplicationServiceTest {
         val socialServiceName = "google"
         val socialServiceUserId = "abcd12345"
         val email = "hello@gmail.com"
-        val currentTime = timeFixture(minute = 5)
+        val currentTime = appDateTimeFixture(minute = 5)
         timeManagerFixture.changeCurrentTime(currentTime)
 
         val member = memberStorageFixture.save(memberFixture(email = email))
@@ -76,7 +76,7 @@ class SocialLoginApplicationServiceTest {
                 memberId = member.id,
                 socialService = SocialService.GOOGLE,
                 socialServiceUserId = socialServiceUserId,
-                linkedAt = timeFixture(minute = 3)
+                linkedAt = appDateTimeFixture(minute = 3)
             )
         )
 

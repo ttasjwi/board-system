@@ -2,14 +2,15 @@ package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.exception.AccessTokenExpiredException
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import java.time.Instant
 
 class AccessToken
 internal constructor(
     val authMember: AuthMember,
     val tokenValue: String,
-    val issuedAt: ZonedDateTime,
-    val expiresAt: ZonedDateTime,
+    val issuedAt: AppDateTime,
+    val expiresAt: AppDateTime,
 ) {
 
     companion object {
@@ -20,8 +21,8 @@ internal constructor(
             memberId: Long,
             roleName: String,
             tokenValue: String,
-            issuedAt: ZonedDateTime,
-            expiresAt: ZonedDateTime,
+            issuedAt: Instant,
+            expiresAt: Instant,
         ): AccessToken {
             return AccessToken(
                 authMember = AuthMember.restore(
@@ -29,8 +30,8 @@ internal constructor(
                     roleName = roleName,
                 ),
                 tokenValue = tokenValue,
-                issuedAt = issuedAt,
-                expiresAt = expiresAt
+                issuedAt = AppDateTime.from(issuedAt),
+                expiresAt = AppDateTime.from(expiresAt),
             )
         }
     }
@@ -53,7 +54,7 @@ internal constructor(
         return result
     }
 
-    internal fun checkCurrentlyValid(currentTime: ZonedDateTime) {
+    internal fun checkCurrentlyValid(currentTime: AppDateTime) {
         if (currentTime >= this.expiresAt) {
             throw AccessTokenExpiredException(expiredAt = this.expiresAt, currentTime = currentTime)
         }

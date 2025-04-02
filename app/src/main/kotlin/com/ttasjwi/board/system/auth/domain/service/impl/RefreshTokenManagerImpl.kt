@@ -6,14 +6,14 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 @DomainService
 internal class RefreshTokenManagerImpl(
     private val externalRefreshTokenManager: ExternalRefreshTokenManager,
 ) : RefreshTokenManager {
 
-    override fun generate(memberId: Long, issuedAt: ZonedDateTime): RefreshToken {
+    override fun generate(memberId: Long, issuedAt: AppDateTime): RefreshToken {
         val refreshTokenId = RefreshTokenId.create()
         val expiresAt = issuedAt.plusHours(RefreshToken.VALIDITY_HOURS)
         return externalRefreshTokenManager.generate(memberId, refreshTokenId, issuedAt, expiresAt)
@@ -26,7 +26,7 @@ internal class RefreshTokenManagerImpl(
     override fun checkCurrentlyValid(
         refreshToken: RefreshToken,
         refreshTokenHolder: RefreshTokenHolder,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ) {
         // 리프레시 토큰 현재 유효성 검증
         refreshToken.checkCurrentlyValid(currentTime)
@@ -35,7 +35,7 @@ internal class RefreshTokenManagerImpl(
         refreshTokenHolder.checkRefreshTokenExist(refreshToken)
     }
 
-    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: ZonedDateTime): Boolean {
+    override fun isRefreshRequired(refreshToken: RefreshToken, currentTime: AppDateTime): Boolean {
         return refreshToken.isRefreshRequired(currentTime)
     }
 }

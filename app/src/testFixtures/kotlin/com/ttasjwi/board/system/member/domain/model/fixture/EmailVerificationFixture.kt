@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
-import java.time.ZonedDateTime
 
 fun emailVerificationFixtureNotVerified(
     email: String = "test@gmail.com",
     code: String = "1111",
-    codeCreatedAt: ZonedDateTime = timeFixture(minute = 0),
-    codeExpiresAt: ZonedDateTime = codeCreatedAt.plusMinutes(5),
+    codeCreatedAt: AppDateTime = appDateTimeFixture(minute = 0),
+    codeExpiresAt: AppDateTime = codeCreatedAt.plusMinutes(5),
 ): EmailVerification {
     return EmailVerification(
         email = emailFixture(email),
@@ -23,10 +23,10 @@ fun emailVerificationFixtureNotVerified(
 fun emailVerificationFixtureVerified(
     email: String = "test@gmail.com",
     code: String = "1111",
-    codeCreatedAt: ZonedDateTime = timeFixture(minute = 0),
-    codeExpiresAt: ZonedDateTime = codeCreatedAt.plusMinutes(5),
-    verifiedAt: ZonedDateTime = timeFixture(minute = 1),
-    verificationExpiresAt: ZonedDateTime = verifiedAt.plusMinutes(30)
+    codeCreatedAt: AppDateTime = appDateTimeFixture(minute = 0),
+    codeExpiresAt: AppDateTime = codeCreatedAt.plusMinutes(5),
+    verifiedAt: AppDateTime = appDateTimeFixture(minute = 1),
+    verificationExpiresAt: AppDateTime = verifiedAt.plusMinutes(30)
 ): EmailVerification {
     return EmailVerification(
         email = emailFixture(email),

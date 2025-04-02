@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.application.dto.TokenRefreshCommand
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -38,18 +38,18 @@ class TokenRefreshProcessorTest {
     @DisplayName("리프레시토큰을 재갱신하지 않아도 될 경우 리프레시 토큰이 갱신되지 않고 액세스토큰만 갱신된다.")
     fun testRefreshTokenNotRefresh() {
         // given
-        val refreshToken = refreshTokenManagerFixture.generate(memberId, timeFixture())
+        val refreshToken = refreshTokenManagerFixture.generate(memberId, appDateTimeFixture())
         val refreshTokenHolder = refreshTokenHolderFixture(
             memberId = memberId,
             tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
         )
         refreshTokenHolderStorageFixture.append(memberId, refreshTokenHolder, refreshToken.issuedAt)
 
-        val currentTime = timeFixture(
+        val currentTime = appDateTimeFixture(
             hour = (RefreshTokenManagerFixture.VALIDITY_HOURS
                     - RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS).toInt()
         )
-            .minusNanos(1)
+            .minusSeconds(1)
         val command = TokenRefreshCommand(refreshToken.tokenValue, currentTime)
 
         // when
@@ -76,7 +76,7 @@ class TokenRefreshProcessorTest {
     @DisplayName("리프레시토큰을 재갱신해야할 경우 리프레시 토큰이 함께 재갱신된다.")
     fun testRefreshTokenRefresh() {
         // given
-        val refreshToken = refreshTokenManagerFixture.generate(memberId, timeFixture())
+        val refreshToken = refreshTokenManagerFixture.generate(memberId, appDateTimeFixture())
         val refreshTokenHolder = refreshTokenHolderFixture(
             memberId = memberId,
             tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
@@ -84,10 +84,10 @@ class TokenRefreshProcessorTest {
         refreshTokenHolderStorageFixture.append(memberId, refreshTokenHolder, refreshToken.issuedAt)
 
         val currentTime =
-            timeFixture(
+            appDateTimeFixture(
                 hour = (RefreshTokenManagerFixture.VALIDITY_HOURS
                         - RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS).toInt()
-            ).plusNanos(1)
+            ).plusSeconds(1)
         val command = TokenRefreshCommand(refreshToken.tokenValue, currentTime)
 
         // when
@@ -114,10 +114,10 @@ class TokenRefreshProcessorTest {
     @DisplayName("리프레시토큰 홀더가 조회되지 않을 경우 예외가 발생한다.")
     fun testRefreshTokenHolderNotFound() {
         // given
-        val refreshToken = refreshTokenManagerFixture.generate(memberId, timeFixture())
+        val refreshToken = refreshTokenManagerFixture.generate(memberId, appDateTimeFixture())
         val command = TokenRefreshCommand(
             refreshToken = refreshToken.tokenValue,
-            currentTime = timeFixture(dayOfMonth = 4)
+            currentTime = appDateTimeFixture(dayOfMonth = 4)
         )
 
         // when

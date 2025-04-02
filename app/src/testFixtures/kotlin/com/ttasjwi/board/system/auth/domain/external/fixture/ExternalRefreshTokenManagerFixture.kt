@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.ZonedDateTime
 
 class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
@@ -19,8 +20,8 @@ class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
     override fun generate(
         memberId: Long,
         refreshTokenId: RefreshTokenId,
-        issuedAt: ZonedDateTime,
-        expiresAt: ZonedDateTime
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
     ): RefreshToken {
         val tokenValue = makeTokenValue(memberId, refreshTokenId.value, issuedAt, expiresAt)
 
@@ -40,16 +41,16 @@ class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
             memberId = split[MEMBER_ID_INDEX].toLong(),
             refreshTokenId = split[REFRESH_TOKEN_ID_INDEX],
             tokenValue = tokenValue,
-            issuedAt = split[ISSUED_AT_INDEX].let { ZonedDateTime.parse(it) },
-            expiresAt = split[EXPIRES_AT_INDEX].let { ZonedDateTime.parse(it) }
+            issuedAt = split[ISSUED_AT_INDEX].let { AppDateTime.from(ZonedDateTime.parse(it)) },
+            expiresAt = split[EXPIRES_AT_INDEX].let { AppDateTime.from(ZonedDateTime.parse(it)) }
         )
     }
 
     private fun makeTokenValue(
         memberId: Long,
         refreshTokenId: String,
-        issuedAt: ZonedDateTime,
-        expiresAt: ZonedDateTime
+        issuedAt: AppDateTime,
+        expiresAt: AppDateTime
     ): String {
         return "${memberId}," + // 0
                 "${refreshTokenId}," + // 1

@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.model.BoardDescription
 import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 interface BoardManager {
 
@@ -13,6 +13,6 @@ interface BoardManager {
         description: BoardDescription,
         managerId: Long,
         slug: BoardSlug,
-        currentTime: ZonedDateTime,
+        currentTime: AppDateTime,
     ): Board
 }

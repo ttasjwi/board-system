@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.event
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.event.fixture.emailVerifiedEventFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -12,7 +12,7 @@ class EmailVerifiedEventTest {
     @Test
     @DisplayName("이벤트 발생시점은 이메일 인증 시각과 같다")
     fun test1() {
-        val verifiedAt = timeFixture()
+        val verifiedAt = appDateTimeFixture()
         val event = emailVerifiedEventFixture(
             verifiedAt = verifiedAt
         )
@@ -24,8 +24,8 @@ class EmailVerifiedEventTest {
     @DisplayName("생성시점에 전달한 데이터를 가진다")
     fun test2() {
         val email = "kyaru@gmail.com"
-        val verifiedAt = timeFixture(minute = 7)
-        val verificationExpiresAt = timeFixture(minute = 37)
+        val verifiedAt = appDateTimeFixture(minute = 7)
+        val verificationExpiresAt = appDateTimeFixture(minute = 37)
 
         val event = emailVerifiedEventFixture(
             email = email,

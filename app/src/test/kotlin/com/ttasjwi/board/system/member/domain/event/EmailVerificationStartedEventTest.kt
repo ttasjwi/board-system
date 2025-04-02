@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.event
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.event.fixture.emailVerificationStartedEventFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -12,7 +12,7 @@ class EmailVerificationStartedEventTest {
     @Test
     @DisplayName("이벤트 발생시점은 code 생성 시각과 같다")
     fun test1() {
-        val codeCreatedAt = timeFixture()
+        val codeCreatedAt = appDateTimeFixture()
         val event = emailVerificationStartedEventFixture(
             codeCreatedAt = codeCreatedAt
         )
@@ -25,8 +25,8 @@ class EmailVerificationStartedEventTest {
     fun test2() {
         val email = "kyaru@gmail.com"
         val code = "23456f"
-        val codeCreatedAt = timeFixture(minute = 3)
-        val codeExpiresAt = timeFixture(minute = 8)
+        val codeCreatedAt = appDateTimeFixture(minute = 3)
+        val codeExpiresAt = appDateTimeFixture(minute = 8)
 
         val event = emailVerificationStartedEventFixture(
             email = email,

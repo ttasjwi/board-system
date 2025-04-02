@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -21,8 +21,8 @@ class AccessTokenTest {
             val memberId = 1L
             val roleName = "USER"
             val tokenValue = "accessToken1"
-            val issuedAt = timeFixture(minute = 0)
-            val expiresAt = timeFixture(minute = 30)
+            val issuedAt = appDateTimeFixture(minute = 0).toInstant()
+            val expiresAt = appDateTimeFixture(minute = 30).toInstant()
 
             // when
             val accessToken = AccessToken.restore(
@@ -37,8 +37,8 @@ class AccessTokenTest {
             assertThat(accessToken.authMember.memberId).isEqualTo(memberId)
             assertThat(accessToken.authMember.role.name).isEqualTo(roleName)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
-            assertThat(accessToken.issuedAt).isEqualTo(issuedAt)
-            assertThat(accessToken.expiresAt).isEqualTo(expiresAt)
+            assertThat(accessToken.issuedAt.toInstant()).isEqualTo(issuedAt)
+            assertThat(accessToken.expiresAt.toInstant()).isEqualTo(expiresAt)
         }
     }
 
@@ -138,8 +138,8 @@ class AccessTokenTest {
         @DisplayName("발행시각이 다르면 동등하지 않다")
         fun testDifferentIssuedAt() {
             // given
-            val accessToken = accessTokenFixture(issuedAt = timeFixture(minute = 3))
-            val other = accessTokenFixture(issuedAt = timeFixture(minute = 5))
+            val accessToken = accessTokenFixture(issuedAt = appDateTimeFixture(minute = 3))
+            val other = accessTokenFixture(issuedAt = appDateTimeFixture(minute = 5))
 
             // when
             val equals = accessToken.equals(other)
@@ -152,8 +152,8 @@ class AccessTokenTest {
         @DisplayName("만료시각이 다르면 동등하지 않다")
         fun testDifferentExpiresAt() {
             // given
-            val accessToken = accessTokenFixture(expiresAt = timeFixture(minute = 3))
-            val other = accessTokenFixture(expiresAt = timeFixture(minute = 5))
+            val accessToken = accessTokenFixture(expiresAt = appDateTimeFixture(minute = 3))
+            val other = accessTokenFixture(expiresAt = appDateTimeFixture(minute = 5))
 
             // when
             val equals = accessToken.equals(other)

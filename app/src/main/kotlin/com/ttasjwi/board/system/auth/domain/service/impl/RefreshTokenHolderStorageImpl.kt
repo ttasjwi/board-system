@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderAppender
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderFinder
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 @DomainService
 internal class RefreshTokenHolderStorageImpl(
@@ -14,7 +14,7 @@ internal class RefreshTokenHolderStorageImpl(
     private val externalRefreshTokenHolderFinder: ExternalRefreshTokenHolderFinder,
 ) : RefreshTokenHolderAppender, RefreshTokenHolderFinder {
 
-    override fun append(memberId: Long, refreshTokenHolder: RefreshTokenHolder, currentTime: ZonedDateTime) {
+    override fun append(memberId: Long, refreshTokenHolder: RefreshTokenHolder, currentTime: AppDateTime) {
         val expiresAt = refreshTokenHolder.expiresAt(currentTime)
         externalRefreshTokenHolderAppender.append(memberId, refreshTokenHolder, expiresAt)
     }

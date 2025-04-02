@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderA
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderFinder
 import com.ttasjwi.board.system.auth.domain.external.impl.redis.RedisRefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
+import com.ttasjwi.board.system.common.time.AppDateTime
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Component
-import java.time.ZonedDateTime
 
 @Component
 class ExternalRefreshTokenHolderStorageImpl(
@@ -19,7 +19,7 @@ class ExternalRefreshTokenHolderStorageImpl(
         private const val KEY_PREFIX = "Board-System:RefreshTokenHolder:"
     }
 
-    override fun append(memberId: Long, refreshTokenHolder: RefreshTokenHolder, expiresAt: ZonedDateTime) {
+    override fun append(memberId: Long, refreshTokenHolder: RefreshTokenHolder, expiresAt: AppDateTime) {
         val key = generateKey(memberId)
         val redisModel = RedisRefreshTokenHolder.from(refreshTokenHolder)
 

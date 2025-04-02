@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -77,19 +77,19 @@ class RefreshTokenHolderManagerImplTest {
             // given
             val refreshToken1 = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "tokenId1",
-                issuedAt = timeFixture(minute = 0), expiresAt = timeFixture(minute = 5)
+                issuedAt = appDateTimeFixture(minute = 0), expiresAt = appDateTimeFixture(minute = 5)
             )
             val refreshToken2 = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "tokenId2",
-                issuedAt = timeFixture(minute = 1), expiresAt = timeFixture(minute = 6)
+                issuedAt = appDateTimeFixture(minute = 1), expiresAt = appDateTimeFixture(minute = 6)
             )
             val refreshToken3 = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "tokenId3",
-                issuedAt = timeFixture(minute = 2), expiresAt = timeFixture(minute = 7)
+                issuedAt = appDateTimeFixture(minute = 2), expiresAt = appDateTimeFixture(minute = 7)
             )
             val refreshToken4 = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "tokenId4",
-                issuedAt = timeFixture(minute = 6), expiresAt = timeFixture(minute = 11)
+                issuedAt = appDateTimeFixture(minute = 6), expiresAt = appDateTimeFixture(minute = 11)
             ) // token2 의 만료시점과 같음.
 
             val holder = refreshTokenHolderFixture(
@@ -121,8 +121,8 @@ class RefreshTokenHolderManagerImplTest {
             val firstToken = refreshTokenFixture(
                 memberId = 1L,
                 refreshTokenId = "refreshToken1",
-                issuedAt = timeFixture(minute = 1),
-                expiresAt = timeFixture(dayOfMonth = 2, minute = 1)
+                issuedAt = appDateTimeFixture(minute = 1),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2, minute = 1)
             )
             tokens[firstToken.refreshTokenId] = firstToken
 
@@ -130,8 +130,8 @@ class RefreshTokenHolderManagerImplTest {
                 val token = refreshTokenFixture(
                     memberId = 1L,
                     refreshTokenId = "refreshToken${i}",
-                    issuedAt = timeFixture(minute = i),
-                    expiresAt = timeFixture(dayOfMonth = 2, minute = i)
+                    issuedAt = appDateTimeFixture(minute = i),
+                    expiresAt = appDateTimeFixture(dayOfMonth = 2, minute = i)
                 )
                 tokens[token.refreshTokenId] = token
             }
@@ -139,8 +139,8 @@ class RefreshTokenHolderManagerImplTest {
             val newToken = refreshTokenFixture(
                 memberId = 1L,
                 refreshTokenId = "refreshTokenNew",
-                issuedAt = timeFixture(minute = 50),
-                expiresAt = timeFixture(dayOfMonth = 2, minute = 50)
+                issuedAt = appDateTimeFixture(minute = 50),
+                expiresAt = appDateTimeFixture(dayOfMonth = 2, minute = 50)
             )
 
             // when
@@ -188,19 +188,19 @@ class RefreshTokenHolderManagerImplTest {
             // given
             val oldToken1 = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "tokenId1",
-                issuedAt = timeFixture(minute = 0), expiresAt = timeFixture(minute = 5)
+                issuedAt = appDateTimeFixture(minute = 0), expiresAt = appDateTimeFixture(minute = 5)
             )
             val oldToken2 = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "tokenId2",
-                issuedAt = timeFixture(minute = 1), expiresAt = timeFixture(minute = 6)
+                issuedAt = appDateTimeFixture(minute = 1), expiresAt = appDateTimeFixture(minute = 6)
             )
             val previousToken = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "previous",
-                issuedAt = timeFixture(minute = 2), expiresAt = timeFixture(minute = 7)
+                issuedAt = appDateTimeFixture(minute = 2), expiresAt = appDateTimeFixture(minute = 7)
             )
             val newToken = refreshTokenFixture(
                 memberId = 1L, refreshTokenId = "newToken",
-                issuedAt = timeFixture(minute = 6), expiresAt = timeFixture(minute = 11)
+                issuedAt = appDateTimeFixture(minute = 6), expiresAt = appDateTimeFixture(minute = 11)
             )
 
             val holder = refreshTokenHolderFixture(

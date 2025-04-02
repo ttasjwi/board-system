@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -21,8 +21,8 @@ class RefreshTokenTest {
             val memberId = 1L
             val refreshTokenId = "refreshTokenId1"
             val tokenValue = "refreshToken1"
-            val issuedAt = timeFixture(dayOfMonth = 1)
-            val expiresAt = timeFixture(dayOfMonth = 2)
+            val issuedAt = appDateTimeFixture(dayOfMonth = 1).toInstant()
+            val expiresAt = appDateTimeFixture(dayOfMonth = 2).toInstant()
 
             // when
             val refreshToken = RefreshToken.restore(
@@ -37,8 +37,8 @@ class RefreshTokenTest {
             assertThat(refreshToken.memberId).isEqualTo(memberId)
             assertThat(refreshToken.refreshTokenId.value).isEqualTo(refreshTokenId)
             assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)
-            assertThat(refreshToken.issuedAt).isEqualTo(issuedAt)
-            assertThat(refreshToken.expiresAt).isEqualTo(expiresAt)
+            assertThat(refreshToken.issuedAt.toInstant()).isEqualTo(issuedAt)
+            assertThat(refreshToken.expiresAt.toInstant()).isEqualTo(expiresAt)
         }
     }
 
@@ -152,8 +152,8 @@ class RefreshTokenTest {
         @DisplayName("발행시각이 다르면 동등하지 않다")
         fun testDifferentIssuedAt() {
             // given
-            val refreshToken = refreshTokenFixture(issuedAt = timeFixture(minute = 3))
-            val other = refreshTokenFixture(issuedAt = timeFixture(minute = 5))
+            val refreshToken = refreshTokenFixture(issuedAt = appDateTimeFixture(minute = 3))
+            val other = refreshTokenFixture(issuedAt = appDateTimeFixture(minute = 5))
 
             // when
             val equals = refreshToken.equals(other)
@@ -166,8 +166,8 @@ class RefreshTokenTest {
         @DisplayName("만료시각이 다르면 동등하지 않다")
         fun testDifferentExpiresAt() {
             // given
-            val refreshToken = refreshTokenFixture(expiresAt = timeFixture(minute = 3))
-            val other = refreshTokenFixture(expiresAt = timeFixture(minute = 5))
+            val refreshToken = refreshTokenFixture(expiresAt = appDateTimeFixture(minute = 3))
+            val other = refreshTokenFixture(expiresAt = appDateTimeFixture(minute = 5))
 
             // when
             val equals = refreshToken.equals(other)

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
@@ -41,7 +41,7 @@ class EmailVerificationProcessorTest {
         val command = EmailVerificationCommand(
             email = emailFixture("hello@gmail.com"),
             code = "1234",
-            currentTime = timeFixture(minute = 3)
+            currentTime = appDateTimeFixture(minute = 3)
         )
         assertThrows<EmailVerificationNotFoundException> {
             emailVerificationProcessor.verify(command)
@@ -55,15 +55,15 @@ class EmailVerificationProcessorTest {
         val savedEmailVerification = emailVerificationFixtureNotVerified(
             email = "hello@gmail.com",
             code = "1234",
-            codeCreatedAt = timeFixture(minute = 0),
-            codeExpiresAt = timeFixture(minute = 5),
+            codeCreatedAt = appDateTimeFixture(minute = 0),
+            codeExpiresAt = appDateTimeFixture(minute = 5),
         )
         emailVerificationStorageFixture.append(savedEmailVerification, savedEmailVerification.codeExpiresAt)
 
         val command = EmailVerificationCommand(
             email = savedEmailVerification.email,
             code = savedEmailVerification.code,
-            currentTime = timeFixture(minute = 3)
+            currentTime = appDateTimeFixture(minute = 3)
         )
 
         // when

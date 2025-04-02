@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatException
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -17,8 +17,8 @@ class ExternalRefreshTokenManagerImplTest : IntegrationTest() {
 
     private val memberId = 1L
     private val refreshTokenId = refreshTokenIdFixture("refreshTokenId")
-    private val issuedAt = timeFixture(dayOfMonth = 1)
-    private val expiresAt = timeFixture(dayOfMonth = 2)
+    private val issuedAt = appDateTimeFixture(dayOfMonth = 1)
+    private val expiresAt = appDateTimeFixture(dayOfMonth = 2)
 
     @Nested
     @DisplayName("generate: 리프레시 토큰 인스턴스를 생성한다.")

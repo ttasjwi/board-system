@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -32,7 +32,7 @@ class SocialConnectionFixtureTest {
         val memberId = 133L
         val socialService = SocialService.NAVER
         val socialServiceUserId = "adfadf7ad7"
-        val linkedAt = timeFixture(minute = 13)
+        val linkedAt = appDateTimeFixture(minute = 13)
 
         // when
         val socialConnection = socialConnectionFixture(

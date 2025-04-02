@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -21,7 +21,7 @@ class SocialConnectionTest {
             val memberId = 174L
             val socialServiceName = "NAVER"
             val socialServiceUserId = "a7a7dfa7"
-            val linkedAt = timeFixture(minute = 4)
+            val linkedAt = appDateTimeFixture(minute = 4).toLocalDateTime()
 
             // when
             val socialConnection = SocialConnection.restore(
@@ -41,7 +41,7 @@ class SocialConnectionTest {
                     socialServiceUserId
                 )
             )
-            assertThat(socialConnection.linkedAt).isEqualTo(linkedAt)
+            assertThat(socialConnection.linkedAt.toLocalDateTime()).isEqualTo(linkedAt)
         }
     }
 }

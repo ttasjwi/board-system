@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.integration
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpHeaders
@@ -17,7 +17,7 @@ class MessageIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("Accept Language 헤더가 없을 때 디폴트 로케일인 한국어 메시지 설정을 따른다.")
     fun test1() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
         mockMvc
             .perform(
                 get("/api/v1/test/message")
@@ -37,7 +37,7 @@ class MessageIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("Accept Language 헤더가 한국어로 설정되면 한국어 메시지가 반환된다.")
     fun test2() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(
@@ -59,7 +59,7 @@ class MessageIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("Accept Language 헤더가 여러 언어를 포함하고, 한국어가 우선시되면 한국어 응답이 나간다.")
     fun test3() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(
@@ -81,7 +81,7 @@ class MessageIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("Accept Language 헤더가 영어로 설정되면 영어 응답이 나간다.")
     fun test4() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(
@@ -103,7 +103,7 @@ class MessageIntegrationTest : IntegrationTest() {
     @Test
     @DisplayName("Accept Language 헤더가 여러 언어를 포함하고, 영어가 우선시되면 영어 응답이 전송된다.")
     fun test5() {
-        timeManagerFixture.changeCurrentTime(timeFixture())
+        timeManagerFixture.changeCurrentTime(appDateTimeFixture())
 
         mockMvc
             .perform(

@@ -1,15 +1,15 @@
 package com.ttasjwi.board.system.auth.domain.event.fixture
 
 import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 fun tokenRefreshedEventFixture(
     accessToken: String = "accessToken",
-    accessTokenExpiresAt: ZonedDateTime = timeFixture(minute = 30),
+    accessTokenExpiresAt: AppDateTime = appDateTimeFixture(minute = 30),
     refreshToken: String = "refreshToken",
-    refreshTokenExpiresAt: ZonedDateTime = timeFixture(dayOfMonth = 2),
-    refreshedAt: ZonedDateTime = timeFixture(minute = 0),
+    refreshTokenExpiresAt: AppDateTime = appDateTimeFixture(dayOfMonth = 2),
+    refreshedAt: AppDateTime = appDateTimeFixture(minute = 0),
     refreshTokenRefreshed: Boolean = false,
 ): TokenRefreshedEvent {
     return TokenRefreshedEvent(

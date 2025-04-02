@@ -2,10 +2,10 @@ package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgerator.IdGenerator
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.SocialConnection
 import com.ttasjwi.board.system.member.domain.model.SocialServiceUser
 import com.ttasjwi.board.system.member.domain.service.SocialConnectionCreator
-import java.time.ZonedDateTime
 
 @DomainService
 class SocialConnectionCreatorImpl : SocialConnectionCreator {
@@ -15,7 +15,7 @@ class SocialConnectionCreatorImpl : SocialConnectionCreator {
     override fun create(
         memberId: Long,
         socialServiceUser: SocialServiceUser,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ): SocialConnection {
         return SocialConnection.create(
             id = idGenerator.nextId(),

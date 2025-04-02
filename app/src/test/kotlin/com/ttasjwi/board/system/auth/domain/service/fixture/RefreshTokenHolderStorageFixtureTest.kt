@@ -2,13 +2,13 @@ package com.ttasjwi.board.system.auth.domain.service.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.time.ZonedDateTime
 
 @DisplayName("RefreshTokenHolderStorage (Appender, Finder) 픽스쳐 테스트")
 class RefreshTokenHolderStorageFixtureTest {
@@ -37,7 +37,7 @@ class RefreshTokenHolderStorageFixtureTest {
                 memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
-            val currenTime = timeFixture(minute = 13)
+            val currenTime = appDateTimeFixture(minute = 13)
 
             // when
             // then
@@ -62,7 +62,7 @@ class RefreshTokenHolderStorageFixtureTest {
                 memberId = memberId,
                 tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
             )
-            val currenTime = timeFixture(minute = 13)
+            val currenTime = appDateTimeFixture(minute = 13)
             refreshTokenHolderStorageFixture.append(memberId, savedRefreshTokenHolder, currenTime)
 
             // when
@@ -97,7 +97,7 @@ class RefreshTokenHolderStorageFixtureTest {
             val memberId = 133L
             val refreshTokenHolder = refreshTokenHolderFixture(memberId = memberId)
 
-            refreshTokenHolderStorageFixture.append(memberId, refreshTokenHolder, ZonedDateTime.now().plusMinutes(30))
+            refreshTokenHolderStorageFixture.append(memberId, refreshTokenHolder, AppDateTime.now().plusMinutes(30))
 
             // when
             refreshTokenHolderStorageFixture.removeByMemberId(memberId)

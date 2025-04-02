@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.board.domain.model
 
 import com.ttasjwi.board.system.board.domain.model.fixture.*
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -21,7 +21,7 @@ class BoardTest {
             val description = "경제 게시판입니다."
             val managerId = 13L
             val slug = "economy"
-            val createdAt = timeFixture()
+            val createdAt = appDateTimeFixture().toLocalDateTime()
             val board = Board.restore(
                 id = id,
                 name = name,
@@ -36,7 +36,7 @@ class BoardTest {
             assertThat(board.description).isEqualTo(boardDescriptionFixture(description))
             assertThat(board.managerId).isEqualTo(managerId)
             assertThat(board.slug).isEqualTo(boardSlugFixture(slug))
-            assertThat(board.createdAt).isEqualTo(createdAt)
+            assertThat(board.createdAt.toLocalDateTime()).isEqualTo(createdAt)
         }
     }
 

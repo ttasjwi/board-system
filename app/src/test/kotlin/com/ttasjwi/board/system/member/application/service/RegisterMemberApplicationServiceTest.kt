@@ -1,8 +1,9 @@
 package com.ttasjwi.board.system.member.application.service
 
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandMapper
 import com.ttasjwi.board.system.member.application.processor.RegisterMemberProcessor
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
@@ -12,19 +13,18 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import java.time.ZonedDateTime
 
 @DisplayName("RegisterMemberApplicationService: 회원가입 애플리케이션 서비스")
 class RegisterMemberApplicationServiceTest {
 
     private lateinit var applicationService: RegisterMemberApplicationService
     private lateinit var emailVerificationStorageFixture: EmailVerificationStorageFixture
-    private lateinit var currentTime: ZonedDateTime
+    private lateinit var currentTime: AppDateTime
 
     @BeforeEach
     fun setup() {
         val timeManager = TimeManagerFixture()
-        currentTime = timeFixture(minute = 6)
+        currentTime = appDateTimeFixture(minute = 6)
         timeManager.changeCurrentTime(currentTime)
 
         val memberStorageFixture = MemberStorageFixture()
@@ -59,11 +59,11 @@ class RegisterMemberApplicationServiceTest {
             emailVerificationFixtureVerified(
                 email = email,
                 code = "code",
-                codeCreatedAt = timeFixture(minute = 0),
-                codeExpiresAt = timeFixture(minute = 5),
-                verifiedAt = timeFixture(minute = 3),
-                verificationExpiresAt = timeFixture(minute = 33),
-            ), timeFixture(minute = 33)
+                codeCreatedAt = appDateTimeFixture(minute = 0),
+                codeExpiresAt = appDateTimeFixture(minute = 5),
+                verifiedAt = appDateTimeFixture(minute = 3),
+                verificationExpiresAt = appDateTimeFixture(minute = 33),
+            ), appDateTimeFixture(minute = 33)
         )
 
         val request = RegisterMemberRequest(
@@ -73,13 +73,13 @@ class RegisterMemberApplicationServiceTest {
             nickname = "testnick",
         )
 
-        val result = applicationService.register(request)
+        val response = applicationService.register(request)
 
-        assertThat(result.memberId).isNotNull()
-        assertThat(result.email).isEqualTo(request.email)
-        assertThat(result.username).isEqualTo(request.username)
-        assertThat(result.nickname).isEqualTo(request.nickname)
-        assertThat(result.role).isNotNull()
-        assertThat(result.registeredAt).isEqualTo(currentTime)
+        assertThat(response.memberId).isNotNull()
+        assertThat(response.email).isEqualTo(request.email)
+        assertThat(response.username).isEqualTo(request.username)
+        assertThat(response.nickname).isEqualTo(request.nickname)
+        assertThat(response.role).isNotNull()
+        assertThat(response.registeredAt).isEqualTo(currentTime.toZonedDateTime())
     }
 }

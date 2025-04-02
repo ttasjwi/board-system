@@ -1,26 +1,27 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.exception.EmailNotVerifiedException
 import com.ttasjwi.board.system.member.domain.exception.EmailVerificationExpiredException
 import com.ttasjwi.board.system.member.domain.exception.InvalidEmailVerificationCodeException
-import java.time.ZonedDateTime
-import java.util.UUID
+import java.time.Instant
+import java.util.*
 
 class EmailVerification
 internal constructor(
     val email: Email,
     val code: String,
-    val codeCreatedAt: ZonedDateTime,
-    val codeExpiresAt: ZonedDateTime,
-    verifiedAt: ZonedDateTime? = null,
-    verificationExpiresAt: ZonedDateTime? = null
+    val codeCreatedAt: AppDateTime,
+    val codeExpiresAt: AppDateTime,
+    verifiedAt: AppDateTime? = null,
+    verificationExpiresAt: AppDateTime? = null
 ) {
 
-    var verifiedAt: ZonedDateTime? = verifiedAt
+    var verifiedAt: AppDateTime? = verifiedAt
         private set
 
-    var verificationExpiresAt: ZonedDateTime? = verificationExpiresAt
+    var verificationExpiresAt: AppDateTime? = verificationExpiresAt
         private set
 
 
@@ -35,22 +36,22 @@ internal constructor(
         fun restore(
             email: String,
             code: String,
-            codeCreatedAt: ZonedDateTime,
-            codeExpiresAt: ZonedDateTime,
-            verifiedAt: ZonedDateTime?,
-            verificationExpiresAt: ZonedDateTime?
+            codeCreatedAt: Instant,
+            codeExpiresAt: Instant,
+            verifiedAt: Instant?,
+            verificationExpiresAt: Instant?
         ): EmailVerification {
             return EmailVerification(
                 email = Email.restore(email),
                 code = code,
-                codeCreatedAt = codeCreatedAt,
-                codeExpiresAt = codeExpiresAt,
-                verifiedAt = verifiedAt,
-                verificationExpiresAt = verificationExpiresAt
+                codeCreatedAt = AppDateTime.from(codeCreatedAt),
+                codeExpiresAt = AppDateTime.from(codeExpiresAt),
+                verifiedAt = verifiedAt?.let { AppDateTime.from(it) },
+                verificationExpiresAt = verificationExpiresAt?.let { AppDateTime.from(it) }
             )
         }
 
-        internal fun create(email: Email, currentTime: ZonedDateTime): EmailVerification {
+        internal fun create(email: Email, currentTime: AppDateTime): EmailVerification {
             return EmailVerification(
                 email = email,
                 code = UUID.randomUUID().toString().substring(startIndex = 0, endIndex = CODE_LENGTH),
@@ -60,7 +61,7 @@ internal constructor(
         }
     }
 
-    internal fun codeVerify(code: String, currentTime: ZonedDateTime): EmailVerification {
+    internal fun codeVerify(code: String, currentTime: AppDateTime): EmailVerification {
         if (currentTime >= this.codeExpiresAt) {
             log.warn { "이메일 인증이 만료됐습니다. (email=${email.value},expiredAt=${codeExpiresAt},currentTime=${currentTime}" }
             throw EmailVerificationExpiredException(email.value, codeExpiresAt, currentTime)
@@ -76,7 +77,7 @@ internal constructor(
         return this
     }
 
-    internal fun checkVerifiedAndCurrentlyValid(currentTime: ZonedDateTime) {
+    internal fun checkVerifiedAndCurrentlyValid(currentTime: AppDateTime) {
         log.info{ "이메일 인증이 현재 유효한 지 확인합니다." }
 
         // 인증이 안 됨 -> 다시 인증 해라

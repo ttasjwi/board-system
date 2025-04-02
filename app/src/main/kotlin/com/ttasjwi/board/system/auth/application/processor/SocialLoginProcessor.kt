@@ -7,9 +7,9 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.*
-import java.time.ZonedDateTime
 
 @ApplicationProcessor
 internal class SocialLoginProcessor(
@@ -107,7 +107,7 @@ internal class SocialLoginProcessor(
     /**
      * 액세스 토큰, 리프레시 토큰 생성
      */
-    private fun createTokens(authMember: AuthMember, currentTime: ZonedDateTime): Pair<AccessToken, RefreshToken> {
+    private fun createTokens(authMember: AuthMember, currentTime: AppDateTime): Pair<AccessToken, RefreshToken> {
         val accessToken = accessTokenManager.generate(authMember, currentTime)
         val refreshToken = refreshTokenManager.generate(authMember.memberId, currentTime)
         return Pair(accessToken, refreshToken)
@@ -119,7 +119,7 @@ internal class SocialLoginProcessor(
     private fun upsertRefreshTokenHolder(
         authMember: AuthMember,
         refreshToken: RefreshToken,
-        currentTime: ZonedDateTime
+        currentTime: AppDateTime
     ) {
         val refreshTokenHolder = refreshTokenHolderFinder.findByMemberIdOrNull(authMember.memberId)
             ?: refreshTokenHolderManager.createRefreshTokenHolder(authMember)
@@ -141,9 +141,9 @@ internal class SocialLoginProcessor(
         return SocialLoginResponse(
             accessToken = accessToken.tokenValue,
             accessTokenType = "Bearer",
-            accessTokenExpiresAt = accessToken.expiresAt,
+            accessTokenExpiresAt = accessToken.expiresAt.toZonedDateTime(),
             refreshToken = refreshToken.tokenValue,
-            refreshTokenExpiresAt = refreshToken.expiresAt,
+            refreshTokenExpiresAt = refreshToken.expiresAt.toZonedDateTime(),
             memberCreated = memberCreated,
             createdMember = if (memberCreated) {
                 SocialLoginResponse.CreatedMember(
@@ -152,7 +152,7 @@ internal class SocialLoginProcessor(
                     username = member.username.value,
                     nickname = member.nickname.value,
                     role = member.role.name,
-                    registeredAt = member.registeredAt
+                    registeredAt = member.registeredAt.toZonedDateTime()
                 )
             } else {
                 null

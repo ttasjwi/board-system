@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.domain.model
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.TimeRule
+import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 
@@ -60,7 +60,7 @@ internal constructor(
         return this
     }
 
-    private fun removeExpiredTokens(currentTime: ZonedDateTime) {
+    private fun removeExpiredTokens(currentTime: AppDateTime) {
         _tokens.entries.removeIf { currentTime >= it.value.expiresAt }
     }
 
@@ -68,20 +68,21 @@ internal constructor(
         return _tokens.toMap()
     }
 
-    internal fun expiresAt(currentTime: ZonedDateTime): ZonedDateTime {
+    internal fun expiresAt(currentTime: AppDateTime): AppDateTime {
         // 토큰이 없으면 지금이 만료시점
         if (_tokens.isEmpty()) {
             return currentTime
         }
         // 만료일이 가장 늦은 것을 기준으로 만료시킴
         // 가장 만료시간이 마지막인 토큰을 기준으로 만료시간을 잡음
-        var maxExpireTime = ZonedDateTime.of(LocalDateTime.MIN, TimeRule.ZONE_ID)
+        var maxExpireTime = ZonedDateTime.of(LocalDateTime.MIN, AppDateTime.SERVER_ZONE)
         for (token in _tokens.values) {
-            if (token.expiresAt > maxExpireTime) {
-                maxExpireTime = token.expiresAt
+            val tokenExpiresAt = token.expiresAt.toZonedDateTime()
+            if (token.expiresAt.toZonedDateTime() > maxExpireTime) {
+                maxExpireTime = tokenExpiresAt
             }
         }
-        return maxExpireTime
+        return AppDateTime.from(maxExpireTime)
     }
 
     /**

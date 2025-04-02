@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.board.domain.model
 
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.common.time.AppDateTime
+import java.time.LocalDateTime
 
 /**
  * 게시판
@@ -12,7 +13,7 @@ internal constructor(
     description: BoardDescription,
     managerId: Long,
     slug: BoardSlug,
-    createdAt: ZonedDateTime,
+    val createdAt: AppDateTime,
 ) {
 
     var name: BoardName = name
@@ -27,9 +28,6 @@ internal constructor(
     var slug: BoardSlug = slug
         private set
 
-    var createdAt: ZonedDateTime = createdAt
-        private set
-
     companion object {
 
         internal fun create(
@@ -38,7 +36,7 @@ internal constructor(
             description: BoardDescription,
             managerId: Long,
             slug: BoardSlug,
-            currentTime: ZonedDateTime
+            currentTime: AppDateTime
         ): Board {
             return Board(
                 id = id,
@@ -56,7 +54,7 @@ internal constructor(
             description: String,
             managerId: Long,
             slug: String,
-            createdAt: ZonedDateTime,
+            createdAt: LocalDateTime,
         ): Board {
             return Board(
                 id = id,
@@ -64,7 +62,7 @@ internal constructor(
                 description = BoardDescription.restore(description),
                 managerId = managerId,
                 slug = BoardSlug.restore(slug),
-                createdAt = createdAt,
+                createdAt = AppDateTime.from(createdAt),
             )
         }
     }

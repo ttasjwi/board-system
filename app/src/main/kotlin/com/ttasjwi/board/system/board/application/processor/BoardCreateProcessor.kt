@@ -67,7 +67,7 @@ internal class BoardCreateProcessor(
             description = board.description.value,
             managerId = board.managerId.toString(),
             slug = board.slug.value,
-            createdAt = board.createdAt
+            createdAt = board.createdAt.toZonedDateTime()
         )
     }
 }

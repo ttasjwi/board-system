@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -32,8 +32,8 @@ class ExternalAccessTokenManagerFixtureTest {
         fun test() {
             // given
             val authMember = authMemberFixture()
-            val issuedAt = timeFixture(minute = 5)
-            val expiresAt = timeFixture(minute = 35)
+            val issuedAt = appDateTimeFixture(minute = 5)
+            val expiresAt = appDateTimeFixture(minute = 35)
 
             // when
             val accessToken = externalAccessTokenManagerFixture.generate(authMember, issuedAt, expiresAt)
@@ -57,8 +57,8 @@ class ExternalAccessTokenManagerFixtureTest {
         fun testSuccess() {
             // given
             val authMember = authMemberFixture()
-            val issuedAt = timeFixture(minute = 5)
-            val expiresAt = timeFixture(minute = 35)
+            val issuedAt = appDateTimeFixture(minute = 5)
+            val expiresAt = appDateTimeFixture(minute = 35)
             val tokenValue = externalAccessTokenManagerFixture.generate(authMember, issuedAt, expiresAt).tokenValue
 
             // when
@@ -67,8 +67,8 @@ class ExternalAccessTokenManagerFixtureTest {
             // then
             assertThat(accessToken.authMember).isEqualTo(authMemberFixture())
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
-            assertThat(accessToken.issuedAt).isEqualTo(timeFixture(minute = 5))
-            assertThat(accessToken.expiresAt).isEqualTo(timeFixture(minute = 35))
+            assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 5))
+            assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(minute = 35))
         }
     }
 }

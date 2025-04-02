@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatEx
 import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.time.TimeRule
+import com.ttasjwi.board.system.common.time.AppDateTime
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component
@@ -23,7 +23,7 @@ class ExternalAccessTokenManagerImpl(
         private const val ISSUER_VALUE = "board-system"
     }
 
-    override fun generate(authMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): AccessToken {
+    override fun generate(authMember: AuthMember, issuedAt: AppDateTime, expiresAt: AppDateTime): AccessToken {
         val jwt = makeJwt(authMember, issuedAt, expiresAt)
         return makeAccessTokenFromJwt(jwt)
     }
@@ -43,7 +43,7 @@ class ExternalAccessTokenManagerImpl(
         return makeAccessTokenFromJwt(jwt)
     }
 
-    private fun makeJwt(loginMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): Jwt {
+    private fun makeJwt(loginMember: AuthMember, issuedAt: AppDateTime, expiresAt: AppDateTime): Jwt {
         val jwsHeader = makeHeader()
         val jwtClaimsSet = makeClaimSet(loginMember, issuedAt, expiresAt)
         val params = JwtEncoderParameters.from(jwsHeader, jwtClaimsSet)
@@ -56,7 +56,7 @@ class ExternalAccessTokenManagerImpl(
         return jwsHeaderBuilder.build()
     }
 
-    private fun makeClaimSet(loginMember: AuthMember, issuedAt: ZonedDateTime, expiresAt: ZonedDateTime): JwtClaimsSet {
+    private fun makeClaimSet(loginMember: AuthMember, issuedAt: AppDateTime, expiresAt: AppDateTime): JwtClaimsSet {
         return JwtClaimsSet.builder()
             .subject(loginMember.memberId.toString())
             .issuer(ISSUER_VALUE)
@@ -72,8 +72,8 @@ class ExternalAccessTokenManagerImpl(
             memberId = jwt.subject.toLong(),
             roleName = jwt.getClaim(ROLE_CLAIM),
             tokenValue = jwt.tokenValue,
-            issuedAt = jwt.issuedAt!!.atZone(TimeRule.ZONE_ID),
-            expiresAt = jwt.expiresAt!!.atZone(TimeRule.ZONE_ID)
+            issuedAt = jwt.issuedAt!!,
+            expiresAt = jwt.expiresAt!!
         )
     }
 }

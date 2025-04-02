@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixt
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.application.fixture.TransactionRunnerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -47,30 +47,30 @@ class TokenRefreshApplicationServiceTest {
     @DisplayName("리프레시토큰을 만료하지 않아도 되는 경우, 리프레시 토큰이 갱신되지 않은 결과가 반환되는 지 테스트")
     fun testRefreshTokenNotRefresh() {
         // given
-        val refreshToken = refreshTokenManagerFixture.generate(memberId, timeFixture())
+        val refreshToken = refreshTokenManagerFixture.generate(memberId, appDateTimeFixture())
         val refreshTokenHolder = refreshTokenHolderFixture(
             memberId = memberId,
             tokens = mutableMapOf(refreshToken.refreshTokenId to refreshToken)
         )
         refreshTokenHolderStorageFixture.append(memberId, refreshTokenHolder, refreshToken.issuedAt)
 
-        val currentTime = timeFixture(
+        val currentTime = appDateTimeFixture(
             hour = (RefreshTokenManagerFixture.VALIDITY_HOURS
                     - RefreshTokenManagerFixture.REFRESH_REQUIRE_THRESHOLD_HOURS).toInt()
         )
-            .minusNanos(1)
+            .minusSeconds(1)
         timeManagerFixture.changeCurrentTime(currentTime)
         val request = TokenRefreshRequest(refreshToken.tokenValue)
 
         // when
-        val result = applicationService.tokenRefresh(request)
+        val response = applicationService.tokenRefresh(request)
 
         // then
-        assertThat(result.accessToken).isNotNull()
-        assertThat(result.accessTokenType).isEqualTo("Bearer")
-        assertThat(result.accessTokenExpiresAt).isNotNull()
-        assertThat(result.refreshToken).isEqualTo(refreshToken.tokenValue)
-        assertThat(result.refreshTokenExpiresAt).isEqualTo(refreshToken.expiresAt)
-        assertThat(result.refreshTokenRefreshed).isFalse()
+        assertThat(response.accessToken).isNotNull()
+        assertThat(response.accessTokenType).isEqualTo("Bearer")
+        assertThat(response.accessTokenExpiresAt).isNotNull()
+        assertThat(response.refreshToken).isEqualTo(refreshToken.tokenValue)
+        assertThat(response.refreshTokenExpiresAt).isEqualTo(refreshToken.expiresAt.toZonedDateTime())
+        assertThat(response.refreshTokenRefreshed).isFalse()
     }
 }

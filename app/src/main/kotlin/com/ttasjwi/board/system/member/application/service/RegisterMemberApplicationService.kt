@@ -46,7 +46,7 @@ internal class RegisterMemberApplicationService(
             username = event.data.username,
             nickname = event.data.nickname,
             role = event.data.roleName,
-            registeredAt = event.data.registeredAt,
+            registeredAt = event.data.registeredAt.toZonedDateTime(),
         )
     }
 }

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -19,10 +19,10 @@ class EmailVerificationTest {
         fun test() {
             val email = "nyaru@gmail.com"
             val code = "ads7fa778"
-            val codeCreatedAt = timeFixture(minute = 3)
-            val codeExpiresAt = timeFixture(minute = 8)
-            val verifiedAt = timeFixture(minute = 5)
-            val verificationExpiresAt = timeFixture(minute = 35)
+            val codeCreatedAt = appDateTimeFixture(minute = 3).toInstant()
+            val codeExpiresAt = appDateTimeFixture(minute = 8).toInstant()
+            val verifiedAt = appDateTimeFixture(minute = 5).toInstant()
+            val verificationExpiresAt = appDateTimeFixture(minute = 35).toInstant()
 
             val emailVerification = EmailVerification.restore(
                 email = email,
@@ -35,10 +35,10 @@ class EmailVerificationTest {
 
             assertThat(emailVerification.email).isEqualTo(emailFixture(email))
             assertThat(emailVerification.code).isEqualTo(code)
-            assertThat(emailVerification.codeCreatedAt).isEqualTo(codeCreatedAt)
-            assertThat(emailVerification.codeExpiresAt).isEqualTo(codeExpiresAt)
-            assertThat(emailVerification.verifiedAt).isEqualTo(verifiedAt)
-            assertThat(emailVerification.verificationExpiresAt).isEqualTo(verificationExpiresAt)
+            assertThat(emailVerification.codeCreatedAt.toInstant()).isEqualTo(codeCreatedAt)
+            assertThat(emailVerification.codeExpiresAt.toInstant()).isEqualTo(codeExpiresAt)
+            assertThat(emailVerification.verifiedAt!!.toInstant()).isEqualTo(verifiedAt)
+            assertThat(emailVerification.verificationExpiresAt!!.toInstant()).isEqualTo(verificationExpiresAt)
         }
 
     }

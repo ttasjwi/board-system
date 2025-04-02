@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.assertThat
@@ -22,7 +22,7 @@ class EmailVerificationStorageFixtureTest {
     @DisplayName("이메일 인증을 저장하고 이메일로 다시 찾을 수 있다")
     fun appendAndFind() {
         val emailVerification = emailVerificationFixtureVerified()
-        emailVerificationStorageFixture.append(emailVerification, timeFixture())
+        emailVerificationStorageFixture.append(emailVerification, appDateTimeFixture())
 
         val findEmailVerification = emailVerificationStorageFixture.findByEmailOrNull(emailVerification.email)!!
 
@@ -45,7 +45,7 @@ class EmailVerificationStorageFixtureTest {
     @DisplayName("remove 테스트")
     fun remove() {
         val emailVerification = emailVerificationFixtureVerified()
-        emailVerificationStorageFixture.append(emailVerification, timeFixture())
+        emailVerificationStorageFixture.append(emailVerification, appDateTimeFixture())
 
         emailVerificationStorageFixture.removeByEmail(emailVerification.email)
 

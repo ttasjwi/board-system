@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.common.time.fixture.timeFixture
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.spring.security.support.BearerTokenResolver
 import io.mockk.*
 import jakarta.servlet.FilterChain
@@ -94,9 +94,9 @@ class AccessTokenAuthenticationFilterTest {
         val tokenValue = "validToken"
         val accessToken = accessTokenFixture(
             memberId = 1557L, role = Role.ADMIN, tokenValue = tokenValue,
-            issuedAt = timeFixture(minute = 5), expiresAt = timeFixture(minute = 35)
+            issuedAt = appDateTimeFixture(minute = 5), expiresAt = appDateTimeFixture(minute = 35)
         )
-        val currentTime = timeFixture(minute = 13)
+        val currentTime = appDateTimeFixture(minute = 13)
 
         every { bearerTokenResolver.resolve(request) } returns tokenValue
         every { accessTokenManager.parse(tokenValue) } returns accessToken
