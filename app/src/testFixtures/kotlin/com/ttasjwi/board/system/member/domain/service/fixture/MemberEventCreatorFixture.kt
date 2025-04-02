@@ -12,7 +12,7 @@ class MemberEventCreatorFixture : MemberEventCreator {
             memberId = member.id,
             email = member.email,
             username = member.username,
-            nickname = member.nickname.value,
+            nickname = member.nickname,
             role = member.role,
             registeredAt = member.registeredAt,
         )

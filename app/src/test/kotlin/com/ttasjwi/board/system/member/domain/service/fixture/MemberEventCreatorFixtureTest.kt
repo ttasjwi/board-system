@@ -37,7 +37,7 @@ class MemberEventCreatorFixtureTest {
             assertThat(data.memberId).isEqualTo(member.id)
             assertThat(data.email).isEqualTo(member.email)
             assertThat(data.username).isEqualTo(member.username)
-            assertThat(data.nickname).isEqualTo(member.nickname.value)
+            assertThat(data.nickname).isEqualTo(member.nickname)
             assertThat(data.roleName).isEqualTo(member.role.name)
             assertThat(data.registeredAt).isEqualTo(member.registeredAt)
         }

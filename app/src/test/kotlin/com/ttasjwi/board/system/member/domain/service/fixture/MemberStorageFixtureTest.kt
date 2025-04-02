@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -176,7 +175,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("마늘오리")
+            val nickname = "마늘오리"
 
             // when
             val findMember = memberStorageFixture.findByNicknameOrNull(nickname)
@@ -310,7 +309,8 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("페이커")
+            val nickname = "페이커"
+
             // when
             val isExist = memberStorageFixture.existsByNickname(nickname)
 

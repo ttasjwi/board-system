@@ -6,10 +6,9 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
-import com.ttasjwi.board.system.member.domain.service.NicknameCreator
+import com.ttasjwi.board.system.member.domain.service.NicknameManager
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import com.ttasjwi.board.system.member.domain.service.UsernameManager
 import org.springframework.stereotype.Component
@@ -19,7 +18,7 @@ internal class RegisterMemberCommandMapper(
     private val emailFormatPolicy: EmailFormatPolicy,
     private val passwordManager: PasswordManager,
     private val usernameManager: UsernameManager,
-    private val nicknameCreator: NicknameCreator,
+    private val nicknameManager: NicknameManager,
     private val timeManager: TimeManager,
 ) {
     companion object {
@@ -90,13 +89,13 @@ internal class RegisterMemberCommandMapper(
             }
     }
 
-    private fun getNickname(nickname: String?, exceptionCollector: ValidationExceptionCollector): Nickname? {
+    private fun getNickname(nickname: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (nickname == null) {
             log.warn { "닉네임이 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("nickname"))
             return null
         }
-        return nicknameCreator.create(nickname)
+        return nicknameManager.validate(nickname)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)

@@ -7,9 +7,8 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.policy.fixture.EmailFormatPolicyFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.NicknameCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.NicknameManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.UsernameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -34,7 +33,7 @@ class RegisterMemberCommandMapperTest {
             emailFormatPolicy = EmailFormatPolicyFixture(),
             passwordManager = PasswordManagerFixture(),
             usernameManager = UsernameManagerFixture(),
-            nicknameCreator = NicknameCreatorFixture(),
+            nicknameManager = NicknameManagerFixture(),
             timeManager = timeManager,
         )
     }
@@ -57,7 +56,7 @@ class RegisterMemberCommandMapperTest {
         assertThat(command.email).isEqualTo(request.email)
         assertThat(command.rawPassword.value).isEqualTo(request.password)
         assertThat(command.username).isEqualTo(request.username!!)
-        assertThat(command.nickname).isEqualTo(nicknameFixture(request.nickname!!))
+        assertThat(command.nickname).isEqualTo(request.nickname!!)
         assertThat(command.currentTime).isEqualTo(currentTime)
     }
 
@@ -215,7 +214,7 @@ class RegisterMemberCommandMapperTest {
             email = "hello@gmail.com",
             password = "1234",
             username = "ttasjwi",
-            nickname = NicknameCreatorFixture.ERROR_NICKNAME,
+            nickname = NicknameManagerFixture.ERROR_NICKNAME,
         )
 
         val exceptionCollector = assertThrows<ValidationExceptionCollector> {

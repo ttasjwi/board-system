@@ -25,7 +25,7 @@ class SocialLoginProcessorTest {
     private lateinit var memberStorageFixture: MemberStorageFixture
     private lateinit var socialConnectionStorageFixture: SocialConnectionStorageFixture
     private lateinit var usernameManagerFixture: UsernameManagerFixture
-    private lateinit var nicknameCreatorFixture: NicknameCreatorFixture
+    private lateinit var nicknameCreatorFixture: NicknameManagerFixture
     private lateinit var refreshTokenHolderStorageFixture: RefreshTokenHolderStorageFixture
 
     @BeforeEach
@@ -33,7 +33,7 @@ class SocialLoginProcessorTest {
         memberStorageFixture = MemberStorageFixture()
         socialConnectionStorageFixture = SocialConnectionStorageFixture()
         usernameManagerFixture = UsernameManagerFixture()
-        nicknameCreatorFixture = NicknameCreatorFixture()
+        nicknameCreatorFixture = NicknameManagerFixture()
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
         socialLoginProcessor = SocialLoginProcessor(
             memberFinder = memberStorageFixture,
@@ -41,7 +41,7 @@ class SocialLoginProcessorTest {
             socialConnectionStorage = socialConnectionStorageFixture,
             passwordManager = PasswordManagerFixture(),
             usernameManager = usernameManagerFixture,
-            nicknameCreator = nicknameCreatorFixture,
+            nicknameManager = nicknameCreatorFixture,
             memberCreator = MemberCreatorFixture(),
             memberAppender = memberStorageFixture,
             authMemberCreator = AuthMemberCreatorFixture(),
@@ -159,7 +159,7 @@ class SocialLoginProcessorTest {
                 memberId = findMember.id.toString(),
                 email = findMember.email,
                 username = findMember.username,
-                nickname = findMember.nickname.value,
+                nickname = findMember.nickname,
                 role = findMember.role.name,
                 registeredAt = findMember.registeredAt.toZonedDateTime()
             )

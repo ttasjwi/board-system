@@ -1,50 +1,49 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.member.domain.exception.InvalidNicknameFormatException
-import com.ttasjwi.board.system.member.domain.model.Nickname
-import com.ttasjwi.board.system.member.domain.service.NicknameCreator
+import com.ttasjwi.board.system.member.domain.service.NicknameManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
 
-@DisplayName("NicknameCreatorImpl: 닉네임 인스턴스 생성을 책임지는 도메인 서비스")
-class NicknameCreatorImplTest {
+@DisplayName("NicknameManagerImpl: 닉네임 관련 정책, 기능을 책임지는 도메인 서비스")
+class NicknameManagerImplTest {
 
-    private lateinit var nicknameCreator: NicknameCreator
+    private lateinit var nicknameManager: NicknameManager
 
     @BeforeEach
     fun setup() {
-        nicknameCreator = NicknameCreatorImpl()
+        nicknameManager = NicknameManagerImpl()
     }
 
 
     @Nested
-    @DisplayName("create(): 닉네임을 생성하고 그 결과를 Result에 담아 반환한다.")
-    inner class Create {
+    @DisplayName("validate(): 닉네임 문자열을 검증하고 그 결과를 Result에 담아 반환한다.")
+    inner class Validate {
 
         @ParameterizedTest
         @ValueSource(strings = ["asdf", "1가2나3다", "0A1a2ab", "1가345", "4ㅏ기꾼"])
         @DisplayName("한글, 영어, 숫자를 허용한다")
         fun testRightFormat(value: String) {
-            val result = nicknameCreator.create(value)
+            val result = nicknameManager.validate(value)
             val nickname = result.getOrThrow()
 
             assertThat(result.isSuccess).isTrue()
             assertThat(nickname).isNotNull
-            assertThat(nickname.value).isEqualTo(value)
+            assertThat(nickname).isEqualTo(value)
         }
 
 
         @Test
-        @DisplayName("길이 유효성: ${Nickname.MIN_LENGTH}자 이상, ${Nickname.MAX_LENGTH}자 이하")
+        @DisplayName("길이 유효성: ${NicknameManagerImpl.MIN_LENGTH}자 이상, ${NicknameManagerImpl.MAX_LENGTH}자 이하")
         fun testSuccessLength() {
-            val minLengthValue = "a".repeat(Nickname.MIN_LENGTH)
-            val maxLengthValue = "a".repeat(Nickname.MAX_LENGTH)
+            val minLengthValue = "a".repeat(NicknameManagerImpl.MIN_LENGTH)
+            val maxLengthValue = "a".repeat(NicknameManagerImpl.MAX_LENGTH)
 
-            val minLengthResult = nicknameCreator.create(minLengthValue)
-            val maxLengthResult = nicknameCreator.create(maxLengthValue)
+            val minLengthResult = nicknameManager.validate(minLengthValue)
+            val maxLengthResult = nicknameManager.validate(maxLengthValue)
 
             assertThat(minLengthResult.isSuccess).isTrue()
             assertThat(maxLengthResult.isSuccess).isTrue()
@@ -52,15 +51,15 @@ class NicknameCreatorImplTest {
             val minLengthNickname = minLengthResult.getOrThrow()
             val maxLengthNickname = maxLengthResult.getOrThrow()
 
-            assertThat(minLengthNickname.value).isEqualTo(minLengthValue)
-            assertThat(maxLengthNickname.value).isEqualTo(maxLengthValue)
+            assertThat(minLengthNickname).isEqualTo(minLengthValue)
+            assertThat(maxLengthNickname).isEqualTo(maxLengthValue)
         }
 
         @Test
         @DisplayName("최소 글자수보다 글자수가 적으면 예외가 발생한다.")
         fun testFailureLength1() {
-            val tooShortLengthValue = "a".repeat(Nickname.MIN_LENGTH - 1)
-            val tooShortLengthNicknameResult = nicknameCreator.create(tooShortLengthValue)
+            val tooShortLengthValue = "a".repeat(NicknameManagerImpl.MIN_LENGTH - 1)
+            val tooShortLengthNicknameResult = nicknameManager.validate(tooShortLengthValue)
 
             assertThat(tooShortLengthNicknameResult.isFailure).isTrue()
             val exception = assertThrows<InvalidNicknameFormatException> { tooShortLengthNicknameResult.getOrThrow() }
@@ -70,8 +69,8 @@ class NicknameCreatorImplTest {
         @Test
         @DisplayName("최대 글자수보다 글자수가 많으면 예외가 발생한다.")
         fun testFailureLength2() {
-            val tooLongLengthValue = "a".repeat(Nickname.MAX_LENGTH + 1)
-            val tooLongLengthNicknameResult = nicknameCreator.create(tooLongLengthValue)
+            val tooLongLengthValue = "a".repeat(NicknameManagerImpl.MAX_LENGTH + 1)
+            val tooLongLengthNicknameResult = nicknameManager.validate(tooLongLengthValue)
 
             assertThat(tooLongLengthNicknameResult.isFailure).isTrue()
             val exception = assertThrows<InvalidNicknameFormatException> { tooLongLengthNicknameResult.getOrThrow() }
@@ -83,7 +82,7 @@ class NicknameCreatorImplTest {
         @ValueSource(strings = ["a badfc", "1 as가f4", "     "])
         @DisplayName("공백은 허용되지 않음. 포함되면 생성 시 예외 발생")
         fun testSpace(value: String) {
-            val result = nicknameCreator.create(value)
+            val result = nicknameManager.validate(value)
             val exception = assertThrows<InvalidNicknameFormatException> { result.getOrThrow() }
             assertThat(exception.args[2]).isEqualTo(value)
         }
@@ -93,7 +92,7 @@ class NicknameCreatorImplTest {
         @ValueSource(strings = ["!aas", "122!", "23da@", "<12334", "_1236a"])
         @DisplayName("특수문자는 사용할 수 없다. 포함되면 생성 시 예외 발생")
         fun testSpecialCharacter(value: String) {
-            val result = nicknameCreator.create(value)
+            val result = nicknameManager.validate(value)
             val exception = assertThrows<InvalidNicknameFormatException> { result.getOrThrow() }
             assertThat(exception.args[2]).isEqualTo(value)
         }
@@ -105,10 +104,10 @@ class NicknameCreatorImplTest {
     inner class CreateRandom {
 
         @Test
-        @DisplayName("랜덤 닉네임이 생성되고 길이는 ${Nickname.RANDOM_NICKNAME_LENGTH} 이다.")
+        @DisplayName("랜덤 닉네임이 생성되고 길이는 ${NicknameManagerImpl.RANDOM_NICKNAME_LENGTH} 이다.")
         fun test() {
-            val nickname = nicknameCreator.createRandom()
-            assertThat(nickname.value.length).isEqualTo(Nickname.RANDOM_NICKNAME_LENGTH)
+            val nickname = nicknameManager.createRandom()
+            assertThat(nickname.length).isEqualTo(NicknameManagerImpl.RANDOM_NICKNAME_LENGTH)
         }
     }
 }

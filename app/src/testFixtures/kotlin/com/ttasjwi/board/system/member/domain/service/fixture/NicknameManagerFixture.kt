@@ -2,11 +2,9 @@ package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
-import com.ttasjwi.board.system.member.domain.model.Nickname
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
-import com.ttasjwi.board.system.member.domain.service.NicknameCreator
+import com.ttasjwi.board.system.member.domain.service.NicknameManager
 
-class NicknameCreatorFixture : NicknameCreator {
+class NicknameManagerFixture : NicknameManager {
 
     companion object {
         const val ERROR_NICKNAME = "strange!ad;fklad!nickname"
@@ -15,8 +13,8 @@ class NicknameCreatorFixture : NicknameCreator {
     val randomNames = listOf("random1", "random2")
     internal var randomNameCursor = 0
 
-    override fun create(value: String): Result<Nickname> = kotlin.runCatching {
-        if (value == ERROR_NICKNAME) {
+    override fun validate(nickname: String): Result<String> = kotlin.runCatching {
+        if (nickname == ERROR_NICKNAME) {
             throw customExceptionFixture(
                 status = ErrorStatus.BAD_REQUEST,
                 code = "Error.InvalidNicknameFormat",
@@ -25,18 +23,12 @@ class NicknameCreatorFixture : NicknameCreator {
                 debugMessage = "닉네임 포맷 예외 - 픽스쳐"
             )
         }
-        nicknameFixture(value)
+        nickname
     }
 
-    override fun createRandom(): Nickname {
+    override fun createRandom(): String {
         val randomName = randomNames[randomNameCursor]
-
-        randomNameCursor++
-
-        if (randomNameCursor == randomNames.size) {
-            randomNameCursor = 0
-        }
-
-        return nicknameFixture(randomName)
+        randomNameCursor = (randomNameCursor + 1) % randomNames.size
+        return randomName
     }
 }

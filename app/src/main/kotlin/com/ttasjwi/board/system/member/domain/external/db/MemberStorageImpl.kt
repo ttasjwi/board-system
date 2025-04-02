@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.member.domain.external.db
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaMember
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaMemberRepository
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.service.MemberAppender
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import org.springframework.data.repository.findByIdOrNull
@@ -44,12 +43,12 @@ class MemberStorageImpl(
         return jpaMemberRepository.existsByUsername(username)
     }
 
-    override fun findByNicknameOrNull(nickname: Nickname): Member? {
-        return jpaMemberRepository.findByNicknameOrNull(nickname.value)?.restoreDomain()
+    override fun findByNicknameOrNull(nickname: String): Member? {
+        return jpaMemberRepository.findByNicknameOrNull(nickname)?.restoreDomain()
     }
 
-    override fun existsByNickname(nickname: Nickname): Boolean {
-        return jpaMemberRepository.existsByNickname(nickname.value)
+    override fun existsByNickname(nickname: String): Boolean {
+        return jpaMemberRepository.existsByNickname(nickname)
     }
 
 }

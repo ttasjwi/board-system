@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
@@ -34,7 +33,7 @@ class MemberCreatorImplTest {
         fun test() {
             val email = "jello@gmail.com"
             val username = "jello"
-            val nickname = nicknameFixture()
+            val nickname = "헬로"
             val rawPassword = rawPasswordFixture("1111")
             val currentTime = appDateTimeFixture()
             val member = memberCreator.create(

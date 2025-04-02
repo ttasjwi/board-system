@@ -35,7 +35,7 @@ class RegisterMemberApplicationServiceTest {
                 emailFormatPolicy = EmailFormatPolicyFixture(),
                 passwordManager = PasswordManagerFixture(),
                 usernameManager = UsernameManagerFixture(),
-                nicknameCreator = NicknameCreatorFixture(),
+                nicknameManager = NicknameManagerFixture(),
                 timeManager = timeManager,
             ),
             processor = RegisterMemberProcessor(

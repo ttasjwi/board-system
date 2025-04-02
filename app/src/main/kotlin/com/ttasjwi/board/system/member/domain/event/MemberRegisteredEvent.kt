@@ -31,7 +31,7 @@ internal constructor(
                 memberId = member.id,
                 email = member.email,
                 username = member.username,
-                nickname = member.nickname.value,
+                nickname = member.nickname,
                 roleName = member.role.name,
                 registeredAt = member.registeredAt,
             )

@@ -19,7 +19,7 @@ internal class SocialLoginProcessor(
     private val socialConnectionStorage: SocialConnectionStorage,
     private val passwordManager: PasswordManager,
     private val usernameManager: UsernameManager,
-    private val nicknameCreator: NicknameCreator,
+    private val nicknameManager: NicknameManager,
     private val memberCreator: MemberCreator,
     private val memberAppender: MemberAppender,
     private val authMemberCreator: AuthMemberCreator,
@@ -82,7 +82,7 @@ internal class SocialLoginProcessor(
             email = command.email,
             password = passwordManager.createRandomRawPassword(),
             username = usernameManager.createRandom(),
-            nickname = nicknameCreator.createRandom(),
+            nickname = nicknameManager.createRandom(),
             currentTime = command.currentTime,
         )
         // 회원 저장
@@ -152,7 +152,7 @@ internal class SocialLoginProcessor(
                     memberId = member.id.toString(),
                     email = member.email,
                     username = member.username,
-                    nickname = member.nickname.value,
+                    nickname = member.nickname,
                     role = member.role.name,
                     registeredAt = member.registeredAt.toZonedDateTime()
                 )

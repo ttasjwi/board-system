@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.member.application.mapper.NicknameAvailableQuery
 import com.ttasjwi.board.system.member.application.processor.NicknameAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.NicknameCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.NicknameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -23,7 +23,7 @@ class NicknameAvailableApplicationServiceTest {
         applicationService = NicknameAvailableApplicationService(
             queryMapper = NicknameAvailableQueryMapper(),
             processor = NicknameAvailableProcessor(
-                nicknameCreator = NicknameCreatorFixture(),
+                nicknameManager = NicknameManagerFixture(),
                 memberFinder = MemberStorageFixture(),
                 messageResolver = MessageResolverFixture(),
                 localeManager = LocaleManagerFixture(),

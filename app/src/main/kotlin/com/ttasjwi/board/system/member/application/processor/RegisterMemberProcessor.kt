@@ -56,7 +56,7 @@ internal class RegisterMemberProcessor(
             throw ex
         }
         if (memberFinder.existsByNickname(command.nickname)) {
-            ex = DuplicateMemberNicknameException(command.nickname.value)
+            ex = DuplicateMemberNicknameException(command.nickname)
             log.warn(ex)
             throw ex
         }

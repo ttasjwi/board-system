@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.member.domain.model.fixture.*
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -174,7 +174,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("마늘오리")
+            val nickname = "마늘오리"
 
             // when
             val findMember = memberStorageImpl.findByNicknameOrNull(nickname)
@@ -313,7 +313,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("페이커")
+            val nickname = "페이커"
 
             // when
             val isExist = memberStorageImpl.existsByNickname(nickname)

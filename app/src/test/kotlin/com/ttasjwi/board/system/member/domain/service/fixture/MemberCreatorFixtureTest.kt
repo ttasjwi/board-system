@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import org.assertj.core.api.Assertions.assertThat
@@ -30,7 +29,7 @@ class MemberCreatorFixtureTest {
         fun test() {
             val email = "hello@gmail.com"
             val username = "kyakyakya"
-            val nickname = nicknameFixture()
+            val nickname = "캬캬캬"
             val rawPassword = rawPasswordFixture("1111")
             val currentTime = appDateTimeFixture()
             val member = memberCreator.create(

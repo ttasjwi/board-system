@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgerator.IdGenerator
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
@@ -20,7 +19,7 @@ class MemberCreatorImpl(
         email: String,
         password: RawPassword,
         username: String,
-        nickname: Nickname,
+        nickname: String,
         currentTime: AppDateTime
     ): Member {
         return Member.create(

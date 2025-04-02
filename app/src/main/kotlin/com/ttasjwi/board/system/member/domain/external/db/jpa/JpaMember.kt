@@ -42,7 +42,7 @@ class JpaMember(
                 email = member.email,
                 password = member.password.value,
                 username = member.username,
-                nickname = member.nickname.value,
+                nickname = member.nickname,
                 role = member.role.name,
                 registeredAt = member.registeredAt.toLocalDateTime(),
             )

@@ -9,7 +9,6 @@ import com.ttasjwi.board.system.member.application.exception.EmailVerificationNo
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
@@ -69,7 +68,7 @@ class RegisterMemberProcessorTest {
             email = email,
             rawPassword = rawPasswordFixture("1234"),
             username = "testuser",
-            nickname = nicknameFixture("testnick"),
+            nickname = "testnick",
             currentTime = currentTime
         )
 
@@ -85,7 +84,7 @@ class RegisterMemberProcessorTest {
         assertThat(data.memberId).isNotNull()
         assertThat(data.email).isEqualTo(email)
         assertThat(data.username).isEqualTo(command.username)
-        assertThat(data.nickname).isEqualTo(command.nickname.value)
+        assertThat(data.nickname).isEqualTo(command.nickname)
         assertThat(data.roleName).isEqualTo(findMember.role.name)
         assertThat(data.registeredAt).isEqualTo(currentTime)
 
@@ -106,7 +105,7 @@ class RegisterMemberProcessorTest {
             email = registeredMember.email,
             rawPassword = rawPasswordFixture("1234"),
             username = "testuser",
-            nickname = nicknameFixture("testnick"),
+            nickname = "testnick",
             currentTime = appDateTimeFixture(minute = 6)
         )
 
@@ -120,7 +119,7 @@ class RegisterMemberProcessorTest {
             email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
             username = registeredMember.username,
-            nickname = nicknameFixture("testnick"),
+            nickname = "testnick",
             currentTime = appDateTimeFixture(minute = 6)
         )
 
@@ -148,7 +147,7 @@ class RegisterMemberProcessorTest {
             email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
             username = "testuser",
-            nickname = nicknameFixture("testnick"),
+            nickname = "testnick",
             currentTime = appDateTimeFixture(minute = 6)
         )
         assertThrows<EmailVerificationNotFoundException> { processor.register(command) }

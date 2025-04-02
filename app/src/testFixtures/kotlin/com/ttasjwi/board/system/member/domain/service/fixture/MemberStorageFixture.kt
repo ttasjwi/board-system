@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.service.MemberAppender
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 
@@ -38,12 +37,11 @@ class MemberStorageFixture : MemberAppender, MemberFinder {
         return storage.values.any { it.username == username }
     }
 
-    override fun findByNicknameOrNull(nickname: Nickname): Member? {
+    override fun findByNicknameOrNull(nickname: String): Member? {
         return storage.values.firstOrNull { it.nickname == nickname }
     }
 
-    override fun existsByNickname(nickname: Nickname): Boolean {
+    override fun existsByNickname(nickname: String): Boolean {
         return storage.values.any { it.nickname == nickname }
     }
-
 }
