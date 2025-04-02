@@ -38,7 +38,7 @@ class MemberTest {
             assertThat(member.id).isEqualTo(id)
             assertThat(member.email).isEqualTo(email)
             assertThat(member.password.value).isEqualTo(password)
-            assertThat(member.username).isEqualTo(Username.restore(username))
+            assertThat(member.username).isEqualTo(username)
             assertThat(member.nickname).isEqualTo(Nickname.restore(nickname))
             assertThat(member.role).isEqualTo(Role.restore(roleName))
             assertThat(member.registeredAt.toLocalDateTime()).isEqualTo(registeredAt)

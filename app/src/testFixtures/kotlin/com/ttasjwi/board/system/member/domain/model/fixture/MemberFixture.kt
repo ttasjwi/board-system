@@ -18,7 +18,7 @@ fun memberFixture(
         id = id,
         email = email,
         password = encodedPasswordFixture(password),
-        username = usernameFixture(username),
+        username = username,
         nickname = nicknameFixture(nickname),
         role = role,
         registeredAt = registeredAt,

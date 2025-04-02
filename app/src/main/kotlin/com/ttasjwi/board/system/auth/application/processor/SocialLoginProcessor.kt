@@ -18,7 +18,7 @@ internal class SocialLoginProcessor(
     private val socialConnectionCreator: SocialConnectionCreator,
     private val socialConnectionStorage: SocialConnectionStorage,
     private val passwordManager: PasswordManager,
-    private val usernameCreator: UsernameCreator,
+    private val usernameManager: UsernameManager,
     private val nicknameCreator: NicknameCreator,
     private val memberCreator: MemberCreator,
     private val memberAppender: MemberAppender,
@@ -81,7 +81,7 @@ internal class SocialLoginProcessor(
         val member = memberCreator.create(
             email = command.email,
             password = passwordManager.createRandomRawPassword(),
-            username = usernameCreator.createRandom(),
+            username = usernameManager.createRandom(),
             nickname = nicknameCreator.createRandom(),
             currentTime = command.currentTime,
         )
@@ -151,7 +151,7 @@ internal class SocialLoginProcessor(
                 SocialLoginResponse.CreatedMember(
                     memberId = member.id.toString(),
                     email = member.email,
-                    username = member.username.value,
+                    username = member.username,
                     nickname = member.nickname.value,
                     role = member.role.name,
                     registeredAt = member.registeredAt.toZonedDateTime()

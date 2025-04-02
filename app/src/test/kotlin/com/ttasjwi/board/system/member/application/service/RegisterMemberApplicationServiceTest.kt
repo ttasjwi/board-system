@@ -34,7 +34,7 @@ class RegisterMemberApplicationServiceTest {
             commandMapper = RegisterMemberCommandMapper(
                 emailFormatPolicy = EmailFormatPolicyFixture(),
                 passwordManager = PasswordManagerFixture(),
-                usernameCreator = UsernameCreatorFixture(),
+                usernameManager = UsernameManagerFixture(),
                 nicknameCreator = NicknameCreatorFixture(),
                 timeManager = timeManager,
             ),

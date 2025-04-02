@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.usernameFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -216,7 +215,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd1234")
+            val username = "abcd1234"
 
             // when
             val findMember = memberStorageFixture.findByUsernameOrNull(username)
@@ -342,7 +341,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd124")
+            val username = "abcd124"
             // when
             val isExist = memberStorageFixture.existsByUsername(username)
 

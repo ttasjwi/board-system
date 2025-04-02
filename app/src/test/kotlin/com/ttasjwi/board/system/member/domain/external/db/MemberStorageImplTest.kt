@@ -214,7 +214,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd1234")
+            val username = "abcd1234"
 
             // when
             val findMember = memberStorageImpl.findByUsernameOrNull(username)
@@ -346,7 +346,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd124")
+            val username = "abcd124"
             // when
             val isExist = memberStorageImpl.existsByUsername(username)
 

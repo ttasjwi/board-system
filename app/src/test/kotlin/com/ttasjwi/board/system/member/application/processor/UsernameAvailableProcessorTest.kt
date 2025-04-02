@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.member.application.dto.UsernameAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.UsernameCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.UsernameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -23,9 +23,9 @@ class UsernameAvailableProcessorTest {
     @BeforeEach
     fun setup() {
         val memberStorageFixture = MemberStorageFixture()
-        val usernameCreatorFixture = UsernameCreatorFixture()
+        val usernameManagerFixture = UsernameManagerFixture()
         processor = UsernameAvailableProcessor(
-            usernameCreator = usernameCreatorFixture,
+            usernameManager = usernameManagerFixture,
             memberFinder = memberStorageFixture,
             messageResolver = MessageResolverFixture(),
             localeManager = LocaleManagerFixture(),
@@ -44,7 +44,7 @@ class UsernameAvailableProcessorTest {
         @Test
         @DisplayName("Username 포맷이 유효하지 않을 때, Username 포맷이 유효하지 않다는 결과를 반환한다.")
         fun testInvalidFormat() {
-            val query = UsernameAvailableQuery(username = UsernameCreatorFixture.ERROR_USERNAME)
+            val query = UsernameAvailableQuery(username = UsernameManagerFixture.ERROR_USERNAME)
 
             val result = processor.checkUsernameAvailable(query)
 
@@ -58,7 +58,7 @@ class UsernameAvailableProcessorTest {
         @Test
         @DisplayName("포맷이 올바르지만 이미 사용중인 Username이면, 이미 사용 중이라는 결과를 반환한다.")
         fun testTaken() {
-            val query = UsernameAvailableQuery(username = savedMember.username.value)
+            val query = UsernameAvailableQuery(username = savedMember.username)
 
             val result = processor.checkUsernameAvailable(query)
 

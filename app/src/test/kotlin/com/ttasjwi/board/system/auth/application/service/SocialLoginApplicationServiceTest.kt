@@ -22,7 +22,7 @@ class SocialLoginApplicationServiceTest {
     private lateinit var timeManagerFixture: TimeManagerFixture
     private lateinit var memberStorageFixture: MemberStorageFixture
     private lateinit var socialConnectionStorageFixture: SocialConnectionStorageFixture
-    private lateinit var usernameCreatorFixture: UsernameCreatorFixture
+    private lateinit var usernameManagerFixture: UsernameManagerFixture
     private lateinit var nicknameCreatorFixture: NicknameCreatorFixture
     private lateinit var refreshTokenHolderStorageFixture: RefreshTokenHolderStorageFixture
 
@@ -31,7 +31,7 @@ class SocialLoginApplicationServiceTest {
         timeManagerFixture = TimeManagerFixture()
         memberStorageFixture = MemberStorageFixture()
         socialConnectionStorageFixture = SocialConnectionStorageFixture()
-        usernameCreatorFixture = UsernameCreatorFixture()
+        usernameManagerFixture = UsernameManagerFixture()
         nicknameCreatorFixture = NicknameCreatorFixture()
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
         applicationService = SocialLoginApplicationService(
@@ -43,7 +43,7 @@ class SocialLoginApplicationServiceTest {
                 socialConnectionCreator = SocialConnectionCreatorFixture(),
                 socialConnectionStorage = socialConnectionStorageFixture,
                 passwordManager = PasswordManagerFixture(),
-                usernameCreator = usernameCreatorFixture,
+                usernameManager = usernameManagerFixture,
                 nicknameCreator = nicknameCreatorFixture,
                 memberCreator = MemberCreatorFixture(),
                 memberAppender = memberStorageFixture,

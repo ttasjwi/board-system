@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.exception
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.member.domain.model.Username
+import com.ttasjwi.board.system.member.domain.service.impl.UsernameManagerImpl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -17,11 +17,11 @@ class InvalidUsernameFormatExceptionTest {
 
         assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidUsernameFormat")
-        assertThat(exception.args).containsExactly(Username.MIN_LENGTH, Username.MAX_LENGTH, usernameValue)
+        assertThat(exception.args).containsExactly(UsernameManagerImpl.MIN_LENGTH, UsernameManagerImpl.MAX_LENGTH, usernameValue)
         assertThat(exception.source).isEqualTo("username")
         assertThat(exception.message).isEqualTo(
-            "사용자아이디(username)는 ${Username.MIN_LENGTH} 자 이상 " +
-                    "${Username.MAX_LENGTH} 이하여야 하며, 영어소문자/숫자/언더바 만 허용됩니다. " +
+            "사용자아이디(username)는 ${UsernameManagerImpl.MIN_LENGTH} 자 이상 " +
+                    "${UsernameManagerImpl.MAX_LENGTH} 이하여야 하며, 영어소문자/숫자/언더바 만 허용됩니다. " +
                     "(username = $usernameValue)"
         )
     }

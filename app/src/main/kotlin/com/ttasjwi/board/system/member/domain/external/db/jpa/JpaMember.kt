@@ -8,14 +8,14 @@ import jakarta.persistence.Table
 import java.time.LocalDateTime
 
 @Entity
-@Table(name= "members")
-class JpaMember (
+@Table(name = "members")
+class JpaMember(
 
     @Id
     @Column(name = "member_id")
     val id: Long,
 
-    @Column(name = "email", unique=true, nullable = false)
+    @Column(name = "email", unique = true, nullable = false)
     var email: String,
 
     @Column(name = "password", length = 68, nullable = false)
@@ -41,7 +41,7 @@ class JpaMember (
                 id = member.id,
                 email = member.email,
                 password = member.password.value,
-                username = member.username.value,
+                username = member.username,
                 nickname = member.nickname.value,
                 role = member.role.name,
                 registeredAt = member.registeredAt.toLocalDateTime(),

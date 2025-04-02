@@ -11,7 +11,7 @@ class MemberEventCreatorFixture : MemberEventCreator {
         return memberRegisteredEventFixture(
             memberId = member.id,
             email = member.email,
-            username = member.username.value,
+            username = member.username,
             nickname = member.nickname.value,
             role = member.role,
             registeredAt = member.registeredAt,

@@ -7,7 +7,10 @@ import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNick
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberUsernameException
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.*
+import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
+import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -65,7 +68,7 @@ class RegisterMemberProcessorTest {
         val command = RegisterMemberCommand(
             email = email,
             rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
+            username = "testuser",
             nickname = nicknameFixture("testnick"),
             currentTime = currentTime
         )
@@ -81,7 +84,7 @@ class RegisterMemberProcessorTest {
         assertThat(event.occurredAt).isEqualTo(currentTime)
         assertThat(data.memberId).isNotNull()
         assertThat(data.email).isEqualTo(email)
-        assertThat(data.username).isEqualTo(command.username.value)
+        assertThat(data.username).isEqualTo(command.username)
         assertThat(data.nickname).isEqualTo(command.nickname.value)
         assertThat(data.roleName).isEqualTo(findMember.role.name)
         assertThat(data.registeredAt).isEqualTo(currentTime)
@@ -102,7 +105,7 @@ class RegisterMemberProcessorTest {
         val command = RegisterMemberCommand(
             email = registeredMember.email,
             rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
+            username = "testuser",
             nickname = nicknameFixture("testnick"),
             currentTime = appDateTimeFixture(minute = 6)
         )
@@ -130,7 +133,7 @@ class RegisterMemberProcessorTest {
         val command = RegisterMemberCommand(
             email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
+            username = "testuser",
             nickname = registeredMember.nickname,
             currentTime = appDateTimeFixture(minute = 6)
         )
@@ -144,7 +147,7 @@ class RegisterMemberProcessorTest {
         val command = RegisterMemberCommand(
             email = "hello@gmail.com",
             rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
+            username = "testuser",
             nickname = nicknameFixture("testnick"),
             currentTime = appDateTimeFixture(minute = 6)
         )

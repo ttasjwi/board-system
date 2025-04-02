@@ -6,7 +6,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-
 @DisplayName("MemberFixture 테스트")
 class MemberFixtureTest {
 
@@ -47,7 +46,7 @@ class MemberFixtureTest {
         assertThat(member.id).isEqualTo(id)
         assertThat(member.email).isEqualTo(email)
         assertThat(member.password.value).isEqualTo(encodedPasswordFixture(password).value)
-        assertThat(member.username).isEqualTo(usernameFixture(username))
+        assertThat(member.username).isEqualTo(username)
         assertThat(member.nickname).isEqualTo(nicknameFixture(nickname))
         assertThat(member.role).isEqualTo(role)
         assertThat(member.registeredAt).isEqualTo(registeredAt)

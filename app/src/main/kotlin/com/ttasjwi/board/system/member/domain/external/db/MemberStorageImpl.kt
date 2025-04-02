@@ -2,7 +2,8 @@ package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaMember
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaMemberRepository
-import com.ttasjwi.board.system.member.domain.model.*
+import com.ttasjwi.board.system.member.domain.model.Member
+import com.ttasjwi.board.system.member.domain.model.Nickname
 import com.ttasjwi.board.system.member.domain.service.MemberAppender
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import org.springframework.data.repository.findByIdOrNull
@@ -35,12 +36,12 @@ class MemberStorageImpl(
         return jpaMemberRepository.existsByEmail(email)
     }
 
-    override fun findByUsernameOrNull(username: Username): Member? {
-        return jpaMemberRepository.findByUsernameOrNull(username.value)?.restoreDomain()
+    override fun findByUsernameOrNull(username: String): Member? {
+        return jpaMemberRepository.findByUsernameOrNull(username)?.restoreDomain()
     }
 
-    override fun existsByUsername(username: Username): Boolean {
-        return jpaMemberRepository.existsByUsername(username.value)
+    override fun existsByUsername(username: String): Boolean {
+        return jpaMemberRepository.existsByUsername(username)
     }
 
     override fun findByNicknameOrNull(nickname: Nickname): Member? {

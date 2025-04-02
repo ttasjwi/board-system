@@ -4,40 +4,39 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("UsernameCreatorFixture: 사용자 아이디(username) 생성기 픽스쳐")
-class UsernameCreatorFixtureTest {
+@DisplayName("UsernameManagerFixture: 사용자아이디(username) 관련 정책, 기능을 책임지는 도메인 서비스 픽스쳐")
+class UsernameManagerFixtureTest {
 
 
-    private lateinit var usernameCreatorFixture: UsernameCreatorFixture
+    private lateinit var usernameManagerFixture: UsernameManagerFixture
 
     @BeforeEach
     fun setup() {
-        this.usernameCreatorFixture = UsernameCreatorFixture()
+        this.usernameManagerFixture = UsernameManagerFixture()
     }
 
     @Nested
-    @DisplayName("create : 문자열로부터 Username 인스턴스를 생성하고 그 결과를 Result 로 담아 반환한다.")
-    inner class Create {
-
+    @DisplayName("validate() : 사용자 아이디를 검증하고, 그 결과를 Result 로 담아 반환한다.")
+    inner class Validate {
 
         @Test
         @DisplayName("성공하면 그 값을 가진 Username 을 Result 에 담아 반환한다.")
         fun testSuccess() {
             val value = "test"
 
-            val result = usernameCreatorFixture.create(value)
+            val result = usernameManagerFixture.validate(value)
             val username = result.getOrThrow()
 
             assertThat(result.isSuccess).isTrue()
-            assertThat(username.value).isEqualTo(value)
+            assertThat(username).isEqualTo(value)
         }
 
         @Test
         @DisplayName("ERROR_USERNAME 을 전달하면 실패한다.")
         fun testFailure() {
-            val value = UsernameCreatorFixture.ERROR_USERNAME
+            val value = UsernameManagerFixture.ERROR_USERNAME
 
-            val result = usernameCreatorFixture.create(value)
+            val result = usernameManagerFixture.validate(value)
             val exception = assertThrows<CustomException> { result.getOrThrow() }
 
 
@@ -53,31 +52,31 @@ class UsernameCreatorFixtureTest {
         @Test
         @DisplayName("최초 호출하면 0번째 인덱스 요소의 username이 생성됨")
         fun test1() {
-            val username = usernameCreatorFixture.createRandom()
+            val username = usernameManagerFixture.createRandom()
 
-            assertThat(username.value).isEqualTo(usernameCreatorFixture.randomNames[0])
-            assertThat(usernameCreatorFixture.randomNameCursor).isEqualTo(1)
+            assertThat(username).isEqualTo(usernameManagerFixture.randomNames[0])
+            assertThat(usernameManagerFixture.randomNameCursor).isEqualTo(1)
         }
 
         @Test
         @DisplayName("2번째 호출하면 1번째 인덱스 요소의 username이 생성됨")
         fun test2() {
-            usernameCreatorFixture.createRandom()
-            val username = usernameCreatorFixture.createRandom()
+            usernameManagerFixture.createRandom()
+            val username = usernameManagerFixture.createRandom()
 
-            assertThat(username.value).isEqualTo(usernameCreatorFixture.randomNames[1])
-            assertThat(usernameCreatorFixture.randomNameCursor).isEqualTo(0)
+            assertThat(username).isEqualTo(usernameManagerFixture.randomNames[1])
+            assertThat(usernameManagerFixture.randomNameCursor).isEqualTo(0)
         }
 
         @Test
         @DisplayName("3번째 호출하면 0번째 인덱스 요소의 username이 생성됨")
         fun test3() {
-            usernameCreatorFixture.createRandom()
-            usernameCreatorFixture.createRandom()
-            val username = usernameCreatorFixture.createRandom()
+            usernameManagerFixture.createRandom()
+            usernameManagerFixture.createRandom()
+            val username = usernameManagerFixture.createRandom()
 
-            assertThat(username.value).isEqualTo(usernameCreatorFixture.randomNames[0])
-            assertThat(usernameCreatorFixture.randomNameCursor).isEqualTo(1)
+            assertThat(username).isEqualTo(usernameManagerFixture.randomNames[0])
+            assertThat(usernameManagerFixture.randomNameCursor).isEqualTo(1)
         }
     }
 }

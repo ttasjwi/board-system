@@ -9,7 +9,7 @@ internal constructor(
     val id: Long,
     email: String,
     password: EncodedPassword,
-    username: Username,
+    username: String,
     nickname: Nickname,
     role: Role,
     val registeredAt: AppDateTime,
@@ -21,7 +21,7 @@ internal constructor(
     var password: EncodedPassword = password
         private set
 
-    var username: Username = username
+    var username: String = username
         private set
 
     var nickname: Nickname = nickname
@@ -39,7 +39,7 @@ internal constructor(
             id: Long,
             email: String,
             password: EncodedPassword,
-            username: Username,
+            username: String,
             nickname: Nickname,
             registeredAt: AppDateTime,
         ): Member {
@@ -67,7 +67,7 @@ internal constructor(
                 id = id,
                 email = email,
                 password = EncodedPassword.restore(password),
-                username = Username.restore(username),
+                username = username,
                 nickname = Nickname.restore(nickname),
                 role = Role.restore(roleName),
                 registeredAt = AppDateTime.from(registeredAt)

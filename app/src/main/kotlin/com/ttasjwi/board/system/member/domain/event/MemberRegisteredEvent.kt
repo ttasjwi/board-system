@@ -30,7 +30,7 @@ internal constructor(
             return MemberRegisteredEvent(
                 memberId = member.id,
                 email = member.email,
-                username = member.username.value,
+                username = member.username,
                 nickname = member.nickname.value,
                 roleName = member.role.name,
                 registeredAt = member.registeredAt,

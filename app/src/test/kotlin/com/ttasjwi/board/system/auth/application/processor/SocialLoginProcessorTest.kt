@@ -24,7 +24,7 @@ class SocialLoginProcessorTest {
     private lateinit var socialLoginProcessor: SocialLoginProcessor
     private lateinit var memberStorageFixture: MemberStorageFixture
     private lateinit var socialConnectionStorageFixture: SocialConnectionStorageFixture
-    private lateinit var usernameCreatorFixture: UsernameCreatorFixture
+    private lateinit var usernameManagerFixture: UsernameManagerFixture
     private lateinit var nicknameCreatorFixture: NicknameCreatorFixture
     private lateinit var refreshTokenHolderStorageFixture: RefreshTokenHolderStorageFixture
 
@@ -32,7 +32,7 @@ class SocialLoginProcessorTest {
     fun setup() {
         memberStorageFixture = MemberStorageFixture()
         socialConnectionStorageFixture = SocialConnectionStorageFixture()
-        usernameCreatorFixture = UsernameCreatorFixture()
+        usernameManagerFixture = UsernameManagerFixture()
         nicknameCreatorFixture = NicknameCreatorFixture()
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
         socialLoginProcessor = SocialLoginProcessor(
@@ -40,7 +40,7 @@ class SocialLoginProcessorTest {
             socialConnectionCreator = SocialConnectionCreatorFixture(),
             socialConnectionStorage = socialConnectionStorageFixture,
             passwordManager = PasswordManagerFixture(),
-            usernameCreator = usernameCreatorFixture,
+            usernameManager = usernameManagerFixture,
             nicknameCreator = nicknameCreatorFixture,
             memberCreator = MemberCreatorFixture(),
             memberAppender = memberStorageFixture,
@@ -158,7 +158,7 @@ class SocialLoginProcessorTest {
             SocialLoginResponse.CreatedMember(
                 memberId = findMember.id.toString(),
                 email = findMember.email,
-                username = findMember.username.value,
+                username = findMember.username,
                 nickname = findMember.nickname.value,
                 role = findMember.role.name,
                 registeredAt = findMember.registeredAt.toZonedDateTime()
