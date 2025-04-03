@@ -3,10 +3,8 @@ package com.ttasjwi.board.system.auth.domain.service.impl
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.auth.domain.external.fixture.ExternalRefreshTokenManagerFixture
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
-import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
@@ -48,7 +46,7 @@ class RefreshTokenManagerImplTest {
             // then
             assertThat(refreshToken.memberId).isEqualTo(memberId)
             assertThat(refreshToken.refreshTokenId).isNotNull
-            assertThat(refreshToken.refreshTokenId.value.length).isEqualTo(RefreshTokenId.REFRESH_TOKEN_ID_LENGTH)
+            assertThat(refreshToken.refreshTokenId.length).isEqualTo(RefreshTokenManagerImpl.REFRESH_TOKEN_ID_LENGTH)
             assertThat(refreshToken.issuedAt).isEqualTo(issuedAt)
             assertThat(refreshToken.expiresAt).isEqualTo(issuedAt.plusHours(RefreshToken.VALIDITY_HOURS))
             assertThat(refreshToken.tokenValue).isNotNull()
@@ -70,7 +68,7 @@ class RefreshTokenManagerImplTest {
 
             // then
             assertThat(accessToken.memberId).isEqualTo(144L)
-            assertThat(accessToken.refreshTokenId.value).isEqualTo("abcdef")
+            assertThat(accessToken.refreshTokenId).isEqualTo("abcdef")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 3))
             assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(dayOfMonth = 2, minute = 3))
@@ -93,7 +91,7 @@ class RefreshTokenManagerImplTest {
             )
             val refreshTokenHolder = refreshTokenHolderFixture(
                 memberId = 123L,
-                tokens = mutableMapOf(refreshTokenIdFixture("abc") to refreshToken)
+                tokens = mutableMapOf("abc" to refreshToken)
             )
             val currentTime = appDateTimeFixture(dayOfMonth = 1, minute = 5)
 
@@ -114,7 +112,7 @@ class RefreshTokenManagerImplTest {
             )
             val refreshTokenHolder = refreshTokenHolderFixture(
                 memberId = 123L,
-                tokens = mutableMapOf(refreshTokenIdFixture("abc") to refreshToken)
+                tokens = mutableMapOf("abc" to refreshToken)
             )
             val currentTime = appDateTimeFixture(dayOfMonth = 2, minute = 10)
 
@@ -155,7 +153,7 @@ class RefreshTokenManagerImplTest {
                 )
             }
             // then
-            assertThat(ex.debugMessage).isEqualTo("리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId.value})")
+            assertThat(ex.debugMessage).isEqualTo("리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId})")
         }
     }
 

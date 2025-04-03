@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.ZonedDateTime
@@ -19,15 +18,15 @@ class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {
 
     override fun generate(
         memberId: Long,
-        refreshTokenId: RefreshTokenId,
+        refreshTokenId: String,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): RefreshToken {
-        val tokenValue = makeTokenValue(memberId, refreshTokenId.value, issuedAt, expiresAt)
+        val tokenValue = makeTokenValue(memberId, refreshTokenId, issuedAt, expiresAt)
 
         return refreshTokenFixture(
             memberId = memberId,
-            refreshTokenId = refreshTokenId.value,
+            refreshTokenId = refreshTokenId,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
             expiresAt = expiresAt

@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
-import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
@@ -201,7 +200,7 @@ class SocialLoginProcessorTest {
                 memberId = member.id,
                 role = member.role,
                 tokens = mutableMapOf(
-                    refreshTokenIdFixture("tokenId1") to refreshTokenFixture(
+                    "tokenId1" to refreshTokenFixture(
                         memberId = member.id,
                         refreshTokenId = "tokenId1",
                         tokenValue = "tokenValue",

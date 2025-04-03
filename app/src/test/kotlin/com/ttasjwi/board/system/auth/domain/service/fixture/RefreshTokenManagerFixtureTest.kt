@@ -64,7 +64,7 @@ class RefreshTokenManagerFixtureTest {
 
             // then
             assertThat(accessToken.memberId).isEqualTo(144L)
-            assertThat(accessToken.refreshTokenId.value).isEqualTo("abcd")
+            assertThat(accessToken.refreshTokenId).isEqualTo("abcd")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 3))
             assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(dayOfMonth = 2, minute = 3))

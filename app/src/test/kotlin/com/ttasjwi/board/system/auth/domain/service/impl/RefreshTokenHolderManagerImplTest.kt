@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.auth.domain.service.impl
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
@@ -116,7 +115,7 @@ class RefreshTokenHolderManagerImplTest {
                     "새로 토큰을 추가하면 발급 일이 가장 빠른(오래된) 토큰을 만료시킨다."
         )
         fun caseMaxCount() {
-            val tokens = mutableMapOf<RefreshTokenId, RefreshToken>()
+            val tokens = mutableMapOf<String, RefreshToken>()
 
             val firstToken = refreshTokenFixture(
                 memberId = 1L,
@@ -170,7 +169,8 @@ class RefreshTokenHolderManagerImplTest {
             )
 
             // when
-            val changedRefreshTokenHolder = refreshTokenHolderManager.changeRefreshToken(holder, previousToken, newToken)
+            val changedRefreshTokenHolder =
+                refreshTokenHolderManager.changeRefreshToken(holder, previousToken, newToken)
 
             // then
             val tokens = changedRefreshTokenHolder.getTokens()

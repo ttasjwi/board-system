@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.auth.domain.external.fixture
 
-import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -32,7 +31,7 @@ class ExternalRefreshTokenManagerFixtureTest {
         fun test() {
             // given
             val memberId = 144L
-            val refreshTokenId = refreshTokenIdFixture("abcdef")
+            val refreshTokenId = "abcdef"
             val issuedAt = appDateTimeFixture(minute = 3)
             val expiresAt = appDateTimeFixture(dayOfMonth = 2, minute = 3)
 
@@ -66,7 +65,7 @@ class ExternalRefreshTokenManagerFixtureTest {
 
             // then
             assertThat(accessToken.memberId).isEqualTo(144L)
-            assertThat(accessToken.refreshTokenId.value).isEqualTo("abcdef")
+            assertThat(accessToken.refreshTokenId).isEqualTo("abcdef")
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 3))
             assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(dayOfMonth = 2, minute = 3))

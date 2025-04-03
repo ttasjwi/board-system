@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 
 import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatException
-import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
@@ -88,7 +87,7 @@ class ExternalAccessTokenManagerImplTest : IntegrationTest() {
         @DisplayName("리프레시 토큰을 파싱하려 시도하면 예외가 발생한다.")
         fun test3() {
             val memberId = 1L
-            val refreshTokenId = refreshTokenIdFixture("abcdef")
+            val refreshTokenId = "abcdef"
             val refreshToken = externalRefreshTokenManager.generate(memberId, refreshTokenId, issuedAt, expiresAt)
             val tokenValue = refreshToken.tokenValue
 

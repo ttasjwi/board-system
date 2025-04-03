@@ -29,7 +29,7 @@ private fun RefreshToken.Companion.testCreate(
 ): RefreshToken {
     return RefreshToken(
         memberId = memberId,
-        refreshTokenId = refreshTokenIdFixture(refreshTokenId),
+        refreshTokenId = refreshTokenId,
         tokenValue = tokenValue,
         issuedAt = issuedAt,
         expiresAt = expiresAt

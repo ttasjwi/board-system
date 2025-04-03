@@ -8,7 +8,7 @@ import java.time.Instant
 class RefreshToken
 internal constructor(
     val memberId: Long,
-    val refreshTokenId: RefreshTokenId,
+    val refreshTokenId: String,
     val tokenValue: String,
     val issuedAt: AppDateTime,
     val expiresAt: AppDateTime,
@@ -30,7 +30,7 @@ internal constructor(
         ): RefreshToken {
             return RefreshToken(
                 memberId = memberId,
-                refreshTokenId = RefreshTokenId.restore(refreshTokenId),
+                refreshTokenId = refreshTokenId,
                 tokenValue = tokenValue,
                 issuedAt = AppDateTime.from(issuedAt),
                 expiresAt = AppDateTime.from(expiresAt)

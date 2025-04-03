@@ -13,10 +13,10 @@ import java.time.ZonedDateTime
 class RefreshTokenHolder
 internal constructor(
     val authMember: AuthMember,
-    tokens: MutableMap<RefreshTokenId, RefreshToken>
+    tokens: MutableMap<String, RefreshToken>
 ) {
 
-    private val _tokens: MutableMap<RefreshTokenId, RefreshToken> = tokens
+    private val _tokens: MutableMap<String, RefreshToken> = tokens
 
     companion object {
 
@@ -34,7 +34,7 @@ internal constructor(
         fun restore(
             memberId: Long,
             roleName: String,
-            tokens: MutableMap<RefreshTokenId, RefreshToken>
+            tokens: MutableMap<String, RefreshToken>
         ): RefreshTokenHolder {
             return RefreshTokenHolder(
                 authMember = AuthMember.restore(
@@ -64,7 +64,7 @@ internal constructor(
         _tokens.entries.removeIf { currentTime >= it.value.expiresAt }
     }
 
-    fun getTokens(): Map<RefreshTokenId, RefreshToken> {
+    fun getTokens(): Map<String, RefreshToken> {
         return _tokens.toMap()
     }
 
@@ -92,7 +92,7 @@ internal constructor(
         // 토큰이 없을 때
         if (!_tokens.containsKey(refreshToken.refreshTokenId)) {
             val ex = RefreshTokenExpiredException(
-                debugMessage = "리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId.value})"
+                debugMessage = "리프레시 토큰이 로그아웃 또는 동시토큰 제한 등의 이유로 토큰이 만료됨. (memberId=${refreshToken.memberId},refreshTokenId=${refreshToken.refreshTokenId})"
             )
             log.warn(ex)
             throw ex
