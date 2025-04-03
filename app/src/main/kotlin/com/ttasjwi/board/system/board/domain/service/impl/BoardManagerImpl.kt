@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.impl
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardDescription
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
@@ -15,7 +14,7 @@ class BoardManagerImpl : BoardManager {
 
     override fun create(
         name: String,
-        description: BoardDescription,
+        description: String,
         managerId: Long,
         slug: BoardSlug,
         currentTime: AppDateTime

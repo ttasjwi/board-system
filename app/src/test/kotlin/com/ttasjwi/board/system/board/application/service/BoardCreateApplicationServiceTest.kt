@@ -46,7 +46,7 @@ class BoardCreateApplicationServiceTest {
             ),
             commandMapper = BoardCreateCommandMapper(
                 boardNameManager = BoardNameManagerFixture(),
-                boardDescriptionCreator = BoardDescriptionCreatorFixture(),
+                boardDescriptionManager = BoardDescriptionManagerFixture(),
                 boardSlugCreator = BoardSlugCreatorFixture(),
                 authMemberLoader = authMemberLoader,
                 timeManager = timeManager

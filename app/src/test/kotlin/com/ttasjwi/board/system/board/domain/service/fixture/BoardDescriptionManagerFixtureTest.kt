@@ -1,19 +1,18 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
-import com.ttasjwi.board.system.board.domain.model.fixture.boardDescriptionFixture
-import com.ttasjwi.board.system.board.domain.service.BoardDescriptionCreator
+import com.ttasjwi.board.system.board.domain.service.BoardDescriptionManager
 import com.ttasjwi.board.system.common.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("BoardDescriptionCreator 픽스쳐 테스트")
-class BoardDescriptionCreatorFixtureTest {
+@DisplayName("BoardDescriptionManager 픽스쳐 테스트")
+class BoardDescriptionManagerFixtureTest {
 
-    private lateinit var boardDescriptionCreatorFixture: BoardDescriptionCreator
+    private lateinit var boardDescriptionManagerFixture: BoardDescriptionManager
 
     @BeforeEach
     fun setup() {
-        boardDescriptionCreatorFixture = BoardDescriptionCreatorFixture()
+        boardDescriptionManagerFixture = BoardDescriptionManagerFixture()
     }
 
     @Nested
@@ -28,10 +27,10 @@ class BoardDescriptionCreatorFixtureTest {
             val value = "설명"
 
             // when
-            val description = boardDescriptionCreatorFixture.create(value).getOrThrow()
+            val description = boardDescriptionManagerFixture.create(value).getOrThrow()
 
             // then
-            assertThat(description).isEqualTo(boardDescriptionFixture(value))
+            assertThat(description).isEqualTo(value)
         }
 
 
@@ -39,10 +38,10 @@ class BoardDescriptionCreatorFixtureTest {
         @DisplayName("실패 테스트")
         fun failure() {
             // given
-            val value = BoardDescriptionCreatorFixture.ERROR_DESCRIPTION
+            val value = BoardDescriptionManagerFixture.ERROR_DESCRIPTION
 
             // when
-            val exception = assertThrows<CustomException> { boardDescriptionCreatorFixture.create(value).getOrThrow() }
+            val exception = assertThrows<CustomException> { boardDescriptionManagerFixture.create(value).getOrThrow() }
 
             // then
             assertThat(exception.message).isEqualTo("게시판 설명 포맷 예외 - 테스트")

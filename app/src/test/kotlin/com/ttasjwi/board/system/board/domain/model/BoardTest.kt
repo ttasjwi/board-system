@@ -33,7 +33,7 @@ class BoardTest {
 
             assertThat(board.id).isEqualTo(id)
             assertThat(board.name).isEqualTo(name)
-            assertThat(board.description).isEqualTo(boardDescriptionFixture(description))
+            assertThat(board.description).isEqualTo(description)
             assertThat(board.managerId).isEqualTo(managerId)
             assertThat(board.slug).isEqualTo(boardSlugFixture(slug))
             assertThat(board.createdAt.toLocalDateTime()).isEqualTo(createdAt)

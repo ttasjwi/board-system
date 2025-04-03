@@ -15,7 +15,7 @@ fun boardFixture(
     return Board(
         id = id,
         name = name,
-        description = boardDescriptionFixture(description),
+        description = description,
         managerId = managerId,
         slug = boardSlugFixture(slug),
         createdAt = createdAt,

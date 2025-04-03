@@ -10,7 +10,7 @@ class Board
 internal constructor(
     val id: Long,
     name: String,
-    description: BoardDescription,
+    description: String,
     managerId: Long,
     slug: BoardSlug,
     val createdAt: AppDateTime,
@@ -19,7 +19,7 @@ internal constructor(
     var name: String = name
         private set
 
-    var description: BoardDescription = description
+    var description: String = description
         private set
 
     var managerId: Long = managerId
@@ -33,7 +33,7 @@ internal constructor(
         internal fun create(
             id: Long,
             name: String,
-            description: BoardDescription,
+            description: String,
             managerId: Long,
             slug: BoardSlug,
             currentTime: AppDateTime
@@ -59,7 +59,7 @@ internal constructor(
             return Board(
                 id = id,
                 name = name,
-                description = BoardDescription.restore(description),
+                description = description,
                 managerId = managerId,
                 slug = BoardSlug.restore(slug),
                 createdAt = AppDateTime.from(createdAt),

@@ -66,7 +66,7 @@ internal class BoardCreateProcessor(
         return BoardCreateResponse(
             boardId = board.id.toString(),
             name = board.name,
-            description = board.description.value,
+            description = board.description,
             managerId = board.managerId.toString(),
             slug = board.slug.value,
             createdAt = board.createdAt.toZonedDateTime()

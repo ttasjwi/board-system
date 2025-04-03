@@ -15,19 +15,19 @@ class JpaBoard(
     @Column(name = "board_id")
     val id: Long,
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", length = 16, unique = true, nullable = false)
     var name: String,
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 100, nullable = false)
     var description: String,
 
     @Column(name = "manager_id", nullable = false)
     var managerId: Long,
 
-    @Column(name = "slug", unique = true, nullable = false)
+    @Column(name = "slug", length = 20, unique = true, nullable = false)
     var slug: String,
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", columnDefinition = "DATETIME", nullable = false)
     val createdAt: LocalDateTime,
 ) {
 
@@ -37,7 +37,7 @@ class JpaBoard(
             return JpaBoard(
                 id = board.id,
                 name = board.name,
-                description = board.description.value,
+                description = board.description,
                 managerId = board.managerId,
                 slug = board.slug.value,
                 createdAt = board.createdAt.toLocalDateTime(),

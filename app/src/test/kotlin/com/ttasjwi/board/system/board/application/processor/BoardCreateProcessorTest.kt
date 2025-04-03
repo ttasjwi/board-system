@@ -4,7 +4,8 @@ import com.ttasjwi.board.system.board.application.dto.BoardCreateCommand
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardNameException
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardSlugException
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.fixture.*
+import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
+import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardStorageFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
@@ -46,7 +47,7 @@ class BoardCreateProcessorTest {
         // given
         val command = BoardCreateCommand(
             boardName = "고양이",
-            boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
+            boardDescription = "고양이 게시판입니다.",
             boardSlug = boardSlugFixture("cat"),
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
@@ -60,7 +61,7 @@ class BoardCreateProcessorTest {
 
         assertThat(response.boardId).isNotNull()
         assertThat(response.name).isEqualTo(command.boardName)
-        assertThat(response.description).isEqualTo(command.boardDescription.value)
+        assertThat(response.description).isEqualTo(command.boardDescription)
         assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
         assertThat(response.slug).isEqualTo(command.boardSlug.value)
         assertThat(response.createdAt).isEqualTo(command.currentTime.toZonedDateTime())
@@ -74,7 +75,7 @@ class BoardCreateProcessorTest {
         // given
         val command = BoardCreateCommand(
             boardName = savedBoard.name,
-            boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
+            boardDescription = "고양이 게시판입니다.",
             boardSlug = boardSlugFixture("cat"),
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
@@ -90,7 +91,7 @@ class BoardCreateProcessorTest {
         // given
         val command = BoardCreateCommand(
             boardName = "고양이",
-            boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
+            boardDescription = "고양이 게시판입니다.",
             boardSlug = savedBoard.slug,
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)

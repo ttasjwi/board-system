@@ -1,9 +1,8 @@
 package com.ttasjwi.board.system.board.application.mapper
 
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.domain.model.fixture.boardDescriptionFixture
 import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardDescriptionCreatorFixture
+import com.ttasjwi.board.system.board.domain.service.fixture.BoardDescriptionManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardNameManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardSlugCreatorFixture
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
@@ -44,7 +43,7 @@ class BoardCreateCommandMapperTest {
 
         commandMapper = BoardCreateCommandMapper(
             boardNameManager = BoardNameManagerFixture(),
-            boardDescriptionCreator = BoardDescriptionCreatorFixture(),
+            boardDescriptionManager = BoardDescriptionManagerFixture(),
             boardSlugCreator = BoardSlugCreatorFixture(),
             authMemberLoader = authMemberLoader,
             timeManager = timeManager
@@ -66,7 +65,7 @@ class BoardCreateCommandMapperTest {
 
         // then
         assertThat(command.boardName).isEqualTo(request.name!!)
-        assertThat(command.boardDescription).isEqualTo(boardDescriptionFixture(request.description!!))
+        assertThat(command.boardDescription).isEqualTo(request.description!!)
         assertThat(command.boardSlug).isEqualTo(boardSlugFixture(request.slug!!))
         assertThat(command.currentTime).isEqualTo(currentTime)
         assertThat(command.creator).isEqualTo(authMember)
@@ -176,7 +175,7 @@ class BoardCreateCommandMapperTest {
         // given
         val request = BoardCreateRequest(
             name = "고양이",
-            description = BoardDescriptionCreatorFixture.ERROR_DESCRIPTION,
+            description = BoardDescriptionManagerFixture.ERROR_DESCRIPTION,
             slug = "cat"
         )
 
