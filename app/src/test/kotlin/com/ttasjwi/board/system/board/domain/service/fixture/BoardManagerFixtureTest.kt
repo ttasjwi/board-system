@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -23,7 +22,7 @@ class BoardManagerFixtureTest {
         val name = "경제"
         val description = "경제 게시판입니다."
         val managerId = 13L
-        val slug = boardSlugFixture("economy")
+        val slug = "economy"
         val currentTime = appDateTimeFixture()
 
         val board = boardManagerFixture.create(

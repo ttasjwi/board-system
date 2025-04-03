@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.board.domain.external.db
 import com.ttasjwi.board.system.board.domain.external.db.jpa.JpaBoard
 import com.ttasjwi.board.system.board.domain.external.db.jpa.JpaBoardRepository
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
@@ -27,11 +26,11 @@ class BoardStorageImpl(
         return jpaBoardRepository.existsByName(name)
     }
 
-    override fun existsBySlug(slug: BoardSlug): Boolean {
-        return jpaBoardRepository.existsBySlug(slug.value)
+    override fun existsBySlug(slug: String): Boolean {
+        return jpaBoardRepository.existsBySlug(slug)
     }
 
-    override fun findBySlugOrNull(slug: BoardSlug): Board? {
-        return jpaBoardRepository.findBySlugOrNull(slug.value)?.restoreDomain()
+    override fun findBySlugOrNull(slug: String): Board? {
+        return jpaBoardRepository.findBySlugOrNull(slug)?.restoreDomain()
     }
 }

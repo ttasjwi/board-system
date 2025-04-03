@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.impl
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgerator.IdGenerator
@@ -16,7 +15,7 @@ class BoardManagerImpl : BoardManager {
         name: String,
         description: String,
         managerId: Long,
-        slug: BoardSlug,
+        slug: String,
         currentTime: AppDateTime
     ): Board {
         return Board.create(

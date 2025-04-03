@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain.model
 
-import com.ttasjwi.board.system.board.domain.model.fixture.*
+import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -35,7 +35,7 @@ class BoardTest {
             assertThat(board.name).isEqualTo(name)
             assertThat(board.description).isEqualTo(description)
             assertThat(board.managerId).isEqualTo(managerId)
-            assertThat(board.slug).isEqualTo(boardSlugFixture(slug))
+            assertThat(board.slug).isEqualTo(slug)
             assertThat(board.createdAt.toLocalDateTime()).isEqualTo(createdAt)
         }
     }

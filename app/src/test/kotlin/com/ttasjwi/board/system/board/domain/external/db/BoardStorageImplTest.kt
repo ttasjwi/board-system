@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.board.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -150,7 +149,7 @@ class BoardStorageImplTest : IntegrationTest() {
         fun test2() {
             // given
             // when
-            val exists = boardStorageImpl.existsBySlug(boardSlugFixture("food"))
+            val exists = boardStorageImpl.existsBySlug("food")
             // then
             assertThat(exists).isFalse()
         }
@@ -189,7 +188,7 @@ class BoardStorageImplTest : IntegrationTest() {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val slug = boardSlugFixture("food")
+            val slug = "food"
 
             // when
             val board = boardStorageImpl.findBySlugOrNull(slug)

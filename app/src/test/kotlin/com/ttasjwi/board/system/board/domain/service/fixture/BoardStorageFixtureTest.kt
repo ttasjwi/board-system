@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -148,7 +147,7 @@ class BoardStorageFixtureTest {
         fun test2() {
             // given
             // when
-            val exists = boardStorageFixture.existsBySlug(boardSlugFixture("food"))
+            val exists = boardStorageFixture.existsBySlug("food")
             // then
             assertThat(exists).isFalse()
         }
@@ -186,7 +185,7 @@ class BoardStorageFixtureTest {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val slug = boardSlugFixture("food")
+            val slug = "food"
 
             // when
             val board = boardStorageFixture.findBySlugOrNull(slug)

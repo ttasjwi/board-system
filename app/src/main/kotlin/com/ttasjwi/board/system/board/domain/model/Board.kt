@@ -12,7 +12,7 @@ internal constructor(
     name: String,
     description: String,
     managerId: Long,
-    slug: BoardSlug,
+    slug: String,
     val createdAt: AppDateTime,
 ) {
 
@@ -25,7 +25,7 @@ internal constructor(
     var managerId: Long = managerId
         private set
 
-    var slug: BoardSlug = slug
+    var slug: String = slug
         private set
 
     companion object {
@@ -35,7 +35,7 @@ internal constructor(
             name: String,
             description: String,
             managerId: Long,
-            slug: BoardSlug,
+            slug: String,
             currentTime: AppDateTime
         ): Board {
             return Board(
@@ -61,7 +61,7 @@ internal constructor(
                 name = name,
                 description = description,
                 managerId = managerId,
-                slug = BoardSlug.restore(slug),
+                slug = slug,
                 createdAt = AppDateTime.from(createdAt),
             )
         }

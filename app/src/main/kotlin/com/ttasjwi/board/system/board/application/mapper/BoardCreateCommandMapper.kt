@@ -2,10 +2,9 @@ package com.ttasjwi.board.system.board.application.mapper
 
 import com.ttasjwi.board.system.board.application.dto.BoardCreateCommand
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardDescriptionManager
 import com.ttasjwi.board.system.board.domain.service.BoardNameManager
-import com.ttasjwi.board.system.board.domain.service.BoardSlugCreator
+import com.ttasjwi.board.system.board.domain.service.BoardSlugManager
 import com.ttasjwi.board.system.common.auth.domain.service.AuthMemberLoader
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component
 internal class BoardCreateCommandMapper(
     private val boardNameManager: BoardNameManager,
     private val boardDescriptionManager: BoardDescriptionManager,
-    private val boardSlugCreator: BoardSlugCreator,
+    private val boardSlugManager: BoardSlugManager,
     private val authMemberLoader: AuthMemberLoader,
     private val timeManager: TimeManager,
 ) {
@@ -80,14 +79,14 @@ internal class BoardCreateCommandMapper(
             }
     }
 
-    private fun getBoardSlug(boardSlug: String?, exceptionCollector: ValidationExceptionCollector): BoardSlug? {
+    private fun getBoardSlug(boardSlug: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (boardSlug == null) {
             val e = NullArgumentException("boardSlug")
             log.warn(e)
             exceptionCollector.addCustomExceptionOrThrow(e)
             return null
         }
-        return boardSlugCreator.create(boardSlug)
+        return boardSlugManager.validate(boardSlug)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)

@@ -43,7 +43,7 @@ class BoardFixtureTest {
         assertThat(board.name).isEqualTo(name)
         assertThat(board.description).isEqualTo(description)
         assertThat(board.managerId).isEqualTo(managerId)
-        assertThat(board.slug).isEqualTo(boardSlugFixture(slug))
+        assertThat(board.slug).isEqualTo(slug)
         assertThat(board.createdAt).isEqualTo(createdAt)
     }
 }

@@ -5,7 +5,6 @@ import com.ttasjwi.board.system.board.application.exception.DuplicateBoardNameEx
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardSlugException
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardStorageFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
@@ -48,7 +47,7 @@ class BoardCreateProcessorTest {
         val command = BoardCreateCommand(
             boardName = "고양이",
             boardDescription = "고양이 게시판입니다.",
-            boardSlug = boardSlugFixture("cat"),
+            boardSlug = "cat",
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )
@@ -63,7 +62,7 @@ class BoardCreateProcessorTest {
         assertThat(response.name).isEqualTo(command.boardName)
         assertThat(response.description).isEqualTo(command.boardDescription)
         assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
-        assertThat(response.slug).isEqualTo(command.boardSlug.value)
+        assertThat(response.slug).isEqualTo(command.boardSlug)
         assertThat(response.createdAt).isEqualTo(command.currentTime.toZonedDateTime())
         assertThat(findBoard).isNotNull
     }
@@ -76,7 +75,7 @@ class BoardCreateProcessorTest {
         val command = BoardCreateCommand(
             boardName = savedBoard.name,
             boardDescription = "고양이 게시판입니다.",
-            boardSlug = boardSlugFixture("cat"),
+            boardSlug = "cat",
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )

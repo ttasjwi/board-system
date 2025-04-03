@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
 
 class BoardStorageFixture : BoardStorage {
@@ -21,11 +20,11 @@ class BoardStorageFixture : BoardStorage {
         return storage.values.any { it.name == name }
     }
 
-    override fun existsBySlug(slug: BoardSlug): Boolean {
+    override fun existsBySlug(slug: String): Boolean {
         return storage.values.any { it.slug == slug }
     }
 
-    override fun findBySlugOrNull(slug: BoardSlug): Board? {
+    override fun findBySlugOrNull(slug: String): Board? {
         return storage.values.firstOrNull { it.slug == slug }
     }
 }

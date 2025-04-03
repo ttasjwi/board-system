@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.time.AppDateTime
@@ -15,7 +14,7 @@ class BoardManagerFixture : BoardManager {
         name: String,
         description: String,
         managerId: Long,
-        slug: BoardSlug,
+        slug: String,
         currentTime: AppDateTime
     ): Board {
         return boardFixture(
@@ -23,7 +22,7 @@ class BoardManagerFixture : BoardManager {
             name = name,
             description = description,
             managerId = managerId,
-            slug = slug.value,
+            slug = slug,
             createdAt = currentTime
         )
     }

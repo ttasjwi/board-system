@@ -1,10 +1,9 @@
 package com.ttasjwi.board.system.board.application.mapper
 
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardDescriptionManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardNameManagerFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardSlugCreatorFixture
+import com.ttasjwi.board.system.board.domain.service.fixture.BoardSlugManagerFixture
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
@@ -44,7 +43,7 @@ class BoardCreateCommandMapperTest {
         commandMapper = BoardCreateCommandMapper(
             boardNameManager = BoardNameManagerFixture(),
             boardDescriptionManager = BoardDescriptionManagerFixture(),
-            boardSlugCreator = BoardSlugCreatorFixture(),
+            boardSlugManager = BoardSlugManagerFixture(),
             authMemberLoader = authMemberLoader,
             timeManager = timeManager
         )
@@ -66,7 +65,7 @@ class BoardCreateCommandMapperTest {
         // then
         assertThat(command.boardName).isEqualTo(request.name!!)
         assertThat(command.boardDescription).isEqualTo(request.description!!)
-        assertThat(command.boardSlug).isEqualTo(boardSlugFixture(request.slug!!))
+        assertThat(command.boardSlug).isEqualTo(request.slug!!)
         assertThat(command.currentTime).isEqualTo(currentTime)
         assertThat(command.creator).isEqualTo(authMember)
     }
@@ -200,7 +199,7 @@ class BoardCreateCommandMapperTest {
         val request = BoardCreateRequest(
             name = "고양이",
             description = "고양이 게시판입니다.",
-            slug = BoardSlugCreatorFixture.ERROR_SLUG
+            slug = BoardSlugManagerFixture.ERROR_SLUG
         )
 
         // when

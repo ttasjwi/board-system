@@ -39,7 +39,7 @@ class JpaBoard(
                 name = board.name,
                 description = board.description,
                 managerId = board.managerId,
-                slug = board.slug.value,
+                slug = board.slug,
                 createdAt = board.createdAt.toLocalDateTime(),
             )
         }
