@@ -1,10 +1,11 @@
 package com.ttasjwi.board.system.board.domain.external.db.jpa
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import jakarta.persistence.*
-import java.time.LocalDate
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.LocalDateTime
-import java.time.ZonedDateTime
 
 @Entity
 @Table(name = "boards")
@@ -14,19 +15,19 @@ class JpaBoard(
     @Column(name = "board_id")
     val id: Long,
 
-    @Column(name = "name", unique = true, nullable = false)
+    @Column(name = "name", length = 16, unique = true, nullable = false)
     var name: String,
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 100, nullable = false)
     var description: String,
 
     @Column(name = "manager_id", nullable = false)
     var managerId: Long,
 
-    @Column(name = "slug", unique = true, nullable = false)
+    @Column(name = "slug", length = 20, unique = true, nullable = false)
     var slug: String,
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", columnDefinition = "DATETIME", nullable = false)
     val createdAt: LocalDateTime,
 ) {
 
@@ -35,10 +36,10 @@ class JpaBoard(
         internal fun from(board: Board): JpaBoard {
             return JpaBoard(
                 id = board.id,
-                name = board.name.value,
-                description = board.description.value,
+                name = board.name,
+                description = board.description,
                 managerId = board.managerId,
-                slug = board.slug.value,
+                slug = board.slug,
                 createdAt = board.createdAt.toLocalDateTime(),
             )
         }

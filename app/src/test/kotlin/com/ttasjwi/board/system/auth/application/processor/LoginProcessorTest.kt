@@ -6,9 +6,7 @@ import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -41,8 +39,8 @@ class LoginProcessorTest {
             )
         )
         successCommand = LoginCommand(
-            email = emailFixture("hello@gmail.com"),
-            rawPassword = rawPasswordFixture("1234"),
+            email = "hello@gmail.com",
+            rawPassword = "1234",
             currentTime = appDateTimeFixture(minute = 10)
         )
 
@@ -115,7 +113,7 @@ class LoginProcessorTest {
     fun testMemberNotFound() {
         // given
         val command = LoginCommand(
-            email = emailFixture("jello@gmail.com"),
+            email = "jello@gmail.com",
             rawPassword = successCommand.rawPassword,
             currentTime = successCommand.currentTime
         )
@@ -123,7 +121,7 @@ class LoginProcessorTest {
         val exception = assertThrows<LoginFailureException> { processor.login(command) }
 
         // then
-        assertThat(exception.debugMessage).isEqualTo("로그인 실패 - 일치하는 이메일(email=${command.email.value})의 회원을 찾지 못 함")
+        assertThat(exception.debugMessage).isEqualTo("로그인 실패 - 일치하는 이메일(email=${command.email})의 회원을 찾지 못 함")
     }
 
     @Test
@@ -132,7 +130,7 @@ class LoginProcessorTest {
         // given
         val command = LoginCommand(
             email = successCommand.email,
-            rawPassword = rawPasswordFixture("4321"),
+            rawPassword = "4321",
             currentTime = successCommand.currentTime
         )
 

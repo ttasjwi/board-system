@@ -14,10 +14,10 @@ fun boardFixture(
 ): Board {
     return Board(
         id = id,
-        name = boardNameFixture(name),
-        description = boardDescriptionFixture(description),
+        name = name,
+        description = description,
         managerId = managerId,
-        slug = boardSlugFixture(slug),
+        slug = slug,
         createdAt = createdAt,
     )
 }

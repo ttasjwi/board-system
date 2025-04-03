@@ -36,10 +36,10 @@ class MemberTest {
 
             assertThat(member).isNotNull
             assertThat(member.id).isEqualTo(id)
-            assertThat(member.email).isEqualTo(Email.restore(email))
-            assertThat(member.password.value).isEqualTo(password)
-            assertThat(member.username).isEqualTo(Username.restore(username))
-            assertThat(member.nickname).isEqualTo(Nickname.restore(nickname))
+            assertThat(member.email).isEqualTo(email)
+            assertThat(member.password).isEqualTo(password)
+            assertThat(member.username).isEqualTo(username)
+            assertThat(member.nickname).isEqualTo(nickname)
             assertThat(member.role).isEqualTo(Role.restore(roleName))
             assertThat(member.registeredAt.toLocalDateTime()).isEqualTo(registeredAt)
         }
@@ -56,7 +56,7 @@ class MemberTest {
             val member = memberFixture()
 
             assertThat(member.toString()).isEqualTo(
-                "Member(id=${member.id}, email=${member.email}, password=${member.password}, username=${member.username}, nickname=${member.nickname}, role=${member.role}, registeredAt=${member.registeredAt})"
+                "Member(id=${member.id}, email=${member.email}, password=[!!SECRET!!], username=${member.username}, nickname=${member.nickname}, role=${member.role}, registeredAt=${member.registeredAt})"
             )
         }
     }

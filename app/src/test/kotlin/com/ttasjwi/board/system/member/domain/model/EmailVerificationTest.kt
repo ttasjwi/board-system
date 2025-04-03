@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model
 
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -33,7 +32,7 @@ class EmailVerificationTest {
                 verificationExpiresAt = verificationExpiresAt
             )
 
-            assertThat(emailVerification.email).isEqualTo(emailFixture(email))
+            assertThat(emailVerification.email).isEqualTo(email)
             assertThat(emailVerification.code).isEqualTo(code)
             assertThat(emailVerification.codeCreatedAt.toInstant()).isEqualTo(codeCreatedAt)
             assertThat(emailVerification.codeExpiresAt.toInstant()).isEqualTo(codeExpiresAt)

@@ -4,12 +4,10 @@ import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
-import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialServiceUserFixture
@@ -25,24 +23,24 @@ class SocialLoginProcessorTest {
     private lateinit var socialLoginProcessor: SocialLoginProcessor
     private lateinit var memberStorageFixture: MemberStorageFixture
     private lateinit var socialConnectionStorageFixture: SocialConnectionStorageFixture
-    private lateinit var usernameCreatorFixture: UsernameCreatorFixture
-    private lateinit var nicknameCreatorFixture: NicknameCreatorFixture
+    private lateinit var usernameManagerFixture: UsernameManagerFixture
+    private lateinit var nicknameCreatorFixture: NicknameManagerFixture
     private lateinit var refreshTokenHolderStorageFixture: RefreshTokenHolderStorageFixture
 
     @BeforeEach
     fun setup() {
         memberStorageFixture = MemberStorageFixture()
         socialConnectionStorageFixture = SocialConnectionStorageFixture()
-        usernameCreatorFixture = UsernameCreatorFixture()
-        nicknameCreatorFixture = NicknameCreatorFixture()
+        usernameManagerFixture = UsernameManagerFixture()
+        nicknameCreatorFixture = NicknameManagerFixture()
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
         socialLoginProcessor = SocialLoginProcessor(
             memberFinder = memberStorageFixture,
             socialConnectionCreator = SocialConnectionCreatorFixture(),
             socialConnectionStorage = socialConnectionStorageFixture,
             passwordManager = PasswordManagerFixture(),
-            usernameCreator = usernameCreatorFixture,
-            nicknameCreator = nicknameCreatorFixture,
+            usernameManager = usernameManagerFixture,
+            nicknameManager = nicknameCreatorFixture,
             memberCreator = MemberCreatorFixture(),
             memberAppender = memberStorageFixture,
             authMemberCreator = AuthMemberCreatorFixture(),
@@ -61,8 +59,8 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixture(email = email.value))
+        val email = "hello@gmail.com"
+        val member = memberStorageFixture.save(memberFixture(email = email))
         socialConnectionStorageFixture.save(
             socialConnectionFixture(
                 id = 15567L,
@@ -98,8 +96,8 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixture(email = email.value))
+        val email = "hello@gmail.com"
+        val member = memberStorageFixture.save(memberFixture(email = email))
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
@@ -133,7 +131,7 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
+        val email = "hello@gmail.com"
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
@@ -158,9 +156,9 @@ class SocialLoginProcessorTest {
         assertThat(result.createdMember).isEqualTo(
             SocialLoginResponse.CreatedMember(
                 memberId = findMember.id.toString(),
-                email = findMember.email.value,
-                username = findMember.username.value,
-                nickname = findMember.nickname.value,
+                email = findMember.email,
+                username = findMember.username,
+                nickname = findMember.nickname,
                 role = findMember.role.name,
                 registeredAt = findMember.registeredAt.toZonedDateTime()
             )
@@ -185,8 +183,8 @@ class SocialLoginProcessorTest {
         // given
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
-        val email = emailFixture("hello@gmail.com")
-        val member = memberStorageFixture.save(memberFixture(email = email.value))
+        val email = "hello@gmail.com"
+        val member = memberStorageFixture.save(memberFixture(email = email))
         socialConnectionStorageFixture.save(
             socialConnectionFixture(
                 id = 14567L,
@@ -202,7 +200,7 @@ class SocialLoginProcessorTest {
                 memberId = member.id,
                 role = member.role,
                 tokens = mutableMapOf(
-                    refreshTokenIdFixture("tokenId1") to refreshTokenFixture(
+                    "tokenId1" to refreshTokenFixture(
                         memberId = member.id,
                         refreshTokenId = "tokenId1",
                         tokenValue = "tokenValue",

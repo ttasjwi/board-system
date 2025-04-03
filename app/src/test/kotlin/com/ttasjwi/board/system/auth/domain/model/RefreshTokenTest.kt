@@ -35,7 +35,7 @@ class RefreshTokenTest {
 
             // then
             assertThat(refreshToken.memberId).isEqualTo(memberId)
-            assertThat(refreshToken.refreshTokenId.value).isEqualTo(refreshTokenId)
+            assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
             assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)
             assertThat(refreshToken.issuedAt.toInstant()).isEqualTo(issuedAt)
             assertThat(refreshToken.expiresAt.toInstant()).isEqualTo(expiresAt)

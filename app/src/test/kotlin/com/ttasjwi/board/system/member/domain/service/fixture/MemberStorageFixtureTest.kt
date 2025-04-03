@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.member.domain.model.fixture.*
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -34,7 +34,7 @@ class MemberStorageFixtureTest {
             // then
             assertThat(savedMember.id).isNotNull
             assertThat(savedMember.email).isEqualTo(member.email)
-            assertThat(savedMember.password.value).isEqualTo(member.password.value)
+            assertThat(savedMember.password).isEqualTo(member.password)
             assertThat(savedMember.username).isEqualTo(member.username)
             assertThat(savedMember.nickname).isEqualTo(member.nickname)
             assertThat(savedMember.role).isEqualTo(member.role)
@@ -64,7 +64,7 @@ class MemberStorageFixtureTest {
             // then
             assertThat(findMember.id).isEqualTo(savedMember.id)
             assertThat(findMember.id).isEqualTo(changedMember.id)
-            assertThat(findMember.password.value).isEqualTo(changedMember.password.value)
+            assertThat(findMember.password).isEqualTo(changedMember.password)
         }
 
     }
@@ -89,7 +89,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -128,7 +128,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -137,7 +137,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("ttascat@gmail.com")
+            val email = "ttascat@gmail.com"
 
             // when
             val findMember = memberStorageFixture.findByEmailOrNull(email)
@@ -166,7 +166,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -175,7 +175,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("마늘오리")
+            val nickname = "마늘오리"
 
             // when
             val findMember = memberStorageFixture.findByNicknameOrNull(nickname)
@@ -205,7 +205,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -214,7 +214,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd1234")
+            val username = "abcd1234"
 
             // when
             val findMember = memberStorageFixture.findByUsernameOrNull(username)
@@ -277,7 +277,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("abcd@gmail.com")
+            val email = "abcd@gmail.com"
 
             // when
             val isExist = memberStorageFixture.existsByEmail(email)
@@ -309,7 +309,8 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("페이커")
+            val nickname = "페이커"
+
             // when
             val isExist = memberStorageFixture.existsByNickname(nickname)
 
@@ -340,7 +341,7 @@ class MemberStorageFixtureTest {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd124")
+            val username = "abcd124"
             // when
             val isExist = memberStorageFixture.existsByUsername(username)
 

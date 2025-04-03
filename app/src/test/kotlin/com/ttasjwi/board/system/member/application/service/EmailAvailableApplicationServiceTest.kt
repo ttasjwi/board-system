@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.EmailAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.EmailAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -23,7 +23,7 @@ class EmailAvailableApplicationServiceTest {
         applicationService = EmailAvailableApplicationService(
             queryMapper = EmailAvailableQueryMapper(),
             processor = EmailAvailableProcessor(
-                emailCreator = EmailCreatorFixture(),
+                emailManager = EmailManagerFixture(),
                 memberFinder = MemberStorageFixture(),
                 messageResolver = MessageResolverFixture(),
                 localeManager = LocaleManagerFixture(),

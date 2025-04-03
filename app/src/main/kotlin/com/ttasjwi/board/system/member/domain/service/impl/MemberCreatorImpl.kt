@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.member.domain.service.impl
 import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgerator.IdGenerator
 import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.member.domain.model.*
+import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 
@@ -15,10 +15,10 @@ class MemberCreatorImpl(
     private val idGenerator: IdGenerator = IdGenerator.create()
 
     override fun create(
-        email: Email,
-        password: RawPassword,
-        username: Username,
-        nickname: Nickname,
+        email: String,
+        password: String,
+        username: String,
+        nickname: String,
         currentTime: AppDateTime
     ): Member {
         return Member.create(

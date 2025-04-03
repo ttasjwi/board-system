@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaMember
 import com.ttasjwi.board.system.member.domain.external.db.jpa.JpaMemberRepository
-import com.ttasjwi.board.system.member.domain.model.*
+import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.MemberAppender
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import org.springframework.data.repository.findByIdOrNull
@@ -27,28 +27,28 @@ class MemberStorageImpl(
         return jpaMemberRepository.existsById(id)
     }
 
-    override fun findByEmailOrNull(email: Email): Member? {
-        return jpaMemberRepository.findByEmailOrNull(email.value)?.restoreDomain()
+    override fun findByEmailOrNull(email: String): Member? {
+        return jpaMemberRepository.findByEmailOrNull(email)?.restoreDomain()
     }
 
-    override fun existsByEmail(email: Email): Boolean {
-        return jpaMemberRepository.existsByEmail(email.value)
+    override fun existsByEmail(email: String): Boolean {
+        return jpaMemberRepository.existsByEmail(email)
     }
 
-    override fun findByUsernameOrNull(username: Username): Member? {
-        return jpaMemberRepository.findByUsernameOrNull(username.value)?.restoreDomain()
+    override fun findByUsernameOrNull(username: String): Member? {
+        return jpaMemberRepository.findByUsernameOrNull(username)?.restoreDomain()
     }
 
-    override fun existsByUsername(username: Username): Boolean {
-        return jpaMemberRepository.existsByUsername(username.value)
+    override fun existsByUsername(username: String): Boolean {
+        return jpaMemberRepository.existsByUsername(username)
     }
 
-    override fun findByNicknameOrNull(nickname: Nickname): Member? {
-        return jpaMemberRepository.findByNicknameOrNull(nickname.value)?.restoreDomain()
+    override fun findByNicknameOrNull(nickname: String): Member? {
+        return jpaMemberRepository.findByNicknameOrNull(nickname)?.restoreDomain()
     }
 
-    override fun existsByNickname(nickname: Nickname): Boolean {
-        return jpaMemberRepository.existsByNickname(nickname.value)
+    override fun existsByNickname(nickname: String): Boolean {
+        return jpaMemberRepository.existsByNickname(nickname)
     }
 
 }

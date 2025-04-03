@@ -17,7 +17,7 @@ class RefreshTokenFixtureTest {
 
         // then
         assertThat(refreshToken.memberId).isNotNull()
-        assertThat(refreshToken.refreshTokenId.value).isNotNull()
+        assertThat(refreshToken.refreshTokenId).isNotNull()
         assertThat(refreshToken.tokenValue).isNotNull()
         assertThat(refreshToken.issuedAt).isNotNull()
         assertThat(refreshToken.expiresAt).isNotNull()
@@ -44,7 +44,7 @@ class RefreshTokenFixtureTest {
 
         // then
         assertThat(refreshToken.memberId).isEqualTo(memberId)
-        assertThat(refreshToken.refreshTokenId.value).isEqualTo(refreshTokenId)
+        assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
         assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)
         assertThat(refreshToken.issuedAt).isEqualTo(issuedAt)
         assertThat(refreshToken.expiresAt).isEqualTo(expiresAt)

@@ -10,7 +10,7 @@ import java.util.*
 
 class EmailVerification
 internal constructor(
-    val email: Email,
+    val email: String,
     val code: String,
     val codeCreatedAt: AppDateTime,
     val codeExpiresAt: AppDateTime,
@@ -42,7 +42,7 @@ internal constructor(
             verificationExpiresAt: Instant?
         ): EmailVerification {
             return EmailVerification(
-                email = Email.restore(email),
+                email = email,
                 code = code,
                 codeCreatedAt = AppDateTime.from(codeCreatedAt),
                 codeExpiresAt = AppDateTime.from(codeExpiresAt),
@@ -51,7 +51,7 @@ internal constructor(
             )
         }
 
-        internal fun create(email: Email, currentTime: AppDateTime): EmailVerification {
+        internal fun create(email: String, currentTime: AppDateTime): EmailVerification {
             return EmailVerification(
                 email = email,
                 code = UUID.randomUUID().toString().substring(startIndex = 0, endIndex = CODE_LENGTH),
@@ -63,8 +63,8 @@ internal constructor(
 
     internal fun codeVerify(code: String, currentTime: AppDateTime): EmailVerification {
         if (currentTime >= this.codeExpiresAt) {
-            log.warn { "이메일 인증이 만료됐습니다. (email=${email.value},expiredAt=${codeExpiresAt},currentTime=${currentTime}" }
-            throw EmailVerificationExpiredException(email.value, codeExpiresAt, currentTime)
+            log.warn { "이메일 인증이 만료됐습니다. (email=${email},expiredAt=${codeExpiresAt},currentTime=${currentTime}" }
+            throw EmailVerificationExpiredException(email, codeExpiresAt, currentTime)
         }
         if (this.code != code) {
             log.warn { "잘못된 code 입니다." }
@@ -73,7 +73,7 @@ internal constructor(
         this.verifiedAt = currentTime
         this.verificationExpiresAt = currentTime.plusMinutes(VERIFICATION_VALIDITY_MINUTE)
 
-        log.info { "이메일 인증 성공 (email=${email.value}" }
+        log.info { "이메일 인증 성공 (email=$email)" }
         return this
     }
 
@@ -82,13 +82,13 @@ internal constructor(
 
         // 인증이 안 됨 -> 다시 인증 해라
         if (this.verifiedAt == null) {
-            log.warn{ "해당 이메일은 인증이 되지 않았음. (email=${this.email.value})" }
-            throw EmailNotVerifiedException(email.value)
+            log.warn{ "해당 이메일은 인증이 되지 않았음. (email=${this.email})" }
+            throw EmailNotVerifiedException(email)
         }
         // 인증은 했는데, 인증이 만료된 경우 -> 처음부터 다시 인증해라
         if (currentTime >= this.verificationExpiresAt!!) {
-            log.warn{ "이메일 인증이 만료됐음. 다시 인증해야합니다. (email=${email.value},expiredAt=${this.verificationExpiresAt!!},currentTime=${currentTime})"}
-            throw EmailVerificationExpiredException(email.value, verificationExpiresAt!!, currentTime)
+            log.warn{ "이메일 인증이 만료됐음. 다시 인증해야합니다. (email=${email},expiredAt=${this.verificationExpiresAt!!},currentTime=${currentTime})"}
+            throw EmailVerificationExpiredException(email, verificationExpiresAt!!, currentTime)
         }
         // 그 외: 인증이 됐고, 인증이 만료되지 않은 경우(유효함)
         log.info{ "이메일 인증이 현재 유효합니다." }

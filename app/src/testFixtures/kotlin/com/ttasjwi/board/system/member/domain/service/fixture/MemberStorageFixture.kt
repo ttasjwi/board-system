@@ -1,9 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.Nickname
-import com.ttasjwi.board.system.member.domain.model.Username
 import com.ttasjwi.board.system.member.domain.service.MemberAppender
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 
@@ -24,28 +21,27 @@ class MemberStorageFixture : MemberAppender, MemberFinder {
         return storage.containsKey(id)
     }
 
-    override fun findByEmailOrNull(email: Email): Member? {
+    override fun findByEmailOrNull(email: String): Member? {
         return storage.values.firstOrNull { it.email == email }
     }
 
-    override fun existsByEmail(email: Email): Boolean {
+    override fun existsByEmail(email: String): Boolean {
         return storage.values.any { it.email == email }
     }
 
-    override fun findByUsernameOrNull(username: Username): Member? {
+    override fun findByUsernameOrNull(username: String): Member? {
         return storage.values.firstOrNull { it.username == username }
     }
 
-    override fun existsByUsername(username: Username): Boolean {
+    override fun existsByUsername(username: String): Boolean {
         return storage.values.any { it.username == username }
     }
 
-    override fun findByNicknameOrNull(nickname: Nickname): Member? {
+    override fun findByNicknameOrNull(nickname: String): Member? {
         return storage.values.firstOrNull { it.nickname == nickname }
     }
 
-    override fun existsByNickname(nickname: Nickname): Boolean {
+    override fun existsByNickname(nickname: String): Boolean {
         return storage.values.any { it.nickname == nickname }
     }
-
 }

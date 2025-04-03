@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationCreator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -22,7 +21,7 @@ class EmailVerificationCreatorImplTest {
     @Test
     @DisplayName("Create: 이메일 인증을 생성한다")
     fun testCode() {
-        val email = emailFixture("soso@gmail.com")
+        val email = "soso@gmail.com"
         val currentTime = appDateTimeFixture(minute = 0)
 
         val emailVerification = emailVerificationCreator.create(

@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 
 import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatException
-import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenIdFixture
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,7 @@ import org.springframework.security.oauth2.jwt.JwtException
 class ExternalRefreshTokenManagerImplTest : IntegrationTest() {
 
     private val memberId = 1L
-    private val refreshTokenId = refreshTokenIdFixture("refreshTokenId")
+    private val refreshTokenId = "refreshTokenId"
     private val issuedAt = appDateTimeFixture(dayOfMonth = 1)
     private val expiresAt = appDateTimeFixture(dayOfMonth = 2)
 

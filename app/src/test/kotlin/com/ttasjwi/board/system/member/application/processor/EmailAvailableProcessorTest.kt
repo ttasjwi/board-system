@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -23,9 +23,9 @@ class EmailAvailableProcessorTest {
     @BeforeEach
     fun setup() {
         val memberStorageFixture = MemberStorageFixture()
-        val emailCreatorFixture = EmailCreatorFixture()
+        val emailManagerFixture = EmailManagerFixture()
         processor = EmailAvailableProcessor(
-            emailCreator = emailCreatorFixture,
+            emailManager = emailManagerFixture,
             memberFinder = memberStorageFixture,
             messageResolver = MessageResolverFixture(),
             localeManager = LocaleManagerFixture()
@@ -44,7 +44,7 @@ class EmailAvailableProcessorTest {
         @Test
         @DisplayName("이메일 포맷이 유효하지 않을 때, 이메일 포맷이 유효하지 않다는 결과를 반환한다.")
         fun testInvalidFormat() {
-            val query = EmailAvailableQuery(email = EmailCreatorFixture.ERROR_EMAIL)
+            val query = EmailAvailableQuery(email = EmailManagerFixture.ERROR_EMAIL)
 
             val result = processor.checkEmailAvailable(query)
 
@@ -58,7 +58,7 @@ class EmailAvailableProcessorTest {
         @Test
         @DisplayName("포맷이 올바르지만 이미 사용중인 이메일이면, 이미 사용 중이라는 결과를 반환한다.")
         fun testTaken() {
-            val query = EmailAvailableQuery(email = savedMember.email.value)
+            val query = EmailAvailableQuery(email = savedMember.email)
 
             val result = processor.checkEmailAvailable(query)
 

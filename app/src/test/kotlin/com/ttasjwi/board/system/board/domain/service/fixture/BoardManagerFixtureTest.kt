@@ -1,8 +1,5 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
-import com.ttasjwi.board.system.board.domain.model.fixture.boardDescriptionFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardNameFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -11,7 +8,6 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("BoardManager 픽스쳐 테스트")
 class BoardManagerFixtureTest {
-
 
     private lateinit var boardManagerFixture: BoardManagerFixture
 
@@ -23,10 +19,10 @@ class BoardManagerFixtureTest {
     @Test
     @DisplayName("create : 게시판을 생성할 수 있다.")
     fun testCreate() {
-        val name = boardNameFixture("경제")
-        val description = boardDescriptionFixture("경제 게시판입니다.")
+        val name = "경제"
+        val description = "경제 게시판입니다."
         val managerId = 13L
-        val slug = boardSlugFixture("economy")
+        val slug = "economy"
         val currentTime = appDateTimeFixture()
 
         val board = boardManagerFixture.create(

@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.exception
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.member.domain.model.Nickname
+import com.ttasjwi.board.system.member.domain.service.impl.NicknameManagerImpl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -17,11 +17,11 @@ class InvalidNicknameFormatExceptionTest {
 
         assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidNicknameFormat")
-        assertThat(exception.args).containsExactly(Nickname.MIN_LENGTH, Nickname.MAX_LENGTH, nickname)
+        assertThat(exception.args).containsExactly(NicknameManagerImpl.MIN_LENGTH, NicknameManagerImpl.MAX_LENGTH, nickname)
         assertThat(exception.source).isEqualTo("nickname")
         assertThat(exception.message).isEqualTo(
-            "닉네임은 ${Nickname.MIN_LENGTH}자 이상, " +
-                    "${Nickname.MAX_LENGTH}자 이하의 한글/영어/숫자로만 구성되어야 합니다. " +
+            "닉네임은 ${NicknameManagerImpl.MIN_LENGTH}자 이상, " +
+                    "${NicknameManagerImpl.MAX_LENGTH}자 이하의 한글/영어/숫자로만 구성되어야 합니다. " +
                     "(nickname= $nickname)"
         )
     }

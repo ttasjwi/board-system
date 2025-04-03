@@ -7,24 +7,24 @@ import java.time.LocalDateTime
 class Member
 internal constructor(
     val id: Long,
-    email: Email,
-    password: EncodedPassword,
-    username: Username,
-    nickname: Nickname,
+    email: String,
+    password: String,
+    username: String,
+    nickname: String,
     role: Role,
     val registeredAt: AppDateTime,
 ) {
 
-    var email: Email = email
+    var email: String = email
         private set
 
-    var password: EncodedPassword = password
+    var password: String = password
         private set
 
-    var username: Username = username
+    var username: String = username
         private set
 
-    var nickname: Nickname = nickname
+    var nickname: String = nickname
         private set
 
     var role: Role = role
@@ -37,10 +37,10 @@ internal constructor(
          */
         internal fun create(
             id: Long,
-            email: Email,
-            password: EncodedPassword,
-            username: Username,
-            nickname: Nickname,
+            email: String,
+            password: String,
+            username: String,
+            nickname: String,
             registeredAt: AppDateTime,
         ): Member {
             return Member(
@@ -65,10 +65,10 @@ internal constructor(
         ): Member {
             return Member(
                 id = id,
-                email = Email.restore(email),
-                password = EncodedPassword.restore(password),
-                username = Username.restore(username),
-                nickname = Nickname.restore(nickname),
+                email = email,
+                password = password,
+                username = username,
+                nickname = nickname,
                 role = Role.restore(roleName),
                 registeredAt = AppDateTime.from(registeredAt)
             )
@@ -77,6 +77,6 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "Member(id=$id, email=$email, password=$password, username=$username, nickname=$nickname, role=$role, registeredAt=$registeredAt)"
+        return "Member(id=$id, email=$email, password=[!!SECRET!!], username=$username, nickname=$nickname, role=$role, registeredAt=$registeredAt)"
     }
 }

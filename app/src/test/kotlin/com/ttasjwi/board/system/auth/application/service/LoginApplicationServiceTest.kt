@@ -9,7 +9,6 @@ import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -45,8 +44,6 @@ class LoginApplicationServiceTest {
 
         applicationService = LoginApplicationService(
             commandMapper = LoginCommandMapper(
-                emailCreator = EmailCreatorFixture(),
-                passwordManager = PasswordManagerFixture(),
                 timeManager = timeManagerFixture
             ),
             processor = LoginProcessor(
@@ -67,7 +64,7 @@ class LoginApplicationServiceTest {
     @DisplayName("login: 로그인 요청을 받아 로그인 처리 후, 그 결과를 반환한다.")
     fun test() {
         // given
-        val request = LoginRequest(savedMember.email.value, "1234")
+        val request = LoginRequest(savedMember.email, "1234")
 
         // when
         val result = applicationService.login(request)

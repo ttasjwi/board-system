@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.auth.domain.external.impl.redis
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import java.time.Instant
 
 class RedisRefreshTokenHolder(
@@ -32,10 +31,10 @@ class RedisRefreshTokenHolder(
                     roleName = refreshTokenHolder.authMember.role.name
                 ),
                 tokens = refreshTokenHolder.getTokens().map { (refreshTokenId, token) ->
-                    val key: String = refreshTokenId.value
+                    val key: String = refreshTokenId
                     val value = RedisRefreshToken(
                         memberId = token.memberId,
-                        refreshTokenId = token.refreshTokenId.value,
+                        refreshTokenId = token.refreshTokenId,
                         tokenValue = token.tokenValue,
                         issuedAt = token.issuedAt.toInstant(),
                         expiresAt = token.expiresAt.toInstant()
@@ -51,7 +50,7 @@ class RedisRefreshTokenHolder(
             memberId = authMember.memberId,
             roleName = authMember.roleName,
             tokens = tokens.map { (refreshTokenId, token) ->
-                val key: RefreshTokenId = RefreshTokenId.restore(refreshTokenId)
+                val key: String = refreshTokenId
                 val value = RefreshToken.restore(
                     memberId = token.memberId,
                     refreshTokenId = token.refreshTokenId,

@@ -7,7 +7,8 @@ import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNick
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberUsernameException
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.*
+import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -49,11 +50,11 @@ class RegisterMemberProcessorTest {
     @Test
     @DisplayName("성공 테스트")
     fun testSuccess() {
-        val email = emailFixture("hello@gmail.com")
+        val email = "hello@gmail.com"
         val currentTime = appDateTimeFixture(minute = 6)
         emailVerificationStorageFixture.append(
             emailVerificationFixtureVerified(
-                email = email.value,
+                email = email,
                 code = "code",
                 codeCreatedAt = appDateTimeFixture(minute = 0),
                 codeExpiresAt = appDateTimeFixture(minute = 5),
@@ -64,9 +65,9 @@ class RegisterMemberProcessorTest {
 
         val command = RegisterMemberCommand(
             email = email,
-            rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
-            nickname = nicknameFixture("testnick"),
+            rawPassword = "1234",
+            username = "testuser",
+            nickname = "testnick",
             currentTime = currentTime
         )
 
@@ -80,16 +81,16 @@ class RegisterMemberProcessorTest {
 
         assertThat(event.occurredAt).isEqualTo(currentTime)
         assertThat(data.memberId).isNotNull()
-        assertThat(data.email).isEqualTo(email.value)
-        assertThat(data.username).isEqualTo(command.username.value)
-        assertThat(data.nickname).isEqualTo(command.nickname.value)
+        assertThat(data.email).isEqualTo(email)
+        assertThat(data.username).isEqualTo(command.username)
+        assertThat(data.nickname).isEqualTo(command.nickname)
         assertThat(data.roleName).isEqualTo(findMember.role.name)
         assertThat(data.registeredAt).isEqualTo(currentTime)
 
         assertThat(findEmailVerification).isNull()
         assertThat(findMember.id).isEqualTo(data.memberId)
         assertThat(findMember.email).isEqualTo(command.email)
-        assertThat(findMember.password.value).isEqualTo(command.rawPassword.value)
+        assertThat(findMember.password).isEqualTo(command.rawPassword)
         assertThat(findMember.username).isEqualTo(command.username)
         assertThat(findMember.nickname).isEqualTo(command.nickname)
         assertThat(findMember.role).isNotNull()
@@ -101,9 +102,9 @@ class RegisterMemberProcessorTest {
     fun testDuplicateEmail() {
         val command = RegisterMemberCommand(
             email = registeredMember.email,
-            rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
-            nickname = nicknameFixture("testnick"),
+            rawPassword = "1234",
+            username = "testuser",
+            nickname = "testnick",
             currentTime = appDateTimeFixture(minute = 6)
         )
 
@@ -114,10 +115,10 @@ class RegisterMemberProcessorTest {
     @DisplayName("중복되는 사용자 아이디(username)의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateUsername() {
         val command = RegisterMemberCommand(
-            email = emailFixture("hello@gmail.com"),
-            rawPassword = rawPasswordFixture("1234"),
+            email = "hello@gmail.com",
+            rawPassword = "1234",
             username = registeredMember.username,
-            nickname = nicknameFixture("testnick"),
+            nickname = "testnick",
             currentTime = appDateTimeFixture(minute = 6)
         )
 
@@ -128,9 +129,9 @@ class RegisterMemberProcessorTest {
     @DisplayName("중복되는 닉네임의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateNickname() {
         val command = RegisterMemberCommand(
-            email = emailFixture("hello@gmail.com"),
-            rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
+            email = "hello@gmail.com",
+            rawPassword = "1234",
+            username = "testuser",
             nickname = registeredMember.nickname,
             currentTime = appDateTimeFixture(minute = 6)
         )
@@ -142,10 +143,10 @@ class RegisterMemberProcessorTest {
     @DisplayName("이메일 인증을 조회하지 못 했을 경우(만료됐거나, 없음) 예외가 발생한다.")
     fun testEmailVerificationNotFound() {
         val command = RegisterMemberCommand(
-            email = emailFixture("hello@gmail.com"),
-            rawPassword = rawPasswordFixture("1234"),
-            username = usernameFixture("testuser"),
-            nickname = nicknameFixture("testnick"),
+            email = "hello@gmail.com",
+            rawPassword = "1234",
+            username = "testuser",
+            nickname = "testnick",
             currentTime = appDateTimeFixture(minute = 6)
         )
         assertThrows<EmailVerificationNotFoundException> { processor.register(command) }

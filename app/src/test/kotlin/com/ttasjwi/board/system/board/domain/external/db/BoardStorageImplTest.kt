@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.board.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.board.domain.model.fixture.*
+import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -41,7 +41,7 @@ class BoardStorageImplTest : IntegrationTest() {
             // then
             assertThat(findBoard.id).isEqualTo(savedBoard.id)
             assertThat(findBoard.id).isEqualTo(changedBoard.id)
-            assertThat(findBoard.name.value).isEqualTo(changedBoard.name.value)
+            assertThat(findBoard.name).isEqualTo(changedBoard.name)
         }
 
     }
@@ -55,9 +55,11 @@ class BoardStorageImplTest : IntegrationTest() {
         @DisplayName("식별자로 게시판을 조회할 수 있다")
         fun findSuccessTest() {
             // given
-            val board = boardStorageImpl.save(boardFixture(
-                id = 12345677L,
-            ))
+            val board = boardStorageImpl.save(
+                boardFixture(
+                    id = 12345677L,
+                )
+            )
             flushAndClearEntityManager()
 
             // when
@@ -114,7 +116,7 @@ class BoardStorageImplTest : IntegrationTest() {
         fun test2() {
             // given
             // when
-            val exists = boardStorageImpl.existsByName(boardNameFixture("음식"))
+            val exists = boardStorageImpl.existsByName("음식")
             // then
             assertThat(exists).isFalse()
         }
@@ -147,7 +149,7 @@ class BoardStorageImplTest : IntegrationTest() {
         fun test2() {
             // given
             // when
-            val exists = boardStorageImpl.existsBySlug(boardSlugFixture("food"))
+            val exists = boardStorageImpl.existsBySlug("food")
             // then
             assertThat(exists).isFalse()
         }
@@ -186,7 +188,7 @@ class BoardStorageImplTest : IntegrationTest() {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val slug = boardSlugFixture("food")
+            val slug = "food"
 
             // when
             val board = boardStorageImpl.findBySlugOrNull(slug)

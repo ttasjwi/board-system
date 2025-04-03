@@ -29,9 +29,9 @@ internal constructor(
         internal fun create(member: Member): MemberRegisteredEvent {
             return MemberRegisteredEvent(
                 memberId = member.id,
-                email = member.email.value,
-                username = member.username.value,
-                nickname = member.nickname.value,
+                email = member.email,
+                username = member.username,
+                nickname = member.nickname,
                 roleName = member.role.name,
                 registeredAt = member.registeredAt,
             )

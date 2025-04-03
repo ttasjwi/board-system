@@ -39,14 +39,14 @@ internal class BoardCreateProcessor(
     private fun checkDuplication(command: BoardCreateCommand) {
         // 게시판 이름이 중복되면 안 됨
         if (boardStorage.existsByName(command.boardName)) {
-            val e = DuplicateBoardNameException(command.boardName.value)
+            val e = DuplicateBoardNameException(command.boardName)
             log.warn(e)
             throw e
         }
 
         // 게시판 슬러그가 중복되면 안 됨
         if (boardStorage.existsBySlug(command.boardSlug)) {
-            val e = DuplicateBoardSlugException(command.boardSlug.value)
+            val e = DuplicateBoardSlugException(command.boardSlug)
             log.warn(e)
             throw e
         }
@@ -65,10 +65,10 @@ internal class BoardCreateProcessor(
     private fun makeResponse(board: Board): BoardCreateResponse {
         return BoardCreateResponse(
             boardId = board.id.toString(),
-            name = board.name.value,
-            description = board.description.value,
+            name = board.name,
+            description = board.description,
             managerId = board.managerId.toString(),
-            slug = board.slug.value,
+            slug = board.slug,
             createdAt = board.createdAt.toZonedDateTime()
         )
     }

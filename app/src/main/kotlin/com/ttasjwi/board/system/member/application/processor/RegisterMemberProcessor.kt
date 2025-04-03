@@ -46,17 +46,17 @@ internal class RegisterMemberProcessor(
         log.info { "중복되는 회원이 있는 지 확인합니다. " }
         val ex: CustomException
         if (memberFinder.existsByEmail(command.email)) {
-            ex = DuplicateMemberEmailException(command.email.value)
+            ex = DuplicateMemberEmailException(command.email)
             log.warn(ex)
             throw ex
         }
         if (memberFinder.existsByUsername(command.username)) {
-            ex = DuplicateMemberUsernameException(command.username.value)
+            ex = DuplicateMemberUsernameException(command.username)
             log.warn(ex)
             throw ex
         }
         if (memberFinder.existsByNickname(command.nickname)) {
-            ex = DuplicateMemberNicknameException(command.nickname.value)
+            ex = DuplicateMemberNicknameException(command.nickname)
             log.warn(ex)
             throw ex
         }
@@ -68,7 +68,7 @@ internal class RegisterMemberProcessor(
         val emailVerification = emailVerificationFinder.findByEmailOrNull(command.email)
 
         if (emailVerification == null) {
-            val ex = EmailVerificationNotFoundException(command.email.value)
+            val ex = EmailVerificationNotFoundException(command.email)
             log.warn(ex)
             throw ex
         }

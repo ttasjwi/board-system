@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.board.application.dto.BoardCreateCommand
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardNameException
 import com.ttasjwi.board.system.board.application.exception.DuplicateBoardSlugException
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.fixture.*
+import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardStorageFixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
@@ -45,9 +45,9 @@ class BoardCreateProcessorTest {
     fun test1() {
         // given
         val command = BoardCreateCommand(
-            boardName = boardNameFixture("고양이"),
-            boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
-            boardSlug = boardSlugFixture("cat"),
+            boardName = "고양이",
+            boardDescription = "고양이 게시판입니다.",
+            boardSlug = "cat",
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )
@@ -59,10 +59,10 @@ class BoardCreateProcessorTest {
         val findBoard = boardStorageFixture.findByIdOrNull(response.boardId.toLong())!!
 
         assertThat(response.boardId).isNotNull()
-        assertThat(response.name).isEqualTo(command.boardName.value)
-        assertThat(response.description).isEqualTo(command.boardDescription.value)
+        assertThat(response.name).isEqualTo(command.boardName)
+        assertThat(response.description).isEqualTo(command.boardDescription)
         assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
-        assertThat(response.slug).isEqualTo(command.boardSlug.value)
+        assertThat(response.slug).isEqualTo(command.boardSlug)
         assertThat(response.createdAt).isEqualTo(command.currentTime.toZonedDateTime())
         assertThat(findBoard).isNotNull
     }
@@ -74,8 +74,8 @@ class BoardCreateProcessorTest {
         // given
         val command = BoardCreateCommand(
             boardName = savedBoard.name,
-            boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
-            boardSlug = boardSlugFixture("cat"),
+            boardDescription = "고양이 게시판입니다.",
+            boardSlug = "cat",
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )
@@ -89,8 +89,8 @@ class BoardCreateProcessorTest {
     fun test3() {
         // given
         val command = BoardCreateCommand(
-            boardName = boardNameFixture("고양이"),
-            boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
+            boardName = "고양이",
+            boardDescription = "고양이 게시판입니다.",
             boardSlug = savedBoard.slug,
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)

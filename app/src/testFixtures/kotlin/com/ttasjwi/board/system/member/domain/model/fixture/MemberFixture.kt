@@ -16,10 +16,10 @@ fun memberFixture(
 ): Member {
     return Member(
         id = id,
-        email = emailFixture(email),
-        password = encodedPasswordFixture(password),
-        username = usernameFixture(username),
-        nickname = nicknameFixture(nickname),
+        email = email,
+        password = password,
+        username = username,
+        nickname = nickname,
         role = role,
         registeredAt = registeredAt,
     )

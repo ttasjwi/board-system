@@ -6,8 +6,7 @@ import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -24,7 +23,7 @@ class EmailVerificationCommandMapperTest {
     fun setup() {
         timeManagerFixture = TimeManagerFixture()
         emailVerificationCommandMapper = EmailVerificationCommandMapper(
-            emailCreator = EmailCreatorFixture(),
+            emailManager = EmailManagerFixture(),
             timeManager = timeManagerFixture
         )
     }
@@ -41,7 +40,7 @@ class EmailVerificationCommandMapperTest {
 
         val command = emailVerificationCommandMapper.mapToCommand(request)
 
-        assertThat(command.email).isEqualTo(emailFixture(email))
+        assertThat(command.email).isEqualTo(email)
         assertThat(command.code).isEqualTo(code)
         assertThat(command.currentTime).isEqualTo(appDateTimeFixture(minute = 3))
     }
@@ -67,7 +66,7 @@ class EmailVerificationCommandMapperTest {
     @Test
     @DisplayName("이메일 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidEmailFormat() {
-        val email = EmailCreatorFixture.ERROR_EMAIL
+        val email = EmailManagerFixture.ERROR_EMAIL
         val code = "1234"
         val request = EmailVerificationRequest(email, code)
 

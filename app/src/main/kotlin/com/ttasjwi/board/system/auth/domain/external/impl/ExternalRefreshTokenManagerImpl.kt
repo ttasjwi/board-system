@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatException
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshTokenId
 import com.ttasjwi.board.system.common.time.AppDateTime
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
@@ -24,7 +23,7 @@ class ExternalRefreshTokenManagerImpl(
 
     override fun generate(
         memberId: Long,
-        refreshTokenId: RefreshTokenId,
+        refreshTokenId: String,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): RefreshToken {
@@ -50,7 +49,7 @@ class ExternalRefreshTokenManagerImpl(
 
     private fun makeJwt(
         memberId: Long,
-        refreshTokenId: RefreshTokenId,
+        refreshTokenId: String,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): Jwt {
@@ -69,7 +68,7 @@ class ExternalRefreshTokenManagerImpl(
 
     private fun makeClaimSet(
         memberId: Long,
-        refreshTokenId: RefreshTokenId,
+        refreshTokenId: String,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): JwtClaimsSet {
@@ -78,7 +77,7 @@ class ExternalRefreshTokenManagerImpl(
             .issuer(ISSUER_VALUE)
             .issuedAt(issuedAt.toInstant())
             .expiresAt(expiresAt.toInstant())
-            .claim(REFRESH_TOKEN_ID_CLAIM, refreshTokenId.value)
+            .claim(REFRESH_TOKEN_ID_CLAIM, refreshTokenId)
             .claim(TOKEN_TYPE_CLAIM, TOKEN_TYPE_VALUE)
             .build()
     }

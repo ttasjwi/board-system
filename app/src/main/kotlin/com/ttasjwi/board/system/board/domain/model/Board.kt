@@ -9,33 +9,33 @@ import java.time.LocalDateTime
 class Board
 internal constructor(
     val id: Long,
-    name: BoardName,
-    description: BoardDescription,
+    name: String,
+    description: String,
     managerId: Long,
-    slug: BoardSlug,
+    slug: String,
     val createdAt: AppDateTime,
 ) {
 
-    var name: BoardName = name
+    var name: String = name
         private set
 
-    var description: BoardDescription = description
+    var description: String = description
         private set
 
     var managerId: Long = managerId
         private set
 
-    var slug: BoardSlug = slug
+    var slug: String = slug
         private set
 
     companion object {
 
         internal fun create(
             id: Long,
-            name: BoardName,
-            description: BoardDescription,
+            name: String,
+            description: String,
             managerId: Long,
-            slug: BoardSlug,
+            slug: String,
             currentTime: AppDateTime
         ): Board {
             return Board(
@@ -58,10 +58,10 @@ internal constructor(
         ): Board {
             return Board(
                 id = id,
-                name = BoardName.restore(name),
-                description = BoardDescription.restore(description),
+                name = name,
+                description = description,
                 managerId = managerId,
-                slug = BoardSlug.restore(slug),
+                slug = slug,
                 createdAt = AppDateTime.from(createdAt),
             )
         }

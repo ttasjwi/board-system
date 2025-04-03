@@ -22,8 +22,8 @@ class SocialLoginApplicationServiceTest {
     private lateinit var timeManagerFixture: TimeManagerFixture
     private lateinit var memberStorageFixture: MemberStorageFixture
     private lateinit var socialConnectionStorageFixture: SocialConnectionStorageFixture
-    private lateinit var usernameCreatorFixture: UsernameCreatorFixture
-    private lateinit var nicknameCreatorFixture: NicknameCreatorFixture
+    private lateinit var usernameManagerFixture: UsernameManagerFixture
+    private lateinit var nicknameCreatorFixture: NicknameManagerFixture
     private lateinit var refreshTokenHolderStorageFixture: RefreshTokenHolderStorageFixture
 
     @BeforeEach
@@ -31,12 +31,11 @@ class SocialLoginApplicationServiceTest {
         timeManagerFixture = TimeManagerFixture()
         memberStorageFixture = MemberStorageFixture()
         socialConnectionStorageFixture = SocialConnectionStorageFixture()
-        usernameCreatorFixture = UsernameCreatorFixture()
-        nicknameCreatorFixture = NicknameCreatorFixture()
+        usernameManagerFixture = UsernameManagerFixture()
+        nicknameCreatorFixture = NicknameManagerFixture()
         refreshTokenHolderStorageFixture = RefreshTokenHolderStorageFixture()
         applicationService = SocialLoginApplicationService(
             commandMapper = SocialLoginCommandMapper(
-                emailCreator = EmailCreatorFixture(),
                 timeManager = timeManagerFixture
             ),
             processor = SocialLoginProcessor(
@@ -44,8 +43,8 @@ class SocialLoginApplicationServiceTest {
                 socialConnectionCreator = SocialConnectionCreatorFixture(),
                 socialConnectionStorage = socialConnectionStorageFixture,
                 passwordManager = PasswordManagerFixture(),
-                usernameCreator = usernameCreatorFixture,
-                nicknameCreator = nicknameCreatorFixture,
+                usernameManager = usernameManagerFixture,
+                nicknameManager = nicknameCreatorFixture,
                 memberCreator = MemberCreatorFixture(),
                 memberAppender = memberStorageFixture,
                 authMemberCreator = AuthMemberCreatorFixture(),

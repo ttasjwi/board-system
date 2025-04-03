@@ -31,7 +31,7 @@ class EmailVerificationEventCreatorFixtureTest {
         val data = event.data
 
         assertThat(event.occurredAt).isEqualTo(emailVerification.codeCreatedAt)
-        assertThat(data.email).isEqualTo(emailVerification.email.value)
+        assertThat(data.email).isEqualTo(emailVerification.email)
         assertThat(data.code).isEqualTo(emailVerification.code)
         assertThat(data.codeCreatedAt).isEqualTo(emailVerification.codeCreatedAt)
         assertThat(data.codeExpiresAt).isEqualTo(emailVerification.codeExpiresAt)
@@ -47,7 +47,7 @@ class EmailVerificationEventCreatorFixtureTest {
         val data = event.data
 
         assertThat(event.occurredAt).isEqualTo(emailVerification.verifiedAt)
-        assertThat(data.email).isEqualTo(emailVerification.email.value)
+        assertThat(data.email).isEqualTo(emailVerification.email)
         assertThat(data.verifiedAt).isEqualTo(emailVerification.verifiedAt)
         assertThat(data.verificationExpiresAt).isEqualTo(emailVerification.verificationExpiresAt)
     }

@@ -6,22 +6,18 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.Email
-import com.ttasjwi.board.system.member.domain.model.Nickname
-import com.ttasjwi.board.system.member.domain.model.RawPassword
-import com.ttasjwi.board.system.member.domain.model.Username
-import com.ttasjwi.board.system.member.domain.service.EmailCreator
-import com.ttasjwi.board.system.member.domain.service.NicknameCreator
+import com.ttasjwi.board.system.member.domain.service.EmailManager
+import com.ttasjwi.board.system.member.domain.service.NicknameManager
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
-import com.ttasjwi.board.system.member.domain.service.UsernameCreator
+import com.ttasjwi.board.system.member.domain.service.UsernameManager
 import org.springframework.stereotype.Component
 
 @Component
 internal class RegisterMemberCommandMapper(
-    private val emailCreator: EmailCreator,
+    private val emailManager: EmailManager,
     private val passwordManager: PasswordManager,
-    private val usernameCreator: UsernameCreator,
-    private val nicknameCreator: NicknameCreator,
+    private val usernameManager: UsernameManager,
+    private val nicknameManager: NicknameManager,
     private val timeManager: TimeManager,
 ) {
     companion object {
@@ -50,13 +46,13 @@ internal class RegisterMemberCommandMapper(
         )
     }
 
-    private fun getEmail(email: String?, exceptionCollector: ValidationExceptionCollector): Email? {
+    private fun getEmail(email: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (email == null) {
             log.warn { "이메일이 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("email"))
             return null
         }
-        return emailCreator.create(email)
+        return emailManager.validate(email)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)
@@ -64,13 +60,13 @@ internal class RegisterMemberCommandMapper(
             }
     }
 
-    private fun getRawPassword(password: String?, exceptionCollector: ValidationExceptionCollector): RawPassword? {
+    private fun getRawPassword(password: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (password == null) {
             log.warn { "패스워드가 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("password"))
             return null
         }
-        return passwordManager.createRawPassword(password)
+        return passwordManager.validateRawPassword(password)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)
@@ -78,13 +74,13 @@ internal class RegisterMemberCommandMapper(
             }
     }
 
-    private fun getUsername(username: String?, exceptionCollector: ValidationExceptionCollector): Username? {
+    private fun getUsername(username: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (username == null) {
             log.warn { "사용자 아이디(username)가 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("username"))
             return null
         }
-        return usernameCreator.create(username)
+        return usernameManager.validate(username)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)
@@ -92,13 +88,13 @@ internal class RegisterMemberCommandMapper(
             }
     }
 
-    private fun getNickname(nickname: String?, exceptionCollector: ValidationExceptionCollector): Nickname? {
+    private fun getNickname(nickname: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (nickname == null) {
             log.warn { "닉네임이 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("nickname"))
             return null
         }
-        return nicknameCreator.create(nickname)
+        return nicknameManager.validate(nickname)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)

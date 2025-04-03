@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.member.domain.model.fixture.*
+import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -28,7 +28,7 @@ class MemberStorageImplTest : IntegrationTest() {
             // then
             assertThat(savedMember.id).isNotNull
             assertThat(savedMember.email).isEqualTo(member.email)
-            assertThat(savedMember.password.value).isEqualTo(member.password.value)
+            assertThat(savedMember.password).isEqualTo(member.password)
             assertThat(savedMember.username).isEqualTo(member.username)
             assertThat(savedMember.nickname).isEqualTo(member.nickname)
             assertThat(savedMember.role).isEqualTo(member.role)
@@ -56,12 +56,12 @@ class MemberStorageImplTest : IntegrationTest() {
             flushAndClearEntityManager()
 
             // when
-            val findMember = memberStorageImpl.findByIdOrNull(savedMember.id!!)!!
+            val findMember = memberStorageImpl.findByIdOrNull(savedMember.id)!!
 
             // then
             assertThat(findMember.id).isEqualTo(savedMember.id)
             assertThat(findMember.id).isEqualTo(changedMember.id)
-            assertThat(findMember.password.value).isEqualTo(changedMember.password.value)
+            assertThat(findMember.password).isEqualTo(changedMember.password)
         }
 
     }
@@ -86,7 +86,7 @@ class MemberStorageImplTest : IntegrationTest() {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -126,7 +126,7 @@ class MemberStorageImplTest : IntegrationTest() {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -135,7 +135,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("ttascat@gmail.com")
+            val email = "ttascat@gmail.com"
 
             // when
             val findMember = memberStorageImpl.findByEmailOrNull(email)
@@ -165,7 +165,7 @@ class MemberStorageImplTest : IntegrationTest() {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -174,7 +174,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("마늘오리")
+            val nickname = "마늘오리"
 
             // when
             val findMember = memberStorageImpl.findByNicknameOrNull(nickname)
@@ -205,7 +205,7 @@ class MemberStorageImplTest : IntegrationTest() {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -214,7 +214,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd1234")
+            val username = "abcd1234"
 
             // when
             val findMember = memberStorageImpl.findByUsernameOrNull(username)
@@ -280,7 +280,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val email = emailFixture("abcd@gmail.com")
+            val email = "abcd@gmail.com"
 
             // when
             val isExist = memberStorageImpl.existsByEmail(email)
@@ -313,7 +313,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val nickname = nicknameFixture("페이커")
+            val nickname = "페이커"
 
             // when
             val isExist = memberStorageImpl.existsByNickname(nickname)
@@ -346,7 +346,7 @@ class MemberStorageImplTest : IntegrationTest() {
         @Test
         fun test2() {
             // given
-            val username = usernameFixture("abcd124")
+            val username = "abcd124"
             // when
             val isExist = memberStorageImpl.existsByUsername(username)
 

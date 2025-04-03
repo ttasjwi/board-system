@@ -7,13 +7,10 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.nicknameFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.usernameFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.NicknameCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.NicknameManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.UsernameCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.UsernameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -33,10 +30,10 @@ class RegisterMemberCommandMapperTest {
         timeManager.changeCurrentTime(currentTime)
 
         commandMapper = RegisterMemberCommandMapper(
-            emailCreator = EmailCreatorFixture(),
+            emailManager = EmailManagerFixture(),
             passwordManager = PasswordManagerFixture(),
-            usernameCreator = UsernameCreatorFixture(),
-            nicknameCreator = NicknameCreatorFixture(),
+            usernameManager = UsernameManagerFixture(),
+            nicknameManager = NicknameManagerFixture(),
             timeManager = timeManager,
         )
     }
@@ -56,10 +53,10 @@ class RegisterMemberCommandMapperTest {
         val command = commandMapper.mapToCommand(request)
 
         // then
-        assertThat(command.email).isEqualTo(emailFixture(request.email!!))
-        assertThat(command.rawPassword.value).isEqualTo(request.password)
-        assertThat(command.username).isEqualTo(usernameFixture(request.username!!))
-        assertThat(command.nickname).isEqualTo(nicknameFixture(request.nickname!!))
+        assertThat(command.email).isEqualTo(request.email)
+        assertThat(command.rawPassword).isEqualTo(request.password)
+        assertThat(command.username).isEqualTo(request.username!!)
+        assertThat(command.nickname).isEqualTo(request.nickname!!)
         assertThat(command.currentTime).isEqualTo(currentTime)
     }
 
@@ -151,7 +148,7 @@ class RegisterMemberCommandMapperTest {
     @DisplayName("이메일 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidEmailFormat() {
         val request = RegisterMemberRequest(
-            email = EmailCreatorFixture.ERROR_EMAIL,
+            email = EmailManagerFixture.ERROR_EMAIL,
             password = "1234",
             username = "ttasjwi",
             nickname = "땃쥐",
@@ -195,7 +192,7 @@ class RegisterMemberCommandMapperTest {
         val request = RegisterMemberRequest(
             email = "hello@gmail.com",
             password = "1234",
-            username = UsernameCreatorFixture.ERROR_USERNAME,
+            username = UsernameManagerFixture.ERROR_USERNAME,
             nickname = "땃쥐",
         )
 
@@ -217,7 +214,7 @@ class RegisterMemberCommandMapperTest {
             email = "hello@gmail.com",
             password = "1234",
             username = "ttasjwi",
-            nickname = NicknameCreatorFixture.ERROR_NICKNAME,
+            nickname = NicknameManagerFixture.ERROR_NICKNAME,
         )
 
         val exceptionCollector = assertThrows<ValidationExceptionCollector> {

@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -37,7 +36,7 @@ class EmailVerificationStorageFixtureTest {
     @Test
     @DisplayName("이메일 인증을 찾지 못 했다면 null 이 반환된다")
     fun notFoundNull() {
-        val findEmailVerification = emailVerificationStorageFixture.findByEmailOrNull(emailFixture("bye@gmail.com"))
+        val findEmailVerification = emailVerificationStorageFixture.findByEmailOrNull("bye@gmail.com")
         assertThat(findEmailVerification).isNull()
     }
 

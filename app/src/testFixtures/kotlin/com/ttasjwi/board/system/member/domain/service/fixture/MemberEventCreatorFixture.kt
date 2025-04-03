@@ -10,9 +10,9 @@ class MemberEventCreatorFixture : MemberEventCreator {
     override fun onMemberRegistered(member: Member): MemberRegisteredEvent {
         return memberRegisteredEventFixture(
             memberId = member.id,
-            email = member.email.value,
-            username = member.username.value,
-            nickname = member.nickname.value,
+            email = member.email,
+            username = member.username,
+            nickname = member.nickname,
             role = member.role,
             registeredAt = member.registeredAt,
         )

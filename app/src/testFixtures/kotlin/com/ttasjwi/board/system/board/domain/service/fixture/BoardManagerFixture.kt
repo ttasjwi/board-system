@@ -1,9 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardDescription
-import com.ttasjwi.board.system.board.domain.model.BoardName
-import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.time.AppDateTime
@@ -14,18 +11,18 @@ class BoardManagerFixture : BoardManager {
     private val sequence: AtomicLong = AtomicLong(0)
 
     override fun create(
-        name: BoardName,
-        description: BoardDescription,
+        name: String,
+        description: String,
         managerId: Long,
-        slug: BoardSlug,
+        slug: String,
         currentTime: AppDateTime
     ): Board {
         return boardFixture(
             id = sequence.incrementAndGet(),
-            name = name.value,
-            description = description.value,
+            name = name,
+            description = description,
             managerId = managerId,
-            slug = slug.value,
+            slug = slug,
             createdAt = currentTime
         )
     }

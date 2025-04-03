@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
-import com.ttasjwi.board.system.board.domain.model.fixture.*
+import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -44,7 +44,7 @@ class BoardStorageFixtureTest {
             // then
             assertThat(findBoard.id).isEqualTo(savedBoard.id)
             assertThat(findBoard.id).isEqualTo(changedBoard.id)
-            assertThat(findBoard.name.value).isEqualTo(changedBoard.name.value)
+            assertThat(findBoard.name).isEqualTo(changedBoard.name)
         }
 
     }
@@ -114,7 +114,7 @@ class BoardStorageFixtureTest {
         fun test2() {
             // given
             // when
-            val exists = boardStorageFixture.existsByName(boardNameFixture("음식"))
+            val exists = boardStorageFixture.existsByName("음식")
             // then
             assertThat(exists).isFalse()
         }
@@ -147,7 +147,7 @@ class BoardStorageFixtureTest {
         fun test2() {
             // given
             // when
-            val exists = boardStorageFixture.existsBySlug(boardSlugFixture("food"))
+            val exists = boardStorageFixture.existsBySlug("food")
             // then
             assertThat(exists).isFalse()
         }
@@ -185,7 +185,7 @@ class BoardStorageFixtureTest {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val slug = boardSlugFixture("food")
+            val slug = "food"
 
             // when
             val board = boardStorageFixture.findBySlugOrNull(slug)

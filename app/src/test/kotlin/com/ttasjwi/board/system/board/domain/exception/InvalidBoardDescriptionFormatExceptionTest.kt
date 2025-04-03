@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain.exception
 
-import com.ttasjwi.board.system.board.domain.model.BoardDescription
+import com.ttasjwi.board.system.board.domain.service.impl.BoardDescriptionManagerImpl
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -17,9 +17,9 @@ class InvalidBoardDescriptionFormatExceptionTest {
         assertThat(exception.status).isEqualTo(ErrorStatus.BAD_REQUEST)
         assertThat(exception.code).isEqualTo("Error.InvalidBoardDescriptionFormat")
         assertThat(exception.source).isEqualTo("boardDescription")
-        assertThat(exception.args).containsExactly(BoardDescription.MAX_LENGTH)
+        assertThat(exception.args).containsExactly(BoardDescriptionManagerImpl.MAX_LENGTH)
         assertThat(exception.message).isEqualTo(exception.debugMessage)
         assertThat(exception.cause).isNull()
-        assertThat(exception.debugMessage).isEqualTo("게시판 설명의 형식이 올바르지 않습니다. 최대 ${BoardDescription.MAX_LENGTH}자 까지만 허용됩니다.")
+        assertThat(exception.debugMessage).isEqualTo("게시판 설명의 형식이 올바르지 않습니다. 최대 ${BoardDescriptionManagerImpl.MAX_LENGTH}자 까지만 허용됩니다.")
     }
 }

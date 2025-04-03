@@ -1,8 +1,5 @@
 package com.ttasjwi.board.system.board.domain.service.impl
 
-import com.ttasjwi.board.system.board.domain.model.fixture.boardDescriptionFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardNameFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -23,10 +20,10 @@ class BoardManagerImplTest {
     @Test
     @DisplayName("create : 게시판을 생성할 수 있다.")
     fun testCreate() {
-        val name = boardNameFixture("경제")
-        val description = boardDescriptionFixture("경제 게시판입니다.")
+        val name = "경제"
+        val description = "경제 게시판입니다."
         val managerId = 13L
-        val slug = boardSlugFixture("economy")
+        val slug = "economy"
         val currentTime = appDateTimeFixture()
 
         val board = boardManager.create(

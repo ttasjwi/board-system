@@ -18,7 +18,7 @@ class EmailVerificationHandlerFixture : EmailVerificationHandler {
         currentTime: AppDateTime
     ): EmailVerification {
         return emailVerificationFixtureVerified(
-            email = emailVerification.email.value,
+            email = emailVerification.email,
             code = emailVerification.code,
             codeCreatedAt = emailVerification.codeCreatedAt,
             codeExpiresAt = emailVerification.codeExpiresAt,

@@ -1,8 +1,6 @@
 package com.ttasjwi.board.system.member.domain.external.impl
 
 import com.ttasjwi.board.system.member.domain.external.ExternalPasswordHandler
-import com.ttasjwi.board.system.member.domain.model.EncodedPassword
-import com.ttasjwi.board.system.member.domain.model.RawPassword
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Component
 
@@ -11,12 +9,11 @@ class ExternalPasswordHandlerImpl(
     private val passwordEncoder: PasswordEncoder,
 ) : ExternalPasswordHandler {
 
-    override fun encode(rawPassword: RawPassword): EncodedPassword {
-        val encodedPasswordValue = passwordEncoder.encode(rawPassword.value)
-        return EncodedPassword.restore(encodedPasswordValue)
+    override fun encode(rawPassword: String): String {
+        return passwordEncoder.encode(rawPassword)
     }
 
-    override fun matches(rawPassword: RawPassword, encodedPassword: EncodedPassword): Boolean {
-        return passwordEncoder.matches(rawPassword.value, encodedPassword.value)
+    override fun matches(rawPassword: String, encodedPassword: String): Boolean {
+        return passwordEncoder.matches(rawPassword, encodedPassword)
     }
 }

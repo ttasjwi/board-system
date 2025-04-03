@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -18,6 +17,6 @@ class EmailSenderFixtureTest {
     @Test
     @DisplayName("동작 테스트")
     fun send() {
-        emailSenderFixture.send(emailFixture("ttasjwi@gmail.com"), "제목", "내용")
+        emailSenderFixture.send("ttasjwi@gmail.com", "제목", "내용")
     }
 }

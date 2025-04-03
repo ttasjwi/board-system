@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.auth.application.mapper
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -19,7 +18,6 @@ class SocialLoginCommandMapperTest {
     fun setup() {
         timeManagerFixture = TimeManagerFixture()
         commandMapper = SocialLoginCommandMapper(
-            emailCreator = EmailCreatorFixture(),
             timeManager = timeManagerFixture
         )
     }
@@ -43,7 +41,7 @@ class SocialLoginCommandMapperTest {
         // then
         assertThat(command.socialServiceUser.service.name).isEqualToIgnoringCase(request.socialServiceName)
         assertThat(command.socialServiceUser.userId).isEqualTo(request.socialServiceUserId)
-        assertThat(command.email.value).isEqualTo(request.email)
+        assertThat(command.email).isEqualTo(request.email)
         assertThat(command.currentTime).isEqualTo(currentTime)
     }
 }

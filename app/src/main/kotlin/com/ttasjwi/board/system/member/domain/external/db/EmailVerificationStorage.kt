@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.external.db.redis.RedisEmailVerification
-import com.ttasjwi.board.system.member.domain.model.Email
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationFinder
@@ -28,17 +27,17 @@ class EmailVerificationStorage(
         redisTemplate.expireAt(key, expiresAt.toInstant())
     }
 
-    override fun removeByEmail(email: Email) {
+    override fun removeByEmail(email: String) {
         val key = makeKey(email)
         redisTemplate.delete(key)
     }
 
-    override fun findByEmailOrNull(email: Email): EmailVerification? {
+    override fun findByEmailOrNull(email: String): EmailVerification? {
         val key = makeKey(email)
         return redisTemplate.opsForValue().get(key)?.restoreDomain()
     }
 
-    private fun makeKey(email: Email): String {
-        return KEY_PREFIX + email.value
+    private fun makeKey(email: String): String {
+        return KEY_PREFIX + email
     }
 }

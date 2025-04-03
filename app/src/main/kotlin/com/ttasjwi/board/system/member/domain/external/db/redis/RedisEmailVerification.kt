@@ -16,7 +16,7 @@ class RedisEmailVerification(
 
         fun from(emailVerification: EmailVerification): RedisEmailVerification {
             return RedisEmailVerification(
-                email = emailVerification.email.value,
+                email = emailVerification.email,
                 code = emailVerification.code,
                 codeCreatedAt = emailVerification.codeCreatedAt.toInstant(),
                 codeExpiresAt = emailVerification.codeExpiresAt.toInstant(),

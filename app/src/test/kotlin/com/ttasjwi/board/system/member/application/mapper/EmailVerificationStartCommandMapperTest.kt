@@ -6,8 +6,8 @@ import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.emailFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.EmailManager
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import java.util.*
@@ -16,17 +16,17 @@ import java.util.*
 class EmailVerificationStartCommandMapperTest {
 
     private lateinit var commandMapper: EmailVerificationStartCommandMapper
-    private lateinit var emailCreatorFixture: EmailCreatorFixture
+    private lateinit var emailManager: EmailManager
     private lateinit var localeManagerFixture: LocaleManagerFixture
     private lateinit var timeManagerFixture: TimeManagerFixture
 
     @BeforeEach
     fun setup() {
-        emailCreatorFixture = EmailCreatorFixture()
+        emailManager = EmailManagerFixture()
         localeManagerFixture = LocaleManagerFixture()
         timeManagerFixture = TimeManagerFixture()
         commandMapper = EmailVerificationStartCommandMapper(
-            emailCreator = emailCreatorFixture,
+            emailManager = emailManager,
             timeManager = timeManagerFixture,
             localeManager = localeManagerFixture,
         )
@@ -48,7 +48,7 @@ class EmailVerificationStartCommandMapperTest {
         @Test
         @DisplayName("이메일이 형식이 유효하지 않으면 예외가 발생한다")
         fun testInvalidFormatEmail() {
-            val request = EmailVerificationStartRequest(email = EmailCreatorFixture.ERROR_EMAIL)
+            val request = EmailVerificationStartRequest(email = EmailManagerFixture.ERROR_EMAIL)
 
             val exception = assertThrows<CustomException> { commandMapper.mapToCommand(request) }
             assertThat(exception.debugMessage).isEqualTo("이메일 포맷 예외 - 픽스쳐")
@@ -65,7 +65,7 @@ class EmailVerificationStartCommandMapperTest {
             val command = commandMapper.mapToCommand(request)
 
             assertThat(command).isNotNull
-            assertThat(command.email).isEqualTo(emailFixture("hello@gmail.com"))
+            assertThat(command.email).isEqualTo(request.email)
             assertThat(command.locale).isEqualTo(Locale.ENGLISH)
             assertThat(command.currenTime).isEqualTo(appDateTimeFixture(minute = 3))
         }

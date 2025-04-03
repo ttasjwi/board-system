@@ -6,13 +6,13 @@ import com.ttasjwi.board.system.member.application.dto.NicknameAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.NicknameCreatorFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.NicknameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.util.Locale
+import java.util.*
 
 @DisplayName("NicknameAvailableProcessor: 닉네임이 사용가능한 지 여부를 실질적으로 확인하는 처리자")
 class NicknameAvailableProcessorTest {
@@ -23,13 +23,13 @@ class NicknameAvailableProcessorTest {
     @BeforeEach
     fun setup() {
         val memberStorageFixture = MemberStorageFixture()
-        val nicknameCreatorFixture = NicknameCreatorFixture()
+        val nicknameManagerFixture = NicknameManagerFixture()
         processor = NicknameAvailableProcessor(
-            nicknameCreator = nicknameCreatorFixture,
+            nicknameManager = nicknameManagerFixture,
             memberFinder = memberStorageFixture,
             messageResolver = MessageResolverFixture(),
             localeManager = LocaleManagerFixture(),
-            )
+        )
         savedMember = memberStorageFixture.save(
             memberFixture(
                 nickname = "saved"
@@ -44,7 +44,7 @@ class NicknameAvailableProcessorTest {
         @Test
         @DisplayName("닉네임 포맷이 유효하지 않을 때, 닉네임 포맷이 유효하지 않다는 결과를 반환한다.")
         fun testInvalidFormat() {
-            val query = NicknameAvailableQuery(nickname = NicknameCreatorFixture.ERROR_NICKNAME)
+            val query = NicknameAvailableQuery(nickname = NicknameManagerFixture.ERROR_NICKNAME)
 
             val result = processor.checkNicknameAvailable(query)
 
@@ -58,7 +58,7 @@ class NicknameAvailableProcessorTest {
         @Test
         @DisplayName("포맷이 올바르지만 이미 사용중인 닉네임이면, 이미 사용 중이라는 결과를 반환한다.")
         fun testTaken() {
-            val query = NicknameAvailableQuery(nickname = savedMember.nickname.value)
+            val query = NicknameAvailableQuery(nickname = savedMember.nickname)
 
             val result = processor.checkNicknameAvailable(query)
 
