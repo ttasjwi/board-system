@@ -45,7 +45,7 @@ class BoardCreateProcessorTest {
     fun test1() {
         // given
         val command = BoardCreateCommand(
-            boardName = boardNameFixture("고양이"),
+            boardName = "고양이",
             boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
             boardSlug = boardSlugFixture("cat"),
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),
@@ -59,7 +59,7 @@ class BoardCreateProcessorTest {
         val findBoard = boardStorageFixture.findByIdOrNull(response.boardId.toLong())!!
 
         assertThat(response.boardId).isNotNull()
-        assertThat(response.name).isEqualTo(command.boardName.value)
+        assertThat(response.name).isEqualTo(command.boardName)
         assertThat(response.description).isEqualTo(command.boardDescription.value)
         assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
         assertThat(response.slug).isEqualTo(command.boardSlug.value)
@@ -89,7 +89,7 @@ class BoardCreateProcessorTest {
     fun test3() {
         // given
         val command = BoardCreateCommand(
-            boardName = boardNameFixture("고양이"),
+            boardName = "고양이",
             boardDescription = boardDescriptionFixture("고양이 게시판입니다."),
             boardSlug = savedBoard.slug,
             creator = authMemberFixture(memberId = 1557L, role = Role.USER),

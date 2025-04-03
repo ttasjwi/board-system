@@ -1,10 +1,11 @@
 package com.ttasjwi.board.system.board.domain.external.db.jpa
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import jakarta.persistence.*
-import java.time.LocalDate
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.LocalDateTime
-import java.time.ZonedDateTime
 
 @Entity
 @Table(name = "boards")
@@ -35,7 +36,7 @@ class JpaBoard(
         internal fun from(board: Board): JpaBoard {
             return JpaBoard(
                 id = board.id,
-                name = board.name.value,
+                name = board.name,
                 description = board.description.value,
                 managerId = board.managerId,
                 slug = board.slug.value,

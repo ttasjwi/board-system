@@ -2,10 +2,9 @@ package com.ttasjwi.board.system.board.application.mapper
 
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.domain.model.fixture.boardDescriptionFixture
-import com.ttasjwi.board.system.board.domain.model.fixture.boardNameFixture
 import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardDescriptionCreatorFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardNameCreatorFixture
+import com.ttasjwi.board.system.board.domain.service.fixture.BoardNameManagerFixture
 import com.ttasjwi.board.system.board.domain.service.fixture.BoardSlugCreatorFixture
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.auth.domain.model.Role
@@ -44,7 +43,7 @@ class BoardCreateCommandMapperTest {
         authMemberLoader.changeAuthMember(authMember)
 
         commandMapper = BoardCreateCommandMapper(
-            boardNameCreator = BoardNameCreatorFixture(),
+            boardNameManager = BoardNameManagerFixture(),
             boardDescriptionCreator = BoardDescriptionCreatorFixture(),
             boardSlugCreator = BoardSlugCreatorFixture(),
             authMemberLoader = authMemberLoader,
@@ -66,7 +65,7 @@ class BoardCreateCommandMapperTest {
         val command = commandMapper.mapToCommand(request)
 
         // then
-        assertThat(command.boardName).isEqualTo(boardNameFixture(request.name!!))
+        assertThat(command.boardName).isEqualTo(request.name!!)
         assertThat(command.boardDescription).isEqualTo(boardDescriptionFixture(request.description!!))
         assertThat(command.boardSlug).isEqualTo(boardSlugFixture(request.slug!!))
         assertThat(command.currentTime).isEqualTo(currentTime)
@@ -152,7 +151,7 @@ class BoardCreateCommandMapperTest {
     fun test5() {
         // given
         val request = BoardCreateRequest(
-            name = BoardNameCreatorFixture.ERROR_NAME,
+            name = BoardNameManagerFixture.ERROR_NAME,
             description = "고양이 게시판입니다.",
             slug = "cat"
         )

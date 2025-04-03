@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.BoardName
 import com.ttasjwi.board.system.board.domain.model.BoardSlug
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
 
@@ -18,7 +17,7 @@ class BoardStorageFixture : BoardStorage {
         return storage[id]
     }
 
-    override fun existsByName(name: BoardName): Boolean {
+    override fun existsByName(name: String): Boolean {
         return storage.values.any { it.name == name }
     }
 

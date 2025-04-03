@@ -39,7 +39,7 @@ internal class BoardCreateProcessor(
     private fun checkDuplication(command: BoardCreateCommand) {
         // 게시판 이름이 중복되면 안 됨
         if (boardStorage.existsByName(command.boardName)) {
-            val e = DuplicateBoardNameException(command.boardName.value)
+            val e = DuplicateBoardNameException(command.boardName)
             log.warn(e)
             throw e
         }
@@ -65,7 +65,7 @@ internal class BoardCreateProcessor(
     private fun makeResponse(board: Board): BoardCreateResponse {
         return BoardCreateResponse(
             boardId = board.id.toString(),
-            name = board.name.value,
+            name = board.name,
             description = board.description.value,
             managerId = board.managerId.toString(),
             slug = board.slug.value,

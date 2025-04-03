@@ -9,14 +9,14 @@ import java.time.LocalDateTime
 class Board
 internal constructor(
     val id: Long,
-    name: BoardName,
+    name: String,
     description: BoardDescription,
     managerId: Long,
     slug: BoardSlug,
     val createdAt: AppDateTime,
 ) {
 
-    var name: BoardName = name
+    var name: String = name
         private set
 
     var description: BoardDescription = description
@@ -32,7 +32,7 @@ internal constructor(
 
         internal fun create(
             id: Long,
-            name: BoardName,
+            name: String,
             description: BoardDescription,
             managerId: Long,
             slug: BoardSlug,
@@ -58,7 +58,7 @@ internal constructor(
         ): Board {
             return Board(
                 id = id,
-                name = BoardName.restore(name),
+                name = name,
                 description = BoardDescription.restore(description),
                 managerId = managerId,
                 slug = BoardSlug.restore(slug),

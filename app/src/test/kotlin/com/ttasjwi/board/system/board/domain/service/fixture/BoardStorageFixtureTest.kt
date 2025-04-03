@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
-import com.ttasjwi.board.system.board.domain.model.fixture.*
+import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
+import com.ttasjwi.board.system.board.domain.model.fixture.boardSlugFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -44,7 +45,7 @@ class BoardStorageFixtureTest {
             // then
             assertThat(findBoard.id).isEqualTo(savedBoard.id)
             assertThat(findBoard.id).isEqualTo(changedBoard.id)
-            assertThat(findBoard.name.value).isEqualTo(changedBoard.name.value)
+            assertThat(findBoard.name).isEqualTo(changedBoard.name)
         }
 
     }
@@ -114,7 +115,7 @@ class BoardStorageFixtureTest {
         fun test2() {
             // given
             // when
-            val exists = boardStorageFixture.existsByName(boardNameFixture("음식"))
+            val exists = boardStorageFixture.existsByName("음식")
             // then
             assertThat(exists).isFalse()
         }
