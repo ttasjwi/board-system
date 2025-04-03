@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.member.domain.policy.fixture.EmailFormatPolicyFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailSenderFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -14,7 +14,7 @@ class EmailSendApplicationServiceTest {
     @BeforeEach
     fun setup() {
         emailSendApplicationService = EmailSendApplicationService(
-            emailFormatPolicy = EmailFormatPolicyFixture(),
+            emailManager = EmailManagerFixture(),
             emailSender = EmailSenderFixture()
         )
     }

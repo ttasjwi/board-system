@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.policy.fixture.EmailFormatPolicyFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.NicknameManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.UsernameManagerFixture
@@ -30,7 +30,7 @@ class RegisterMemberCommandMapperTest {
         timeManager.changeCurrentTime(currentTime)
 
         commandMapper = RegisterMemberCommandMapper(
-            emailFormatPolicy = EmailFormatPolicyFixture(),
+            emailManager = EmailManagerFixture(),
             passwordManager = PasswordManagerFixture(),
             usernameManager = UsernameManagerFixture(),
             nicknameManager = NicknameManagerFixture(),
@@ -148,7 +148,7 @@ class RegisterMemberCommandMapperTest {
     @DisplayName("이메일 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidEmailFormat() {
         val request = RegisterMemberRequest(
-            email = EmailFormatPolicyFixture.ERROR_EMAIL,
+            email = EmailManagerFixture.ERROR_EMAIL,
             password = "1234",
             username = "ttasjwi",
             nickname = "땃쥐",

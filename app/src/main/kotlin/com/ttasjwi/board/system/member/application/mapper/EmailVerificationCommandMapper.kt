@@ -6,12 +6,12 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
-import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
+import com.ttasjwi.board.system.member.domain.service.EmailManager
 import org.springframework.stereotype.Component
 
 @Component
 internal class EmailVerificationCommandMapper(
-    private val emailFormatPolicy: EmailFormatPolicy,
+    private val emailManager: EmailManager,
     private val timeManager: TimeManager,
 ) {
 
@@ -44,7 +44,7 @@ internal class EmailVerificationCommandMapper(
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("email"))
             return null
         }
-        return emailFormatPolicy.validate(email)
+        return emailManager.validate(email)
             .getOrElse {
                 log.warn { "이메일 포맷이 유효하지 않습니다. (email=${email})" }
                 exceptionCollector.addCustomExceptionOrThrow(it)

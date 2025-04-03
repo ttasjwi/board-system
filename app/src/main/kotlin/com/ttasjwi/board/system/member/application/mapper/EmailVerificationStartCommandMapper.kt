@@ -6,12 +6,12 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
-import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
+import com.ttasjwi.board.system.member.domain.service.EmailManager
 import org.springframework.stereotype.Component
 
 @Component
 internal class EmailVerificationStartCommandMapper(
-    private val emailFormatPolicy: EmailFormatPolicy,
+    private val emailManager: EmailManager,
     private val localeManager: LocaleManager,
     private val timeManager: TimeManager,
 ) {
@@ -28,7 +28,7 @@ internal class EmailVerificationStartCommandMapper(
             log.warn(e)
             throw e
         }
-        val email = emailFormatPolicy.validate(request.email).getOrElse {
+        val email = emailManager.validate(request.email).getOrElse {
             log.warn(it)
             throw it
         }

@@ -1,10 +1,10 @@
-package com.ttasjwi.board.system.member.domain.policy.fixture
+package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
-import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
+import com.ttasjwi.board.system.member.domain.service.EmailManager
 
-class EmailFormatPolicyFixture : EmailFormatPolicy {
+class EmailManagerFixture : EmailManager {
 
     companion object {
         const val ERROR_EMAIL = "erro!@gmail.com"

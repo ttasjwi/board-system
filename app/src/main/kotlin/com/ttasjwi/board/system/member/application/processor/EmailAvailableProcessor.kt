@@ -5,13 +5,13 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResponse
-import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
+import com.ttasjwi.board.system.member.domain.service.EmailManager
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import org.springframework.stereotype.Component
 
 @Component
 internal class EmailAvailableProcessor(
-    private val emailFormatPolicy: EmailFormatPolicy,
+    private val emailManager: EmailManager,
     private val memberFinder: MemberFinder,
     private val messageResolver: MessageResolver,
     private val localeManager: LocaleManager,
@@ -22,7 +22,7 @@ internal class EmailAvailableProcessor(
     }
 
     fun checkEmailAvailable(query: EmailAvailableQuery): EmailAvailableResponse {
-        val email = emailFormatPolicy.validate(query.email)
+        val email = emailManager.validate(query.email)
             .getOrElse {
                 log.info { "이메일의 포맷이 유효하지 않습니다. (email = ${query.email})" }
                 return makeResponse(query.email, false, "EmailAvailableCheck.InvalidFormat")

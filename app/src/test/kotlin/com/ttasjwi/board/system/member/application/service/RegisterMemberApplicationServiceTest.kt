@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandM
 import com.ttasjwi.board.system.member.application.processor.RegisterMemberProcessor
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
-import com.ttasjwi.board.system.member.domain.policy.fixture.EmailFormatPolicyFixture
+import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -32,7 +32,7 @@ class RegisterMemberApplicationServiceTest {
 
         applicationService = RegisterMemberApplicationService(
             commandMapper = RegisterMemberCommandMapper(
-                emailFormatPolicy = EmailFormatPolicyFixture(),
+                emailManager = EmailManagerFixture(),
                 passwordManager = PasswordManagerFixture(),
                 usernameManager = UsernameManagerFixture(),
                 nicknameManager = NicknameManagerFixture(),
