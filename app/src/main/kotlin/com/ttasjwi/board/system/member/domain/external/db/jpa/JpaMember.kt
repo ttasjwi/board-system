@@ -40,7 +40,7 @@ class JpaMember(
             return JpaMember(
                 id = member.id,
                 email = member.email,
-                password = member.password.value,
+                password = member.password,
                 username = member.username,
                 nickname = member.nickname,
                 role = member.role.name,

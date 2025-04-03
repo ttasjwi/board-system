@@ -1,12 +1,10 @@
 package com.ttasjwi.board.system.auth.application.mapper
 
-import com.ttasjwi.board.system.auth.application.exception.LoginFailureException
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -23,7 +21,6 @@ class LoginCommandMapperTest {
     fun setup() {
         timeManagerFixture = TimeManagerFixture()
         commandMapper = LoginCommandMapper(
-            passwordManager = PasswordManagerFixture(),
             timeManager = timeManagerFixture
         )
     }
@@ -43,7 +40,7 @@ class LoginCommandMapperTest {
 
         // then
         assertThat(command.email).isEqualTo(email)
-        assertThat(command.rawPassword.value).isEqualTo(password)
+        assertThat(command.rawPassword).isEqualTo(password)
         assertThat(command.currentTime).isEqualTo(appDateTimeFixture(minute = 0))
     }
 
@@ -71,15 +68,5 @@ class LoginCommandMapperTest {
         assertThat(exceptions.size).isEqualTo(1)
         assertThat(exceptions[0]).isInstanceOf(NullArgumentException::class.java)
         assertThat(exceptions[0].source).isEqualTo("password")
-    }
-
-    @Test
-    @DisplayName("패스워드 포맷이 유효하지 않으면 로그인 실패 예외가 발생한다")
-    fun testInvalidPasswordFormat() {
-        val request = LoginRequest(email = "ttasjwi@gmail.com", password = PasswordManagerFixture.ERROR_PASSWORD)
-
-        val exception = assertThrows<LoginFailureException> { commandMapper.mapToCommand(request) }
-
-        assertThat(exception.debugMessage).isEqualTo("로그인 실패 - 패스워드 포맷이 유효하지 않음")
     }
 }

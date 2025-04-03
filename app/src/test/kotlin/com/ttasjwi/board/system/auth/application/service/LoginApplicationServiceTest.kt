@@ -44,7 +44,6 @@ class LoginApplicationServiceTest {
 
         applicationService = LoginApplicationService(
             commandMapper = LoginCommandMapper(
-                passwordManager = PasswordManagerFixture(),
                 timeManager = timeManagerFixture
             ),
             processor = LoginProcessor(

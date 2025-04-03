@@ -34,7 +34,7 @@ class MemberStorageFixtureTest {
             // then
             assertThat(savedMember.id).isNotNull
             assertThat(savedMember.email).isEqualTo(member.email)
-            assertThat(savedMember.password.value).isEqualTo(member.password.value)
+            assertThat(savedMember.password).isEqualTo(member.password)
             assertThat(savedMember.username).isEqualTo(member.username)
             assertThat(savedMember.nickname).isEqualTo(member.nickname)
             assertThat(savedMember.role).isEqualTo(member.role)
@@ -64,7 +64,7 @@ class MemberStorageFixtureTest {
             // then
             assertThat(findMember.id).isEqualTo(savedMember.id)
             assertThat(findMember.id).isEqualTo(changedMember.id)
-            assertThat(findMember.password.value).isEqualTo(changedMember.password.value)
+            assertThat(findMember.password).isEqualTo(changedMember.password)
         }
 
     }
@@ -89,7 +89,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -128,7 +128,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -166,7 +166,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }
@@ -205,7 +205,7 @@ class MemberStorageFixtureTest {
             assertThat(findMember.email).isEqualTo(member.email)
             assertThat(findMember.username).isEqualTo(member.username)
             assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password.value).isEqualTo(member.password.value)
+            assertThat(findMember.password).isEqualTo(member.password)
             assertThat(findMember.role).isEqualTo(member.role)
             assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
         }

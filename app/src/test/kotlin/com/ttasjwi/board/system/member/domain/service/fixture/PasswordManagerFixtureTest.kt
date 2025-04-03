@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
 import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -26,16 +25,16 @@ class PasswordManagerFixtureTest {
         @DisplayName("성공테스트 - 원본값과 같은 RawPassword를 생성한다")
         fun success() {
             val value = "1234"
-            val rawPassword = passwordManager.createRawPassword(value).getOrThrow()
+            val rawPassword = passwordManager.validateRawPassword(value).getOrThrow()
 
-            assertThat(rawPassword.value).isEqualTo(value)
+            assertThat(rawPassword).isEqualTo(value)
         }
 
         @Test
         @DisplayName("실패테스트 - ${PasswordManagerFixture.ERROR_PASSWORD} 가 입력일 경우 예외가 발생한다")
         fun failure() {
             val value = PasswordManagerFixture.ERROR_PASSWORD
-            val result = passwordManager.createRawPassword(value)
+            val result = passwordManager.validateRawPassword(value)
 
             val exception = result.exceptionOrNull() as CustomException
 
@@ -53,7 +52,7 @@ class PasswordManagerFixtureTest {
         @DisplayName("랜덤한 패스워드가 생성되는 지 확인")
         fun test() {
             val password = passwordManager.createRandomRawPassword()
-            assertThat(password.value.length).isEqualTo(PasswordManagerFixture.RANDOM_PASSWORD_LENGTH)
+            assertThat(password.length).isEqualTo(PasswordManagerFixture.RANDOM_PASSWORD_LENGTH)
         }
     }
 
@@ -64,9 +63,9 @@ class PasswordManagerFixtureTest {
         @Test
         @DisplayName("encode: 패스워드를 인코딩한다. 이 때 인코딩된 값은 원본 값과 같다.")
         fun test() {
-            val rawPassword = rawPasswordFixture("1234")
+            val rawPassword = "1234"
             val encodedPassword = passwordManager.encode(rawPassword)
-            assertThat(encodedPassword.value).isEqualTo(rawPassword.value)
+            assertThat(encodedPassword).isEqualTo(rawPassword)
         }
     }
 
@@ -78,7 +77,7 @@ class PasswordManagerFixtureTest {
         @DisplayName("원본 패스워드가 같으면, true를 반환한다.")
         fun testSamePassword() {
             // given
-            val rawPassword = rawPasswordFixture("1234")
+            val rawPassword = "1234"
             val encodedPassword = passwordManager.encode(rawPassword)
 
             // when
@@ -92,11 +91,11 @@ class PasswordManagerFixtureTest {
         @DisplayName("원본 패스워드가 다르면, false를 반환한다.")
         fun testDifferentPassword() {
             // given
-            val rawPassword = rawPasswordFixture("1234")
+            val rawPassword = "1234"
             val encodedPassword = passwordManager.encode(rawPassword)
 
             // when
-            val matches = passwordManager.matches(rawPasswordFixture("1235"), encodedPassword)
+            val matches = passwordManager.matches("1235", encodedPassword)
 
             // then
             assertThat(matches).isFalse()

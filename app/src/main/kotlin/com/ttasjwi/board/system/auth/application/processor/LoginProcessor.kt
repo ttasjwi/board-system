@@ -9,9 +9,7 @@ import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.member.domain.model.EncodedPassword
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import org.springframework.stereotype.Component
@@ -79,8 +77,8 @@ internal class LoginProcessor(
      * 패스워드 비교
      */
     private fun matchesPassword(
-        rawPassword: RawPassword,
-        encodedPassword: EncodedPassword,
+        rawPassword: String,
+        encodedPassword: String,
     ) {
         log.info { "로그인 처리 - 패스워드 일치 여부를 확인합니다." }
 

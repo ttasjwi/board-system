@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgerator.IdGenerator
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 
@@ -17,7 +16,7 @@ class MemberCreatorImpl(
 
     override fun create(
         email: String,
-        password: RawPassword,
+        password: String,
         username: String,
         nickname: String,
         currentTime: AppDateTime

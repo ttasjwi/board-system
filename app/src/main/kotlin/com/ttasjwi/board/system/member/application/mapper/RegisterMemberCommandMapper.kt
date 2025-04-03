@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.policy.EmailFormatPolicy
 import com.ttasjwi.board.system.member.domain.service.NicknameManager
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
@@ -61,13 +60,13 @@ internal class RegisterMemberCommandMapper(
             }
     }
 
-    private fun getRawPassword(password: String?, exceptionCollector: ValidationExceptionCollector): RawPassword? {
+    private fun getRawPassword(password: String?, exceptionCollector: ValidationExceptionCollector): String? {
         if (password == null) {
             log.warn { "패스워드가 누락됐습니다." }
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("password"))
             return null
         }
-        return passwordManager.createRawPassword(password)
+        return passwordManager.validateRawPassword(password)
             .getOrElse {
                 log.warn(it)
                 exceptionCollector.addCustomExceptionOrThrow(it)

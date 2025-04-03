@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.member.domain.service.fixture
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import java.util.concurrent.atomic.AtomicLong
@@ -14,7 +13,7 @@ class MemberCreatorFixture : MemberCreator {
 
     override fun create(
         email: String,
-        password: RawPassword,
+        password: String,
         username: String,
         nickname: String,
         currentTime: AppDateTime
@@ -22,7 +21,7 @@ class MemberCreatorFixture : MemberCreator {
         return memberFixture(
             id = sequence.incrementAndGet(),
             email = email,
-            password = password.value,
+            password = password,
             username = username,
             nickname = nickname,
             role = Role.USER,

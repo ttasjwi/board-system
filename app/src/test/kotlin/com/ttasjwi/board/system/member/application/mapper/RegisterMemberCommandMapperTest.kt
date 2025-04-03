@@ -54,7 +54,7 @@ class RegisterMemberCommandMapperTest {
 
         // then
         assertThat(command.email).isEqualTo(request.email)
-        assertThat(command.rawPassword.value).isEqualTo(request.password)
+        assertThat(command.rawPassword).isEqualTo(request.password)
         assertThat(command.username).isEqualTo(request.username!!)
         assertThat(command.nickname).isEqualTo(request.nickname!!)
         assertThat(command.currentTime).isEqualTo(currentTime)

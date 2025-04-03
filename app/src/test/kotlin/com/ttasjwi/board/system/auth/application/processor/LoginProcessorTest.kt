@@ -7,7 +7,6 @@ import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -41,7 +40,7 @@ class LoginProcessorTest {
         )
         successCommand = LoginCommand(
             email = "hello@gmail.com",
-            rawPassword = rawPasswordFixture("1234"),
+            rawPassword = "1234",
             currentTime = appDateTimeFixture(minute = 10)
         )
 
@@ -131,7 +130,7 @@ class LoginProcessorTest {
         // given
         val command = LoginCommand(
             email = successCommand.email,
-            rawPassword = rawPasswordFixture("4321"),
+            rawPassword = "4321",
             currentTime = successCommand.currentTime
         )
 

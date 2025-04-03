@@ -8,7 +8,7 @@ class Member
 internal constructor(
     val id: Long,
     email: String,
-    password: EncodedPassword,
+    password: String,
     username: String,
     nickname: String,
     role: Role,
@@ -18,7 +18,7 @@ internal constructor(
     var email: String = email
         private set
 
-    var password: EncodedPassword = password
+    var password: String = password
         private set
 
     var username: String = username
@@ -38,7 +38,7 @@ internal constructor(
         internal fun create(
             id: Long,
             email: String,
-            password: EncodedPassword,
+            password: String,
             username: String,
             nickname: String,
             registeredAt: AppDateTime,
@@ -66,7 +66,7 @@ internal constructor(
             return Member(
                 id = id,
                 email = email,
-                password = EncodedPassword.restore(password),
+                password = password,
                 username = username,
                 nickname = nickname,
                 role = Role.restore(roleName),
@@ -77,6 +77,6 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "Member(id=$id, email=$email, password=$password, username=$username, nickname=$nickname, role=$role, registeredAt=$registeredAt)"
+        return "Member(id=$id, email=$email, password=[!!SECRET!!], username=$username, nickname=$nickname, role=$role, registeredAt=$registeredAt)"
     }
 }

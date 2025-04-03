@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.external.impl
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.member.domain.model.fixture.rawPasswordFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -16,7 +15,7 @@ class ExternalPasswordHandlerImplTest : IntegrationTest() {
 
         @Test
         fun test() {
-            val rawPassword = rawPasswordFixture("1234")
+            val rawPassword = "1234"
             val encodedPassword = externalPasswordHandler.encode(rawPassword)
             assertThat(encodedPassword).isNotNull()
         }
@@ -30,7 +29,7 @@ class ExternalPasswordHandlerImplTest : IntegrationTest() {
         @DisplayName("원본 패스워드가 같으면, true를 반환한다.")
         fun testSamePassword() {
             // given
-            val rawPassword = rawPasswordFixture("1234")
+            val rawPassword = "1234"
             val encodedPassword = externalPasswordHandler.encode(rawPassword)
 
             // when
@@ -44,11 +43,11 @@ class ExternalPasswordHandlerImplTest : IntegrationTest() {
         @DisplayName("원본 패스워드가 다르면, false를 반환한다.")
         fun testDifferentPassword() {
             // given
-            val rawPassword = rawPasswordFixture("1234")
+            val rawPassword = "1234"
             val encodedPassword = externalPasswordHandler.encode(rawPassword)
 
             // when
-            val matches = externalPasswordHandler.matches(rawPasswordFixture("1235"), encodedPassword)
+            val matches = externalPasswordHandler.matches("1235", encodedPassword)
 
             // then
             assertThat(matches).isFalse()

@@ -1,29 +1,39 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.member.domain.exception.InvalidPasswordFormatException
 import com.ttasjwi.board.system.member.domain.external.ExternalPasswordHandler
-import com.ttasjwi.board.system.member.domain.model.EncodedPassword
-import com.ttasjwi.board.system.member.domain.model.RawPassword
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
+import java.util.*
 
 @DomainService
 internal class PasswordManagerImpl(
     private val externalPasswordHandler: ExternalPasswordHandler
 ) : PasswordManager {
 
-    override fun createRawPassword(value: String): Result<RawPassword> {
-        return kotlin.runCatching { RawPassword.create(value) }
+    companion object {
+        internal const val MIN_LENGTH = 4
+        internal const val MAX_LENGTH = 32
+        internal const val RANDOM_PASSWORD_LENGTH = 16
     }
 
-    override fun createRandomRawPassword(): RawPassword {
-        return RawPassword.randomCreate()
+    override fun validateRawPassword(rawPassword: String): Result<String> = kotlin.runCatching {
+        if (rawPassword.length < MIN_LENGTH || rawPassword.length > MAX_LENGTH) {
+            throw InvalidPasswordFormatException()
+        }
+        rawPassword
     }
 
-    override fun encode(rawPassword: RawPassword): EncodedPassword {
+    override fun createRandomRawPassword(): String {
+        return UUID.randomUUID().toString().replace("-", "")
+            .substring(0, RANDOM_PASSWORD_LENGTH)
+    }
+
+    override fun encode(rawPassword: String): String {
         return externalPasswordHandler.encode(rawPassword)
     }
 
-    override fun matches(rawPassword: RawPassword, encodedPassword: EncodedPassword): Boolean {
+    override fun matches(rawPassword: String, encodedPassword: String): Boolean {
         return externalPasswordHandler.matches(rawPassword, encodedPassword)
     }
 }
