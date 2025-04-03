@@ -4,13 +4,14 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderA
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderFinder
 import com.ttasjwi.board.system.auth.domain.external.impl.redis.RedisRefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
+import com.ttasjwi.board.system.common.dataserializer.DataSerializer
 import com.ttasjwi.board.system.common.time.AppDateTime
-import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 
 @Component
 class ExternalRefreshTokenHolderStorageImpl(
-    private val redisTemplate: RedisTemplate<String, RedisRefreshTokenHolder>,
+    private val redisTemplate: StringRedisTemplate,
 ) : ExternalRefreshTokenHolderAppender, ExternalRefreshTokenHolderFinder {
 
     companion object {
@@ -23,13 +24,16 @@ class ExternalRefreshTokenHolderStorageImpl(
         val key = generateKey(memberId)
         val redisModel = RedisRefreshTokenHolder.from(refreshTokenHolder)
 
-        redisTemplate.opsForValue().set(key, redisModel)
+        redisTemplate.opsForValue().set(key, DataSerializer.serialize(redisModel))
         redisTemplate.expireAt(key, expiresAt.toInstant())
     }
 
     override fun findByMemberIdOrNull(memberId: Long): RefreshTokenHolder? {
         val key = generateKey(memberId)
-        return redisTemplate.opsForValue().get(key)?.restoreDomain()
+        return redisTemplate.opsForValue().get(key)
+            ?.let {
+                DataSerializer.deserialize(it, RedisRefreshTokenHolder::class.java).restoreDomain()
+            }
     }
 
     override fun removeByMemberId(memberId: Long) {
