@@ -1,16 +1,17 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
+import com.ttasjwi.board.system.common.dataserializer.DataSerializer
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.external.db.redis.RedisEmailVerification
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationFinder
-import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 
 @Component
 class EmailVerificationStorage(
-    private val redisTemplate: RedisTemplate<String, RedisEmailVerification>
+    private val redisTemplate: StringRedisTemplate
 ) : EmailVerificationAppender, EmailVerificationFinder {
 
     companion object {
@@ -22,8 +23,7 @@ class EmailVerificationStorage(
     override fun append(emailVerification: EmailVerification, expiresAt: AppDateTime) {
         val key = makeKey(emailVerification.email)
         val redisModel = RedisEmailVerification.from(emailVerification)
-
-        redisTemplate.opsForValue().set(key, redisModel)
+        redisTemplate.opsForValue().set(key, DataSerializer.serialize(redisModel))
         redisTemplate.expireAt(key, expiresAt.toInstant())
     }
 
@@ -34,7 +34,10 @@ class EmailVerificationStorage(
 
     override fun findByEmailOrNull(email: String): EmailVerification? {
         val key = makeKey(email)
-        return redisTemplate.opsForValue().get(key)?.restoreDomain()
+        return redisTemplate.opsForValue().get(key)
+            ?.let {
+                DataSerializer.deserialize(it, RedisEmailVerification::class.java).restoreDomain()
+            }
     }
 
     private fun makeKey(email: String): String {

@@ -1,8 +1,9 @@
 package com.ttasjwi.board.system.spring.security.oauth2.redis
 
+import com.ttasjwi.board.system.common.dataserializer.DataSerializer
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.data.redis.core.RedisTemplate
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
@@ -11,7 +12,7 @@ import java.time.Duration
 
 @Component
 class RedisOAuth2AuthorizationRequestRepository(
-    private val redisTemplate: RedisTemplate<String, RedisOAuth2AuthorizationRequest>
+    private val redisTemplate: StringRedisTemplate
 ) : AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
     companion object {
@@ -22,7 +23,11 @@ class RedisOAuth2AuthorizationRequestRepository(
     override fun loadAuthorizationRequest(request: HttpServletRequest): OAuth2AuthorizationRequest? {
         val state = getStateParameter(request) ?: return null
         val key = makeKey(state)
-        return redisTemplate.opsForValue().get(key)?.toOAuth2AuthorizationRequest()
+        return redisTemplate.opsForValue().get(key)
+            ?.let {
+                DataSerializer.deserialize(it, RedisOAuth2AuthorizationRequest::class.java)
+                    .toOAuth2AuthorizationRequest()
+            }
     }
 
     override fun removeAuthorizationRequest(
@@ -48,7 +53,7 @@ class RedisOAuth2AuthorizationRequestRepository(
         val key = makeKey(authorizationRequest.state)
         val redisAuthorizationRequest = RedisOAuth2AuthorizationRequest.from(authorizationRequest)
 
-        redisTemplate.opsForValue().set(key, redisAuthorizationRequest)
+        redisTemplate.opsForValue().set(key, DataSerializer.serialize(redisAuthorizationRequest))
         redisTemplate.expire(key, Duration.ofMinutes(VALIDITY_MINUTE))
     }
 

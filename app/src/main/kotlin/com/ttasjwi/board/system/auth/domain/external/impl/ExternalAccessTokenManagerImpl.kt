@@ -8,7 +8,6 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component
-import java.time.ZonedDateTime
 
 @Component
 class ExternalAccessTokenManagerImpl(
