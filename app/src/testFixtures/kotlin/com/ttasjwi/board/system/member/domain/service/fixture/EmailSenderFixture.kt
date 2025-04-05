@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.member.domain.service.EmailSender
 
 class EmailSenderFixture : EmailSender {

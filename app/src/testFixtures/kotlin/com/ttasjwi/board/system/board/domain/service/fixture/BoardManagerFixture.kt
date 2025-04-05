@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.board.domain.service.fixture
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.service.BoardManager
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 import java.util.concurrent.atomic.AtomicLong
 
 class BoardManagerFixture : BoardManager {

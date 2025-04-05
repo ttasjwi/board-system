@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
-import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.global.annotation.DomainService
 import com.ttasjwi.board.system.member.domain.exception.InvalidEmailFormatException
 import com.ttasjwi.board.system.member.domain.service.EmailManager
 import org.apache.commons.validator.routines.EmailValidator

@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
 import com.ttasjwi.board.system.auth.domain.exception.AccessDeniedException
+import com.ttasjwi.board.system.global.springsecurity.exceptionhandle.CustomAccessDeniedHandler
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -32,18 +33,27 @@ class CustomAccessDeniedHandlerTest {
         val request = mockk<HttpServletRequest>()
         val response = mockk<HttpServletResponse>()
         val exception = org.springframework.security.access.AccessDeniedException("권한 부족")
-        
-        every { handlerExceptionResolver.resolveException(
-            request,
-            response,
-            null,
-            any(AccessDeniedException::class)
-        ) } returns ModelAndView()
-        
+
+        every {
+            handlerExceptionResolver.resolveException(
+                request,
+                response,
+                null,
+                any(AccessDeniedException::class)
+            )
+        } returns ModelAndView()
+
         // when
         accessDeniedHandler.handle(request, response, exception)
-        
+
         // then
-        verify(exactly = 1) { handlerExceptionResolver.resolveException(request, response, null, any(AccessDeniedException::class))  }
+        verify(exactly = 1) {
+            handlerExceptionResolver.resolveException(
+                request,
+                response,
+                null,
+                any(AccessDeniedException::class)
+            )
+        }
     }
 }

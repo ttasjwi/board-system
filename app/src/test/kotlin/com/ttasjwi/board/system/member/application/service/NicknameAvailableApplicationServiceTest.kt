@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
+import com.ttasjwi.board.system.global.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.global.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.NicknameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.NicknameAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest

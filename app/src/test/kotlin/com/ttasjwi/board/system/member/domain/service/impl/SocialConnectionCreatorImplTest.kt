@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialServiceUserFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

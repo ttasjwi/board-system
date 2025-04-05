@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 import java.time.ZonedDateTime
 
 class ExternalRefreshTokenManagerFixture : ExternalRefreshTokenManager {

@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.auth.domain.exception.AccessTokenExpiredExceptio
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.auth.AuthMember
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.time.AppDateTime
 import java.time.ZonedDateTime
 
 class AccessTokenManagerFixture : AccessTokenManager {

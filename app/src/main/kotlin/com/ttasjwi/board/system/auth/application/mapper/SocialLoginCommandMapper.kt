@@ -2,11 +2,11 @@ package com.ttasjwi.board.system.auth.application.mapper
 
 import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
-import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper
+import com.ttasjwi.board.system.global.time.TimeManager
 import com.ttasjwi.board.system.member.domain.model.SocialServiceUser
-import org.springframework.stereotype.Component
 
-@Component
+@ApplicationCommandMapper
 internal class SocialLoginCommandMapper(
     private val timeManager: TimeManager,
 ) {

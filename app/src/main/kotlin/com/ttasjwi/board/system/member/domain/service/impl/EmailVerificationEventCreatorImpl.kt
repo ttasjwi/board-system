@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
-import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.global.annotation.DomainService
 import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
 import com.ttasjwi.board.system.member.domain.event.EmailVerifiedEvent
 import com.ttasjwi.board.system.member.domain.model.EmailVerification

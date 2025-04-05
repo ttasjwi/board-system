@@ -5,9 +5,9 @@ import com.ttasjwi.board.system.auth.application.processor.SocialLoginProcessor
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
-import org.springframework.stereotype.Service
+import com.ttasjwi.board.system.global.annotation.ApplicationService
 
-@Service
+@ApplicationService
 internal class SocialLoginApplicationService(
     private val commandMapper: SocialLoginCommandMapper,
     private val processor: SocialLoginProcessor,

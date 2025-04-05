@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.usecase.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationResponse
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationUseCase

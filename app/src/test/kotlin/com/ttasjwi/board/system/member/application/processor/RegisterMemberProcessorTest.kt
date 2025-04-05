@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberEmailException
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNicknameException

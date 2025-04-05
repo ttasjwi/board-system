@@ -3,8 +3,8 @@ package com.ttasjwi.board.system.auth.domain.service.impl
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
-import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.global.annotation.DomainService
+import com.ttasjwi.board.system.global.auth.AuthMember
 
 @DomainService
 internal class RefreshTokenHolderManagerImpl : RefreshTokenHolderManager {

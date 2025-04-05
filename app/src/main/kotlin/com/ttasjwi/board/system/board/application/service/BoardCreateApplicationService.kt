@@ -5,9 +5,9 @@ import com.ttasjwi.board.system.board.application.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateUseCase
-import org.springframework.stereotype.Service
+import com.ttasjwi.board.system.global.annotation.ApplicationService
 
-@Service
+@ApplicationService
 internal class BoardCreateApplicationService(
     private val commandMapper: BoardCreateCommandMapper,
     private val processor: BoardCreateProcessor,

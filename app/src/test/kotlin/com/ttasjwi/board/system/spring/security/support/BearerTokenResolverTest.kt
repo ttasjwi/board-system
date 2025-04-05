@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.spring.security.support
 
-import com.ttasjwi.board.system.spring.security.exception.InvalidAuthorizationHeaderFormatException
+import com.ttasjwi.board.system.global.springsecurity.token.BearerTokenResolver
+import com.ttasjwi.board.system.global.springsecurity.token.exception.InvalidAuthorizationHeaderFormatException
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

@@ -6,10 +6,10 @@ import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
 import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
-import com.ttasjwi.board.system.common.logging.getLogger
-import org.springframework.stereotype.Service
+import com.ttasjwi.board.system.global.annotation.ApplicationService
+import com.ttasjwi.board.system.global.logging.getLogger
 
-@Service
+@ApplicationService
 internal class TokenRefreshApplicationService(
     private val commandMapper: TokenRefreshCommandMapper,
     private val processor: TokenRefreshProcessor,

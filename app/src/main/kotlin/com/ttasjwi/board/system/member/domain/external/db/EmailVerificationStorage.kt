@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
-import com.ttasjwi.board.system.common.dataserializer.DataSerializer
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.dataserializer.DataSerializer
+import com.ttasjwi.board.system.global.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.external.db.redis.RedisEmailVerification
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender

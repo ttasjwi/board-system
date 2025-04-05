@@ -2,9 +2,8 @@ package com.ttasjwi.board.system.auth.domain.event
 
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.common.domain.event.DomainEvent
-import com.ttasjwi.board.system.common.time.AppDateTime
-import java.time.ZonedDateTime
+import com.ttasjwi.board.system.global.domain.DomainEvent
+import com.ttasjwi.board.system.global.time.AppDateTime
 
 class LoggedInEvent
 internal constructor(

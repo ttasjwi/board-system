@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 
 fun emailVerificationFixtureNotVerified(

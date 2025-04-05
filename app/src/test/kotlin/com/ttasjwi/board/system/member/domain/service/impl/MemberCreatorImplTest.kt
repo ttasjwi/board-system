@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
 import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture

@@ -4,8 +4,8 @@ import com.ttasjwi.board.system.auth.application.mapper.SocialLoginCommandMapper
 import com.ttasjwi.board.system.auth.application.processor.SocialLoginProcessor
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture

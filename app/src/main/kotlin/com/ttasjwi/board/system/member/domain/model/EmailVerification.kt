@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.exception.EmailNotVerifiedException
 import com.ttasjwi.board.system.member.domain.exception.EmailVerificationExpiredException
 import com.ttasjwi.board.system.member.domain.exception.InvalidEmailVerificationCodeException

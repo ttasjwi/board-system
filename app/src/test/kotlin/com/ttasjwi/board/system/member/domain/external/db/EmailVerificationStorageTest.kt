@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach

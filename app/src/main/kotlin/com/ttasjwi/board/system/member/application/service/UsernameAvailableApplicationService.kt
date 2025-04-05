@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.global.annotation.ApplicationService
+import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.UsernameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.UsernameAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableResponse
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableUseCase
-import org.springframework.stereotype.Service
 
-@Service
+@ApplicationService
 internal class UsernameAvailableApplicationService(
     private val queryMapper: UsernameAvailableQueryMapper,
     private val processor: UsernameAvailableProcessor,

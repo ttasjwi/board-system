@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.dto
 
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 
 internal data class EmailVerificationCommand(
     val email: String,

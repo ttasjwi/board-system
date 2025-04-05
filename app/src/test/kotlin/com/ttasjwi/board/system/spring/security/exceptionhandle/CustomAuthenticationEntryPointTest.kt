@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
 import com.ttasjwi.board.system.auth.domain.exception.UnauthenticatedException
+import com.ttasjwi.board.system.global.springsecurity.exceptionhandle.CustomAuthenticationEntryPoint
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -48,7 +49,14 @@ class CustomAuthenticationEntryPointTest {
         authenticationEntryPoint.commence(request, response, exception)
 
         // then
-        verify(exactly = 1) { handlerExceptionResolver.resolveException(request, response, null, any(UnauthenticatedException::class)) }
+        verify(exactly = 1) {
+            handlerExceptionResolver.resolveException(
+                request,
+                response,
+                null,
+                any(UnauthenticatedException::class)
+            )
+        }
     }
 
 

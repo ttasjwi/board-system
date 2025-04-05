@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.exception.NullArgumentException
+import com.ttasjwi.board.system.global.exception.NullArgumentException
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*

@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.auth.domain.event.fixture
 
 import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 
 fun tokenRefreshedEventFixture(
     accessToken: String = "accessToken",

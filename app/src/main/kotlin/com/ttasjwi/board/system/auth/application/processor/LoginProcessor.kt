@@ -6,16 +6,16 @@ import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.*
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.annotation.ApplicationProcessor
+import com.ttasjwi.board.system.global.auth.AuthMember
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.PasswordManager
-import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
-@Component
+@ApplicationProcessor
 internal class LoginProcessor(
     private val memberFinder: MemberFinder,
     private val passwordManager: PasswordManager,

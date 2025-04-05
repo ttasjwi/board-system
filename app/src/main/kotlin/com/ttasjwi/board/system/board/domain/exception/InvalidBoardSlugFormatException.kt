@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.board.domain.exception
 
 import com.ttasjwi.board.system.board.domain.service.impl.BoardSlugManagerImpl
-import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.CustomException
+import com.ttasjwi.board.system.global.exception.ErrorStatus
 
 class InvalidBoardSlugFormatException : CustomException(
     status = ErrorStatus.BAD_REQUEST,

@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.application.dto.TokenRefreshCommand
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

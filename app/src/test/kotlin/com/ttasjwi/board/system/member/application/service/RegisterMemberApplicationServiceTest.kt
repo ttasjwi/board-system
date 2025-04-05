@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandMapper
 import com.ttasjwi.board.system.member.application.processor.RegisterMemberProcessor
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest

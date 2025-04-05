@@ -1,15 +1,15 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.locale.LocaleManager
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.message.MessageResolver
+import com.ttasjwi.board.system.global.annotation.ApplicationProcessor
+import com.ttasjwi.board.system.global.locale.LocaleManager
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.message.MessageResolver
 import com.ttasjwi.board.system.member.application.dto.UsernameAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableResponse
 import com.ttasjwi.board.system.member.domain.service.MemberFinder
 import com.ttasjwi.board.system.member.domain.service.UsernameManager
-import org.springframework.stereotype.Component
 
-@Component
+@ApplicationProcessor
 internal class UsernameAvailableProcessor(
     private val usernameManager: UsernameManager,
     private val memberFinder: MemberFinder,

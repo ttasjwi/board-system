@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.AuthEventCreator
-import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.global.annotation.DomainService
 
 @DomainService
 internal class AuthEventCreatorImpl : AuthEventCreator {

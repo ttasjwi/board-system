@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.global.auth.AuthMember
 
 class RefreshTokenHolderManagerFixture : RefreshTokenHolderManager {
 

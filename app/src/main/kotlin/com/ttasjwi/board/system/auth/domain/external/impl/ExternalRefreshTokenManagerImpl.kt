@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 import com.ttasjwi.board.system.auth.domain.exception.InvalidRefreshTokenFormatException
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component

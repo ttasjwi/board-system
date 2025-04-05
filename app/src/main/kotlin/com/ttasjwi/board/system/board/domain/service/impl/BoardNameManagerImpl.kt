@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.board.domain.service.impl
 
 import com.ttasjwi.board.system.board.domain.exception.InvalidBoardNameFormatException
 import com.ttasjwi.board.system.board.domain.service.BoardNameManager
-import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.global.annotation.DomainService
 
 @DomainService
 class BoardNameManagerImpl : BoardNameManager {

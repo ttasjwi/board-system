@@ -2,9 +2,9 @@ package com.ttasjwi.board.system.auth.domain.model.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.global.auth.AuthMember
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.auth.fixture.authMemberFixture
 
 fun refreshTokenHolderFixture(
     memberId: Long = 1L,

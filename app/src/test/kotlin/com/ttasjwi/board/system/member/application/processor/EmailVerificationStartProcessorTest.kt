@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationCreatorFixture
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture

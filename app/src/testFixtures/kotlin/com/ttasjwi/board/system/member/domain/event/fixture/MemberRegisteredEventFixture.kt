@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.domain.event.fixture
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
 
 fun memberRegisteredEventFixture(

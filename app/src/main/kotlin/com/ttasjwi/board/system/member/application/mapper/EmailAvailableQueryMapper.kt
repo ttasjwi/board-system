@@ -1,12 +1,12 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.exception.NullArgumentException
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.global.annotation.ApplicationQueryMapper
+import com.ttasjwi.board.system.global.exception.NullArgumentException
+import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
-import org.springframework.stereotype.Component
 
-@Component
+@ApplicationQueryMapper
 internal class EmailAvailableQueryMapper {
 
     companion object {

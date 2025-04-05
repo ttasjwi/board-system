@@ -3,8 +3,8 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatException
 import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.auth.AuthMember
+import com.ttasjwi.board.system.global.time.AppDateTime
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm
 import org.springframework.security.oauth2.jwt.*
 import org.springframework.stereotype.Component

@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.board.domain.model.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 
 fun boardFixture(
     id: Long = 1L,

@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
+import com.ttasjwi.board.system.global.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.fixture.customExceptionFixture
 import com.ttasjwi.board.system.member.domain.service.NicknameManager
 
 class NicknameManagerFixture : NicknameManager {

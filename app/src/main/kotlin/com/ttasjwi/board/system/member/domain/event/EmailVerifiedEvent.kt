@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.event
 
-import com.ttasjwi.board.system.common.domain.event.DomainEvent
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.domain.DomainEvent
+import com.ttasjwi.board.system.global.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 
 class EmailVerifiedEvent(

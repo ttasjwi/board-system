@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.application.exception
 
-import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.CustomException
+import com.ttasjwi.board.system.global.exception.ErrorStatus
 
 class DuplicateMemberEmailException(
     email: String,

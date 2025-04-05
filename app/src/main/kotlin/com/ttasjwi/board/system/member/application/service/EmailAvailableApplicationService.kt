@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.global.annotation.ApplicationService
+import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.EmailAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.EmailAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResponse
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableUseCase
-import org.springframework.stereotype.Service
 
-@Service
+@ApplicationService
 internal class EmailAvailableApplicationService(
     private val queryMapper: EmailAvailableQueryMapper,
     private val processor: EmailAvailableProcessor,

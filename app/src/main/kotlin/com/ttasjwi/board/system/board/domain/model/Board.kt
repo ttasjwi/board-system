@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain.model
 
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 import java.time.LocalDateTime
 
 /**

@@ -4,8 +4,8 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderA
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderFinder
 import com.ttasjwi.board.system.auth.domain.external.impl.redis.RedisRefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import com.ttasjwi.board.system.common.dataserializer.DataSerializer
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.dataserializer.DataSerializer
+import com.ttasjwi.board.system.global.time.AppDateTime
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 

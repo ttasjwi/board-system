@@ -7,8 +7,8 @@ import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.*
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.time.AppDateTime
 import org.springframework.stereotype.Component
 
 @Component

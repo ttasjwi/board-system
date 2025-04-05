@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderF
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderAppender
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderFinder
-import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.annotation.DomainService
+import com.ttasjwi.board.system.global.time.AppDateTime
 
 @DomainService
 internal class RefreshTokenHolderStorageImpl(

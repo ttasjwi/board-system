@@ -1,10 +1,10 @@
 package com.ttasjwi.board.system.auth.domain.model.fixture
 
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.global.time.AppDateTime
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 
 fun accessTokenFixture(
     memberId: Long = 1L,

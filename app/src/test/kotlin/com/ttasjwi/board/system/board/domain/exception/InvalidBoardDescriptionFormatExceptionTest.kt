@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.board.domain.exception
 
 import com.ttasjwi.board.system.board.domain.service.impl.BoardDescriptionManagerImpl
-import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.ErrorStatus
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

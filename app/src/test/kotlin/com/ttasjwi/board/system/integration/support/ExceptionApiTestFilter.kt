@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.integration.support
 
-import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.global.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.fixture.customExceptionFixture
+import com.ttasjwi.board.system.global.logging.getLogger
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse

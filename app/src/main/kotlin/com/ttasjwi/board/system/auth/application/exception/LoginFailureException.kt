@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.application.exception
 
-import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.CustomException
+import com.ttasjwi.board.system.global.exception.ErrorStatus
 
 /**
  * 로그인 예외는 사용자에게 구체적인 사유를 밝히는 것은 보안상 위험성이 있습니다.

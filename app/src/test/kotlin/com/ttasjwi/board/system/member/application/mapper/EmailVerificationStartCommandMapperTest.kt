@@ -1,10 +1,10 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.common.exception.NullArgumentException
-import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.exception.CustomException
+import com.ttasjwi.board.system.global.exception.NullArgumentException
+import com.ttasjwi.board.system.global.locale.fixture.LocaleManagerFixture
+import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
 import com.ttasjwi.board.system.member.domain.service.EmailManager
 import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture

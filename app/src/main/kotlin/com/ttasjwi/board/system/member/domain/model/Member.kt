@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.time.AppDateTime
 import java.time.LocalDateTime
 
 class Member

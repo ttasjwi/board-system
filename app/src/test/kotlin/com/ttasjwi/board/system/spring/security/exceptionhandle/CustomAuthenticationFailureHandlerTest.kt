@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
-import com.ttasjwi.board.system.spring.security.exception.InvalidOAuth2ProviderIdException
+import com.ttasjwi.board.system.global.springsecurity.exceptionhandle.CustomAuthenticationFailureHandler
+import com.ttasjwi.board.system.global.springsecurity.oauth2.exception.InvalidOAuth2ProviderIdException
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

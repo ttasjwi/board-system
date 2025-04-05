@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.usecase.fixture
 
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase

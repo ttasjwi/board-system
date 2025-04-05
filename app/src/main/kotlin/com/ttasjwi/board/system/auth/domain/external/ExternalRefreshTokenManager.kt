@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.external
 
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 
 interface ExternalRefreshTokenManager {
 

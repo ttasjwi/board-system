@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.usecase.fixture
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 
 class SocialLoginUseCaseFixture : SocialLoginUseCase {
 

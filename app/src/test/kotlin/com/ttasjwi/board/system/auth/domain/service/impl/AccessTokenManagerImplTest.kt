@@ -5,9 +5,9 @@ import com.ttasjwi.board.system.auth.domain.external.fixture.ExternalAccessToken
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 

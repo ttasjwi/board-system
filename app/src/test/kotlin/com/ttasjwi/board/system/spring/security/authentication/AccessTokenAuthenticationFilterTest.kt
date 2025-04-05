@@ -2,11 +2,12 @@ package com.ttasjwi.board.system.spring.security.authentication
 
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.spring.security.support.BearerTokenResolver
+import com.ttasjwi.board.system.global.auth.Role
+import com.ttasjwi.board.system.global.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.global.filter.AccessTokenAuthenticationFilter
+import com.ttasjwi.board.system.global.springsecurity.token.BearerTokenResolver
+import com.ttasjwi.board.system.global.time.TimeManager
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import io.mockk.*
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest

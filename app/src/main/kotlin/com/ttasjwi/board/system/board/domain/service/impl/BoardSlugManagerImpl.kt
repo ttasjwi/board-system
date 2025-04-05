@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.board.domain.service.impl
 
 import com.ttasjwi.board.system.board.domain.exception.InvalidBoardSlugFormatException
 import com.ttasjwi.board.system.board.domain.service.BoardSlugManager
-import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.global.annotation.DomainService
 
 @DomainService
 class BoardSlugManagerImpl : BoardSlugManager {

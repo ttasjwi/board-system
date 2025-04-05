@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.exception.EmailNotVerifiedException
 import com.ttasjwi.board.system.member.domain.exception.EmailVerificationExpiredException
 import com.ttasjwi.board.system.member.domain.exception.InvalidEmailVerificationCodeException

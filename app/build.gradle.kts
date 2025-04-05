@@ -2,6 +2,14 @@ plugins {
     id(Plugins.KOTLIN_JPA.id) version Plugins.KOTLIN_JPA.version
 }
 
+allOpen {
+    annotation("com.ttasjwi.board.system.global.annotation.DomainService")
+    annotation("com.ttasjwi.board.system.global.annotation.ApplicationService")
+    annotation("com.ttasjwi.board.system.global.annotation.ApplicationProcessor")
+    annotation("com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper")
+    annotation("com.ttasjwi.board.system.global.annotation.ApplicationQueryMapper")
+}
+
 dependencies {
     // web
     implementation(Dependencies.SPRING_BOOT_WEB.fullName)

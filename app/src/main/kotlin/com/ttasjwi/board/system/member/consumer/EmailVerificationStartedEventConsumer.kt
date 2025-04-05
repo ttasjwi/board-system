@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.consumer
 
-import com.ttasjwi.board.system.common.message.MessageResolver
+import com.ttasjwi.board.system.global.message.MessageResolver
 import com.ttasjwi.board.system.member.application.usecase.EmailSendUseCase
 import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
 import org.springframework.context.event.EventListener

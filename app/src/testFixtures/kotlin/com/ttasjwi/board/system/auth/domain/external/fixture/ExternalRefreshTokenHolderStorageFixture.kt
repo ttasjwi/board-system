@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderAppender
 import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenHolderFinder
 import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 import java.util.concurrent.ConcurrentHashMap
 
 class ExternalRefreshTokenHolderStorageFixture : ExternalRefreshTokenHolderAppender, ExternalRefreshTokenHolderFinder {

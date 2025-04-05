@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.board.domain.service
 
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.time.AppDateTime
 
 interface BoardManager {
 

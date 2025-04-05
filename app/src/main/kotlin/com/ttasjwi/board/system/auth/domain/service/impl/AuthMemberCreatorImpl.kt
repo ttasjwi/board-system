@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.auth.domain.service.impl
 
 import com.ttasjwi.board.system.auth.domain.service.AuthMemberCreator
-import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.global.annotation.DomainService
+import com.ttasjwi.board.system.global.auth.AuthMember
 import com.ttasjwi.board.system.member.domain.model.Member
 
 @DomainService

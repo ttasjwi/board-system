@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.global.annotation.ApplicationService
+import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationStartCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationStartProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
@@ -8,9 +9,8 @@ import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStar
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartUseCase
 import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
-import org.springframework.stereotype.Service
 
-@Service
+@ApplicationService
 internal class EmailVerificationStartApplicationService(
     private val commandMapper: EmailVerificationStartCommandMapper,
     private val processor: EmailVerificationStartProcessor,

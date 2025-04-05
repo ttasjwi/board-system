@@ -1,15 +1,15 @@
 package com.ttasjwi.board.system.member.application.mapper
 
-import com.ttasjwi.board.system.common.exception.NullArgumentException
-import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper
+import com.ttasjwi.board.system.global.exception.NullArgumentException
+import com.ttasjwi.board.system.global.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.member.domain.service.EmailManager
-import org.springframework.stereotype.Component
 
-@Component
+@ApplicationCommandMapper
 internal class EmailVerificationCommandMapper(
     private val emailManager: EmailManager,
     private val timeManager: TimeManager,

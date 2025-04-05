@@ -2,11 +2,11 @@ package com.ttasjwi.board.system.auth.application.mapper
 
 import com.ttasjwi.board.system.auth.application.dto.TokenRefreshCommand
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
-import com.ttasjwi.board.system.common.exception.NullArgumentException
-import com.ttasjwi.board.system.common.time.TimeManager
-import org.springframework.stereotype.Component
+import com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper
+import com.ttasjwi.board.system.global.exception.NullArgumentException
+import com.ttasjwi.board.system.global.time.TimeManager
 
-@Component
+@ApplicationCommandMapper
 internal class TokenRefreshCommandMapper(
     private val timeManager: TimeManager
 ) {

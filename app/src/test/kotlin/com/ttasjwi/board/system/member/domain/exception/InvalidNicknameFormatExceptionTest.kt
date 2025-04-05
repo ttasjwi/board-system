@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.exception
 
-import com.ttasjwi.board.system.common.exception.ErrorStatus
+import com.ttasjwi.board.system.global.exception.ErrorStatus
 import com.ttasjwi.board.system.member.domain.service.impl.NicknameManagerImpl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

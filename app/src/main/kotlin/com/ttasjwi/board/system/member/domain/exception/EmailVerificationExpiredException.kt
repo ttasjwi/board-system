@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.domain.exception
 
-import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.global.exception.CustomException
+import com.ttasjwi.board.system.global.exception.ErrorStatus
+import com.ttasjwi.board.system.global.time.AppDateTime
 
 class EmailVerificationExpiredException(
     email: String,

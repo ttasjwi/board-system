@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.usecase.fixture
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
-import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 
 class TokenRefreshUseCaseFixture : TokenRefreshUseCase {
 

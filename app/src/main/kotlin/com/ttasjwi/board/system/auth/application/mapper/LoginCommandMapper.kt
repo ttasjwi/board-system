@@ -2,13 +2,13 @@ package com.ttasjwi.board.system.auth.application.mapper
 
 import com.ttasjwi.board.system.auth.application.dto.LoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
-import com.ttasjwi.board.system.common.exception.NullArgumentException
-import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
-import com.ttasjwi.board.system.common.logging.getLogger
-import com.ttasjwi.board.system.common.time.TimeManager
-import org.springframework.stereotype.Component
+import com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper
+import com.ttasjwi.board.system.global.exception.NullArgumentException
+import com.ttasjwi.board.system.global.exception.ValidationExceptionCollector
+import com.ttasjwi.board.system.global.logging.getLogger
+import com.ttasjwi.board.system.global.time.TimeManager
 
-@Component
+@ApplicationCommandMapper
 internal class LoginCommandMapper(
     private val timeManager: TimeManager,
 ) {
