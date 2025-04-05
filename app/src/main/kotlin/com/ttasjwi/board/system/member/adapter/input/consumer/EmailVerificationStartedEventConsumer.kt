@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.member.consumer
+package com.ttasjwi.board.system.member.adapter.input.consumer
 
 import com.ttasjwi.board.system.global.message.MessageResolver
 import com.ttasjwi.board.system.member.application.usecase.EmailSendUseCase

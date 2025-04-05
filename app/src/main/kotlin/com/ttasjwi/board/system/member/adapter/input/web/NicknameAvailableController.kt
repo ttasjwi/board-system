@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.member.api
+package com.ttasjwi.board.system.member.adapter.input.web
 
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResponse

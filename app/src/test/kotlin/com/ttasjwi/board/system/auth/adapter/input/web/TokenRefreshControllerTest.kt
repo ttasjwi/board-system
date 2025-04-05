@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.auth.api
+package com.ttasjwi.board.system.auth.adapter.input.web
 
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
