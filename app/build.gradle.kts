@@ -34,3 +34,7 @@ dependencies {
     // for yaml message
     implementation(Dependencies.YAML_RESOURCE_BUNDLE.fullName)
 }
+
+tasks.getByName("bootJar") {
+    enabled = true
+}

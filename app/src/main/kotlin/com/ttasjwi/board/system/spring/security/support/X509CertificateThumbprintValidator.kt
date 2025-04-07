@@ -92,9 +92,9 @@ internal class X509CertificateThumbprintValidator(x509CertificateSupplier: Suppl
                 .getAttribute(
                     "jakarta.servlet.request.X509Certificate",
                     RequestAttributes.SCOPE_REQUEST
-                ) as Array<X509Certificate>
+                ) as Array<*>?
 
-            return if ((clientCertificateChain != null && clientCertificateChain.isNotEmpty())) clientCertificateChain[0]
+            return if (!clientCertificateChain.isNullOrEmpty()) clientCertificateChain[0] as X509Certificate
             else null
         }
     }

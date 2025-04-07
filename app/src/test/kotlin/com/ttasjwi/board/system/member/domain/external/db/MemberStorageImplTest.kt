@@ -237,7 +237,7 @@ class MemberStorageImplTest : IntegrationTest() {
             flushAndClearEntityManager()
 
             // when
-            val isExist = memberStorageImpl.existsById(savedMember.id!!)
+            val isExist = memberStorageImpl.existsById(savedMember.id)
 
             // then
             assertThat(isExist).isTrue()
