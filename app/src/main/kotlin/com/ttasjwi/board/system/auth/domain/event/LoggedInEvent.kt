@@ -4,7 +4,6 @@ import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.common.domain.event.DomainEvent
 import com.ttasjwi.board.system.common.time.AppDateTime
-import java.time.ZonedDateTime
 
 class LoggedInEvent
 internal constructor(

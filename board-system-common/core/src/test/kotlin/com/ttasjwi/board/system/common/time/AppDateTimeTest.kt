@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.common.time
 
-import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -207,9 +206,9 @@ class AppDateTimeTest {
     @DisplayName("plusHours() : 지정한 시단위 만큼 시간을 증가시킨 AppDateTime 을 반환한다")
     fun plusHoursTest() {
         // given
-        val from1 = AppDateTime.of(2025, 1, 1, 0,0,0)
-        val from2 = AppDateTime.of(2025, 1, 1, 23,0,0)
-        val from3 = AppDateTime.of(2025, 12, 31, 23,0,0)
+        val from1 = AppDateTime.of(2025, 1, 1, 0, 0, 0)
+        val from2 = AppDateTime.of(2025, 1, 1, 23, 0, 0)
+        val from3 = AppDateTime.of(2025, 12, 31, 23, 0, 0)
 
         // when
         val to1 = from1.plusHours(1)
@@ -217,9 +216,9 @@ class AppDateTimeTest {
         val to3 = from3.plusHours(3)
 
         // then
-        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 1, 0 , 0))
-        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 2, 0, 0 , 0))
-        assertThat(to3).isEqualTo(AppDateTime.of(2026, 1, 1, 2, 0 , 0))
+        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 1, 0, 0))
+        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 2, 0, 0, 0))
+        assertThat(to3).isEqualTo(AppDateTime.of(2026, 1, 1, 2, 0, 0))
     }
 
 
@@ -227,9 +226,9 @@ class AppDateTimeTest {
     @DisplayName("minusHours() : 지정한 시단위 만큼 시간을 감소시킨 AppDateTime 을 반환한다")
     fun minusHoursTest() {
         // given
-        val from1 = AppDateTime.of(2025, 1, 1, 1,0,0)
-        val from2 = AppDateTime.of(2025, 1, 2, 0,0,0)
-        val from3 = AppDateTime.of(2026, 1, 1, 3,0,0)
+        val from1 = AppDateTime.of(2025, 1, 1, 1, 0, 0)
+        val from2 = AppDateTime.of(2025, 1, 2, 0, 0, 0)
+        val from3 = AppDateTime.of(2026, 1, 1, 3, 0, 0)
 
         // when
         val to1 = from1.minusHours(1)
@@ -237,9 +236,9 @@ class AppDateTimeTest {
         val to3 = from3.minusHours(5)
 
         // then
-        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0 , 0))
-        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 23, 0 , 0))
-        assertThat(to3).isEqualTo(AppDateTime.of(2025, 12, 31, 22, 0 , 0))
+        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0, 0))
+        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 23, 0, 0))
+        assertThat(to3).isEqualTo(AppDateTime.of(2025, 12, 31, 22, 0, 0))
     }
 
 
@@ -247,9 +246,9 @@ class AppDateTimeTest {
     @DisplayName("plusMinutes() : 지정한 분단위 만큼 시간을 증가시킨 AppDateTime 을 반환한다")
     fun plusMinutesTest() {
         // given
-        val from1 = AppDateTime.of(2025, 1, 1, 0,0,0)
-        val from2 = AppDateTime.of(2025, 1, 1, 0,57,0)
-        val from3 = AppDateTime.of(2025, 12, 31, 23,59,0)
+        val from1 = AppDateTime.of(2025, 1, 1, 0, 0, 0)
+        val from2 = AppDateTime.of(2025, 1, 1, 0, 57, 0)
+        val from3 = AppDateTime.of(2025, 12, 31, 23, 59, 0)
 
         // when
         val to1 = from1.plusMinutes(1)
@@ -257,9 +256,9 @@ class AppDateTimeTest {
         val to3 = from3.plusMinutes(14)
 
         // then
-        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 1 , 0))
-        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 1, 2 , 0))
-        assertThat(to3).isEqualTo(AppDateTime.of(2026, 1, 1, 0, 13 , 0))
+        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 1, 0))
+        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 1, 2, 0))
+        assertThat(to3).isEqualTo(AppDateTime.of(2026, 1, 1, 0, 13, 0))
     }
 
 
@@ -267,9 +266,9 @@ class AppDateTimeTest {
     @DisplayName("minusMinutes() : 지정한 분단위 만큼 시간을 감소시킨 AppDateTime 을 반환한다")
     fun minusMinutesTest() {
         // given
-        val from1 = AppDateTime.of(2025, 1, 1, 1,3,0)
-        val from2 = AppDateTime.of(2025, 1, 1, 1,23,0)
-        val from3 = AppDateTime.of(2026, 1, 1, 0,15,0)
+        val from1 = AppDateTime.of(2025, 1, 1, 1, 3, 0)
+        val from2 = AppDateTime.of(2025, 1, 1, 1, 23, 0)
+        val from3 = AppDateTime.of(2026, 1, 1, 0, 15, 0)
 
         // when
         val to1 = from1.minusMinutes(3)
@@ -277,9 +276,9 @@ class AppDateTimeTest {
         val to3 = from3.minusMinutes(30)
 
         // then
-        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 1, 0 , 0))
-        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 55 , 0))
-        assertThat(to3).isEqualTo(AppDateTime.of(2025, 12, 31, 23, 45 , 0))
+        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 1, 0, 0))
+        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 55, 0))
+        assertThat(to3).isEqualTo(AppDateTime.of(2025, 12, 31, 23, 45, 0))
     }
 
 
@@ -287,9 +286,9 @@ class AppDateTimeTest {
     @DisplayName("plusSeconds() : 지정한 초단위 만큼 시간을 증가시킨 AppDateTime 을 반환한다")
     fun plusSecondsTest() {
         // given
-        val from1 = AppDateTime.of(2025, 1, 1, 0,0,0)
-        val from2 = AppDateTime.of(2025, 1, 1, 0,1,47)
-        val from3 = AppDateTime.of(2025, 12, 31, 23,59,55)
+        val from1 = AppDateTime.of(2025, 1, 1, 0, 0, 0)
+        val from2 = AppDateTime.of(2025, 1, 1, 0, 1, 47)
+        val from3 = AppDateTime.of(2025, 12, 31, 23, 59, 55)
 
         // when
         val to1 = from1.plusSeconds(1)
@@ -297,9 +296,9 @@ class AppDateTimeTest {
         val to3 = from3.plusSeconds(68)
 
         // then
-        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0 , 1))
-        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 2 , 7))
-        assertThat(to3).isEqualTo(AppDateTime.of(2026, 1, 1, 0, 1 , 3))
+        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0, 1))
+        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 2, 7))
+        assertThat(to3).isEqualTo(AppDateTime.of(2026, 1, 1, 0, 1, 3))
     }
 
 
@@ -307,9 +306,9 @@ class AppDateTimeTest {
     @DisplayName("minusSeconds() : 지정한 초단위 만큼 시간을 감소시킨 AppDateTime 을 반환한다")
     fun minusSecondsTest() {
         // given
-        val from1 = AppDateTime.of(2025, 1, 1, 0,0,3)
-        val from2 = AppDateTime.of(2025, 1, 1, 0,1,23)
-        val from3 = AppDateTime.of(2026, 1, 1, 0,0,15)
+        val from1 = AppDateTime.of(2025, 1, 1, 0, 0, 3)
+        val from2 = AppDateTime.of(2025, 1, 1, 0, 1, 23)
+        val from3 = AppDateTime.of(2026, 1, 1, 0, 0, 15)
 
         // when
         val to1 = from1.minusSeconds(3)
@@ -317,9 +316,9 @@ class AppDateTimeTest {
         val to3 = from3.minusSeconds(45)
 
         // then
-        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0 , 0))
-        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0 , 55))
-        assertThat(to3).isEqualTo(AppDateTime.of(2025, 12, 31, 23, 59 , 30))
+        assertThat(to1).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0, 0))
+        assertThat(to2).isEqualTo(AppDateTime.of(2025, 1, 1, 0, 0, 55))
+        assertThat(to3).isEqualTo(AppDateTime.of(2025, 12, 31, 23, 59, 30))
     }
 
     @Nested
@@ -399,19 +398,6 @@ class AppDateTimeTest {
             assertThat(equals).isFalse()
         }
 
-        @Test
-        @DisplayName("다른 토큰값을 가지면 동등하지 않다")
-        fun testDifferentTokenValue() {
-            // given
-            val accessToken = accessTokenFixture(tokenValue = "accessToken1")
-            val other = accessTokenFixture(tokenValue = "accessToken2")
-
-            // when
-            val equals = accessToken.equals(other)
-
-            // then
-            assertThat(equals).isFalse()
-        }
     }
 
     @Nested

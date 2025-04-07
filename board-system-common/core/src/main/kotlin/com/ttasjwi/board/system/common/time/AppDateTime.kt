@@ -54,7 +54,7 @@ class AppDateTime private constructor(zonedDateTime: ZonedDateTime) : Comparable
          */
         fun from(zonedDateTime: ZonedDateTime): AppDateTime {
             require(zonedDateTime.zone == SERVER_ZONE) {
-                "생성시 전달된 객체의 시간대가 우리 서비스의 Zone 이 아님. (우리 서비스의 Zone=${SERVER_ZONE}, 전달된 Zone=${zonedDateTime.zone})"
+                "생성시 전달된 객체의 시간대가 우리 서비스의 Zone 이 아님. (우리 서비스의 Zone=$SERVER_ZONE, 전달된 Zone=${zonedDateTime.zone})"
             }
             return AppDateTime(zonedDateTime)
         }
