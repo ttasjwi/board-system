@@ -4,12 +4,12 @@ import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.domain.member.service.EmailManager
+import com.ttasjwi.board.system.domain.member.service.NicknameManager
+import com.ttasjwi.board.system.domain.member.service.PasswordManager
+import com.ttasjwi.board.system.domain.member.service.UsernameManager
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.service.EmailManager
-import com.ttasjwi.board.system.member.domain.service.NicknameManager
-import com.ttasjwi.board.system.member.domain.service.PasswordManager
-import com.ttasjwi.board.system.member.domain.service.UsernameManager
 import org.springframework.stereotype.Component
 
 @Component

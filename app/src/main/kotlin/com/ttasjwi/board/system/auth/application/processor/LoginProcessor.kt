@@ -9,9 +9,9 @@ import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.service.MemberFinder
-import com.ttasjwi.board.system.member.domain.service.PasswordManager
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.service.MemberFinder
+import com.ttasjwi.board.system.domain.member.service.PasswordManager
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 

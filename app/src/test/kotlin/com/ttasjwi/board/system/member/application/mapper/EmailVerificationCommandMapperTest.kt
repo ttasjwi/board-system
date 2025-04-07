@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

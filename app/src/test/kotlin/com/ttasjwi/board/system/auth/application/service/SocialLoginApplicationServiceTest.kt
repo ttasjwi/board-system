@@ -6,10 +6,10 @@ import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.SocialService
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.*
+import com.ttasjwi.board.system.domain.member.model.SocialService
+import com.ttasjwi.board.system.domain.member.model.fixture.memberFixture
+import com.ttasjwi.board.system.domain.member.model.fixture.socialConnectionFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

@@ -13,18 +13,22 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStorage
-import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
-import com.ttasjwi.board.system.member.domain.external.impl.ExternalPasswordHandlerImpl
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
-import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
+import com.ttasjwi.board.system.domain.member.external.db.EmailVerificationStorage
+import com.ttasjwi.board.system.domain.member.external.db.MemberStorageImpl
+import com.ttasjwi.board.system.domain.member.external.impl.ExternalPasswordHandlerImpl
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationStartedEventPublisher
+import com.ttasjwi.board.system.domain.member.service.SocialConnectionStorage
+import com.ttasjwi.board.system.integration.support.ExceptionApiTestFilter
 import com.ttasjwi.board.system.spring.security.oauth2.redis.RedisOAuth2AuthorizationRequestRepository
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.boot.web.servlet.FilterRegistrationBean
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Primary
 import org.springframework.test.web.servlet.MockMvc
-import java.time.ZonedDateTime
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -91,3 +95,27 @@ abstract class IntegrationTest {
         return generateAccessToken(memberId, role, issuedAt).tokenValue
     }
 }
+
+@TestConfiguration
+class IntegrationTestConfig {
+
+    /**
+     * CustomExceptionHandleFilter 뒤에서 예외를 던지기 위한 필터
+     */
+    @Bean
+    fun testFilter(): FilterRegistrationBean<ExceptionApiTestFilter> {
+        val registration = FilterRegistrationBean<ExceptionApiTestFilter>()
+        registration.filter = ExceptionApiTestFilter()
+
+        // CustomExceptionHandleFilter (-103) 보다 뒤에 둠
+        registration.order = -102
+        return registration
+    }
+
+    @Primary
+    @Bean
+    fun timeManager(): TimeManagerFixture {
+        return TimeManagerFixture()
+    }
+}
+

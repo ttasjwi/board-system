@@ -7,9 +7,9 @@ import com.ttasjwi.board.system.member.application.exception.DuplicateMemberEmai
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNicknameException
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberUsernameException
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
-import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.service.*
+import com.ttasjwi.board.system.domain.member.event.MemberRegisteredEvent
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.service.*
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 

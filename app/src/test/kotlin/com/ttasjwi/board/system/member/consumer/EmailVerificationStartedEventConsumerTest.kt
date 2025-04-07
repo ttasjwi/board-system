@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.member.consumer
 
 import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.usecase.fixture.EmailSendUseCaseFixture
-import com.ttasjwi.board.system.member.domain.event.fixture.emailVerificationStartedEventFixture
+import com.ttasjwi.board.system.domain.member.event.fixture.emailVerificationStartedEventFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

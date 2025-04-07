@@ -5,9 +5,9 @@ import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.domain.member.service.EmailManager
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailManagerFixture
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
-import com.ttasjwi.board.system.member.domain.service.EmailManager
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import java.util.*

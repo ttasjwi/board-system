@@ -7,10 +7,10 @@ import com.ttasjwi.board.system.auth.domain.service.fixture.*
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.model.fixture.memberFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.MemberStorageFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

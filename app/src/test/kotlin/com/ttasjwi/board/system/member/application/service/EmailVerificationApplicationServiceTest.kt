@@ -5,11 +5,11 @@ import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationHandlerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationStorageFixture
+import com.ttasjwi.board.system.domain.member.model.fixture.emailVerificationFixtureNotVerified
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailManagerFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailVerificationEventCreatorFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailVerificationHandlerFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailVerificationStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

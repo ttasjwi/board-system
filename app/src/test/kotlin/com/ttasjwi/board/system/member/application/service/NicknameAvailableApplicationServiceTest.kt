@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.NicknameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.NicknameAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
-import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.NicknameManagerFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.MemberStorageFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.NicknameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

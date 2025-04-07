@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.mapper
 import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.member.domain.model.SocialServiceUser
+import com.ttasjwi.board.system.domain.member.model.SocialServiceUser
 import org.springframework.stereotype.Component
 
 @Component

@@ -7,9 +7,9 @@ spring:
     locale: ko
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_test}
-    username: ${DATABASE_USERNAME:board_user_test}
-    password: ${DATABASE_PASSWORD:db1004}
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: create
@@ -19,8 +19,8 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
   data:
     redis:
-      host: ${REDIS_HOST:127.0.0.1}
-      port: ${REDIS_PORT:6379}
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
@@ -67,8 +67,8 @@ message:
   generalBasename: message/general-message
 
 rsa-keypair:
-  public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_test.pem}
-  private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_test.pem}
+  public-key-path: ${RSA_PUBLIC_KEY_PATH}
+  private-key-path: ${RSA_PRIVATE_KEY_PATH}
 
 logging:
   level:

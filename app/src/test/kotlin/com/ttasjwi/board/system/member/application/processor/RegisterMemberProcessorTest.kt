@@ -6,10 +6,10 @@ import com.ttasjwi.board.system.member.application.exception.DuplicateMemberEmai
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNicknameException
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberUsernameException
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.*
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.model.fixture.emailVerificationFixtureVerified
+import com.ttasjwi.board.system.domain.member.model.fixture.memberFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

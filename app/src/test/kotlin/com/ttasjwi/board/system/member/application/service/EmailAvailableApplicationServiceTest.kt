@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.mapper.EmailAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.EmailAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.EmailManagerFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.MemberStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

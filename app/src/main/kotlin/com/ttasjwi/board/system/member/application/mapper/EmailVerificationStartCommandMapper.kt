@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.locale.LocaleManager
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.domain.member.service.EmailManager
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
-import com.ttasjwi.board.system.member.domain.service.EmailManager
 import org.springframework.stereotype.Component
 
 @Component

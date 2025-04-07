@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.member.application.service
 
+import com.ttasjwi.board.system.domain.member.service.EmailManager
+import com.ttasjwi.board.system.domain.member.service.EmailSender
 import com.ttasjwi.board.system.member.application.usecase.EmailSendUseCase
-import com.ttasjwi.board.system.member.domain.service.EmailManager
-import com.ttasjwi.board.system.member.domain.service.EmailSender
 import org.springframework.stereotype.Service
 
 @Service

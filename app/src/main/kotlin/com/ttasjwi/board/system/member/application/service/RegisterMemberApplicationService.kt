@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.member.application.processor.RegisterMemberProce
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase
-import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
 import org.springframework.stereotype.Service
 
 @Service
@@ -35,7 +34,7 @@ internal class RegisterMemberApplicationService(
         return makeResponse(event)
     }
 
-    private fun makeResponse(event: MemberRegisteredEvent): RegisterMemberResponse {
+    private fun makeResponse(event: com.ttasjwi.board.system.domain.member.event.MemberRegisteredEvent): RegisterMemberResponse {
         return RegisterMemberResponse(
             memberId = event.data.memberId.toString(),
             email = event.data.email,

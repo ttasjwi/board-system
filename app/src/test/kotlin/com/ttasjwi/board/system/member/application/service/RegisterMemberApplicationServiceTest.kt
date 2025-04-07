@@ -6,9 +6,8 @@ import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.application.mapper.RegisterMemberCommandMapper
 import com.ttasjwi.board.system.member.application.processor.RegisterMemberProcessor
 import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureVerified
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.*
+import com.ttasjwi.board.system.domain.member.model.fixture.emailVerificationFixtureVerified
+import com.ttasjwi.board.system.domain.member.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

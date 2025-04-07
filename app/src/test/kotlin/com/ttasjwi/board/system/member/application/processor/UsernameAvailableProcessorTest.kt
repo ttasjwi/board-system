@@ -3,10 +3,10 @@ package com.ttasjwi.board.system.member.application.processor
 import com.ttasjwi.board.system.common.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.application.dto.UsernameAvailableQuery
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.UsernameManagerFixture
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.model.fixture.memberFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.MemberStorageFixture
+import com.ttasjwi.board.system.domain.member.service.fixture.UsernameManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

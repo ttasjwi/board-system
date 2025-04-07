@@ -1,11 +1,11 @@
 package com.ttasjwi.board.system.member.application.service
 
+import com.ttasjwi.board.system.domain.member.event.EmailVerifiedEvent
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationResponse
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationUseCase
-import com.ttasjwi.board.system.member.domain.event.EmailVerifiedEvent
 import org.springframework.stereotype.Service
 
 @Service

@@ -1,11 +1,11 @@
 package com.ttasjwi.board.system.member.application.processor
 
 import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.domain.member.event.EmailVerificationStartedEvent
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationAppender
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationCreator
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationEventCreator
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationStartCommand
-import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationAppender
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationCreator
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationEventCreator
 import org.springframework.stereotype.Component
 
 @Component
