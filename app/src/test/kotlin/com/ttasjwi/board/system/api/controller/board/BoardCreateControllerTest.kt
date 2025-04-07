@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.board.api
+package com.ttasjwi.board.system.api.controller.board
 
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse

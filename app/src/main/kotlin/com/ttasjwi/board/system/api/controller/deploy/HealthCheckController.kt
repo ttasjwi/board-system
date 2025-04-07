@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.deploy
+package com.ttasjwi.board.system.api.controller.deploy
 
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity

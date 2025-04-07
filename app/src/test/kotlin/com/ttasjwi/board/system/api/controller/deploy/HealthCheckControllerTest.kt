@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.deploy
+package com.ttasjwi.board.system.api.controller.deploy
 
 import com.ttasjwi.board.system.IntegrationTest
 import org.junit.jupiter.api.DisplayName
