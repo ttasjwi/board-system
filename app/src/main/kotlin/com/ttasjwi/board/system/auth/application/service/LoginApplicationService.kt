@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.auth.application.processor.LoginProcessor
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.auth.application.usecase.LoginResponse
 import com.ttasjwi.board.system.auth.application.usecase.LoginUseCase
-import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
 import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.domain.auth.event.LoggedInEvent
 import org.springframework.stereotype.Service
 
 @Service

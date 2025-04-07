@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.auth.application.processor
 
 import com.ttasjwi.board.system.auth.application.dto.TokenRefreshCommand
-import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
-import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
-import com.ttasjwi.board.system.auth.domain.model.AccessToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
-import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.domain.auth.event.TokenRefreshedEvent
+import com.ttasjwi.board.system.domain.auth.exception.RefreshTokenExpiredException
+import com.ttasjwi.board.system.domain.auth.model.AccessToken
+import com.ttasjwi.board.system.domain.auth.model.RefreshToken
+import com.ttasjwi.board.system.domain.auth.model.RefreshTokenHolder
+import com.ttasjwi.board.system.domain.auth.service.*
 import org.springframework.stereotype.Component
 
 @Component

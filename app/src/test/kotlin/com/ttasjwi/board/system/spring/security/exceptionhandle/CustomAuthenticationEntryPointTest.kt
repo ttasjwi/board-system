@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
-import com.ttasjwi.board.system.auth.domain.exception.UnauthenticatedException
+import com.ttasjwi.board.system.domain.auth.exception.UnauthenticatedException
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

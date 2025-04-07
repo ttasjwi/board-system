@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.auth.application.processor.TokenRefreshProcessor
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
 import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
-import com.ttasjwi.board.system.auth.domain.event.TokenRefreshedEvent
 import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.domain.auth.event.TokenRefreshedEvent
 import org.springframework.stereotype.Service
 
 @Service

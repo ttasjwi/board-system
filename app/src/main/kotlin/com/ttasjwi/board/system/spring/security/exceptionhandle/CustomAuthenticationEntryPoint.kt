@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
-import com.ttasjwi.board.system.auth.domain.exception.UnauthenticatedException
+import com.ttasjwi.board.system.domain.auth.exception.UnauthenticatedException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.InsufficientAuthenticationException
@@ -22,7 +22,6 @@ class CustomAuthenticationEntryPoint(
         if (authException is InsufficientAuthenticationException) {
             ex = UnauthenticatedException(authException)
         }
-
         handlerExceptionResolver.resolveException(request, response, null, ex)
     }
 }

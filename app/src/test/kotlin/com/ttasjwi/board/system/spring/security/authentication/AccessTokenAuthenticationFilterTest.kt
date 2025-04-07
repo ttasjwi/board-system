@@ -1,11 +1,11 @@
 package com.ttasjwi.board.system.spring.security.authentication
 
-import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
-import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.domain.auth.model.fixture.accessTokenFixture
+import com.ttasjwi.board.system.domain.auth.service.AccessTokenManager
 import com.ttasjwi.board.system.spring.security.support.BearerTokenResolver
 import io.mockk.*
 import jakarta.servlet.FilterChain
@@ -114,5 +114,4 @@ class AccessTokenAuthenticationFilterTest {
         verify(exactly = 1) { accessTokenManager.checkCurrentlyValid(accessToken, currentTime) }
         verify(exactly = 1) { filterChain.doFilter(request, response) }
     }
-
 }

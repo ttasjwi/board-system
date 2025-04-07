@@ -1,0 +1,29 @@
+package com.ttasjwi.board.system.domain.auth.service.impl
+
+import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.domain.auth.external.ExternalRefreshTokenHolderAppender
+import com.ttasjwi.board.system.domain.auth.external.ExternalRefreshTokenHolderFinder
+import com.ttasjwi.board.system.domain.auth.model.RefreshTokenHolder
+import com.ttasjwi.board.system.domain.auth.service.RefreshTokenHolderAppender
+import com.ttasjwi.board.system.domain.auth.service.RefreshTokenHolderFinder
+
+@DomainService
+internal class RefreshTokenHolderStorageImpl(
+    private val externalRefreshTokenHolderAppender: ExternalRefreshTokenHolderAppender,
+    private val externalRefreshTokenHolderFinder: ExternalRefreshTokenHolderFinder,
+) : RefreshTokenHolderAppender, RefreshTokenHolderFinder {
+
+    override fun append(memberId: Long, refreshTokenHolder: RefreshTokenHolder, currentTime: AppDateTime) {
+        val expiresAt = refreshTokenHolder.expiresAt(currentTime)
+        externalRefreshTokenHolderAppender.append(memberId, refreshTokenHolder, expiresAt)
+    }
+
+    override fun removeByMemberId(memberId: Long) {
+        externalRefreshTokenHolderAppender.removeByMemberId(memberId)
+    }
+
+    override fun findByMemberIdOrNull(memberId: Long): RefreshTokenHolder? {
+        return externalRefreshTokenHolderFinder.findByMemberIdOrNull(memberId)
+    }
+}

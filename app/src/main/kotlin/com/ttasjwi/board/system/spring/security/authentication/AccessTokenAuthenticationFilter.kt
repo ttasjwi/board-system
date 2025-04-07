@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.spring.security.authentication
 
-import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.domain.auth.service.AccessTokenManager
 import com.ttasjwi.board.system.spring.security.support.BearerTokenResolver
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest

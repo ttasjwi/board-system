@@ -67,8 +67,8 @@ message:
   generalBasename: message/general-message
 
 rsa-keypair:
-  public-key-path: ${RSA_PUBLIC_KEY_PATH}
-  private-key-path: ${RSA_PRIVATE_KEY_PATH}
+  public-key-path: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-keypair/public_key_test.pem}
+  private-key-path: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-keypair/private_key_test.pem}
 
 logging:
   level:

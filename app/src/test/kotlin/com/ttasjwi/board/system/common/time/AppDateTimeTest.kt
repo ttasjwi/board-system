@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.common.time
 
-import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
+import com.ttasjwi.board.system.domain.auth.model.fixture.accessTokenFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

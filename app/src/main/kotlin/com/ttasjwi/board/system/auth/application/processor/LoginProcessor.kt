@@ -2,13 +2,13 @@ package com.ttasjwi.board.system.auth.application.processor
 
 import com.ttasjwi.board.system.auth.application.dto.LoginCommand
 import com.ttasjwi.board.system.auth.application.exception.LoginFailureException
-import com.ttasjwi.board.system.auth.domain.event.LoggedInEvent
-import com.ttasjwi.board.system.auth.domain.model.AccessToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.logging.getLogger
 import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.domain.auth.event.LoggedInEvent
+import com.ttasjwi.board.system.domain.auth.model.AccessToken
+import com.ttasjwi.board.system.domain.auth.model.RefreshToken
+import com.ttasjwi.board.system.domain.auth.service.*
 import com.ttasjwi.board.system.domain.member.model.Member
 import com.ttasjwi.board.system.domain.member.service.MemberFinder
 import com.ttasjwi.board.system.domain.member.service.PasswordManager

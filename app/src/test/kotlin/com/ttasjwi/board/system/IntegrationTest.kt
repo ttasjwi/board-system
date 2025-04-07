@@ -1,11 +1,5 @@
 package com.ttasjwi.board.system
 
-import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
-import com.ttasjwi.board.system.auth.domain.external.ExternalRefreshTokenManager
-import com.ttasjwi.board.system.auth.domain.external.impl.ExternalRefreshTokenHolderStorageImpl
-import com.ttasjwi.board.system.auth.domain.model.AccessToken
-import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
-import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
 import com.ttasjwi.board.system.common.auth.domain.model.Role
 import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
@@ -13,6 +7,12 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.domain.auth.external.ExternalAccessTokenManager
+import com.ttasjwi.board.system.domain.auth.external.ExternalRefreshTokenManager
+import com.ttasjwi.board.system.domain.auth.external.impl.ExternalRefreshTokenHolderStorageImpl
+import com.ttasjwi.board.system.domain.auth.model.AccessToken
+import com.ttasjwi.board.system.domain.auth.service.AccessTokenManager
+import com.ttasjwi.board.system.domain.auth.service.RefreshTokenManager
 import com.ttasjwi.board.system.domain.member.external.db.EmailVerificationStorage
 import com.ttasjwi.board.system.domain.member.external.db.MemberStorageImpl
 import com.ttasjwi.board.system.domain.member.external.impl.ExternalPasswordHandlerImpl
@@ -87,11 +87,19 @@ abstract class IntegrationTest {
         em.clear()
     }
 
-    protected fun generateAccessToken(memberId: Long = 1557L, role: Role = Role.USER, issuedAt: AppDateTime = appDateTimeFixture()): AccessToken {
+    protected fun generateAccessToken(
+        memberId: Long = 1557L,
+        role: Role = Role.USER,
+        issuedAt: AppDateTime = appDateTimeFixture()
+    ): AccessToken {
         return accessTokenManager.generate(authMemberFixture(memberId, role), issuedAt)
     }
 
-    protected fun generateAccessTokenValue(memberId: Long = 1557L, role: Role = Role.USER, issuedAt: AppDateTime = appDateTimeFixture()): String {
+    protected fun generateAccessTokenValue(
+        memberId: Long = 1557L,
+        role: Role = Role.USER,
+        issuedAt: AppDateTime = appDateTimeFixture()
+    ): String {
         return generateAccessToken(memberId, role, issuedAt).tokenValue
     }
 }
@@ -118,4 +126,3 @@ class IntegrationTestConfig {
         return TimeManagerFixture()
     }
 }
-

@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.config.spring.security
 
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
-import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.domain.auth.service.AccessTokenManager
 import com.ttasjwi.board.system.spring.security.authentication.AccessTokenAuthenticationFilter
 import com.ttasjwi.board.system.spring.security.authentication.CustomOAuth2LoginAuthenticationSuccessHandler
 import com.ttasjwi.board.system.spring.security.exceptionhandle.CustomAccessDeniedHandler

@@ -2,11 +2,11 @@ package com.ttasjwi.board.system.auth.application.processor
 
 import com.ttasjwi.board.system.auth.application.dto.SocialLoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
-import com.ttasjwi.board.system.auth.domain.model.AccessToken
-import com.ttasjwi.board.system.auth.domain.model.RefreshToken
-import com.ttasjwi.board.system.auth.domain.service.*
 import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
 import com.ttasjwi.board.system.common.time.AppDateTime
+import com.ttasjwi.board.system.domain.auth.model.AccessToken
+import com.ttasjwi.board.system.domain.auth.model.RefreshToken
+import com.ttasjwi.board.system.domain.auth.service.*
 import com.ttasjwi.board.system.domain.member.model.Member
 import com.ttasjwi.board.system.domain.member.service.*
 import org.springframework.stereotype.Component

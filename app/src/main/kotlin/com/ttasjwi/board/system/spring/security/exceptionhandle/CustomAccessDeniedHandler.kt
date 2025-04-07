@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
-import com.ttasjwi.board.system.auth.domain.exception.AccessDeniedException
+import com.ttasjwi.board.system.domain.auth.exception.AccessDeniedException
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.web.access.AccessDeniedHandler
@@ -15,7 +15,8 @@ class CustomAccessDeniedHandler(
         response: HttpServletResponse,
         accessDeniedException: org.springframework.security.access.AccessDeniedException
     ) {
-        val customAccessDeniedException = AccessDeniedException(accessDeniedException)
+        val customAccessDeniedException =
+            com.ttasjwi.board.system.domain.auth.exception.AccessDeniedException(accessDeniedException)
 
         handlerExceptionResolver.resolveException(request, response, null, customAccessDeniedException)
     }

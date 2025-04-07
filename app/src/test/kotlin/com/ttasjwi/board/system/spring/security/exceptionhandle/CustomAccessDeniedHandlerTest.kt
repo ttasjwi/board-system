@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.spring.security.exceptionhandle
 
-import com.ttasjwi.board.system.auth.domain.exception.AccessDeniedException
+import com.ttasjwi.board.system.domain.auth.exception.AccessDeniedException
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -37,13 +37,13 @@ class CustomAccessDeniedHandlerTest {
             request,
             response,
             null,
-            any(AccessDeniedException::class)
+            any(com.ttasjwi.board.system.domain.auth.exception.AccessDeniedException::class)
         ) } returns ModelAndView()
         
         // when
         accessDeniedHandler.handle(request, response, exception)
         
         // then
-        verify(exactly = 1) { handlerExceptionResolver.resolveException(request, response, null, any(AccessDeniedException::class))  }
+        verify(exactly = 1) { handlerExceptionResolver.resolveException(request, response, null, any(com.ttasjwi.board.system.domain.auth.exception.AccessDeniedException::class))  }
     }
 }
