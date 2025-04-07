@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.integration.support
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.fixture.customExceptionFixture
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 

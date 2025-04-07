@@ -3,6 +3,9 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":board-system-common:logger"))
+
+
     // web
     implementation(Dependencies.SPRING_BOOT_WEB.fullName)
 
@@ -23,9 +26,6 @@ dependencies {
 
     // for email-format-validation
     implementation(Dependencies.COMMONS_VALIDATOR.fullName)
-
-    // for logging
-    implementation(Dependencies.KOTLIN_LOGGING.fullName)
 
     // for data-json-serialization
     implementation(Dependencies.KOTLIN_JACKSON.fullName)

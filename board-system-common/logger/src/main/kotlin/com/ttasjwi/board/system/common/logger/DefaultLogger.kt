@@ -1,9 +1,8 @@
-package com.ttasjwi.board.system.common.logging.impl
+package com.ttasjwi.board.system.common.logger
 
-import com.ttasjwi.board.system.common.logging.Logger
 import io.github.oshai.kotlinlogging.KotlinLogging
 
-internal class DelegateLogger(clazz: Class<*>) : Logger {
+internal class DefaultLogger(clazz: Class<*>) : Logger {
 
     private val target = KotlinLogging.logger(clazz.name)
 

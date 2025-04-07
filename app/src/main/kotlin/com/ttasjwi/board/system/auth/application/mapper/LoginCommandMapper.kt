@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.application.dto.LoginCommand
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import org.springframework.stereotype.Component
 

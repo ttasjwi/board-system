@@ -1,6 +1,5 @@
-package com.ttasjwi.board.system.common.logging
+package com.ttasjwi.board.system.common.logger
 
-import com.ttasjwi.board.system.common.logging.impl.DelegateLogger
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -24,7 +23,7 @@ internal class LoggerTest {
         fun test1() {
             TestClass.log.trace(IllegalStateException())
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -32,7 +31,7 @@ internal class LoggerTest {
         fun test2() {
             TestClass.log.trace { "안 뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -40,7 +39,7 @@ internal class LoggerTest {
         fun test3() {
             TestClass.log.trace(IllegalStateException()) { "안 뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
     }
@@ -54,7 +53,7 @@ internal class LoggerTest {
         fun test1() {
             TestClass.log.debug(IllegalStateException())
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -62,7 +61,7 @@ internal class LoggerTest {
         fun test2() {
             TestClass.log.debug { "안 뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -70,7 +69,7 @@ internal class LoggerTest {
         fun test3() {
             TestClass.log.debug(IllegalStateException()) { "안 뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
     }
 
@@ -82,7 +81,7 @@ internal class LoggerTest {
         fun test1() {
             TestClass.log.info(IllegalStateException())
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -90,7 +89,7 @@ internal class LoggerTest {
         fun test2() {
             TestClass.log.info { "뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -98,7 +97,7 @@ internal class LoggerTest {
         fun test3() {
             TestClass.log.info(IllegalStateException()) { "뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
     }
@@ -111,7 +110,7 @@ internal class LoggerTest {
         fun test1() {
             TestClass.log.warn(IllegalStateException())
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -119,7 +118,7 @@ internal class LoggerTest {
         fun test2() {
             TestClass.log.warn { "뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -127,7 +126,7 @@ internal class LoggerTest {
         fun test3() {
             TestClass.log.warn(IllegalStateException()) { "뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
     }
 
@@ -139,7 +138,7 @@ internal class LoggerTest {
         fun test1() {
             TestClass.log.error(IllegalStateException())
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -147,7 +146,7 @@ internal class LoggerTest {
         fun test2() {
             TestClass.log.error { "뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
 
         @Test
@@ -155,7 +154,7 @@ internal class LoggerTest {
         fun test3() {
             TestClass.log.error(IllegalStateException()) { "뜬다잉" }
             assertThat(TestClass.log).isNotNull
-            assertThat(TestClass.log).isInstanceOf(DelegateLogger::class.java)
+            assertThat(TestClass.log).isInstanceOf(DefaultLogger::class.java)
         }
     }
 }

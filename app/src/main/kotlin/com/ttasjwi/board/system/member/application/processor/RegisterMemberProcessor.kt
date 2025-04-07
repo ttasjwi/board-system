@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.application.processor
 
 import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.application.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberEmailException
 import com.ttasjwi.board.system.member.application.exception.DuplicateMemberNicknameException

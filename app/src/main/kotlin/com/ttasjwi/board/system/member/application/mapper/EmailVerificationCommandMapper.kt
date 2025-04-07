@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.member.application.mapper
 
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.auth.domain.external.fixture
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

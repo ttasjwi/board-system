@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.common.logging
+package com.ttasjwi.board.system.common.logger
 
 interface Logger {
     fun trace(message: () -> Any?)

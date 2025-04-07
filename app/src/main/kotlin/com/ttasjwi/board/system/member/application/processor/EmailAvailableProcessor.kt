@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.application.processor
 
 import com.ttasjwi.board.system.common.locale.LocaleManager
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResponse

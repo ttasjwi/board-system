@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.application.mapper.EmailVerificationStartCommandMapper
 import com.ttasjwi.board.system.member.application.processor.EmailVerificationStartProcessor
 import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest

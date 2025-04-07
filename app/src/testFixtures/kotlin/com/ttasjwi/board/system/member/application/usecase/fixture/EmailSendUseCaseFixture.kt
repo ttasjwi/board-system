@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.usecase.fixture
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.application.usecase.EmailSendUseCase
 
 class EmailSendUseCaseFixture : EmailSendUseCase {

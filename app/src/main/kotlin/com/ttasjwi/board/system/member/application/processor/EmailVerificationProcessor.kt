@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.processor
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.application.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.member.application.exception.EmailVerificationNotFoundException
 import com.ttasjwi.board.system.member.domain.event.EmailVerifiedEvent

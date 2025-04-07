@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.application.service
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.application.mapper.UsernameAvailableQueryMapper
 import com.ttasjwi.board.system.member.application.processor.UsernameAvailableProcessor
 import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableRequest

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
 import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
 import org.springframework.context.ApplicationEventPublisher

@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.board.domain.service.BoardStorage
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 

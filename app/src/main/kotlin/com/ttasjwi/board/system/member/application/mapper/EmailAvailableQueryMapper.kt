@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.application.mapper
 
 import com.ttasjwi.board.system.common.exception.NullArgumentException
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.member.application.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
 import org.springframework.stereotype.Component

@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.locale.LocaleManager
-import com.ttasjwi.board.system.common.logging.getLogger
+import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.message.MessageResolver
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
