@@ -6,9 +6,8 @@ dependencies {
     implementation(project(":board-system-common:core"))
     testFixturesImplementation(testFixtures(project(":board-system-common:core")))
 
-    
+    implementation(project(":board-system-common:data-serializer"))
     implementation(project(":board-system-common:logger"))
-
 
     // web
     implementation(Dependencies.SPRING_BOOT_WEB.fullName)
@@ -30,10 +29,6 @@ dependencies {
 
     // for email-format-validation
     implementation(Dependencies.COMMONS_VALIDATOR.fullName)
-
-    // for data-json-serialization
-    implementation(Dependencies.KOTLIN_JACKSON.fullName)
-    implementation(Dependencies.JACKSON_DATETIME.fullName)
 
     // for yaml message
     implementation(Dependencies.YAML_RESOURCE_BUNDLE.fullName)
