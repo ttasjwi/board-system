@@ -3,8 +3,8 @@ package com.ttasjwi.board.system.auth.domain.external.fixture
 import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.fixture.accessTokenFixture
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.ZonedDateTime
 

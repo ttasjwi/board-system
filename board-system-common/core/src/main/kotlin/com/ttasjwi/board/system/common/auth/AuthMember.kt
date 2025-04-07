@@ -1,16 +1,28 @@
-package com.ttasjwi.board.system.common.auth.domain.model
+package com.ttasjwi.board.system.common.auth
 
-abstract class AuthMember(
+class AuthMember
+internal constructor(
     val memberId: Long,
     val role: Role,
 ) {
 
     companion object {
+
+        fun create(
+            memberId: Long,
+            role: Role
+        ): AuthMember {
+            return AuthMember(
+                memberId = memberId,
+                role = role,
+            )
+        }
+
         fun restore(
             memberId: Long,
             roleName: String
         ): AuthMember {
-            return RestoredAuthMember(
+            return AuthMember(
                 memberId = memberId,
                 role = Role.restore(roleName)
             )
@@ -31,15 +43,7 @@ abstract class AuthMember(
         return result
     }
 
-    final override fun toString(): String {
+    override fun toString(): String {
         return "AuthMember(memberId=$memberId, role=$role)"
     }
-
-    private class RestoredAuthMember(
-        memberId: Long,
-        role: Role,
-    ) : AuthMember(
-        memberId = memberId,
-        role = role,
-    )
 }

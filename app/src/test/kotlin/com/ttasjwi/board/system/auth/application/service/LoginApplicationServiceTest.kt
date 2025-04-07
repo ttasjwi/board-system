@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.application.mapper.LoginCommandMapper
 import com.ttasjwi.board.system.auth.application.processor.LoginProcessor
 import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member

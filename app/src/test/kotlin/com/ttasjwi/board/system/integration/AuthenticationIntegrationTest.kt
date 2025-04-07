@@ -2,8 +2,8 @@ package com.ttasjwi.board.system.integration
 
 import com.nimbusds.jose.util.StandardCharset
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.Role
+import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

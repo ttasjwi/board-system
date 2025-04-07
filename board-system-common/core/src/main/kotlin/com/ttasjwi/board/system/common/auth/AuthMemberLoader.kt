@@ -1,6 +1,4 @@
-package com.ttasjwi.board.system.common.auth.domain.service
-
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+package com.ttasjwi.board.system.common.auth
 
 interface AuthMemberLoader {
 

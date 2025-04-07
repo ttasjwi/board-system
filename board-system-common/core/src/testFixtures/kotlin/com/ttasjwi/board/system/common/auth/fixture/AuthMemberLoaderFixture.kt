@@ -1,7 +1,7 @@
-package com.ttasjwi.board.system.common.auth.domain.service.fixture
+package com.ttasjwi.board.system.common.auth.fixture
 
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.auth.domain.service.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthMemberLoader
 
 class AuthMemberLoaderFixture(
     private var authMember: AuthMember? = null,

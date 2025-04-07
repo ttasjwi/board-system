@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.LocalDateTime
 

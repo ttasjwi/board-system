@@ -4,10 +4,10 @@ import com.ttasjwi.board.system.board.application.mapper.BoardCreateCommandMappe
 import com.ttasjwi.board.system.board.application.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.domain.service.fixture.*
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.auth.domain.service.fixture.AuthMemberLoaderFixture
+import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.Role
+import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.AuthMemberLoaderFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture

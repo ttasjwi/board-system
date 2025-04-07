@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.model.fixture
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

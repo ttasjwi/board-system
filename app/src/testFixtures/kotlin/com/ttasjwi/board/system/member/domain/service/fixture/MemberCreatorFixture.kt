@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.member.domain.service.fixture
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture

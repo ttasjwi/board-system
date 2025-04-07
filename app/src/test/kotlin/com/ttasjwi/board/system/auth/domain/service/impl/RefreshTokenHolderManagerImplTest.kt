@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.auth.domain.model.RefreshTokenHolder
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenHolderManager
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

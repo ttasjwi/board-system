@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
 import com.ttasjwi.board.system.board.domain.service.BoardDescriptionManager
 import com.ttasjwi.board.system.board.domain.service.BoardNameManager
 import com.ttasjwi.board.system.board.domain.service.BoardSlugManager
-import com.ttasjwi.board.system.common.auth.domain.service.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthMemberLoader
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logger.getLogger

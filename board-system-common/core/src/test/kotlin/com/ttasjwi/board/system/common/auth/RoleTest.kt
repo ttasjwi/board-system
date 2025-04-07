@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.common.auth.domain.model
+package com.ttasjwi.board.system.common.auth
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

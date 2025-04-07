@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.auth.application.processor
 import com.ttasjwi.board.system.auth.application.dto.LoginCommand
 import com.ttasjwi.board.system.auth.application.exception.LoginFailureException
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture

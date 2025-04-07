@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.auth.domain.external.ExternalAccessTokenManager
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthMember
 import com.ttasjwi.board.system.common.time.AppDateTime
 
 @DomainService

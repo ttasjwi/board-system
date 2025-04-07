@@ -2,8 +2,8 @@ package com.ttasjwi.board.system.auth.domain.external.impl
 
 import com.ttasjwi.board.system.IntegrationTest
 import com.ttasjwi.board.system.auth.domain.exception.InvalidAccessTokenFormatException
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.Role
+import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

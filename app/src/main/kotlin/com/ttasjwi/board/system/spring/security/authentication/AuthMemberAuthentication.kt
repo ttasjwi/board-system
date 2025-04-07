@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.spring.security.authentication
 
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthMember
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority

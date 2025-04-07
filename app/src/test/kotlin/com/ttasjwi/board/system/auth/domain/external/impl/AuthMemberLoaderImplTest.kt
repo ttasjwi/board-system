@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.auth.domain.external.impl
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
-import com.ttasjwi.board.system.common.auth.domain.service.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.Role
+import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.AuthMemberLoader
 import com.ttasjwi.board.system.spring.security.authentication.AuthMemberAuthentication
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

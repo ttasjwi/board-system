@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.model
 
 import com.ttasjwi.board.system.auth.domain.exception.RefreshTokenExpiredException
-import com.ttasjwi.board.system.common.auth.domain.model.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthMember
 import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.LocalDateTime

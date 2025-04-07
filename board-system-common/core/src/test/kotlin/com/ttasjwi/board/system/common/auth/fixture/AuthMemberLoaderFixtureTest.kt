@@ -1,7 +1,6 @@
-package com.ttasjwi.board.system.common.auth.domain.service.fixture
+package com.ttasjwi.board.system.common.auth.fixture
 
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.Role
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

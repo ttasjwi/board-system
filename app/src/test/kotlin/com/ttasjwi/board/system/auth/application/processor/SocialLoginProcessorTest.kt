@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.auth.domain.model.fixture.refreshTokenHolderFixture
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
-import com.ttasjwi.board.system.common.auth.domain.model.Role
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.model.SocialService
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture

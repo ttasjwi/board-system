@@ -7,8 +7,8 @@ import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
-import com.ttasjwi.board.system.common.auth.domain.model.Role
-import com.ttasjwi.board.system.common.auth.domain.model.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.Role
+import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.TimeManager
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
