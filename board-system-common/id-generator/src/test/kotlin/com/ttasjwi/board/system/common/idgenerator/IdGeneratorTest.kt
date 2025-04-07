@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.common.idgenerator
 
-import com.ttasjwi.board.system.common.idgerator.IdGenerator
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
@@ -11,8 +10,8 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 @Disabled // 수동테스트 목적. 테스트하려면 이 어노테이션을 주석처리 하고 실행해보세요.
-@DisplayName("Snowflake 테스트")
-class SnowflakeTest {
+@DisplayName("IdGenerator 테스트")
+class IdGeneratorTest {
 
     private lateinit var idGenerator: IdGenerator
 
@@ -83,4 +82,3 @@ class SnowflakeTest {
         executorService.shutdown()
     }
 }
-

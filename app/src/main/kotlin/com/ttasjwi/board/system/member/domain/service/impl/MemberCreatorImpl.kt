@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.member.domain.service.impl
 
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.common.idgerator.IdGenerator
+import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.service.MemberCreator

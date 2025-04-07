@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.common.idgerator
+package com.ttasjwi.board.system.common.idgenerator
 
 import java.util.random.RandomGenerator
 

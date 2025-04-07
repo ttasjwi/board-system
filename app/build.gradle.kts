@@ -7,6 +7,7 @@ dependencies {
     testFixturesImplementation(testFixtures(project(":board-system-common:core")))
 
     implementation(project(":board-system-common:data-serializer"))
+    implementation(project(":board-system-common:id-generator"))
     implementation(project(":board-system-common:logger"))
 
     // web

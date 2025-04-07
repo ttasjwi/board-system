@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.board.domain.service.impl
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.service.BoardManager
 import com.ttasjwi.board.system.common.annotation.component.DomainService
-import com.ttasjwi.board.system.common.idgerator.IdGenerator
+import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import com.ttasjwi.board.system.common.time.AppDateTime
 
 @DomainService
