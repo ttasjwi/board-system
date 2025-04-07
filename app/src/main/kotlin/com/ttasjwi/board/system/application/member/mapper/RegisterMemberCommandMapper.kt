@@ -2,15 +2,15 @@ package com.ttasjwi.board.system.application.member.mapper
 
 import com.ttasjwi.board.system.application.member.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.application.member.usecase.RegisterMemberRequest
+import com.ttasjwi.board.system.domain.member.service.EmailManager
+import com.ttasjwi.board.system.domain.member.service.NicknameManager
+import com.ttasjwi.board.system.domain.member.service.PasswordManager
+import com.ttasjwi.board.system.domain.member.service.UsernameManager
 import com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper
 import com.ttasjwi.board.system.global.exception.NullArgumentException
 import com.ttasjwi.board.system.global.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.global.time.TimeManager
-import com.ttasjwi.board.system.member.domain.service.EmailManager
-import com.ttasjwi.board.system.member.domain.service.NicknameManager
-import com.ttasjwi.board.system.member.domain.service.PasswordManager
-import com.ttasjwi.board.system.member.domain.service.UsernameManager
 
 @ApplicationCommandMapper
 internal class RegisterMemberCommandMapper(

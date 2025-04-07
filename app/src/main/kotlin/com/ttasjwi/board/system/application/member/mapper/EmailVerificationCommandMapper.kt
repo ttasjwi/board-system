@@ -2,12 +2,12 @@ package com.ttasjwi.board.system.application.member.mapper
 
 import com.ttasjwi.board.system.application.member.dto.EmailVerificationCommand
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationRequest
+import com.ttasjwi.board.system.domain.member.service.EmailManager
 import com.ttasjwi.board.system.global.annotation.ApplicationCommandMapper
 import com.ttasjwi.board.system.global.exception.NullArgumentException
 import com.ttasjwi.board.system.global.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.global.time.TimeManager
-import com.ttasjwi.board.system.member.domain.service.EmailManager
 
 @ApplicationCommandMapper
 internal class EmailVerificationCommandMapper(

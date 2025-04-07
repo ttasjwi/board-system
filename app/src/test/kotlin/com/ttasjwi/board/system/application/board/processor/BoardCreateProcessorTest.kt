@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.application.board.dto.BoardCreateCommand
 import com.ttasjwi.board.system.application.board.exception.DuplicateBoardNameException
 import com.ttasjwi.board.system.application.board.exception.DuplicateBoardSlugException
 import com.ttasjwi.board.system.board.domain.model.Board
-import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardManagerFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardStorageFixture
+import com.ttasjwi.board.system.domain.auth.model.boardFixture
+import com.ttasjwi.board.system.domain.auth.service.BoardManagerFixture
+import com.ttasjwi.board.system.domain.auth.service.BoardStorageFixture
 import com.ttasjwi.board.system.global.auth.Role
 import com.ttasjwi.board.system.global.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture

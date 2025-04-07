@@ -1,12 +1,12 @@
 package com.ttasjwi.board.system.application.member.processor
 
 import com.ttasjwi.board.system.application.member.dto.EmailAvailableQuery
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.model.memberFixture
+import com.ttasjwi.board.system.domain.member.service.EmailManagerFixture
+import com.ttasjwi.board.system.domain.member.service.MemberStorageFixture
 import com.ttasjwi.board.system.global.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.global.message.fixture.MessageResolverFixture
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

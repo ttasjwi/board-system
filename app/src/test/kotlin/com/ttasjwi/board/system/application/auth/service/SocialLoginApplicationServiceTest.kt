@@ -4,12 +4,12 @@ import com.ttasjwi.board.system.application.auth.mapper.SocialLoginCommandMapper
 import com.ttasjwi.board.system.application.auth.processor.SocialLoginProcessor
 import com.ttasjwi.board.system.application.auth.usecase.SocialLoginRequest
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
+import com.ttasjwi.board.system.domain.member.model.SocialService
+import com.ttasjwi.board.system.domain.member.model.memberFixture
+import com.ttasjwi.board.system.domain.member.model.socialConnectionFixture
+import com.ttasjwi.board.system.domain.member.service.*
 import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.SocialService
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.model.fixture.socialConnectionFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

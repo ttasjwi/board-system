@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
-import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
+import com.ttasjwi.board.system.domain.auth.model.boardFixture
+import com.ttasjwi.board.system.domain.auth.service.BoardStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

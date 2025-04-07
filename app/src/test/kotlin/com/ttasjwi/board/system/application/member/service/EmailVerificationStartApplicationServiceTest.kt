@@ -3,10 +3,10 @@ package com.ttasjwi.board.system.application.member.service
 import com.ttasjwi.board.system.application.member.mapper.EmailVerificationStartCommandMapper
 import com.ttasjwi.board.system.application.member.processor.EmailVerificationStartProcessor
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartRequest
+import com.ttasjwi.board.system.domain.member.service.*
 import com.ttasjwi.board.system.global.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

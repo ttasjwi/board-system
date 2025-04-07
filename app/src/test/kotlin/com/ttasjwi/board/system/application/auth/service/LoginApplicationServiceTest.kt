@@ -4,13 +4,13 @@ import com.ttasjwi.board.system.application.auth.mapper.LoginCommandMapper
 import com.ttasjwi.board.system.application.auth.processor.LoginProcessor
 import com.ttasjwi.board.system.application.auth.usecase.LoginRequest
 import com.ttasjwi.board.system.auth.domain.service.fixture.*
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.model.memberFixture
+import com.ttasjwi.board.system.domain.member.service.MemberStorageFixture
+import com.ttasjwi.board.system.domain.member.service.PasswordManagerFixture
 import com.ttasjwi.board.system.global.auth.Role
 import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.MemberStorageFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.PasswordManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

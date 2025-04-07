@@ -7,6 +7,11 @@ import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.auth.domain.service.RefreshTokenManager
 import com.ttasjwi.board.system.board.domain.external.db.BoardStorageImpl
+import com.ttasjwi.board.system.domain.member.external.db.EmailVerificationStorage
+import com.ttasjwi.board.system.domain.member.external.db.MemberStorageImpl
+import com.ttasjwi.board.system.domain.member.external.impl.ExternalPasswordHandlerImpl
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationStartedEventPublisher
+import com.ttasjwi.board.system.domain.member.service.SocialConnectionStorage
 import com.ttasjwi.board.system.global.auth.Role
 import com.ttasjwi.board.system.global.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.global.springsecurity.oauth2.redis.RedisOAuth2AuthorizationRequestRepository
@@ -15,11 +20,6 @@ import com.ttasjwi.board.system.global.time.TimeManager
 import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.integration.support.ExceptionApiTestFilter
-import com.ttasjwi.board.system.member.domain.external.db.EmailVerificationStorage
-import com.ttasjwi.board.system.member.domain.external.db.MemberStorageImpl
-import com.ttasjwi.board.system.member.domain.external.impl.ExternalPasswordHandlerImpl
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
-import com.ttasjwi.board.system.member.domain.service.SocialConnectionStorage
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

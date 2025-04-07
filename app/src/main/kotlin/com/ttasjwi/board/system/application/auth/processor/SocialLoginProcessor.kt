@@ -5,11 +5,11 @@ import com.ttasjwi.board.system.application.auth.usecase.SocialLoginResponse
 import com.ttasjwi.board.system.auth.domain.model.AccessToken
 import com.ttasjwi.board.system.auth.domain.model.RefreshToken
 import com.ttasjwi.board.system.auth.domain.service.*
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.service.*
 import com.ttasjwi.board.system.global.annotation.ApplicationProcessor
 import com.ttasjwi.board.system.global.auth.AuthMember
 import com.ttasjwi.board.system.global.time.AppDateTime
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.service.*
 import org.springframework.transaction.annotation.Transactional
 
 @ApplicationProcessor

@@ -5,12 +5,12 @@ import com.ttasjwi.board.system.application.member.exception.DuplicateMemberEmai
 import com.ttasjwi.board.system.application.member.exception.DuplicateMemberNicknameException
 import com.ttasjwi.board.system.application.member.exception.DuplicateMemberUsernameException
 import com.ttasjwi.board.system.application.member.exception.EmailVerificationNotFoundException
+import com.ttasjwi.board.system.domain.member.event.MemberRegisteredEvent
+import com.ttasjwi.board.system.domain.member.model.Member
+import com.ttasjwi.board.system.domain.member.service.*
 import com.ttasjwi.board.system.global.annotation.ApplicationProcessor
 import com.ttasjwi.board.system.global.exception.CustomException
 import com.ttasjwi.board.system.global.logging.getLogger
-import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
-import com.ttasjwi.board.system.member.domain.model.Member
-import com.ttasjwi.board.system.member.domain.service.*
 import org.springframework.transaction.annotation.Transactional
 
 @ApplicationProcessor

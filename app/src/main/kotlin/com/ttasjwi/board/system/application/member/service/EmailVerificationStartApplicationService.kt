@@ -5,10 +5,10 @@ import com.ttasjwi.board.system.application.member.processor.EmailVerificationSt
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartRequest
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartResponse
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartUseCase
+import com.ttasjwi.board.system.domain.member.event.EmailVerificationStartedEvent
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationStartedEventPublisher
 import com.ttasjwi.board.system.global.annotation.ApplicationService
 import com.ttasjwi.board.system.global.logging.getLogger
-import com.ttasjwi.board.system.member.domain.event.EmailVerificationStartedEvent
-import com.ttasjwi.board.system.member.domain.service.EmailVerificationStartedEventPublisher
 
 @ApplicationService
 internal class EmailVerificationStartApplicationService(

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain.model
 
-import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
+import com.ttasjwi.board.system.domain.auth.model.boardFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName

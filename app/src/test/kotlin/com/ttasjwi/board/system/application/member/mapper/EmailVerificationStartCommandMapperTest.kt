@@ -1,13 +1,13 @@
 package com.ttasjwi.board.system.application.member.mapper
 
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartRequest
+import com.ttasjwi.board.system.domain.member.service.EmailManager
+import com.ttasjwi.board.system.domain.member.service.EmailManagerFixture
 import com.ttasjwi.board.system.global.exception.CustomException
 import com.ttasjwi.board.system.global.exception.NullArgumentException
 import com.ttasjwi.board.system.global.locale.fixture.LocaleManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.service.EmailManager
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import java.util.*

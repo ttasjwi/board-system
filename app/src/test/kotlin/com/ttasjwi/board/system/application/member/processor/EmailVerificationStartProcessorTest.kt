@@ -2,9 +2,9 @@ package com.ttasjwi.board.system.application.member.processor
 
 import com.ttasjwi.board.system.application.member.dto.EmailVerificationStartCommand
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationCreatorFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationEventCreatorFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailVerificationStorageFixture
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationCreatorFixture
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationEventCreatorFixture
+import com.ttasjwi.board.system.domain.member.service.EmailVerificationStorageFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

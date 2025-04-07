@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
+import com.ttasjwi.board.system.domain.auth.service.BoardManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

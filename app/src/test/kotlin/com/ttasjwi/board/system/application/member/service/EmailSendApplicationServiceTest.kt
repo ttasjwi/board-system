@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.application.member.service
 
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailSenderFixture
+import com.ttasjwi.board.system.domain.member.service.EmailManagerFixture
+import com.ttasjwi.board.system.domain.member.service.EmailSenderFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

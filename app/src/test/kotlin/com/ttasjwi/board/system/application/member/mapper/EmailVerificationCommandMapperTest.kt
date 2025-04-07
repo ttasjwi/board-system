@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.global.exception.NullArgumentException
 import com.ttasjwi.board.system.global.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.global.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.global.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.member.domain.service.fixture.EmailManagerFixture
+import com.ttasjwi.board.system.domain.member.service.EmailManagerFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.board.domain.external.db
 
 import com.ttasjwi.board.system.IntegrationTest
-import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
+import com.ttasjwi.board.system.domain.auth.model.boardFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested

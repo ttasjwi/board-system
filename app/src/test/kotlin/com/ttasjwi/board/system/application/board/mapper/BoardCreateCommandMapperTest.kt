@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.application.board.mapper
 
 import com.ttasjwi.board.system.application.board.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardDescriptionManagerFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardNameManagerFixture
-import com.ttasjwi.board.system.board.domain.service.fixture.BoardSlugManagerFixture
+import com.ttasjwi.board.system.domain.auth.service.BoardDescriptionManagerFixture
+import com.ttasjwi.board.system.domain.auth.service.BoardNameManagerFixture
+import com.ttasjwi.board.system.domain.auth.service.BoardSlugManagerFixture
 import com.ttasjwi.board.system.global.auth.AuthMember
 import com.ttasjwi.board.system.global.auth.Role
 import com.ttasjwi.board.system.global.auth.fixture.AuthMemberLoaderFixture

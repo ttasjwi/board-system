@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.auth.domain.service.impl
 
 import com.ttasjwi.board.system.auth.domain.service.AuthMemberCreator
-import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.domain.member.model.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

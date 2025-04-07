@@ -2,12 +2,12 @@ package com.ttasjwi.board.system.application.member.processor
 
 import com.ttasjwi.board.system.application.member.dto.NicknameAvailableQuery
 import com.ttasjwi.board.system.application.member.usecase.NicknameAvailableResponse
+import com.ttasjwi.board.system.domain.member.service.MemberFinder
+import com.ttasjwi.board.system.domain.member.service.NicknameManager
 import com.ttasjwi.board.system.global.annotation.ApplicationProcessor
 import com.ttasjwi.board.system.global.locale.LocaleManager
 import com.ttasjwi.board.system.global.logging.getLogger
 import com.ttasjwi.board.system.global.message.MessageResolver
-import com.ttasjwi.board.system.member.domain.service.MemberFinder
-import com.ttasjwi.board.system.member.domain.service.NicknameManager
 
 @ApplicationProcessor
 internal class NicknameAvailableProcessor(

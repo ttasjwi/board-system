@@ -5,9 +5,9 @@ import com.ttasjwi.board.system.application.member.processor.RegisterMemberProce
 import com.ttasjwi.board.system.application.member.usecase.RegisterMemberRequest
 import com.ttasjwi.board.system.application.member.usecase.RegisterMemberResponse
 import com.ttasjwi.board.system.application.member.usecase.RegisterMemberUseCase
+import com.ttasjwi.board.system.domain.member.event.MemberRegisteredEvent
 import com.ttasjwi.board.system.global.annotation.ApplicationService
 import com.ttasjwi.board.system.global.logging.getLogger
-import com.ttasjwi.board.system.member.domain.event.MemberRegisteredEvent
 
 @ApplicationService
 internal class RegisterMemberApplicationService(

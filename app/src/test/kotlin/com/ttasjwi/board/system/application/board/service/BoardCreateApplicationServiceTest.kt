@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.application.board.service
 import com.ttasjwi.board.system.application.board.mapper.BoardCreateCommandMapper
 import com.ttasjwi.board.system.application.board.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.application.board.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.domain.service.fixture.*
+import com.ttasjwi.board.system.domain.auth.service.*
 import com.ttasjwi.board.system.global.auth.AuthMember
 import com.ttasjwi.board.system.global.auth.Role
 import com.ttasjwi.board.system.global.auth.fixture.AuthMemberLoaderFixture

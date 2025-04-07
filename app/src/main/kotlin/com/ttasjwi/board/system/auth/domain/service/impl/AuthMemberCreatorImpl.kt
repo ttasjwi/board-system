@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.auth.domain.service.impl
 
 import com.ttasjwi.board.system.auth.domain.service.AuthMemberCreator
+import com.ttasjwi.board.system.domain.member.model.Member
 import com.ttasjwi.board.system.global.annotation.DomainService
 import com.ttasjwi.board.system.global.auth.AuthMember
-import com.ttasjwi.board.system.member.domain.model.Member
 
 @DomainService
 internal class AuthMemberCreatorImpl : AuthMemberCreator {

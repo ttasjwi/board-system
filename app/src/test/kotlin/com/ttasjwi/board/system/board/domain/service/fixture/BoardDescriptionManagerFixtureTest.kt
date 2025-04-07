@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.board.domain.service.fixture
 
 import com.ttasjwi.board.system.board.domain.service.BoardDescriptionManager
+import com.ttasjwi.board.system.domain.auth.service.BoardDescriptionManagerFixture
 import com.ttasjwi.board.system.global.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*

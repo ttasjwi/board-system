@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.application.member.processor.EmailVerificationPr
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationRequest
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationResponse
 import com.ttasjwi.board.system.application.member.usecase.EmailVerificationUseCase
+import com.ttasjwi.board.system.domain.member.event.EmailVerifiedEvent
 import com.ttasjwi.board.system.global.annotation.ApplicationService
-import com.ttasjwi.board.system.member.domain.event.EmailVerifiedEvent
 
 @ApplicationService
 internal class EmailVerificationApplicationService(
