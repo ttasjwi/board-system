@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.board
 
-import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
-import com.ttasjwi.board.system.board.application.usecase.BoardCreateUseCase
+import com.ttasjwi.board.system.application.board.usecase.BoardCreateRequest
+import com.ttasjwi.board.system.application.board.usecase.BoardCreateResponse
+import com.ttasjwi.board.system.application.board.usecase.BoardCreateUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

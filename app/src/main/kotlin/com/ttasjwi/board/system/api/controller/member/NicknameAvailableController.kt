@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableRequest
-import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableResponse
-import com.ttasjwi.board.system.member.application.usecase.NicknameAvailableUseCase
+import com.ttasjwi.board.system.application.member.usecase.NicknameAvailableRequest
+import com.ttasjwi.board.system.application.member.usecase.NicknameAvailableResponse
+import com.ttasjwi.board.system.application.member.usecase.NicknameAvailableUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

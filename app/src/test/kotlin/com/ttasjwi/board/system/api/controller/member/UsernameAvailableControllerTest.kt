@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableRequest
-import com.ttasjwi.board.system.member.application.usecase.UsernameAvailableResponse
-import com.ttasjwi.board.system.member.application.usecase.fixture.UsernameAvailableUseCaseFixture
+import com.ttasjwi.board.system.application.member.usecase.UsernameAvailableRequest
+import com.ttasjwi.board.system.application.member.usecase.UsernameAvailableResponse
+import com.ttasjwi.board.system.application.member.usecase.UsernameAvailableUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

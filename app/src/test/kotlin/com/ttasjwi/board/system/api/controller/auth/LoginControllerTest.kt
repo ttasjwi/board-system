@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.auth
 
-import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
-import com.ttasjwi.board.system.auth.application.usecase.LoginResponse
-import com.ttasjwi.board.system.auth.application.usecase.fixture.LoginUseCaseFixture
+import com.ttasjwi.board.system.application.auth.usecase.LoginRequest
+import com.ttasjwi.board.system.application.auth.usecase.LoginResponse
+import com.ttasjwi.board.system.application.auth.usecase.LoginUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

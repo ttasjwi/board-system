@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
-import com.ttasjwi.board.system.member.application.usecase.RegisterMemberUseCase
+import com.ttasjwi.board.system.application.member.usecase.RegisterMemberRequest
+import com.ttasjwi.board.system.application.member.usecase.RegisterMemberResponse
+import com.ttasjwi.board.system.application.member.usecase.RegisterMemberUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

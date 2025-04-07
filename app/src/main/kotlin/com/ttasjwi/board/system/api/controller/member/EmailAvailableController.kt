@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.EmailAvailableRequest
-import com.ttasjwi.board.system.member.application.usecase.EmailAvailableResponse
-import com.ttasjwi.board.system.member.application.usecase.EmailAvailableUseCase
+import com.ttasjwi.board.system.application.member.usecase.EmailAvailableRequest
+import com.ttasjwi.board.system.application.member.usecase.EmailAvailableResponse
+import com.ttasjwi.board.system.application.member.usecase.EmailAvailableUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

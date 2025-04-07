@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.board
 
-import com.ttasjwi.board.system.board.application.usecase.BoardCreateRequest
-import com.ttasjwi.board.system.board.application.usecase.BoardCreateResponse
-import com.ttasjwi.board.system.board.application.usecase.fixture.BoardCreateUseCaseFixture
+import com.ttasjwi.board.system.application.board.usecase.BoardCreateRequest
+import com.ttasjwi.board.system.application.board.usecase.BoardCreateResponse
+import com.ttasjwi.board.system.application.board.usecase.BoardCreateUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

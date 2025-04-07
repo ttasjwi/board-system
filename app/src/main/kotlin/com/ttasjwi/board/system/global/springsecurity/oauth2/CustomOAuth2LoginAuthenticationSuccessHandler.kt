@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.global.springsecurity.oauth2
 
-import com.ttasjwi.board.system.auth.application.usecase.SocialLoginRequest
-import com.ttasjwi.board.system.auth.application.usecase.SocialLoginResponse
-import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
+import com.ttasjwi.board.system.application.auth.usecase.SocialLoginRequest
+import com.ttasjwi.board.system.application.auth.usecase.SocialLoginResponse
+import com.ttasjwi.board.system.application.auth.usecase.SocialLoginUseCase
 import com.ttasjwi.board.system.global.dataserializer.DataSerializer
 import com.ttasjwi.board.system.global.springsecurity.oauth2.principal.model.SocialServiceUserPrincipal
 import jakarta.servlet.http.HttpServletRequest

@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.RegisterMemberRequest
-import com.ttasjwi.board.system.member.application.usecase.RegisterMemberResponse
-import com.ttasjwi.board.system.member.application.usecase.fixture.RegisterMemberUseCaseFixture
+import com.ttasjwi.board.system.application.member.usecase.RegisterMemberRequest
+import com.ttasjwi.board.system.application.member.usecase.RegisterMemberResponse
+import com.ttasjwi.board.system.application.member.usecase.RegisterMemberUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

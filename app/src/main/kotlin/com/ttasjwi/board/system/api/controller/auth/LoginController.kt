@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.auth
 
-import com.ttasjwi.board.system.auth.application.usecase.LoginRequest
-import com.ttasjwi.board.system.auth.application.usecase.LoginResponse
-import com.ttasjwi.board.system.auth.application.usecase.LoginUseCase
+import com.ttasjwi.board.system.application.auth.usecase.LoginRequest
+import com.ttasjwi.board.system.application.auth.usecase.LoginResponse
+import com.ttasjwi.board.system.application.auth.usecase.LoginUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

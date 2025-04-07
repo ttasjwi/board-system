@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartRequest
-import com.ttasjwi.board.system.member.application.usecase.EmailVerificationStartResponse
-import com.ttasjwi.board.system.member.application.usecase.fixture.EmailVerificationStartUseCaseFixture
+import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartRequest
+import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartResponse
+import com.ttasjwi.board.system.application.member.usecase.EmailVerificationStartUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.global.config
 
-import com.ttasjwi.board.system.auth.application.usecase.SocialLoginUseCase
+import com.ttasjwi.board.system.application.auth.usecase.SocialLoginUseCase
 import com.ttasjwi.board.system.auth.domain.service.AccessTokenManager
 import com.ttasjwi.board.system.global.filter.AccessTokenAuthenticationFilter
 import com.ttasjwi.board.system.global.springsecurity.oauth2.CustomOAuth2LoginAuthenticationSuccessHandler

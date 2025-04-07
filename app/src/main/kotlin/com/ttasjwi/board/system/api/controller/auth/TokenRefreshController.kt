@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.auth
 
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshUseCase
+import com.ttasjwi.board.system.application.auth.usecase.TokenRefreshRequest
+import com.ttasjwi.board.system.application.auth.usecase.TokenRefreshResponse
+import com.ttasjwi.board.system.application.auth.usecase.TokenRefreshUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody

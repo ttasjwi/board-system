@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.auth
 
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshResponse
-import com.ttasjwi.board.system.auth.application.usecase.fixture.TokenRefreshUseCaseFixture
+import com.ttasjwi.board.system.application.auth.usecase.TokenRefreshRequest
+import com.ttasjwi.board.system.application.auth.usecase.TokenRefreshResponse
+import com.ttasjwi.board.system.application.auth.usecase.TokenRefreshUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName

@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.api.controller.member
 
-import com.ttasjwi.board.system.member.application.usecase.EmailVerificationRequest
-import com.ttasjwi.board.system.member.application.usecase.EmailVerificationResponse
-import com.ttasjwi.board.system.member.application.usecase.EmailVerificationUseCase
+import com.ttasjwi.board.system.application.member.usecase.EmailVerificationRequest
+import com.ttasjwi.board.system.application.member.usecase.EmailVerificationResponse
+import com.ttasjwi.board.system.application.member.usecase.EmailVerificationUseCase
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
