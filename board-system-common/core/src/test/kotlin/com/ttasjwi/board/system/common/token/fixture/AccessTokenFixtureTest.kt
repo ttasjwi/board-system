@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.auth.domain.model.fixture
+package com.ttasjwi.board.system.common.token.fixture
 
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture

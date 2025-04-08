@@ -1,7 +1,6 @@
-package com.ttasjwi.board.system.auth.domain.exception
+package com.ttasjwi.board.system.common.websupport.auth.exception
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
-import com.ttasjwi.board.system.common.token.InvalidAccessTokenFormatException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test

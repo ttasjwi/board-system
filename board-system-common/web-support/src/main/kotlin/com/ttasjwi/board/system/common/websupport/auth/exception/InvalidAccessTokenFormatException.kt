@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.common.token
+package com.ttasjwi.board.system.common.websupport.auth.exception
 
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.ErrorStatus

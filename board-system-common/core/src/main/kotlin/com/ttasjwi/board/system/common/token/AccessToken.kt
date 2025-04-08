@@ -7,14 +7,17 @@ import java.time.Instant
 class AccessToken
 internal constructor(
     val authMember: AuthMember,
-    val tokenType: String,
+    val tokenType: String = VALID_TOKEN_TYPE,
     val tokenValue: String,
-    val issuer: String,
+    val issuer: String = VALID_ISSUER,
     val issuedAt: AppDateTime,
     val expiresAt: AppDateTime,
 ) {
 
     companion object {
+
+        const val VALID_TOKEN_TYPE = "AccessToken"
+        const val VALID_ISSUER = "BoardSystem"
 
         /**
          * 액세스 토큰이 최초로 발급되는 시점에만 호출되어야 합니다.
@@ -24,16 +27,14 @@ internal constructor(
         fun create(
             authMember: AuthMember,
             tokenValue: String,
-            tokenType: String,
-            issuer: String,
             issuedAt: AppDateTime,
             expiresAt: AppDateTime,
         ): AccessToken {
             return AccessToken(
                 authMember = authMember,
                 tokenValue = tokenValue,
-                tokenType = tokenType,
-                issuer = issuer,
+                tokenType = VALID_TOKEN_TYPE,
+                issuer = VALID_ISSUER,
                 issuedAt = issuedAt,
                 expiresAt = expiresAt
             )
@@ -47,9 +48,7 @@ internal constructor(
         fun restore(
             memberId: Long,
             roleName: String,
-            tokenType: String,
             tokenValue: String,
-            issuer: String,
             issuedAt: Instant,
             expiresAt: Instant,
         ): AccessToken {
@@ -58,9 +57,9 @@ internal constructor(
                     memberId = memberId,
                     roleName = roleName,
                 ),
-                tokenType = tokenType,
+                tokenType = VALID_TOKEN_TYPE,
                 tokenValue = tokenValue,
-                issuer = issuer,
+                issuer = VALID_ISSUER,
                 issuedAt = AppDateTime.from(issuedAt),
                 expiresAt = AppDateTime.from(expiresAt),
             )

@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.common.websupport.auth.token
 
 import com.ttasjwi.board.system.common.token.AccessToken
 import com.ttasjwi.board.system.common.token.AccessTokenParser
-import com.ttasjwi.board.system.common.token.InvalidAccessTokenFormatException
+import com.ttasjwi.board.system.common.websupport.auth.exception.InvalidAccessTokenFormatException
 import org.springframework.security.oauth2.jwt.Jwt
 import org.springframework.security.oauth2.jwt.JwtDecoder
 import org.springframework.security.oauth2.jwt.JwtException
@@ -13,9 +13,9 @@ class JwtAccessTokenParser(
 
     companion object {
         private const val TOKEN_TYPE_CLAIM = "tokenType"
-        private const val TOKEN_TYPE_VALUE = "AccessToken"
+        private const val TOKEN_TYPE_VALUE = AccessToken.VALID_TOKEN_TYPE
         private const val ROLE_CLAIM = "role"
-        private const val ISSUER_VALUE = "BoardSystem"
+        private const val ISSUER_VALUE = AccessToken.VALID_ISSUER
     }
 
     override fun parse(tokenValue: String): AccessToken {
@@ -37,9 +37,7 @@ class JwtAccessTokenParser(
         return AccessToken.restore(
             memberId = jwt.subject.toLong(),
             roleName = jwt.getClaim(ROLE_CLAIM),
-            tokenType = jwt.getClaim(TOKEN_TYPE_CLAIM),
             tokenValue = jwt.tokenValue,
-            issuer = jwt.issuer.toString(),
             issuedAt = jwt.issuedAt!!,
             expiresAt = jwt.expiresAt!!
         )

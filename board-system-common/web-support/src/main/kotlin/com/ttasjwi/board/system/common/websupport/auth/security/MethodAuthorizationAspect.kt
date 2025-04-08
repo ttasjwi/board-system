@@ -20,9 +20,14 @@ class MethodAuthorizationAspect(
     fun checkPermitAll() {
     }
 
+    @Before("@annotation(com.ttasjwi.board.system.common.annotation.auth.RequireAuthenticated)")
+    fun checkAuthenticated() {
+        authMemberLoader.loadCurrentAuthMember() ?: throw UnauthenticatedException()
+    }
+
     @Before("@annotation(com.ttasjwi.board.system.common.annotation.auth.RequireUserRole)")
     fun checkUserRole() {
-        authMemberLoader.loadCurrentAuthMember() ?: throw UnauthenticatedException()
+        checkAuthenticated()
     }
 
     @Before("@annotation(com.ttasjwi.board.system.common.annotation.auth.RequireAdminRole)")

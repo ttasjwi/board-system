@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.spring.security.exception
+package com.ttasjwi.board.system.common.websupport.auth.exception
 
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 import org.assertj.core.api.Assertions.assertThat

@@ -1,5 +1,6 @@
-package com.ttasjwi.board.system.spring.security.support
+package com.ttasjwi.board.system.common.websupport.auth.token
 
+import com.ttasjwi.board.system.common.websupport.auth.exception.InvalidAuthorizationHeaderFormatException
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
