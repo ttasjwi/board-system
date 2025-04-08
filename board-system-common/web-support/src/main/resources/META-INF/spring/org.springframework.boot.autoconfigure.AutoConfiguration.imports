@@ -1,0 +1,4 @@
+com.ttasjwi.board.system.common.websupport.message.config.MessageConfig
+com.ttasjwi.board.system.common.websupport.locale.config.LocaleConfig
+com.ttasjwi.board.system.common.websupport.exception.config.ExceptionHandlingConfig
+com.ttasjwi.board.system.common.websupport.auth.config.SecurityConfig

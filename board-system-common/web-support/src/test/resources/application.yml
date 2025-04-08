@@ -1,0 +1,11 @@
+spring:
+  web:
+    locale: ko
+
+message:
+  encoding: "UTF-8"
+  errorBaseName: message/websupport-test-error-message
+  generalBaseName: message/web-support-test-general-message
+
+rsaKeyPath:
+  public: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-key/public_key_test.pem}

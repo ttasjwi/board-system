@@ -1,0 +1,50 @@
+package com.ttasjwi.board.system.common.websupport.auth.config
+
+import com.ttasjwi.board.system.common.time.TimeManager
+import com.ttasjwi.board.system.common.token.AccessTokenParser
+import com.ttasjwi.board.system.common.websupport.auth.filter.AccessTokenAuthenticationFilter
+import com.ttasjwi.board.system.common.websupport.auth.handler.CustomAccessDeniedHandler
+import com.ttasjwi.board.system.common.websupport.auth.handler.CustomAuthenticationEntryPoint
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.invoke
+import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.savedrequest.NullRequestCache
+import org.springframework.web.filter.OncePerRequestFilter
+import org.springframework.web.servlet.HandlerExceptionResolver
+
+class CoreSecurityDsl(
+    private val accessTokenParser: AccessTokenParser,
+    private val handlerExceptionResolver: HandlerExceptionResolver,
+    private val timeManager: TimeManager
+) {
+
+    fun apply(http: HttpSecurity) {
+        http {
+            authorizeHttpRequests {
+                authorize(anyRequest, permitAll)
+            }
+            csrf { disable() }
+            sessionManagement {
+                sessionCreationPolicy = SessionCreationPolicy.STATELESS
+            }
+            requestCache {
+                requestCache = NullRequestCache()
+            }
+            exceptionHandling {
+                authenticationEntryPoint = CustomAuthenticationEntryPoint(handlerExceptionResolver)
+                accessDeniedHandler = CustomAccessDeniedHandler(handlerExceptionResolver)
+            }
+            addFilterBefore<UsernamePasswordAuthenticationFilter>(
+                accessTokenAuthenticationFilter()
+            )
+        }
+    }
+
+    private fun accessTokenAuthenticationFilter(): OncePerRequestFilter {
+        return AccessTokenAuthenticationFilter(
+            accessTokenParser = accessTokenParser,
+            timeManager = timeManager,
+        )
+    }
+}
