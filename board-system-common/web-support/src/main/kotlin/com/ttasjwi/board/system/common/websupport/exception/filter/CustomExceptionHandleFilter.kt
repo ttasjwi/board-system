@@ -10,7 +10,7 @@ class CustomExceptionHandleFilter(
     private val handlerExceptionResolver: HandlerExceptionResolver
 ) : OncePerRequestFilter() {
 
-    override fun doFilterInternal(
+    public override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain

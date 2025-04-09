@@ -12,7 +12,7 @@ class JwtAccessTokenParser(
 ) : AccessTokenParser {
 
     companion object {
-        private const val TOKEN_TYPE_CLAIM = "tokenType"
+        internal const val TOKEN_TYPE_CLAIM = "tokenType"
         private const val TOKEN_TYPE_VALUE = AccessToken.VALID_TOKEN_TYPE
         private const val ROLE_CLAIM = "role"
         private const val ISSUER_VALUE = AccessToken.VALID_ISSUER
@@ -26,7 +26,7 @@ class JwtAccessTokenParser(
             throw InvalidAccessTokenFormatException(e)
         }
         val tokenType = jwt.getClaim<String>(TOKEN_TYPE_CLAIM)
-        val issuer = jwt.issuer.toString()
+        val issuer = jwt.claims["iss"]
         if (tokenType != TOKEN_TYPE_VALUE || issuer != ISSUER_VALUE) {
             throw InvalidAccessTokenFormatException()
         }

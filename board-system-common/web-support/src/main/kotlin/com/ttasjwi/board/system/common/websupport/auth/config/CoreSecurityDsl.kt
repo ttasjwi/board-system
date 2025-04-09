@@ -21,9 +21,6 @@ class CoreSecurityDsl(
 
     fun apply(http: HttpSecurity) {
         http {
-            authorizeHttpRequests {
-                authorize(anyRequest, permitAll)
-            }
             csrf { disable() }
             sessionManagement {
                 sessionCreationPolicy = SessionCreationPolicy.STATELESS

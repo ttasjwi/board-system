@@ -13,7 +13,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver
 
 @EnableWebSecurity
 @Configuration
-@Import(AccessTokenParserConfig::class)
+@Import(AccessTokenParserConfig::class, AccessTokenGeneratorConfig::class)
 class SecurityConfig(
     private val accessTokenParser: AccessTokenParser,
     private val handlerExceptionResolver: HandlerExceptionResolver,
