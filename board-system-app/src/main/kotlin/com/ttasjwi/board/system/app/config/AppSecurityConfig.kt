@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.web.SecurityFilterChain
 
-
-
 @Configuration
 class AppSecurityConfig(
     private val coreSecurityDsl: CoreSecurityDsl
@@ -19,7 +17,8 @@ class AppSecurityConfig(
         coreSecurityDsl.apply(http)
         http {
             authorizeHttpRequests {
-                authorize(anyRequest, authenticated)
+                // 컨트롤러 진입에 대한 인증은, 컨트롤러 메서드에 부착된 어노테이션 + AOP 활용
+                authorize(anyRequest, permitAll)
             }
         }
         return http.build()

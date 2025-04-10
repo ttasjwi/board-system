@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.app.config
 
-import com.ttasjwi.board.system.common.annotation.component.DomainService
+import com.ttasjwi.board.system.common.annotation.component.*
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.FilterType
@@ -11,12 +11,18 @@ import org.springframework.context.annotation.FilterType
         "com.ttasjwi.board.system.auth",
         "com.ttasjwi.board.system.board",
         "com.ttasjwi.board.system.member",
+        "com.ttasjwi.board.system.emailsender",
     ],
     includeFilters = [
         ComponentScan.Filter(
             type = FilterType.ANNOTATION,
             value = [
-                DomainService::class,
+                DomainPolicy::class,
+                AppComponent::class,
+                ApplicationService::class,
+                ApplicationProcessor::class,
+                ApplicationCommandMapper::class,
+                ApplicationQueryMapper::class
             ],
         )]
 )

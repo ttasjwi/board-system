@@ -12,6 +12,7 @@ board-system-app/src/main/resources/application-productionSecret.yml
 board-system-app/src/test/resources/application-test.yml
 board-system-app/src/main/resources/rsa-key/private_key_productionSecret.pem
 board-system-app/src/main/resources/rsa-key/public_key_productionSecret.pem
+board-system-email-sender/src/test/resources/application-test.yml
 
 ### STS ###
 .apt_generated
