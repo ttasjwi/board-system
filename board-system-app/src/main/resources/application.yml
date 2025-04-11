@@ -12,6 +12,10 @@ spring:
     url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_local}
     username: ${DATABASE_USERNAME:board_user_local}
     password: ${DATABASE_PASSWORD:db1004}
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:local-schema.sql
   jpa:
     hibernate:
       ddl-auto: none

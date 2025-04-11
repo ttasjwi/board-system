@@ -10,9 +10,13 @@ spring:
     url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_test}
     username: ${DATABASE_USERNAME:board_user_test}
     password: ${DATABASE_PASSWORD:db1004}
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:test-schema.sql
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     open-in-view: false
     properties:
       hibernate:
@@ -64,7 +68,7 @@ spring:
 message:
   encoding: "UTF-8"
   errorBaseName: message/error-message
-  generalBasename: message/general-message
+  generalBaseName: message/general-message
 
 rsaKeyPath:
   public: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-key/public_key_test.pem}
