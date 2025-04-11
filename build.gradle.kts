@@ -49,12 +49,12 @@ allprojects {
             "-XX:+EnableDynamicAgentLoading",
             "-Xshare:off")
     }
-}
 
-tasks.getByName("bootJar") {
-    enabled = false
-}
+    tasks.getByName("bootJar") {
+        enabled = false
+    }
 
-tasks.getByName("jar") {
-    enabled = true
+    tasks.getByName("jar") {
+        enabled = true
+    }
 }
