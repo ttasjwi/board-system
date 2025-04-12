@@ -1,9 +1,10 @@
-package com.ttasjwi.board.system.auth.application.mapper
+package com.ttasjwi.board.system.member.domain.mapper
 
-import com.ttasjwi.board.system.auth.application.usecase.TokenRefreshRequest
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import com.ttasjwi.board.system.member.domain.TokenRefreshRequest
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -18,8 +19,9 @@ class TokenRefreshCommandMapperTest {
 
     @BeforeEach
     fun setup() {
-        timeManagerFixture = TimeManagerFixture()
-        commandMapper = TokenRefreshCommandMapper(timeManagerFixture)
+        val container = TestContainer.create()
+        timeManagerFixture = container.timeManagerFixture
+        commandMapper = container.tokenRefreshCommandMapper
     }
 
     @Test

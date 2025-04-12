@@ -1,14 +1,25 @@
 package com.ttasjwi.board.system.app.config
 
 import com.ttasjwi.board.system.common.websupport.auth.config.CoreSecurityDsl
+import com.ttasjwi.board.system.common.websupport.auth.config.SecurityConfig
+import com.ttasjwi.board.system.common.websupport.exception.config.ExceptionHandlingConfig
+import com.ttasjwi.board.system.common.websupport.locale.config.LocaleConfig
+import com.ttasjwi.board.system.common.websupport.message.config.MessageConfig
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Import
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.invoke
 import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
-class AppSecurityConfig(
+@Import(
+    MessageConfig::class,
+    LocaleConfig::class,
+    SecurityConfig::class,
+    ExceptionHandlingConfig::class,
+)
+class AppWebSupportConfig(
     private val coreSecurityDsl: CoreSecurityDsl
 ) {
 
