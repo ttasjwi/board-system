@@ -8,7 +8,6 @@ import org.springframework.context.annotation.FilterType
 @Configuration
 @ComponentScan(
     basePackages = [
-        "com.ttasjwi.board.system.auth",
         "com.ttasjwi.board.system.board",
         "com.ttasjwi.board.system.member",
         "com.ttasjwi.board.system.emailsender",
@@ -17,9 +16,10 @@ import org.springframework.context.annotation.FilterType
         ComponentScan.Filter(
             type = FilterType.ANNOTATION,
             value = [
+                DomainService::class,
                 DomainPolicy::class,
                 AppComponent::class,
-                ApplicationService::class,
+                UseCase::class,
                 ApplicationProcessor::class,
                 ApplicationCommandMapper::class,
                 ApplicationQueryMapper::class

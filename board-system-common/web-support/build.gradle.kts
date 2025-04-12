@@ -5,6 +5,8 @@ dependencies {
     implementation(Dependencies.SPRING_BOOT_OAUTH2_CLIENT.fullName)
     implementation(Dependencies.YAML_RESOURCE_BUNDLE.fullName)
     implementation(project(":board-system-common:core"))
+    implementation(project(":board-system-common:token"))
     implementation(project(":board-system-common:logger"))
     testImplementation(testFixtures(project(":board-system-common:core")))
+    testImplementation(testFixtures(project(":board-system-common:token")))
 }

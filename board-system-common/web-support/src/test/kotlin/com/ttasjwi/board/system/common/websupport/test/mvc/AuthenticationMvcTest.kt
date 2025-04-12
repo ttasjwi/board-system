@@ -39,27 +39,6 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
     }
 
     @Test
-    @DisplayName("액세스토큰 포맷이 유효하지 않으면 그 어떤 엔드포인트더라도 접근할 수 없다.")
-    fun inValidTokenFormatTest() {
-        mockMvc
-            .perform(
-                get("/api/v1/test/web-support/auth/permit-all")
-                    .header(HttpHeaders.AUTHORIZATION, "Bearer StrangeToken")
-                    .characterEncoding(StandardCharset.UTF_8)
-                    .contentType(MediaType.APPLICATION_JSON)
-            )
-            .andDo(print())
-            .andExpectAll(
-                status().isUnauthorized,
-                content().contentType(MediaType.APPLICATION_JSON),
-                jsonPath("$.errors[0].code").value("Error.InvalidAccessTokenFormat"),
-                jsonPath("$.errors[0].message").value("Error.InvalidAccessTokenFormat.message"),
-                jsonPath("$.errors[0].description").value("Error.InvalidAccessTokenFormat.description"),
-                jsonPath("$.errors[0].source").value("accessToken"),
-            )
-    }
-
-    @Test
     @DisplayName("액세스 토큰이 만료됐다면, 그 어떤 엔드포인트더라도 접근할 수 없다.")
     fun expiredAccessTokenTest() {
         val tokenValue = generateAccessTokenValue(

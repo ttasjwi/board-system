@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.common.websupport.auth.filter
 
+import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
 import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.common.token.AccessTokenParser
 import com.ttasjwi.board.system.common.websupport.auth.security.AuthMemberAuthentication
 import com.ttasjwi.board.system.common.websupport.auth.token.BearerTokenResolver
 import jakarta.servlet.FilterChain
@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.web.filter.OncePerRequestFilter
 
 internal class AccessTokenAuthenticationFilter(
-    private val accessTokenParser: AccessTokenParser,
+    private val accessTokenParsePort: AccessTokenParsePort,
     private val timeManager: TimeManager,
 ) : OncePerRequestFilter() {
 
@@ -53,7 +53,7 @@ internal class AccessTokenAuthenticationFilter(
     private fun isAuthenticated() = SecurityContextHolder.getContextHolderStrategy().context.authentication != null
 
     private fun attemptAuthenticate(tokenValue: String): AuthMemberAuthentication {
-        val accessToken = accessTokenParser.parse(tokenValue)
+        val accessToken = accessTokenParsePort.parse(tokenValue)
         val currentTime = timeManager.now()
         accessToken.throwIfExpired(currentTime)
         return AuthMemberAuthentication.from(accessToken.authMember)

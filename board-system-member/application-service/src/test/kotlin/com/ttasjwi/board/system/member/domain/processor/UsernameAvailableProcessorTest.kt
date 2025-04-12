@@ -1,12 +1,10 @@
-package com.ttasjwi.board.system.member.application.processor
+package com.ttasjwi.board.system.member.domain.processor
 
-import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.domain.dto.UsernameAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.policy.fixturer.UsernamePolicyFixture
-import com.ttasjwi.board.system.member.domain.port.fixture.MemberPersistencePortFixture
-import com.ttasjwi.board.system.member.domain.processor.UsernameAvailableProcessor
+import com.ttasjwi.board.system.member.domain.policy.fixture.UsernamePolicyFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -22,13 +20,9 @@ class UsernameAvailableProcessorTest {
 
     @BeforeEach
     fun setup() {
-        val memberPersistencePortFixture = MemberPersistencePortFixture()
-        val usernamePolicyFixture = UsernamePolicyFixture()
-        processor = UsernameAvailableProcessor(
-            usernamePolicy = usernamePolicyFixture,
-            memberPersistencePort = memberPersistencePortFixture,
-            messageResolver = MessageResolverFixture(),
-        )
+        val container = TestContainer.create()
+        val memberPersistencePortFixture = container.memberPersistencePortFixture
+        processor = container.usernameAvailableProcessor
         savedMember = memberPersistencePortFixture.save(
             memberFixture(
                 username = "notregistered"

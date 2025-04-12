@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.policy.fixture
 
 import com.ttasjwi.board.system.common.exception.CustomException
-import com.ttasjwi.board.system.member.domain.policy.fixturer.UsernamePolicyFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 

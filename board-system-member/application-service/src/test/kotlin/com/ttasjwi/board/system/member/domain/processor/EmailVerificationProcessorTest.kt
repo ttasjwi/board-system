@@ -6,6 +6,7 @@ import com.ttasjwi.board.system.member.domain.exception.EmailVerificationNotFoun
 import com.ttasjwi.board.system.member.domain.model.EmailVerification
 import com.ttasjwi.board.system.member.domain.model.fixture.emailVerificationFixtureNotVerified
 import com.ttasjwi.board.system.member.domain.port.fixture.EmailVerificationPersistencePortFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -20,10 +21,9 @@ class EmailVerificationProcessorTest {
 
     @BeforeEach
     fun setup() {
-        emailVerificationPersistencePortFixture = EmailVerificationPersistencePortFixture()
-        emailVerificationProcessor = EmailVerificationProcessor(
-            emailVerificationPersistencePort = emailVerificationPersistencePortFixture
-        )
+        val container = TestContainer.create()
+        emailVerificationPersistencePortFixture = container.emailVerificationPersistencePortFixture
+        emailVerificationProcessor = container.emailVerificationProcessor
     }
 
     @Test

@@ -7,6 +7,7 @@ import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.EmailVerificationStartRequest
 import com.ttasjwi.board.system.member.domain.port.fixture.EmailFormatValidatePortFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import java.util.*
@@ -20,13 +21,10 @@ class EmailVerificationStartCommandMapperTest {
 
     @BeforeEach
     fun setup() {
-        localeResolverFixture = LocaleResolverFixture()
-        timeManagerFixture = TimeManagerFixture()
-        commandMapper = EmailVerificationStartCommandMapper(
-            emailFormatValidatePort = EmailFormatValidatePortFixture(),
-            timeManager = timeManagerFixture,
-            localeResolver = localeResolverFixture,
-        )
+        val container = TestContainer.create()
+        localeResolverFixture = container.localeResolverFixture
+        timeManagerFixture = container.timeManagerFixture
+        commandMapper = container.emailVerificationStartCommandMapper
     }
 
     @Nested

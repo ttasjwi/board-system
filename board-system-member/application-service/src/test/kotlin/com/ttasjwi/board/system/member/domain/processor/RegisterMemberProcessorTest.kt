@@ -13,6 +13,7 @@ import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.port.fixture.EmailVerificationPersistencePortFixture
 import com.ttasjwi.board.system.member.domain.port.fixture.MemberPersistencePortFixture
 import com.ttasjwi.board.system.member.domain.port.fixture.PasswordEncryptionPortFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -30,14 +31,11 @@ class RegisterMemberProcessorTest {
 
     @BeforeEach
     fun setup() {
-        memberPersistencePortFixture = MemberPersistencePortFixture()
-        emailVerificationPersistencePortFixture = EmailVerificationPersistencePortFixture()
-        passwordEncryptionPortFixture = PasswordEncryptionPortFixture()
-        processor = RegisterMemberProcessor(
-            memberPersistencePort = memberPersistencePortFixture,
-            passwordEncryptionPort = passwordEncryptionPortFixture,
-            emailVerificationPersistencePort = emailVerificationPersistencePortFixture,
-        )
+        val container = TestContainer.create()
+        memberPersistencePortFixture = container.memberPersistencePortFixture
+        emailVerificationPersistencePortFixture = container.emailVerificationPersistencePortFixture
+        passwordEncryptionPortFixture = container.passwordEncryptionPortFixture
+        processor = container.registerMemberProcessor
         registeredMember = memberPersistencePortFixture.save(
             memberFixture(
                 memberId = 12345L,

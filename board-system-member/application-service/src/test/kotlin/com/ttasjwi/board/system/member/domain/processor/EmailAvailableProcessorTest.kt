@@ -1,11 +1,10 @@
 package com.ttasjwi.board.system.member.domain.processor
 
-import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.domain.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import com.ttasjwi.board.system.member.domain.port.fixture.EmailFormatValidatePortFixture
-import com.ttasjwi.board.system.member.domain.port.fixture.MemberPersistencePortFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -21,12 +20,9 @@ class EmailAvailableProcessorTest {
 
     @BeforeEach
     fun setup() {
-        val memberPersistencePortFixture = MemberPersistencePortFixture()
-        processor = EmailAvailableProcessor(
-            emailFormatValidatePort = EmailFormatValidatePortFixture(),
-            memberPersistencePort = memberPersistencePortFixture,
-            messageResolver = MessageResolverFixture(),
-        )
+        val container = TestContainer.create()
+        val memberPersistencePortFixture = container.memberPersistencePortFixture
+        processor = container.emailAvailableProcessor
         savedMember = memberPersistencePortFixture.save(
             memberFixture(
                 memberId = 123456L,

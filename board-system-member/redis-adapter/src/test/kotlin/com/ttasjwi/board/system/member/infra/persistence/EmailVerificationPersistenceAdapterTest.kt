@@ -7,15 +7,9 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest
 @DisplayName("EmailVerificationPersistenceAdapter 테스트")
-class EmailVerificationPersistenceAdapterTest {
-
-    @Autowired
-    private lateinit var emailVerificationPersistenceAdapter: EmailVerificationPersistenceAdapter
+class EmailVerificationPersistenceAdapterTest : MemberRedisAdapterTest() {
 
     companion object {
         private const val TEST_EMAIL = "test12345678@test.com"

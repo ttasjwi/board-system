@@ -1,12 +1,12 @@
 package com.ttasjwi.board.system.common.websupport.auth.filter
 
+import com.ttasjwi.board.system.common.auth.AccessTokenExpiredException
+import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
 import com.ttasjwi.board.system.common.auth.Role
+import com.ttasjwi.board.system.common.auth.fixture.accessTokenFixture
 import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.common.token.AccessTokenExpiredException
-import com.ttasjwi.board.system.common.token.AccessTokenParser
-import com.ttasjwi.board.system.common.token.fixture.accessTokenFixture
 import io.mockk.*
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
@@ -21,7 +21,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 class AccessTokenAuthenticationFilterTest {
 
     private lateinit var accessTokenAuthenticationFilter: AccessTokenAuthenticationFilter
-    private lateinit var accessTokenParser: AccessTokenParser
+    private lateinit var accessTokenParsePort: AccessTokenParsePort
     private lateinit var timeManagerFixture: TimeManagerFixture
     private lateinit var request: HttpServletRequest
     private lateinit var response: HttpServletResponse
@@ -29,10 +29,10 @@ class AccessTokenAuthenticationFilterTest {
 
     @BeforeEach
     fun setup() {
-        accessTokenParser = mockk<AccessTokenParser>()
+        accessTokenParsePort = mockk<AccessTokenParsePort>()
         timeManagerFixture = TimeManagerFixture()
         accessTokenAuthenticationFilter = AccessTokenAuthenticationFilter(
-            accessTokenParser = accessTokenParser,
+            accessTokenParsePort = accessTokenParsePort,
             timeManager = timeManagerFixture
         )
         SecurityContextHolder.clearContext()
@@ -65,7 +65,7 @@ class AccessTokenAuthenticationFilterTest {
 
         // then
         verify(exactly = 0) { request.getHeader(HttpHeaders.AUTHORIZATION) }
-        verify(exactly = 0) { accessTokenParser.parse(anyNullable<String>()) }
+        verify(exactly = 0) { accessTokenParsePort.parse(anyNullable<String>()) }
         verify(exactly = 1) { filterChain.doFilter(request, response) }
     }
 
@@ -81,7 +81,7 @@ class AccessTokenAuthenticationFilterTest {
 
         // then
         verify(exactly = 1) { request.getHeader(HttpHeaders.AUTHORIZATION) }
-        verify(exactly = 0) { accessTokenParser.parse(anyNullable<String>()) }
+        verify(exactly = 0) { accessTokenParsePort.parse(anyNullable<String>()) }
         verify(exactly = 1) { filterChain.doFilter(request, response) }
     }
 
@@ -99,7 +99,7 @@ class AccessTokenAuthenticationFilterTest {
 
         every { request.getHeader(HttpHeaders.AUTHORIZATION) } returns "Bearer ${accessToken.tokenValue}"
         every { filterChain.doFilter(request, response) } just Runs
-        every { accessTokenParser.parse(accessToken.tokenValue) } returns accessToken
+        every { accessTokenParsePort.parse(accessToken.tokenValue) } returns accessToken
 
         val currentTime = appDateTimeFixture(minute = 13)
         timeManagerFixture.changeCurrentTime(currentTime)
@@ -110,7 +110,7 @@ class AccessTokenAuthenticationFilterTest {
 
         // then
         verify(exactly = 1) { request.getHeader(HttpHeaders.AUTHORIZATION) }
-        verify(exactly = 1) { accessTokenParser.parse(accessToken.tokenValue) }
+        verify(exactly = 1) { accessTokenParsePort.parse(accessToken.tokenValue) }
         verify(exactly = 1) { filterChain.doFilter(request, response) }
     }
 
@@ -128,7 +128,7 @@ class AccessTokenAuthenticationFilterTest {
 
         every { request.getHeader(HttpHeaders.AUTHORIZATION) } returns "Bearer ${accessToken.tokenValue}"
         every { filterChain.doFilter(request, response) } just Runs
-        every { accessTokenParser.parse(accessToken.tokenValue) } returns accessToken
+        every { accessTokenParsePort.parse(accessToken.tokenValue) } returns accessToken
 
         val currentTime = appDateTimeFixture(minute = 35)
         timeManagerFixture.changeCurrentTime(currentTime)
@@ -141,7 +141,7 @@ class AccessTokenAuthenticationFilterTest {
 
         // then
         verify(exactly = 1) { request.getHeader(HttpHeaders.AUTHORIZATION) }
-        verify(exactly = 1) { accessTokenParser.parse(accessToken.tokenValue) }
+        verify(exactly = 1) { accessTokenParsePort.parse(accessToken.tokenValue) }
         verify(exactly = 0) { filterChain.doFilter(request, response) }
     }
 

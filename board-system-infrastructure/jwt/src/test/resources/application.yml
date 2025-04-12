@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: board-system-jwt-test
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+accessToken:
+  rsaKeyPath:
+    public: ${RSA_ACCESS_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/access-token_public-key_jwt-test.pem}
+    private: ${RSA_ACCESS_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/access-token_private-key_jwt-test.pem}
+
+refreshToken:
+  rsaKeyPath:
+    public: ${RSA_REFRESH_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/refresh-token_public-key_jwt-test.pem}
+    private: ${RSA_REFRESH_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/refresh-token_private-key_jwt-test.pem}

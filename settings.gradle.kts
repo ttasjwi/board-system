@@ -8,6 +8,7 @@ include(
     // 여기서부터 공통모듈 ========================================================
     "board-system-common",
     "board-system-common:core",
+    "board-system-common:token",
     "board-system-common:data-serializer",
     "board-system-common:event-publisher",
     "board-system-common:id-generator",
@@ -26,8 +27,10 @@ include(
     "board-system-member:database-adapter",
     "board-system-member:redis-adapter",
     "board-system-member:password-adapter",
+    "board-system-member:refresh-token-adapter",
     "board-system-member:email-format-validate-adapter",
 
     // email-sender ==============================================================================
     "board-system-email-sender",
+    "board-system-infrastructure:jwt",
 )

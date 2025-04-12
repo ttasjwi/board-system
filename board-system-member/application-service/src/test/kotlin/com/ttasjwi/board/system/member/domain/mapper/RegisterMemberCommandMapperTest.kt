@@ -1,17 +1,16 @@
-package com.ttasjwi.board.system.member.application.mapper
+package com.ttasjwi.board.system.member.domain.mapper
 
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.member.domain.RegisterMemberRequest
-import com.ttasjwi.board.system.member.domain.mapper.RegisterMemberCommandMapper
-import com.ttasjwi.board.system.member.domain.policy.fixturer.NicknamePolicyFixture
-import com.ttasjwi.board.system.member.domain.policy.fixturer.PasswordPolicyFixture
-import com.ttasjwi.board.system.member.domain.policy.fixturer.UsernamePolicyFixture
+import com.ttasjwi.board.system.member.domain.policy.fixture.NicknamePolicyFixture
+import com.ttasjwi.board.system.member.domain.policy.fixture.PasswordPolicyFixture
+import com.ttasjwi.board.system.member.domain.policy.fixture.UsernamePolicyFixture
 import com.ttasjwi.board.system.member.domain.port.fixture.EmailFormatValidatePortFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -26,17 +25,10 @@ class RegisterMemberCommandMapperTest {
 
     @BeforeEach
     fun setup() {
-        val timeManager = TimeManagerFixture()
+        val container = TestContainer.create()
         currentTime = appDateTimeFixture(minute = 6)
-        timeManager.changeCurrentTime(currentTime)
-
-        commandMapper = RegisterMemberCommandMapper(
-            emailFormatValidatePort = EmailFormatValidatePortFixture(),
-            passwordPolicy = PasswordPolicyFixture(),
-            usernamePolicy = UsernamePolicyFixture(),
-            nicknamePolicy = NicknamePolicyFixture(),
-            timeManager = timeManager,
-        )
+        container.timeManagerFixture.changeCurrentTime(currentTime)
+        commandMapper = container.registerMemberCommandMapper
     }
 
     @Test

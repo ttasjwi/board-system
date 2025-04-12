@@ -1,18 +1,19 @@
 package com.ttasjwi.board.system.common.websupport.test
 
+import com.ttasjwi.board.system.common.auth.AccessTokenGeneratePort
+import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.common.token.AccessTokenGenerator
-import com.ttasjwi.board.system.common.token.AccessTokenParser
 import com.ttasjwi.board.system.common.websupport.exception.config.ExceptionHandlingConfig
 import com.ttasjwi.board.system.common.websupport.locale.config.LocaleConfig
 import com.ttasjwi.board.system.common.websupport.message.config.MessageConfig
 import com.ttasjwi.board.system.common.websupport.test.config.TestFilterConfig
 import com.ttasjwi.board.system.common.websupport.test.config.TestSecurityConfig
 import com.ttasjwi.board.system.common.websupport.test.config.TestTimeConfig
+import com.ttasjwi.board.system.common.websupport.test.config.TestTokenConfig
 import org.junit.jupiter.api.BeforeEach
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -28,7 +29,8 @@ import org.springframework.test.web.servlet.MockMvc
     MessageConfig::class,
     LocaleConfig::class,
     ExceptionHandlingConfig::class,
-    TestFilterConfig::class
+    TestFilterConfig::class,
+    TestTokenConfig::class,
 )
 abstract class WebSupportIntegrationTest {
 
@@ -39,10 +41,10 @@ abstract class WebSupportIntegrationTest {
     protected lateinit var timeManagerFixture: TimeManagerFixture
 
     @Autowired
-    protected lateinit var accessTokenGenerator: AccessTokenGenerator
+    protected lateinit var accessTokenGeneratePort: AccessTokenGeneratePort
 
     @Autowired
-    protected lateinit var accessTokenParser: AccessTokenParser
+    protected lateinit var accessTokenParsePort: AccessTokenParsePort
 
     @BeforeEach
     fun setup() {
@@ -55,7 +57,7 @@ abstract class WebSupportIntegrationTest {
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): String {
-        return accessTokenGenerator.generate(
+        return accessTokenGeneratePort.generate(
             authMember = authMemberFixture(memberId, role),
             issuedAt = issuedAt,
             expiresAt = expiresAt,

@@ -1,11 +1,10 @@
 package com.ttasjwi.board.system.member.domain.processor
 
-import com.ttasjwi.board.system.common.message.fixture.MessageResolverFixture
 import com.ttasjwi.board.system.member.domain.dto.NicknameAvailableQuery
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import com.ttasjwi.board.system.member.domain.policy.fixturer.NicknamePolicyFixture
-import com.ttasjwi.board.system.member.domain.port.fixture.MemberPersistencePortFixture
+import com.ttasjwi.board.system.member.domain.policy.fixture.NicknamePolicyFixture
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -21,12 +20,9 @@ class NicknameAvailableProcessorTest {
 
     @BeforeEach
     fun setup() {
-        val memberPersistencePortFixture = MemberPersistencePortFixture()
-        processor = NicknameAvailableProcessor(
-            nicknamePolicy = NicknamePolicyFixture(),
-            messageResolver = MessageResolverFixture(),
-            memberPersistencePort = memberPersistencePortFixture,
-        )
+        val container = TestContainer.create()
+        val memberPersistencePortFixture = container.memberPersistencePortFixture
+        processor = container.nicknameAvailableProcessor
         savedMember = memberPersistencePortFixture.save(
             memberFixture(
                 nickname = "saved"

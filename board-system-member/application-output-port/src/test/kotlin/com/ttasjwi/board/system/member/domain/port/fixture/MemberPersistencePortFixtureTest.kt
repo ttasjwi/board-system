@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.member.domain.port.fixture
 
+import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -106,6 +107,71 @@ class MemberPersistencePortFixtureTest {
             assertThat(findMember).isNull()
         }
     }
+
+    @Nested
+    @DisplayName("findAuthMemberOrNull : 회원을 인증회원 형태로 복원해 조회한다.")
+    inner class FindAuthMemberOrNullTest {
+
+
+        @Test
+        @DisplayName("회원이 있으면 authMember 형태로 조회된다.")
+        fun success() {
+            val memberId = 149L
+            val role = Role.ROOT
+            val member = memberFixture(memberId = memberId, role = role)
+            memberPersistencePortFixture.save(member)
+
+            val authMember = memberPersistencePortFixture.findAuthMemberOrNull(memberId)!!
+
+            assertThat(authMember.memberId).isEqualTo(member.memberId)
+            assertThat(authMember.role).isEqualTo(role)
+        }
+
+        @Test
+        @DisplayName("회원이 없으면 null 이 반환된다.")
+        fun nullTest() {
+            val memberId = 121356L
+            val authMember = memberPersistencePortFixture.findAuthMemberOrNull(memberId)
+            assertThat(authMember).isNull()
+        }
+    }
+
+    @Nested
+    @DisplayName("findByEmailOrNull : 회원을 이메일로 조회")
+    inner class FindByEmailOrNullTest {
+
+
+        @Test
+        @DisplayName("이메일에 해당하는 회원이 있을 경우 반환된다.")
+        fun successTest() {
+            // given
+            val member = memberFixture(memberId = 233L, email = "jest@gmail.com")
+            val savedMember = memberPersistencePortFixture.save(member)
+
+            // when
+            val findMember = memberPersistencePortFixture.findByEmailOrNull(savedMember.email)!!
+
+            // then
+            assertThat(findMember).isNotNull
+            assertThat(findMember.memberId).isEqualTo(savedMember.memberId)
+            assertThat(findMember.email).isEqualTo(savedMember.email)
+        }
+
+
+        @Test
+        @DisplayName("이메일에 해당하는 회원이 없으면 Null 이 반환된다.")
+        fun failureTest() {
+            // given
+            val email = "abcd@gmail.com"
+
+            // when
+            val findMember = memberPersistencePortFixture.findByEmailOrNull(email)
+
+            // then
+            assertThat(findMember).isNull()
+        }
+    }
+
 
     @Nested
     @DisplayName("existsByEmail: 이메일로 회원의 존재여부를 반환한다.")

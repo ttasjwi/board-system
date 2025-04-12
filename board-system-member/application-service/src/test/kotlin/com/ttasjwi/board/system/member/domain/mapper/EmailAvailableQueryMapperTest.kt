@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.member.domain.mapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.locale.fixture.LocaleResolverFixture
 import com.ttasjwi.board.system.member.domain.EmailAvailableRequest
+import com.ttasjwi.board.system.member.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import java.util.*
@@ -15,10 +16,9 @@ class EmailAvailableQueryMapperTest {
 
     @BeforeEach
     fun setup() {
-        localeResolverFixture = LocaleResolverFixture()
-        queryMapper = EmailAvailableQueryMapper(
-            localeResolver = localeResolverFixture
-        )
+        val container = TestContainer.create()
+        localeResolverFixture = container.localeResolverFixture
+        queryMapper = container.emailAvailableQueryMapper
     }
 
     @Nested

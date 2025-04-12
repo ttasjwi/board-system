@@ -9,6 +9,9 @@ dependencies {
     implementation(project(":board-system-common:core"))
     testImplementation(testFixtures(project(":board-system-common:core")))
 
+    implementation(project(":board-system-common:token"))
+    testImplementation(testFixtures(project(":board-system-common:token")))
+
     implementation(project(":board-system-member:domain"))
     testImplementation(testFixtures(project(":board-system-member:domain")))
 

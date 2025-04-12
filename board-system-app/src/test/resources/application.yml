@@ -70,9 +70,15 @@ message:
   errorBaseName: message/error-message
   generalBaseName: message/general-message
 
-rsaKeyPath:
-  public: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-key/public_key_test.pem}
-  private: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-key/private_key_test.pem}
+accessToken:
+  rsaKeyPath:
+    public: ${RSA_ACCESS_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/access-token_public-key_app-test.pem}
+    private: ${RSA_ACCESS_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/access-token_private-key_app-test.pem}
+
+refreshToken:
+  rsaKeyPath:
+    public: ${RSA_REFRESH_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/refresh-token_public-key_app-test.pem}
+    private: ${RSA_REFRESH_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/refresh-token_private-key_app-test.pem}
 
 logging:
   level:

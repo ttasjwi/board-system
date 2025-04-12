@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.common.websupport.auth.config
 
+import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
 import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.common.token.AccessTokenParser
 import com.ttasjwi.board.system.common.websupport.auth.filter.AccessTokenAuthenticationFilter
 import com.ttasjwi.board.system.common.websupport.auth.handler.CustomAccessDeniedHandler
 import com.ttasjwi.board.system.common.websupport.auth.handler.CustomAuthenticationEntryPoint
@@ -14,7 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.servlet.HandlerExceptionResolver
 
 class CoreSecurityDsl(
-    private val accessTokenParser: AccessTokenParser,
+    private val accessTokenParsePort: AccessTokenParsePort,
     private val handlerExceptionResolver: HandlerExceptionResolver,
     private val timeManager: TimeManager
 ) {
@@ -40,7 +40,7 @@ class CoreSecurityDsl(
 
     private fun accessTokenAuthenticationFilter(): OncePerRequestFilter {
         return AccessTokenAuthenticationFilter(
-            accessTokenParser = accessTokenParser,
+            accessTokenParsePort = accessTokenParsePort,
             timeManager = timeManager,
         )
     }

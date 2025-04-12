@@ -21,6 +21,9 @@ dependencies {
     // security
     implementation("org.springframework.security:spring-security-config")
     implementation("org.springframework.security:spring-security-web")
+
+    // jwt
+    implementation(project(":board-system-infrastructure:jwt"))
 }
 
 tasks.getByName("bootJar") {

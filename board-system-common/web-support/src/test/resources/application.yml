@@ -17,7 +17,3 @@ message:
   encoding: "UTF-8"
   errorBaseName: message/web-support-test-error-message
   generalBaseName: message/web-support-test-general-message
-
-rsaKeyPath:
-  public: ${RSA_PUBLIC_KEY_PATH:classpath:/rsa-key/public_key_test.pem}
-  private: ${RSA_PRIVATE_KEY_PATH:classpath:/rsa-key/private_key_test.pem}
