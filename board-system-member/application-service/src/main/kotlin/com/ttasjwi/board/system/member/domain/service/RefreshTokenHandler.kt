@@ -23,7 +23,7 @@ class RefreshTokenHandler(
     companion object {
         internal const val REFRESH_TOKEN_VALIDITY_HOUR = 24L
         internal const val REFRESH_REQUIRE_THRESHOLD_HOURS = 8L // 리프레시 토큰 재갱신 기준점
-        internal const val MAX_MEMBER_REFRESH_TOKEN_COUNT = 5L
+        internal const val MAX_MEMBER_REFRESH_TOKEN_COUNT = 5
     }
 
     /**
@@ -52,9 +52,8 @@ class RefreshTokenHandler(
         }
 
         // 회원 리프레시토큰 Id 목록에 있는 지 확인(로그아웃, 동시 유지 가능 갯수 제한 등으로 인해 사라졌을 수 있음)
-        // 없다면, 리프레시토큰Id 저장소에 남아있는 리프레시토큰 Id 제거 후 예외 발생
+        // 없다면, 예외 발생
         if (!memberRefreshTokenIdListPersistencePort.exists(refreshToken.memberId, refreshToken.refreshTokenId)) {
-            refreshTokenIdPersistencePort.remove(refreshToken.memberId, refreshToken.refreshTokenId)
             throw RefreshTokenExpiredException("리프레시 토큰이 로그아웃, 재갱신, 동시 토큰제약 등의 이유로 만료됨")
         }
     }
@@ -85,7 +84,8 @@ class RefreshTokenHandler(
         // 회원의 기존 토큰 ID 목록 조회
         val refreshTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
 
-        // 회원 리프레시토큰 아이디 목록에는 존재하지만, 실제 존재하지 않는 경우 회원 리프레시토큰 아이디 목록에서 제거
+        // 회원 리프레시토큰 아이디 목록에는 존재하지만,
+        // 실제 존재하지 않는 경우 회원 리프레시토큰 아이디 목록에서 제거
         val idCount = refreshTokenIds.size
         var deleteCount = 0
         for (tokenId in refreshTokenIds) {
@@ -95,14 +95,16 @@ class RefreshTokenHandler(
             }
         }
 
-        // 리프레시토큰 갯수 제한에 도달했고, 삭제된 토큰이 없다면, 가장 오래된 토큰을 제거
-        if (idCount == MAX_MEMBER_REFRESH_TOKEN_COUNT.toInt() && deleteCount == 0) {
+        // 리프레시토큰 갯수 제한에 도달했고,
+        // 위 과정을 거쳤음에도 삭제된 토큰이 없다면(모든 토큰의 유효기간이 남아있음)
+        // 가장 오래된 토큰을 제거
+        if (idCount == MAX_MEMBER_REFRESH_TOKEN_COUNT && deleteCount == 0) {
             remove(memberId, refreshTokenIds[0])
         }
 
         // 새로운 토큰 저장
         memberRefreshTokenIdListPersistencePort.add(
-            memberId, refreshToken.refreshTokenId, MAX_MEMBER_REFRESH_TOKEN_COUNT
+            memberId, refreshToken.refreshTokenId, MAX_MEMBER_REFRESH_TOKEN_COUNT.toLong()
         )
         refreshTokenIdPersistencePort.save(
             memberId, refreshToken.refreshTokenId, refreshToken.expiresAt
