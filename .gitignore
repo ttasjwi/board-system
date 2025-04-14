@@ -4,13 +4,15 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+temp/
 
 ### secret properties files ###
-app/src/main/resources/application-local.yml
-app/src/main/resources/application-productionSecret.yml
-app/src/test/resources/application-test.yml
-app/src/main/resources/rsa-keypair/private_key_productionSecret.pem
-app/src/main/resources/rsa-keypair/public_key_productionSecret.pem
+board-system-app/src/main/resources/application-local.yml
+board-system-app/src/main/resources/application-productionSecret.yml
+board-system-app/src/test/resources/application-test.yml
+board-system-app/src/main/resources/rsa-key/private_key_productionSecret.pem
+board-system-app/src/main/resources/rsa-key/public_key_productionSecret.pem
+board-system-email-sender/src/test/resources/application-test.yml
 
 ### STS ###
 .apt_generated

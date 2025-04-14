@@ -1,0 +1,91 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: ${SERVER_PROFILE:local}
+  application:
+    name: board-system
+  web:
+    locale: ko
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL:jdbc:mysql://127.0.0.1:3306/board_db_local}
+    username: ${DATABASE_USERNAME:board_user_local}
+    password: ${DATABASE_PASSWORD:db1004}
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:local-schema.sql
+  jpa:
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  data:
+    redis:
+      host: ${REDIS_HOST:127.0.0.1}
+      port: ${REDIS_PORT:6379}
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${GOOGLE_OAUTH2_CLIENT_ID}
+            clientSecret: ${GOOGLE_OAUTH2_CLIENT_SECRET}
+            redirectUri: ${GOOGLE_OAUTH2_REDIRECT_URI}
+            scope: ${GOOGLE_OAUTH2_SCOPE}
+          naver:
+            clientId: ${NAVER_OAUTH2_CLIENT_Id}
+            clientSecret: ${NAVER_OAUTH2_CLIENT_SECRET}
+            authorizationGrantType: ${NAVER_OAUTH2_AUTHORIZATION_GRANT_TYPE}
+            redirectUri: ${NAVER_OAUTH2_REDIRECT_URI}
+            scope: ${NAVER_OAUTH2_SCOPE}
+          kakao:
+            clientId: ${KAKAO_OAUTH2_CLIENT_ID}
+            clientSecret: ${KAKAO_OAUTH2_CLIENT_SECRET}
+            redirectUri: ${KAKAO_OAUTH2_REDIRECT_URI}
+            scope: ${KAKAO_OAUTH2_SCOPE}
+        provider:
+          naver:
+            authorizationUri: https://nid.naver.com/oauth2.0/authorize
+            tokenUri: https://nid.naver.com/oauth2.0/token
+            userInfoUri: https://openapi.naver.com/v1/nid/me
+            userNameAttribute: response
+          kakao:
+            issuerUri: https://kauth.kakao.com
+message:
+  encoding: "UTF-8"
+  errorBaseName: message/error-message
+  generalBaseName: message/general-message
+
+accessToken:
+  rsaKeyPath:
+    public: ${RSA_ACCESS_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/access-token_public-key_app-local.pem}
+    private: ${RSA_ACCESS_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/access-token_private-key_app-local.pem}
+
+refreshToken:
+  rsaKeyPath:
+    public: ${RSA_REFRESH_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/refresh-token_public-key_app-local.pem}
+    private: ${RSA_REFRESH_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/refresh-token_private-key_app-local.pem}
+
+logging:
+  level:
+    p6spy: info
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true

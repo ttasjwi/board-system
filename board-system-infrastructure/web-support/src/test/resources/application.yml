@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: board-system-web-support-test
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  web:
+    locale: ko
+
+message:
+  encoding: "UTF-8"
+  errorBaseName: message/web-support-test-error-message
+  generalBaseName: message/web-support-test-general-message

@@ -1,0 +1,4 @@
+Error:
+  Example:
+    message: "예제 에러 메시지"
+    description: "예제 에러 설명(args={0},{1},{2})"
