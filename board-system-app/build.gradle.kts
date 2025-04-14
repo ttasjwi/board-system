@@ -1,10 +1,7 @@
 dependencies {
     implementation(project(":board-system-common:core"))
-    implementation(project(":board-system-common:web-support"))
-    implementation(project(":board-system-common:database-support"))
 
-    // event-publisher
-    implementation(project(":board-system-common:event-publisher"))
+    // email-sender
     implementation(project(":board-system-email-sender"))
 
     // member
@@ -22,8 +19,10 @@ dependencies {
     implementation("org.springframework.security:spring-security-config")
     implementation("org.springframework.security:spring-security-web")
 
-    // jwt
     implementation(project(":board-system-infrastructure:jwt"))
+    implementation(project(":board-system-infrastructure:database-support"))
+    implementation(project(":board-system-infrastructure:web-support"))
+    implementation(project(":board-system-infrastructure:event-publisher"))
 }
 
 tasks.getByName("bootJar") {

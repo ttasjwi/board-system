@@ -10,12 +10,8 @@ include(
     "board-system-common:core",
     "board-system-common:token",
     "board-system-common:data-serializer",
-    "board-system-common:event-publisher",
     "board-system-common:id-generator",
-    "board-system-common:web-support",
-    "board-system-common:database-support",
     "board-system-common:logger",
-
 
     // member ======================================================================================
     "board-system-member",
@@ -27,10 +23,23 @@ include(
     "board-system-member:database-adapter",
     "board-system-member:redis-adapter",
     "board-system-member:password-adapter",
-    "board-system-member:refresh-token-adapter",
     "board-system-member:email-format-validate-adapter",
+
+    // board =====================================================================================
+
+    "board-system-board",
+    "board-system-board:web-adapter",
+    "board-system-board:application-input-port",
+    "board-system-board:application-service",
+    "board-system-board:application-output-port",
+    "board-system-board:domain",
+    "board-system-board:database-adapter",
 
     // email-sender ==============================================================================
     "board-system-email-sender",
+    "board-system-infrastructure",
+    "board-system-infrastructure:database-support",
+    "board-system-infrastructure:event-publisher",
     "board-system-infrastructure:jwt",
+    "board-system-infrastructure:web-support",
 )

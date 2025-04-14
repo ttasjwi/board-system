@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.app.config
 
-import com.ttasjwi.board.system.common.databasesupport.config.JpaConfig
-import com.ttasjwi.board.system.common.databasesupport.config.P6SpyConfig
+import com.ttasjwi.board.system.common.infra.databasesupport.config.JpaConfig
+import com.ttasjwi.board.system.common.infra.databasesupport.config.P6SpyConfig
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 

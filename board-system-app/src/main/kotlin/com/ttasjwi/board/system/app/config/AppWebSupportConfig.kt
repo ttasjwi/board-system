@@ -1,10 +1,10 @@
 package com.ttasjwi.board.system.app.config
 
-import com.ttasjwi.board.system.common.websupport.auth.config.CoreSecurityConfig
-import com.ttasjwi.board.system.common.websupport.auth.config.CoreSecurityDsl
-import com.ttasjwi.board.system.common.websupport.exception.config.ExceptionHandlingConfig
-import com.ttasjwi.board.system.common.websupport.locale.config.LocaleConfig
-import com.ttasjwi.board.system.common.websupport.message.config.MessageConfig
+import com.ttasjwi.board.system.common.infra.websupport.auth.config.CoreSecurityConfig
+import com.ttasjwi.board.system.common.infra.websupport.auth.config.CoreSecurityDsl
+import com.ttasjwi.board.system.common.infra.websupport.exception.config.ExceptionHandlingConfig
+import com.ttasjwi.board.system.common.infra.websupport.locale.config.LocaleConfig
+import com.ttasjwi.board.system.common.infra.websupport.message.config.MessageConfig
 import com.ttasjwi.board.system.member.infra.spring.security.oauth2.config.OAuth2SecurityConfig
 import com.ttasjwi.board.system.member.infra.spring.security.oauth2.config.OAuth2SecurityDsl
 import org.springframework.context.annotation.Bean
