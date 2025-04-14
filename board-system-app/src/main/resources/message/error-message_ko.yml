@@ -75,6 +75,9 @@ Error:
   InvalidOAuth2ProviderId:
     message: "잘못된 소셜 서비스 제공자 Id"
     description: "우리 서비스에서 연동하는 소셜서비스 제공자 id가 아닙니다. (서비스 제공자 id= {0})"
+  OAuth2AuthorizationRequestNotFound:
+    message: "소셜 서비스 인가요청 없음"
+    description: "우리 서비스를 통해 소셜 서비스에 인가요청을 한 내역이 없습니다. 인가요청을 먼저 해주세요."
 
   InvalidBoardNameFormat:
     message: "유효하지 않은 게시판 이름 포맷"

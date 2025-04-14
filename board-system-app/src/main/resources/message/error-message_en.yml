@@ -75,7 +75,9 @@ Error:
   InvalidOAuth2ProviderId:
     message: "Invalid social service provider ID"
     description: "The provided social service provider ID is not supported by our service. (Provider ID: {0})"
-
+  OAuth2AuthorizationRequestNotFound:
+    message: "No social service authorization request"
+    description: "There is no record of an authorization request to the social service through our platform. Please initiate an authorization request first."
   InvalidBoardNameFormat:
     message: "Invalid board name format"
     description: "The format of the board name is invalid. It must be between {0} and {1} characters long, without leading or trailing spaces, and can only include English letters, numbers, complete Korean characters, spaces, and /."

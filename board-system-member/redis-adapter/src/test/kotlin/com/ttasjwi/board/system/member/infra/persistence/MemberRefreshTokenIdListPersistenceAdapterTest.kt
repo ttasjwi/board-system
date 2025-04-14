@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.member.infra.persistence
 
+import com.ttasjwi.board.system.member.infra.test.MemberRedisAdapterTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName

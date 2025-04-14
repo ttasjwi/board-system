@@ -48,7 +48,13 @@ class CustomAuthenticationEntryPointTest {
         authenticationEntryPoint.commence(request, response, exception)
 
         // then
-        verify(exactly = 1) { handlerExceptionResolver.resolveException(request, response, null, any(UnauthenticatedException::class)) }
+        verify(exactly = 1) {
+            handlerExceptionResolver.resolveException(
+                request, response, null, any(
+                    UnauthenticatedException::class
+                )
+            )
+        }
     }
 
 
