@@ -15,25 +15,25 @@ include(
 
     // member ======================================================================================
     "board-system-member",
-    "board-system-member:web-adapter",
-    "board-system-member:application-input-port",
-    "board-system-member:application-service",
-    "board-system-member:application-output-port",
-    "board-system-member:domain",
-    "board-system-member:database-adapter",
-    "board-system-member:redis-adapter",
-    "board-system-member:password-adapter",
-    "board-system-member:email-format-validate-adapter",
+    "board-system-member:member-web-adapter",
+    "board-system-member:member-application-input-port",
+    "board-system-member:member-application-service",
+    "board-system-member:member-application-output-port",
+    "board-system-member:member-domain",
+    "board-system-member:member-database-adapter",
+    "board-system-member:member-redis-adapter",
+    "board-system-member:member-password-adapter",
+    "board-system-member:member-email-format-validate-adapter",
 
     // board =====================================================================================
 
     "board-system-board",
-    "board-system-board:web-adapter",
-    "board-system-board:application-input-port",
-    "board-system-board:application-service",
-    "board-system-board:application-output-port",
-    "board-system-board:domain",
-    "board-system-board:database-adapter",
+    "board-system-board:board-web-adapter",
+    "board-system-board:board-application-input-port",
+    "board-system-board:board-application-service",
+    "board-system-board:board-application-output-port",
+    "board-system-board:board-domain",
+    "board-system-board:board-database-adapter",
 
     // email-sender ==============================================================================
     "board-system-email-sender",

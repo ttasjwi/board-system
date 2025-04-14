@@ -5,12 +5,17 @@ dependencies {
     implementation(project(":board-system-email-sender"))
 
     // member
-    implementation(project(":board-system-member:web-adapter"))
-    implementation(project(":board-system-member:application-service"))
-    implementation(project(":board-system-member:database-adapter"))
-    implementation(project(":board-system-member:redis-adapter"))
-    implementation(project(":board-system-member:password-adapter"))
-    implementation(project(":board-system-member:email-format-validate-adapter"))
+    implementation(project(":board-system-member:member-web-adapter"))
+    implementation(project(":board-system-member:member-application-service"))
+    implementation(project(":board-system-member:member-database-adapter"))
+    implementation(project(":board-system-member:member-redis-adapter"))
+    implementation(project(":board-system-member:member-password-adapter"))
+    implementation(project(":board-system-member:member-email-format-validate-adapter"))
+
+    // board
+    implementation(project(":board-system-board:board-web-adapter"))
+    implementation(project(":board-system-board:board-application-service"))
+    implementation(project(":board-system-board:board-database-adapter"))
 
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")
