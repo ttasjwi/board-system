@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.member.domain.processor
 
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
-import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import com.ttasjwi.board.system.member.domain.dto.RegisterMemberCommand
 import com.ttasjwi.board.system.member.domain.exception.DuplicateMemberEmailException
 import com.ttasjwi.board.system.member.domain.exception.DuplicateMemberNicknameException
@@ -10,17 +9,15 @@ import com.ttasjwi.board.system.member.domain.exception.EmailVerificationNotFoun
 import com.ttasjwi.board.system.member.domain.model.Member
 import com.ttasjwi.board.system.member.domain.port.EmailVerificationPersistencePort
 import com.ttasjwi.board.system.member.domain.port.MemberPersistencePort
-import com.ttasjwi.board.system.member.domain.port.PasswordEncryptionPort
+import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import org.springframework.transaction.annotation.Transactional
 
 @ApplicationProcessor
 internal class RegisterMemberProcessor(
     private val memberPersistencePort: MemberPersistencePort,
-    private val passwordEncryptionPort: PasswordEncryptionPort,
     private val emailVerificationPersistencePort: EmailVerificationPersistencePort,
+    private val memberCreator: MemberCreator,
 ) {
-
-    private val idGenerator: IdGenerator = IdGenerator.create()
 
     @Transactional
     fun register(command: RegisterMemberCommand): Member {
@@ -56,13 +53,12 @@ internal class RegisterMemberProcessor(
     }
 
     private fun createMember(command: RegisterMemberCommand): Member {
-        return Member.create(
-            memberId = idGenerator.nextId(),
+        return memberCreator.create(
             email = command.email,
-            password = passwordEncryptionPort.encode(command.rawPassword),
+            rawPassword = command.rawPassword,
             username = command.username,
             nickname = command.nickname,
-            registeredAt = command.currentTime,
+            currentTime = command.currentTime,
         )
     }
 }

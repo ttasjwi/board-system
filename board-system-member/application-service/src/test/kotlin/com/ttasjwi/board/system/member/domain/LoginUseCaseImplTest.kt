@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 @DisplayName("LoginApplicationUseCaseImpl: 로그인 요청을 받아 처리하는 애플리케이션 서비스")
 class LoginUseCaseImplTest {
 
-    private lateinit var useCase: LoginUseCaseImpl
+    private lateinit var useCase: LoginUseCase
     private lateinit var savedMember: Member
 
     @BeforeEach

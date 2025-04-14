@@ -13,6 +13,7 @@ import com.ttasjwi.board.system.member.domain.policy.fixture.PasswordPolicyFixtu
 import com.ttasjwi.board.system.member.domain.policy.fixture.UsernamePolicyFixture
 import com.ttasjwi.board.system.member.domain.port.fixture.*
 import com.ttasjwi.board.system.member.domain.processor.*
+import com.ttasjwi.board.system.member.domain.service.MemberCreator
 import com.ttasjwi.board.system.member.domain.service.RefreshTokenHandler
 
 internal class TestContainer private constructor() {
@@ -38,13 +39,22 @@ internal class TestContainer private constructor() {
     val refreshTokenPortFixture: RefreshTokenPortFixture by lazy { RefreshTokenPortFixture() }
     val emailVerificationPersistencePortFixture: EmailVerificationPersistencePortFixture by lazy { EmailVerificationPersistencePortFixture() }
     val memberPersistencePortFixture: MemberPersistencePortFixture by lazy { MemberPersistencePortFixture() }
+    val socialConnectionPersistencePortFixture: SocialConnectionPersistencePortFixture by lazy { SocialConnectionPersistencePortFixture() }
     private val emailFormatValidatePortFixture: EmailFormatValidatePortFixture by lazy { EmailFormatValidatePortFixture() }
     val passwordEncryptionPortFixture: PasswordEncryptionPortFixture by lazy { PasswordEncryptionPortFixture() }
     val memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture by lazy { MemberRefreshTokenIdListPersistencePortFixture() }
     val refreshTokenIdPersistencePortFixture: RefreshTokenIdPersistencePortFixture by lazy { RefreshTokenIdPersistencePortFixture() }
 
-
     // service
+    val memberCreator: MemberCreator by lazy {
+        MemberCreator(
+            passwordEncryptionPort = passwordEncryptionPortFixture,
+            usernamePolicy = usernamePolicyFixture,
+            nicknamePolicy = nicknamePolicyFixture,
+            passwordPolicy= passwordPolicyFixture,
+        )
+    }
+
     val refreshTokenHandler: RefreshTokenHandler by lazy {
         RefreshTokenHandler(
             refreshTokenGeneratePort = refreshTokenPortFixture,
@@ -54,7 +64,7 @@ internal class TestContainer private constructor() {
         )
     }
 
-    // commandMapper
+    // queryMapper & commandMapper
     val emailAvailableQueryMapper: EmailAvailableQueryMapper by lazy {
         EmailAvailableQueryMapper(localeResolverFixture)
     }
@@ -94,6 +104,12 @@ internal class TestContainer private constructor() {
 
     val loginCommandMapper: LoginCommandMapper by lazy {
         LoginCommandMapper(
+            timeManager = timeManagerFixture,
+        )
+    }
+
+    val socialLoginCommandMapper: SocialLoginCommandMapper by lazy {
+        SocialLoginCommandMapper(
             timeManager = timeManagerFixture,
         )
     }
@@ -145,8 +161,8 @@ internal class TestContainer private constructor() {
     val registerMemberProcessor: RegisterMemberProcessor by lazy {
         RegisterMemberProcessor(
             memberPersistencePort = memberPersistencePortFixture,
-            passwordEncryptionPort = passwordEncryptionPortFixture,
             emailVerificationPersistencePort = emailVerificationPersistencePortFixture,
+            memberCreator = memberCreator,
         )
     }
 
@@ -154,6 +170,16 @@ internal class TestContainer private constructor() {
         LoginProcessor(
             memberPersistencePort = memberPersistencePortFixture,
             passwordEncryptionPort = passwordEncryptionPortFixture,
+            accessTokenGeneratePort = accessTokenPortFixture,
+            refreshTokenHandler = refreshTokenHandler,
+        )
+    }
+
+    val socialLoginProcessor: SocialLoginProcessor by lazy {
+        SocialLoginProcessor(
+            memberPersistencePort = memberPersistencePortFixture,
+            memberCreator = memberCreator,
+            socialConnectionPersistencePort = socialConnectionPersistencePortFixture,
             accessTokenGeneratePort = accessTokenPortFixture,
             refreshTokenHandler = refreshTokenHandler,
         )
@@ -215,6 +241,13 @@ internal class TestContainer private constructor() {
         LoginUseCaseImpl(
             commandMapper = loginCommandMapper,
             processor = loginProcessor,
+        )
+    }
+
+    val socialLoginUseCase: SocialLoginUseCaseImpl by lazy {
+        SocialLoginUseCaseImpl(
+            commandMapper = socialLoginCommandMapper,
+            processor = socialLoginProcessor,
         )
     }
 

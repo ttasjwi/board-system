@@ -2,25 +2,14 @@ package com.ttasjwi.board.system.member.infra.persistence
 
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.member.domain.model.fixture.memberFixture
-import jakarta.persistence.EntityManager
+import com.ttasjwi.board.system.member.infra.test.MemberDataBaseIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Transactional
 
-@SpringBootTest
-@Transactional
 @DisplayName("MemberPersistenceAdapter 테스트")
-class MemberPersistenceAdapterTest {
-
-    @Autowired
-    private lateinit var memberPersistenceAdapter: MemberPersistenceAdapter
-
-    @Autowired
-    private lateinit var entityManager: EntityManager
+class MemberPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
 
     @Nested
     @DisplayName("save: 회원을 저장하고, id 를 발급받아 반환시킨다.")
@@ -276,8 +265,4 @@ class MemberPersistenceAdapterTest {
         }
     }
 
-    private fun flushAndClearEntityManager() {
-        entityManager.flush()
-        entityManager.clear()
-    }
 }
