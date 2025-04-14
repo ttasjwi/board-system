@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 fun boardFixture(
-    id: Long = 1L,
+    boardId: Long = 1L,
     name: String = "test",
     description: String = "게시판 설명",
     managerId: Long = 1L,
@@ -13,7 +13,7 @@ fun boardFixture(
     createdAt: AppDateTime = appDateTimeFixture()
 ): Board {
     return Board(
-        boardId = id,
+        boardId = boardId,
         name = name,
         description = description,
         managerId = managerId,

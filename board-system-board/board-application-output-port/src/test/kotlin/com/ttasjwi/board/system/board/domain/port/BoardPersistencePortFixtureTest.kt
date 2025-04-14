@@ -33,7 +33,7 @@ class BoardPersistencePortFixtureTest {
 
             val changedBoard = boardPersistencePortFixture.save(
                 boardFixture(
-                    id = savedBoard.boardId,
+                    boardId = savedBoard.boardId,
                     name = "요리"
                 )
             )

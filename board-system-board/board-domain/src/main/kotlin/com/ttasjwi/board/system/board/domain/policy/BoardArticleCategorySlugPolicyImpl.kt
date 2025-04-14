@@ -11,17 +11,17 @@ internal class BoardArticleCategorySlugPolicyImpl : BoardArticleCategorySlugPoli
         /**
          * 최소 1자
          */
-        const val MIN_LENGTH = 1
+        internal const val MIN_LENGTH = 1
 
         /**
          * 최대 8자
          */
-        const val MAX_LENGTH = 8
+        internal const val MAX_LENGTH = 8
 
         /**
          * 영어 대소문자, 숫자만 허용.
          */
-        val PATTERN = Regex("^[A-Za-z0-9]+\$")
+        private val PATTERN = Regex("^[A-Za-z0-9]+\$")
     }
 
     override fun validate(slug: String): Result<String> = kotlin.runCatching {

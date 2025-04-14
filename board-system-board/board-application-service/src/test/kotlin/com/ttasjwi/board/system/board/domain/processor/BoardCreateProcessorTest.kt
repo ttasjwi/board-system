@@ -30,7 +30,7 @@ class BoardCreateProcessorTest {
         processor = container.boardCreateProcessor
         savedBoard = boardPersistencePortFixture.save(
             boardFixture(
-                id = 1234L,
+                boardId = 1234L,
                 name = "등록된",
                 slug = "registered"
             )

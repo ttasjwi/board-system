@@ -11,7 +11,7 @@ internal class BoardArticleCategoryNamePolicyImpl : BoardArticleCategoryNamePoli
         /**
          * 최대 20자
          */
-        const val MAX_LENGTH = 20
+        internal const val MAX_LENGTH = 20
     }
 
     override fun validate(name: String): Result<String> = kotlin.runCatching {

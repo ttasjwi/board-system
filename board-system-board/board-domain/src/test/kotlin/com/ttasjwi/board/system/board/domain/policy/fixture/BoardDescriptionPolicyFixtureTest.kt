@@ -16,8 +16,8 @@ class BoardDescriptionPolicyFixtureTest {
     }
 
     @Nested
-    @DisplayName("게시판 설명을 생성한다.")
-    inner class Create {
+    @DisplayName("게시판 설명 포맷을 검증한다.")
+    inner class Validate {
 
 
         @Test

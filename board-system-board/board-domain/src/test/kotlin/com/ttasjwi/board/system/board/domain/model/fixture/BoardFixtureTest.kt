@@ -31,7 +31,7 @@ class BoardFixtureTest {
         val slug = "economy"
         val createdAt = appDateTimeFixture()
         val board = boardFixture(
-            id = id,
+            boardId = id,
             name = name,
             description = description,
             managerId = managerId,

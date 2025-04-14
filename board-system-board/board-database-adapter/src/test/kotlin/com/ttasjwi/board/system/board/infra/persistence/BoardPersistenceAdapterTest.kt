@@ -20,14 +20,14 @@ class BoardPersistenceAdapterTest : BoardDataBaseIntegrationTest() {
             // given
             val savedBoard = boardPersistenceAdapter.save(
                 boardFixture(
-                    id = 1234L,
+                    boardId = 1234L,
                     name = "음식"
                 )
             )
 
             val changedBoard = boardPersistenceAdapter.save(
                 boardFixture(
-                    id = savedBoard.boardId,
+                    boardId = savedBoard.boardId,
                     name = "요리"
                 )
             )
@@ -54,7 +54,7 @@ class BoardPersistenceAdapterTest : BoardDataBaseIntegrationTest() {
             // given
             val board = boardPersistenceAdapter.save(
                 boardFixture(
-                    id = 12345677L,
+                    boardId = 12345677L,
                 )
             )
             flushAndClearEntityManager()
