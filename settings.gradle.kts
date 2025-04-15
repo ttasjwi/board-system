@@ -35,6 +35,16 @@ include(
     "board-system-board:board-domain",
     "board-system-board:board-database-adapter",
 
+    // article ===================================================================================
+
+    "board-system-article",
+    "board-system-article:article-web-adapter",
+    "board-system-article:article-application-input-port",
+    "board-system-article:article-application-service",
+    "board-system-article:article-application-output-port",
+    "board-system-article:article-domain",
+    "board-system-article:article-database-adapter",
+
     // email-sender ==============================================================================
     "board-system-email-sender",
     "board-system-infrastructure",
