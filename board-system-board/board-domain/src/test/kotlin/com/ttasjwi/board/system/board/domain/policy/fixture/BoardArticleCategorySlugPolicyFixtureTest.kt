@@ -43,7 +43,7 @@ class BoardArticleCategorySlugPolicyFixtureTest {
             val exception = assertThrows<CustomException> { boardArticleCategorySlugPolicyFixture.validate(value).getOrThrow() }
 
             // then
-            assertThat(exception.message).isEqualTo("픽스쳐 예외 : 잘못된 게시글카테고리 슬러그 포맷")
+            assertThat(exception.message).isEqualTo("픽스쳐 예외 : 잘못된 게시글 카테고리 슬러그 포맷")
         }
     }
 }
