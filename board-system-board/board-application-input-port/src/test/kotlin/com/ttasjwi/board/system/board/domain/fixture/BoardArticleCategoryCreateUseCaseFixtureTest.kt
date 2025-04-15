@@ -40,5 +40,6 @@ class BoardArticleCategoryCreateUseCaseFixtureTest {
         assertThat(response.allowSelfDelete).isEqualTo(request.allowSelfDelete)
         assertThat(response.allowLike).isEqualTo(request.allowLike)
         assertThat(response.allowDislike).isEqualTo(request.allowDislike)
+        assertThat(response.createdAt).isNotNull()
     }
 }

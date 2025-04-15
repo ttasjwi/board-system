@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.board.domain.fixture
 import com.ttasjwi.board.system.board.domain.BoardArticleCategoryCreateRequest
 import com.ttasjwi.board.system.board.domain.BoardArticleCategoryCreateResponse
 import com.ttasjwi.board.system.board.domain.BoardArticleCategoryCreateUseCase
+import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 class BoardArticleCategoryCreateUseCaseFixture : BoardArticleCategoryCreateUseCase {
 
@@ -16,6 +17,7 @@ class BoardArticleCategoryCreateUseCaseFixture : BoardArticleCategoryCreateUseCa
             allowSelfDelete = request.allowSelfDelete!!,
             allowLike = request.allowLike!!,
             allowDislike = request.allowDislike!!,
+            createdAt = appDateTimeFixture(dayOfMonth = 1).toZonedDateTime(),
         )
     }
 }

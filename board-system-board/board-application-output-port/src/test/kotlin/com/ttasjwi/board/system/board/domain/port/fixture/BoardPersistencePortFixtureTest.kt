@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.board.domain.port
+package com.ttasjwi.board.system.board.domain.port.fixture
 
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import org.assertj.core.api.Assertions.assertThat

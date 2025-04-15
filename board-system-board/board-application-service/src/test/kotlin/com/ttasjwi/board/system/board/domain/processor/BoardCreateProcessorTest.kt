@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.board.domain.exception.DuplicateBoardNameExcepti
 import com.ttasjwi.board.system.board.domain.exception.DuplicateBoardSlugException
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
-import com.ttasjwi.board.system.board.domain.port.BoardPersistencePortFixture
+import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture

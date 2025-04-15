@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.board.domain.mapper.BoardCreateCommandMapper
 import com.ttasjwi.board.system.board.domain.policy.fixture.BoardDescriptionPolicyFixture
 import com.ttasjwi.board.system.board.domain.policy.fixture.BoardNamePolicyFixture
 import com.ttasjwi.board.system.board.domain.policy.fixture.BoardSlugPolicyFixture
-import com.ttasjwi.board.system.board.domain.port.BoardPersistencePortFixture
+import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.common.auth.fixture.AuthMemberLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture

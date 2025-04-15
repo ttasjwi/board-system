@@ -24,3 +24,17 @@ CREATE TABLE IF NOT EXISTS boards(
     slug        VARCHAR(30) UNIQUE NOT NULL,
     created_at  DATETIME           NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS board_article_categories(
+    board_article_category_id BIGINT NOT NULL PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    slug VARCHAR(8) NOT NULL,
+    board_id BIGINT NOT NULL,
+    allow_self_delete BOOLEAN NOT NULL,
+    allow_like BOOLEAN NOT NULL,
+    allow_dislike BOOLEAN NOT NULL,
+    created_at DATETIME NOT NULL,
+
+    CONSTRAINT uq_board_id_and_name UNIQUE (board_id, name),
+    CONSTRAINT uq_board_id_and_slug UNIQUE (board_id, slug)
+);
