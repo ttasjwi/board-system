@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.domain
 
-import com.ttasjwi.board.system.board.domain.port.BoardPersistencePortFixture
+import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.AuthMember
 import com.ttasjwi.board.system.common.auth.Role

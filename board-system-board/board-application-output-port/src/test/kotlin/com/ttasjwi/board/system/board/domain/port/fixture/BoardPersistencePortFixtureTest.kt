@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.board.domain.port
+package com.ttasjwi.board.system.board.domain.port.fixture
 
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -33,7 +33,7 @@ class BoardPersistencePortFixtureTest {
 
             val changedBoard = boardPersistencePortFixture.save(
                 boardFixture(
-                    id = savedBoard.boardId,
+                    boardId = savedBoard.boardId,
                     name = "요리"
                 )
             )

@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.board.domain.exception.DuplicateBoardNameExcepti
 import com.ttasjwi.board.system.board.domain.exception.DuplicateBoardSlugException
 import com.ttasjwi.board.system.board.domain.model.Board
 import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
-import com.ttasjwi.board.system.board.domain.port.BoardPersistencePortFixture
+import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
@@ -30,7 +30,7 @@ class BoardCreateProcessorTest {
         processor = container.boardCreateProcessor
         savedBoard = boardPersistencePortFixture.save(
             boardFixture(
-                id = 1234L,
+                boardId = 1234L,
                 name = "등록된",
                 slug = "registered"
             )

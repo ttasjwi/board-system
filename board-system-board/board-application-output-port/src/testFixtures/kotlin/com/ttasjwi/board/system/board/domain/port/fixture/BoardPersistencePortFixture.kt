@@ -1,6 +1,7 @@
-package com.ttasjwi.board.system.board.domain.port
+package com.ttasjwi.board.system.board.domain.port.fixture
 
 import com.ttasjwi.board.system.board.domain.model.Board
+import com.ttasjwi.board.system.board.domain.port.BoardPersistencePort
 
 class BoardPersistencePortFixture : BoardPersistencePort {
 
