@@ -5,8 +5,8 @@ import com.ttasjwi.board.system.common.infra.websupport.auth.config.CoreSecurity
 import com.ttasjwi.board.system.common.infra.websupport.exception.config.ExceptionHandlingConfig
 import com.ttasjwi.board.system.common.infra.websupport.locale.config.LocaleConfig
 import com.ttasjwi.board.system.common.infra.websupport.message.config.MessageConfig
-import com.ttasjwi.board.system.member.infra.spring.security.oauth2.config.OAuth2SecurityConfig
-import com.ttasjwi.board.system.member.infra.spring.security.oauth2.config.OAuth2SecurityDsl
+import com.ttasjwi.board.system.user.infra.spring.security.oauth2.config.OAuth2SecurityConfig
+import com.ttasjwi.board.system.user.infra.spring.security.oauth2.config.OAuth2SecurityDsl
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import

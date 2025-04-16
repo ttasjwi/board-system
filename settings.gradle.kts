@@ -13,20 +13,19 @@ include(
     "board-system-common:id-generator",
     "board-system-common:logger",
 
-    // member ======================================================================================
-    "board-system-member",
-    "board-system-member:member-web-adapter",
-    "board-system-member:member-application-input-port",
-    "board-system-member:member-application-service",
-    "board-system-member:member-application-output-port",
-    "board-system-member:member-domain",
-    "board-system-member:member-database-adapter",
-    "board-system-member:member-redis-adapter",
-    "board-system-member:member-password-adapter",
-    "board-system-member:member-email-format-validate-adapter",
+    // user ====================================================================
+    "board-system-user",
+    "board-system-user:user-web-adapter",
+    "board-system-user:user-application-input-port",
+    "board-system-user:user-application-service",
+    "board-system-user:user-application-output-port",
+    "board-system-user:user-domain",
+    "board-system-user:user-database-adapter",
+    "board-system-user:user-redis-adapter",
+    "board-system-user:user-password-adapter",
+    "board-system-user:user-email-format-validate-adapter",
 
-    // board =====================================================================================
-
+    // board ====================================================================
     "board-system-board",
     "board-system-board:board-web-adapter",
     "board-system-board:board-application-input-port",
@@ -36,7 +35,6 @@ include(
     "board-system-board:board-database-adapter",
 
     // article ===================================================================================
-
     "board-system-article",
     "board-system-article:article-web-adapter",
     "board-system-article:article-application-input-port",
@@ -47,6 +45,8 @@ include(
 
     // email-sender ==============================================================================
     "board-system-email-sender",
+
+    // infrastructure ============================================================================
     "board-system-infrastructure",
     "board-system-infrastructure:database-support",
     "board-system-infrastructure:event-publisher",

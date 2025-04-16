@@ -10,7 +10,7 @@ import org.springframework.context.annotation.FilterType
     basePackages = [
         "com.ttasjwi.board.system.article",
         "com.ttasjwi.board.system.board",
-        "com.ttasjwi.board.system.member",
+        "com.ttasjwi.board.system.user",
         "com.ttasjwi.board.system.emailsender",
     ],
     includeFilters = [

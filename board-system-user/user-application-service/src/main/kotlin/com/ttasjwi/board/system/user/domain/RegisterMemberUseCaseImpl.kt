@@ -1,0 +1,30 @@
+package com.ttasjwi.board.system.user.domain
+
+import com.ttasjwi.board.system.common.annotation.component.UseCase
+import com.ttasjwi.board.system.user.domain.mapper.RegisterMemberCommandMapper
+import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.processor.RegisterMemberProcessor
+
+@UseCase
+internal class RegisterMemberUseCaseImpl(
+    private val commandMapper: RegisterMemberCommandMapper,
+    private val processor: RegisterMemberProcessor,
+) : RegisterMemberUseCase {
+
+    override fun register(request: RegisterMemberRequest): RegisterMemberResponse {
+        val command = commandMapper.mapToCommand(request)
+        val member = processor.register(command)
+        return makeResponse(member)
+    }
+
+    private fun makeResponse(member: Member): RegisterMemberResponse {
+        return RegisterMemberResponse(
+            memberId = member.memberId.toString(),
+            email = member.email,
+            username = member.username,
+            nickname = member.nickname,
+            role = member.role.name,
+            registeredAt = member.registeredAt.toZonedDateTime(),
+        )
+    }
+}

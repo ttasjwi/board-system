@@ -4,13 +4,13 @@ dependencies {
     // email-sender
     implementation(project(":board-system-email-sender"))
 
-    // member
-    implementation(project(":board-system-member:member-web-adapter"))
-    implementation(project(":board-system-member:member-application-service"))
-    implementation(project(":board-system-member:member-database-adapter"))
-    implementation(project(":board-system-member:member-redis-adapter"))
-    implementation(project(":board-system-member:member-password-adapter"))
-    implementation(project(":board-system-member:member-email-format-validate-adapter"))
+    // user
+    implementation(project(":board-system-user:user-web-adapter"))
+    implementation(project(":board-system-user:user-application-service"))
+    implementation(project(":board-system-user:user-database-adapter"))
+    implementation(project(":board-system-user:user-redis-adapter"))
+    implementation(project(":board-system-user:user-password-adapter"))
+    implementation(project(":board-system-user:user-email-format-validate-adapter"))
 
     // board
     implementation(project(":board-system-board:board-web-adapter"))
