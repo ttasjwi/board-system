@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS boards(
     created_at  DATETIME           NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS board_article_categories(
-    board_article_category_id BIGINT NOT NULL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS article_categories(
+    article_category_id BIGINT NOT NULL PRIMARY KEY,
     name VARCHAR(20) NOT NULL,
     slug VARCHAR(8) NOT NULL,
     board_id BIGINT NOT NULL,

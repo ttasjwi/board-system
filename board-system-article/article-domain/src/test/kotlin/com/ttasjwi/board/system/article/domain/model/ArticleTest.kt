@@ -22,7 +22,7 @@ class ArticleTest {
             val title = "title"
             val content = "content"
             val boardId = 1234556L
-            val boardArticleCategoryId = 2314558888L
+            val articleCategoryId = 2314558888L
             val writerId = 334L
             val createdAt = appDateTimeFixture(minute = 13)
 
@@ -32,7 +32,7 @@ class ArticleTest {
                 title = title,
                 content = content,
                 boardId = boardId,
-                boardArticleCategoryId = boardArticleCategoryId,
+                articleCategoryId = articleCategoryId,
                 writerId = writerId,
                 createdAt = createdAt,
             )
@@ -42,7 +42,7 @@ class ArticleTest {
             assertThat(article.title).isEqualTo(title)
             assertThat(article.content).isEqualTo(content)
             assertThat(article.boardId).isEqualTo(boardId)
-            assertThat(article.boardArticleCategoryId).isEqualTo(boardArticleCategoryId)
+            assertThat(article.articleCategoryId).isEqualTo(articleCategoryId)
             assertThat(article.writerId).isEqualTo(writerId)
             assertThat(article.createdAt).isEqualTo(createdAt)
             assertThat(article.modifiedAt).isEqualTo(createdAt)
@@ -62,7 +62,7 @@ class ArticleTest {
             val title = "title"
             val content = "content"
             val boardId = 1234556L
-            val boardArticleCategoryId = 2314558888L
+            val articleCategoryId = 2314558888L
             val writerId = 334L
             val createdAt = appDateTimeFixture(minute = 13).toLocalDateTime()
             val modifiedAt = appDateTimeFixture(minute = 26).toLocalDateTime()
@@ -73,7 +73,7 @@ class ArticleTest {
                 title = title,
                 content = content,
                 boardId = boardId,
-                boardArticleCategoryId = boardArticleCategoryId,
+                articleCategoryId = articleCategoryId,
                 writerId = writerId,
                 createdAt = createdAt,
                 modifiedAt = modifiedAt,
@@ -84,7 +84,7 @@ class ArticleTest {
             assertThat(article.title).isEqualTo(title)
             assertThat(article.content).isEqualTo(content)
             assertThat(article.boardId).isEqualTo(boardId)
-            assertThat(article.boardArticleCategoryId).isEqualTo(boardArticleCategoryId)
+            assertThat(article.articleCategoryId).isEqualTo(articleCategoryId)
             assertThat(article.writerId).isEqualTo(writerId)
             assertThat(article.createdAt.toLocalDateTime()).isEqualTo(createdAt)
             assertThat(article.modifiedAt.toLocalDateTime()).isEqualTo(modifiedAt)
@@ -104,7 +104,7 @@ class ArticleTest {
             val title = "title"
             val content = "content"
             val boardId = 1234556L
-            val boardArticleCategoryId = 2314558888L
+            val articleCategoryId = 2314558888L
             val writerId = 334L
             val createdAt = appDateTimeFixture(minute = 13)
             val modifiedAt = appDateTimeFixture(minute = 43)
@@ -114,7 +114,7 @@ class ArticleTest {
                 title = title,
                 content = content,
                 boardId = boardId,
-                boardArticleCategoryId = boardArticleCategoryId,
+                articleCategoryId = articleCategoryId,
                 writerId = writerId,
                 createdAt = createdAt,
                 modifiedAt = modifiedAt,
@@ -124,7 +124,7 @@ class ArticleTest {
             val string = article.toString()
 
             // then
-            assertThat(string).isEqualTo("Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, boarArticleCategoryId=$boardArticleCategoryId, writerId=$writerId, createdAt=$createdAt, modifiedAt=$modifiedAt)")
+            assertThat(string).isEqualTo("Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, createdAt=$createdAt, modifiedAt=$modifiedAt)")
         }
     }
 }

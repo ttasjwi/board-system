@@ -17,7 +17,7 @@ class ArticleFixtureTest {
         assertThat(article.title).isNotNull()
         assertThat(article.content).isNotNull()
         assertThat(article.boardId).isNotNull()
-        assertThat(article.boardArticleCategoryId).isNotNull()
+        assertThat(article.articleCategoryId).isNotNull()
         assertThat(article.writerId).isNotNull()
         assertThat(article.createdAt).isNotNull()
         assertThat(article.modifiedAt).isNotNull()
@@ -30,7 +30,7 @@ class ArticleFixtureTest {
         val title = "title"
         val content = "content"
         val boardId = 1234556L
-        val boardArticleCategoryId = 2314558888L
+        val articleCategoryId = 2314558888L
         val writerId = 334L
         val createdAt = appDateTimeFixture(minute = 13)
         val modifiedAt = appDateTimeFixture(minute = 43)
@@ -40,7 +40,7 @@ class ArticleFixtureTest {
             title = title,
             content = content,
             boardId = boardId,
-            boardArticleCategoryId = boardArticleCategoryId,
+            articleCategoryId = articleCategoryId,
             writerId = writerId,
             createdAt = createdAt,
             modifiedAt = modifiedAt,
@@ -50,7 +50,7 @@ class ArticleFixtureTest {
         assertThat(article.title).isEqualTo(title)
         assertThat(article.content).isEqualTo(content)
         assertThat(article.boardId).isEqualTo(boardId)
-        assertThat(article.boardArticleCategoryId).isEqualTo(boardArticleCategoryId)
+        assertThat(article.articleCategoryId).isEqualTo(articleCategoryId)
         assertThat(article.writerId).isEqualTo(writerId)
         assertThat(article.createdAt).isEqualTo(createdAt)
         assertThat(article.modifiedAt).isEqualTo(modifiedAt)

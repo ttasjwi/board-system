@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.board.infra.test
 
-import com.ttasjwi.board.system.board.infra.persistence.BoardArticleCategoryPersistenceAdapter
+import com.ttasjwi.board.system.board.infra.persistence.ArticleCategoryPersistenceAdapter
 import com.ttasjwi.board.system.board.infra.persistence.BoardPersistenceAdapter
 import jakarta.persistence.EntityManager
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,7 +15,7 @@ abstract class BoardDataBaseIntegrationTest {
     protected lateinit var boardPersistenceAdapter: BoardPersistenceAdapter
 
     @Autowired
-    protected lateinit var boardArticleCategoryPersistenceAdapter: BoardArticleCategoryPersistenceAdapter
+    protected lateinit var articleCategoryPersistenceAdapter: ArticleCategoryPersistenceAdapter
 
     @Autowired
     private lateinit var entityManager: EntityManager

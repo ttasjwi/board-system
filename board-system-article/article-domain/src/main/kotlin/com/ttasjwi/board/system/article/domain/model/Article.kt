@@ -9,7 +9,7 @@ internal constructor(
     title: String,
     content: String,
     val boardId: Long,
-    boardArticleCategoryId: Long,
+    articleCategoryId: Long,
     val writerId: Long,
     val createdAt: AppDateTime,
     modifiedAt: AppDateTime,
@@ -21,7 +21,7 @@ internal constructor(
     var content: String = content
         private set
 
-    var boardArticleCategoryId: Long = boardArticleCategoryId
+    var articleCategoryId: Long = articleCategoryId
         private set
 
     var modifiedAt: AppDateTime = modifiedAt
@@ -35,7 +35,7 @@ internal constructor(
             title: String,
             content: String,
             boardId: Long,
-            boardArticleCategoryId: Long,
+            articleCategoryId: Long,
             writerId: Long,
             createdAt: AppDateTime,
         ): Article {
@@ -44,7 +44,7 @@ internal constructor(
                 title = title,
                 content = content,
                 boardId = boardId,
-                boardArticleCategoryId = boardArticleCategoryId,
+                articleCategoryId = articleCategoryId,
                 writerId = writerId,
                 createdAt = createdAt,
                 modifiedAt = createdAt,
@@ -56,7 +56,7 @@ internal constructor(
             title: String,
             content: String,
             boardId: Long,
-            boardArticleCategoryId: Long,
+            articleCategoryId: Long,
             writerId: Long,
             createdAt: LocalDateTime,
             modifiedAt: LocalDateTime,
@@ -66,7 +66,7 @@ internal constructor(
                 title = title,
                 content = content,
                 boardId = boardId,
-                boardArticleCategoryId = boardArticleCategoryId,
+                articleCategoryId = articleCategoryId,
                 writerId = writerId,
                 createdAt = AppDateTime.from(createdAt),
                 modifiedAt = AppDateTime.from(modifiedAt)
@@ -75,7 +75,7 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, boarArticleCategoryId=$boardArticleCategoryId, writerId=$writerId, createdAt=$createdAt, modifiedAt=$modifiedAt)"
+        return "Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, createdAt=$createdAt, modifiedAt=$modifiedAt)"
     }
 
 }
