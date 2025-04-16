@@ -8,12 +8,12 @@ import jakarta.persistence.Table
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "members")
-class JpaMember(
+@Table(name = "users")
+class JpaUser(
 
     @Id
-    @Column(name = "member_id")
-    val memberId: Long,
+    @Column(name = "user_id")
+    val userId: Long,
 
     @Column(name = "email", unique = true, nullable = false)
     var email: String,
@@ -36,9 +36,9 @@ class JpaMember(
 
     companion object {
 
-        internal fun from(member: Member): JpaMember {
-            return JpaMember(
-                memberId = member.memberId,
+        internal fun from(member: Member): JpaUser {
+            return JpaUser(
+                userId = member.memberId,
                 email = member.email,
                 password = member.password,
                 username = member.username,
@@ -51,7 +51,7 @@ class JpaMember(
 
     internal fun restoreDomain(): Member {
         return Member.restore(
-            memberId = this.memberId,
+            memberId = this.userId,
             email = this.email,
             password = this.password,
             username = this.username,

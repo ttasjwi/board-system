@@ -4,23 +4,25 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
 
-interface JpaMemberRepository : JpaRepository<JpaMember, Long> {
+interface JpaMemberRepository : JpaRepository<JpaUser, Long> {
 
-    @Query("""
-        SELECT m
-        FROM JpaMember m
-        WHERE m.email = :email
-    """)
+    @Query(
+        """
+        SELECT u
+        FROM JpaUser u
+        WHERE u.email = :email
+    """
+    )
     fun findByEmailOrNull(
-        @Param("email") email: String): JpaMember?
+        @Param("email") email: String): JpaUser?
 
 
     @Query("""
-        SELECT m.member_id AS memberId, m.role AS role
-        FROM members m
-        WHERE m.member_id = :memberId
+        SELECT u.user_id AS userId, u.role AS role
+        FROM users u
+        WHERE u.user_id = :userId
     """, nativeQuery = true)
-    fun findAuthMemberProjectionOrNull(@Param("memberId") memberId: Long): AuthMemberProjection?
+    fun findAuthMemberProjectionOrNull(@Param("userId") userId: Long): AuthMemberProjection?
 
     fun existsByEmail(email: String): Boolean
     fun existsByUsername(username: String): Boolean

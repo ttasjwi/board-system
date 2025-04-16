@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.user.infra.persistence
 import com.ttasjwi.board.system.common.auth.AuthMember
 import com.ttasjwi.board.system.user.domain.model.Member
 import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
-import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaMember
+import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaUser
 import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaMemberRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
@@ -14,8 +14,8 @@ class MemberPersistenceAdapter(
 ) : MemberPersistencePort {
 
     override fun save(member: Member): Member {
-        val jpaMember = JpaMember.from(member)
-        jpaMemberRepository.save(jpaMember)
+        val jpaUser = JpaUser.from(member)
+        jpaMemberRepository.save(jpaUser)
         return member
     }
 
@@ -25,7 +25,7 @@ class MemberPersistenceAdapter(
 
     override fun findAuthMemberOrNull(memberId: Long): AuthMember? {
         return jpaMemberRepository.findAuthMemberProjectionOrNull(memberId)?.let {
-            AuthMember.restore(it.getMemberId(), it.getRole())
+            AuthMember.restore(it.getUserId(), it.getRole())
         }
     }
 

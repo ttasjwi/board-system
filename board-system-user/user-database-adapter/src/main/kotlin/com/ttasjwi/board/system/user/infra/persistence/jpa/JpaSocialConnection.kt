@@ -12,8 +12,8 @@ class JpaSocialConnection(
     @Column(name = "social_connection_id")
     val socialConnectionId: Long,
 
-    @Column(name = "member_id")
-    val memberId: Long,
+    @Column(name = "user_id")
+    val userId: Long,
 
     @Column(name = "social_service")
     val socialService: String,
@@ -31,7 +31,7 @@ class JpaSocialConnection(
         fun from(socialConnection: SocialConnection): JpaSocialConnection {
             return JpaSocialConnection(
                 socialConnectionId = socialConnection.socialConnectionId,
-                memberId = socialConnection.memberId,
+                userId = socialConnection.memberId,
                 socialService = socialConnection.socialServiceUser.socialService.name,
                 socialServiceUserId = socialConnection.socialServiceUser.socialServiceUserId,
                 linkedAt = socialConnection.linkedAt.toLocalDateTime()
@@ -42,7 +42,7 @@ class JpaSocialConnection(
     internal fun restoreDomain(): SocialConnection {
         return SocialConnection.restore(
             socialConnectionId = this.socialConnectionId,
-            memberId = this.memberId,
+            memberId = this.userId,
             socialServiceName = this.socialService,
             socialServiceUserId = this.socialServiceUserId,
             linkedAt = this.linkedAt
