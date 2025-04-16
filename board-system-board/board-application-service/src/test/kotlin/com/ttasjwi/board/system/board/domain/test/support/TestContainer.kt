@@ -1,15 +1,15 @@
 package com.ttasjwi.board.system.board.domain.test.support
 
-import com.ttasjwi.board.system.board.domain.BoardArticleCategoryCreateUseCase
-import com.ttasjwi.board.system.board.domain.BoardArticleCategoryCreateUseCaseImpl
+import com.ttasjwi.board.system.board.domain.ArticleCategoryCreateUseCase
+import com.ttasjwi.board.system.board.domain.ArticleCategoryCreateUseCaseImpl
 import com.ttasjwi.board.system.board.domain.BoardCreateUseCase
 import com.ttasjwi.board.system.board.domain.BoardCreateUseCaseImpl
-import com.ttasjwi.board.system.board.domain.mapper.BoardArticleCategoryCreateCommandMapper
+import com.ttasjwi.board.system.board.domain.mapper.ArticleCategoryCreateCommandMapper
 import com.ttasjwi.board.system.board.domain.mapper.BoardCreateCommandMapper
 import com.ttasjwi.board.system.board.domain.policy.fixture.*
-import com.ttasjwi.board.system.board.domain.port.fixture.BoardArticleCategoryPersistencePortFixture
+import com.ttasjwi.board.system.board.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
-import com.ttasjwi.board.system.board.domain.processor.BoardArticleCategoryCreateProcessor
+import com.ttasjwi.board.system.board.domain.processor.ArticleCategoryCreateProcessor
 import com.ttasjwi.board.system.board.domain.processor.BoardCreateProcessor
 import com.ttasjwi.board.system.common.auth.fixture.AuthMemberLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
@@ -28,15 +28,15 @@ internal class TestContainer private constructor() {
 
     // port
     val boardPersistencePortFixture: BoardPersistencePortFixture by lazy { BoardPersistencePortFixture() }
-    val boardArticleCategoryPersistencePortFixture: BoardArticleCategoryPersistencePortFixture by lazy { BoardArticleCategoryPersistencePortFixture() }
+    val articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture by lazy { ArticleCategoryPersistencePortFixture() }
 
     // policy
     val boardNamePolicyFixture: BoardNamePolicyFixture by lazy { BoardNamePolicyFixture() }
     val boardDescriptionPolicyFixture: BoardDescriptionPolicyFixture by lazy { BoardDescriptionPolicyFixture() }
     val boardSlugPolicyFixture: BoardSlugPolicyFixture by lazy { BoardSlugPolicyFixture() }
 
-    val boardArticleCategoryNamePolicyFixture: BoardArticleCategoryNamePolicyFixture by lazy { BoardArticleCategoryNamePolicyFixture() }
-    val boardArticleCategorySlugPolicyFixture: BoardArticleCategorySlugPolicyFixture by lazy { BoardArticleCategorySlugPolicyFixture() }
+    val articleCategoryNamePolicyFixture: ArticleCategoryNamePolicyFixture by lazy { ArticleCategoryNamePolicyFixture() }
+    val articleCategorySlugPolicyFixture: ArticleCategorySlugPolicyFixture by lazy { ArticleCategorySlugPolicyFixture() }
 
 
     // mapper
@@ -50,10 +50,10 @@ internal class TestContainer private constructor() {
         )
     }
 
-    val boardArticleCategoryCreateCommandMapper : BoardArticleCategoryCreateCommandMapper by lazy {
-        BoardArticleCategoryCreateCommandMapper(
-            boardArticleCategoryNamePolicy = boardArticleCategoryNamePolicyFixture,
-            boardArticleCategorySlugPolicy = boardArticleCategorySlugPolicyFixture,
+    val articleCategoryCreateCommandMapper : ArticleCategoryCreateCommandMapper by lazy {
+        ArticleCategoryCreateCommandMapper(
+            articleCategoryNamePolicy = articleCategoryNamePolicyFixture,
+            articleCategorySlugPolicy = articleCategorySlugPolicyFixture,
             authMemberLoader = authMemberLoaderFixture,
             timeManager = timeManagerFixture
         )
@@ -66,10 +66,10 @@ internal class TestContainer private constructor() {
         )
     }
 
-    val boardArticleCategoryCreateProcessor: BoardArticleCategoryCreateProcessor by lazy {
-        BoardArticleCategoryCreateProcessor(
+    val articleCategoryCreateProcessor: ArticleCategoryCreateProcessor by lazy {
+        ArticleCategoryCreateProcessor(
             boardPersistencePort = boardPersistencePortFixture,
-            boardArticleCategoryPersistencePort = boardArticleCategoryPersistencePortFixture,
+            articleCategoryPersistencePort = articleCategoryPersistencePortFixture,
         )
     }
 
@@ -81,10 +81,10 @@ internal class TestContainer private constructor() {
         )
     }
 
-    val boardArticleCategoryCreateUseCase: BoardArticleCategoryCreateUseCase by lazy {
-        BoardArticleCategoryCreateUseCaseImpl(
-            commandMapper = boardArticleCategoryCreateCommandMapper,
-            processor = boardArticleCategoryCreateProcessor
+    val articleCategoryCreateUseCase: ArticleCategoryCreateUseCase by lazy {
+        ArticleCategoryCreateUseCaseImpl(
+            commandMapper = articleCategoryCreateCommandMapper,
+            processor = articleCategoryCreateProcessor
         )
     }
 }

@@ -17,6 +17,11 @@ dependencies {
     implementation(project(":board-system-board:board-application-service"))
     implementation(project(":board-system-board:board-database-adapter"))
 
+    // article
+    implementation(project(":board-system-article:article-web-adapter"))
+    implementation(project(":board-system-article:article-application-service"))
+    implementation(project(":board-system-article:article-database-adapter"))
+
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")
 
