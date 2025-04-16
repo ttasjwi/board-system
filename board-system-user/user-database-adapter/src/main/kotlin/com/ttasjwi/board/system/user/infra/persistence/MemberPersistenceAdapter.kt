@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.user.domain.model.Member
 import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
 import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaUser
@@ -23,9 +23,9 @@ class MemberPersistenceAdapter(
         return jpaMemberRepository.findByIdOrNull(memberId)?.restoreDomain()
     }
 
-    override fun findAuthMemberOrNull(memberId: Long): AuthMember? {
-        return jpaMemberRepository.findAuthMemberProjectionOrNull(memberId)?.let {
-            AuthMember.restore(it.getUserId(), it.getRole())
+    override fun findAuthUserOrNull(userId: Long): AuthUser? {
+        return jpaMemberRepository.findAuthUserProjectionOrNull(userId)?.let {
+            AuthUser.restore(it.getUserId(), it.getRole())
         }
     }
 

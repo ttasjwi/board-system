@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.user.domain.processor
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.AccessToken
 import com.ttasjwi.board.system.common.auth.AccessTokenGeneratePort
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.RefreshToken
 import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import com.ttasjwi.board.system.user.domain.dto.SocialLoginCommand
@@ -32,12 +32,12 @@ internal class SocialLoginProcessor(
         val (memberCreated, member) = getMemberOrCreate(command)
 
         // 인증회원 구성
-        val authMember = AuthMember.create(member.memberId, member.role)
+        val authUser = AuthUser.create(member.memberId, member.role)
 
         // 토큰 발급
         val accessToken =
-            accessTokenGeneratePort.generate(authMember, command.currentTime, command.currentTime.plusMinutes(30))
-        val refreshToken = refreshTokenHandler.createAndPersist(authMember.memberId, command.currentTime)
+            accessTokenGeneratePort.generate(authUser, command.currentTime, command.currentTime.plusMinutes(30))
+        val refreshToken = refreshTokenHandler.createAndPersist(authUser.userId, command.currentTime)
         return Triple(
             if (memberCreated) member else null,
             accessToken,

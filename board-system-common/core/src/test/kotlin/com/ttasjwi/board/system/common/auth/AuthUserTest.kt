@@ -1,13 +1,13 @@
 package com.ttasjwi.board.system.common.auth
 
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("AuthMember 테스트")
-class AuthMemberTest {
+@DisplayName("AuthUser 테스트")
+class AuthUserTest {
 
     @Nested
     @DisplayName("create: 회원 아이디, Role 로부터 AuthMember 를 생성한다.")
@@ -18,15 +18,15 @@ class AuthMemberTest {
         @DisplayName("생성 시 전달한 memberId, Role 을 가지고 있다.")
         fun createTest() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val role = Role.USER
 
             // when
-            val createdAuthMember = AuthMember.create(memberId, role)
+            val createdAuthUser = AuthUser.create(userId, role)
 
             // then
-            assertThat(createdAuthMember.memberId).isEqualTo(memberId)
-            assertThat(createdAuthMember.role).isEqualTo(role)
+            assertThat(createdAuthUser.userId).isEqualTo(userId)
+            assertThat(createdAuthUser.role).isEqualTo(role)
         }
     }
 
@@ -40,10 +40,10 @@ class AuthMemberTest {
             val memberId = 1L
             val roleName = "USER"
 
-            val restoredAuthMember = AuthMember.restore(memberId, roleName)
+            val restoredAuthUser = AuthUser.restore(memberId, roleName)
 
-            assertThat(restoredAuthMember.memberId).isEqualTo(memberId)
-            assertThat(restoredAuthMember.role).isEqualTo(Role.restore(roleName))
+            assertThat(restoredAuthUser.userId).isEqualTo(memberId)
+            assertThat(restoredAuthUser.role).isEqualTo(Role.restore(roleName))
         }
     }
 
@@ -55,8 +55,8 @@ class AuthMemberTest {
         @DisplayName("모든 값이 같으면 동등하다")
         fun testEquals() {
             // given
-            val authMember = authMemberFixture()
-            val other = authMemberFixture()
+            val authMember = authUserFixture()
+            val other = authUserFixture()
 
             // when
             val equals = authMember.equals(other)
@@ -70,7 +70,7 @@ class AuthMemberTest {
         @DisplayName("참조가 같으면 동등하다")
         fun testSameReference() {
             // given
-            val authMember = authMemberFixture()
+            val authMember = authUserFixture()
             val other = authMember
 
             // when
@@ -85,7 +85,7 @@ class AuthMemberTest {
         @DisplayName("AuthMember가 아니면 동등하지 않다")
         fun testDifferentType() {
             // given
-            val authMember = authMemberFixture()
+            val authMember = authUserFixture()
             val other = 1L
 
             // when
@@ -100,7 +100,7 @@ class AuthMemberTest {
         @DisplayName("비교대상이 null 이면 동등하지 않다")
         fun testNull() {
             // given
-            val authMember = authMemberFixture()
+            val authMember = authUserFixture()
             val other = null
 
             // when
@@ -114,8 +114,8 @@ class AuthMemberTest {
         @DisplayName("역할이 다르면 동등하지 않다")
         fun testDifferentRole() {
             // given
-            val authMember = authMemberFixture(role = Role.USER)
-            val other = authMemberFixture(role = Role.ADMIN)
+            val authMember = authUserFixture(role = Role.USER)
+            val other = authUserFixture(role = Role.ADMIN)
 
             // when
             val equals = authMember.equals(other)
@@ -131,7 +131,7 @@ class AuthMemberTest {
         val id = 1L
         val role = Role.USER
 
-        val restoredAuthMember = authMemberFixture(id, role)
+        val restoredAuthMember = authUserFixture(id, role)
 
         assertThat(restoredAuthMember.toString()).isEqualTo(
             "AuthMember(memberId=${id}, role=${role})"

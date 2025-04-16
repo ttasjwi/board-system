@@ -48,7 +48,7 @@ internal class ArticleCreateProcessor(
             content = command.content,
             boardId = articleCategory.boardId,
             articleCategoryId = articleCategory.articleCategoryId,
-            writerId = command.writer.memberId,
+            writerId = command.writer.userId,
             createdAt = command.currentTime
         )
         articlePersistencePort.save(article)

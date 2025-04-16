@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.board.domain.policy.BoardDescriptionPolicy
 import com.ttasjwi.board.system.board.domain.policy.BoardNamePolicy
 import com.ttasjwi.board.system.board.domain.policy.BoardSlugPolicy
 import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
-import com.ttasjwi.board.system.common.auth.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logger.getLogger
@@ -17,7 +17,7 @@ internal class BoardCreateCommandMapper(
     private val boardNamePolicy: BoardNamePolicy,
     private val boardDescriptionPolicy: BoardDescriptionPolicy,
     private val boardSlugPolicy: BoardSlugPolicy,
-    private val authMemberLoader: AuthMemberLoader,
+    private val authUserLoader: AuthUserLoader,
     private val timeManager: TimeManager,
 ) {
 
@@ -41,7 +41,7 @@ internal class BoardCreateCommandMapper(
             boardName = boardName!!,
             boardDescription = boardDescription!!,
             boardSlug = boardSlug!!,
-            creator = authMemberLoader.loadCurrentAuthMember()!!,
+            creator = authUserLoader.loadCurrentAuthUser()!!,
             currentTime = timeManager.now(),
         )
     }

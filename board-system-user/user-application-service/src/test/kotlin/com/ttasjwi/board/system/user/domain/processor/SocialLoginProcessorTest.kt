@@ -68,8 +68,8 @@ class SocialLoginProcessorTest {
         // then
         val memberTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(member.memberId)
         assertThat(createdMember).isNull()
-        assertThat(accessToken.authMember.memberId).isEqualTo(member.memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(member.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(member.memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(member.role)
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
@@ -109,8 +109,8 @@ class SocialLoginProcessorTest {
         )!!
 
         assertThat(createdMember).isNull()
-        assertThat(accessToken.authMember.memberId).isEqualTo(member.memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(member.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(member.memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(member.role)
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
@@ -168,8 +168,8 @@ class SocialLoginProcessorTest {
         assertThat(findMember.password).isEqualTo(createdMember.password)
         assertThat(findMember.role).isEqualTo(createdMember.role)
         assertThat(findMember.registeredAt).isEqualTo(createdMember.registeredAt)
-        assertThat(accessToken.authMember.memberId).isEqualTo(createdMember.memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(createdMember.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(createdMember.memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(createdMember.role)
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))

@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.common.infra.websupport.auth.security
 
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -12,15 +12,15 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 @DisplayName("AuthMemberAuthentication: AuthMember를 통해 얻어낸 Spring Security Authentication")
-class AuthMemberAuthenticationTest {
+class AuthUserAuthenticationTest {
 
-    private lateinit var authMember: AuthMember
+    private lateinit var authUser: AuthUser
     private lateinit var authentication: Authentication
 
     @BeforeEach
     fun setup() {
-        authMember = authMemberFixture(memberId = 1357L, role = Role.ADMIN)
-        authentication = AuthMemberAuthentication.from(authMember)
+        authUser = authUserFixture(userId = 1357L, role = Role.ADMIN)
+        authentication = AuthMemberAuthentication.from(authUser)
     }
 
     @Test
@@ -72,10 +72,10 @@ class AuthMemberAuthenticationTest {
     fun testGetPrincipal() {
         // given
         // when
-        val innerPrincipal = authentication.principal as AuthMember
+        val innerPrincipal = authentication.principal as AuthUser
 
         // then
-        assertThat(innerPrincipal).isEqualTo(authMember)
+        assertThat(innerPrincipal).isEqualTo(authUser)
     }
 
 

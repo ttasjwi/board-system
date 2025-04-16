@@ -55,7 +55,7 @@ internal class AccessTokenAuthenticationFilter(
         val accessToken = accessTokenParsePort.parse(tokenValue)
         val currentTime = timeManager.now()
         accessToken.throwIfExpired(currentTime)
-        return com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthMemberAuthentication.from(accessToken.authMember)
+        return com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthMemberAuthentication.from(accessToken.authUser)
     }
 
     private fun saveAuthenticationToSecurityContextHolder(authentication: com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthMemberAuthentication) {

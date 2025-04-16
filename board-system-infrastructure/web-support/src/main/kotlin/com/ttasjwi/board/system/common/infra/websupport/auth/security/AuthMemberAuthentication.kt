@@ -1,18 +1,18 @@
 package com.ttasjwi.board.system.common.infra.websupport.auth.security
 
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
 internal class AuthMemberAuthentication
 private constructor(
-    private val authMember: AuthMember
+    private val authUser: AuthUser
 ) : Authentication {
 
     companion object {
-        fun from(authMember: AuthMember): AuthMemberAuthentication {
-            return AuthMemberAuthentication(authMember)
+        fun from(authUser: AuthUser): AuthMemberAuthentication {
+            return AuthMemberAuthentication(authUser)
         }
     }
 
@@ -21,7 +21,7 @@ private constructor(
     }
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
-        return mutableListOf(SimpleGrantedAuthority("ROLE_${authMember.role.name}"))
+        return mutableListOf(SimpleGrantedAuthority("ROLE_${authUser.role.name}"))
     }
 
     override fun getCredentials(): Any? {
@@ -33,7 +33,7 @@ private constructor(
     }
 
     override fun getPrincipal(): Any {
-        return authMember
+        return authUser
     }
 
     override fun isAuthenticated(): Boolean {

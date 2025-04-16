@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.common.auth.infra.token
 
 import com.ttasjwi.board.system.common.auth.AccessToken
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.auth.infra.test.JwtIntegrationTest
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import io.mockk.every
@@ -19,8 +19,8 @@ import org.springframework.security.oauth2.jwt.JwtException
 @DisplayName("Jwt 액세스 토큰 생성, 파싱 테스트")
 class JwtAccessTokenPortTest : JwtIntegrationTest() {
 
-    private val authMember = authMemberFixture(
-        memberId = 1L,
+    private val authMember = authUserFixture(
+        userId = 1L,
         role = Role.USER
     )
     private val issuedAt = appDateTimeFixture(minute = 0)
@@ -41,8 +41,8 @@ class JwtAccessTokenPortTest : JwtIntegrationTest() {
         @DisplayName("생성된 토큰 인스턴스는 전달받은 인증된 회원의 정보를 가진다.")
         fun test2() {
             val accessToken = accessTokenGeneratePort.generate(authMember, issuedAt, expiresAt)
-            assertThat(accessToken.authMember.memberId).isEqualTo(authMember.memberId)
-            assertThat(accessToken.authMember.role).isEqualTo(authMember.role)
+            assertThat(accessToken.authUser.userId).isEqualTo(authMember.userId)
+            assertThat(accessToken.authUser.role).isEqualTo(authMember.role)
         }
 
         @Test
@@ -65,9 +65,9 @@ class JwtAccessTokenPortTest : JwtIntegrationTest() {
             val parsedAccessToken = accessTokenParsePort.parse(accessToken.tokenValue)
 
             println("tokenValue = ${accessToken.tokenValue}")
-            println("authMember = ${parsedAccessToken.authMember}")
+            println("authMember = ${parsedAccessToken.authUser}")
 
-            assertThat(parsedAccessToken.authMember).isEqualTo(accessToken.authMember)
+            assertThat(parsedAccessToken.authUser).isEqualTo(accessToken.authUser)
             assertThat(parsedAccessToken.tokenType).isEqualTo(accessToken.tokenType)
             assertThat(parsedAccessToken.tokenValue).isEqualTo(accessToken.tokenValue)
             assertThat(parsedAccessToken.issuer).isEqualTo(accessToken.issuer)

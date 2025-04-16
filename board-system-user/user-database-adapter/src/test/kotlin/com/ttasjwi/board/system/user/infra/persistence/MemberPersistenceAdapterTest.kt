@@ -106,7 +106,7 @@ class MemberPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
 
     @Nested
     @DisplayName("findAuthMemberOrNull : 회원을 인증회원 형태로 복원해 조회한다.")
-    inner class FindAuthMemberOrNullTest {
+    inner class FindAuthUserOrNullTest {
 
 
         @Test
@@ -117,9 +117,9 @@ class MemberPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
             val member = memberFixture(memberId = memberId, role = role)
             memberPersistenceAdapter.save(member)
 
-            val authMember = memberPersistenceAdapter.findAuthMemberOrNull(memberId)!!
+            val authMember = memberPersistenceAdapter.findAuthUserOrNull(memberId)!!
 
-            assertThat(authMember.memberId).isEqualTo(member.memberId)
+            assertThat(authMember.userId).isEqualTo(member.memberId)
             assertThat(authMember.role).isEqualTo(role)
         }
 
@@ -127,7 +127,7 @@ class MemberPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
         @DisplayName("회원이 없으면 null 이 반환된다.")
         fun nullTest() {
             val memberId = 121356L
-            val authMember = memberPersistenceAdapter.findAuthMemberOrNull(memberId)
+            val authMember = memberPersistenceAdapter.findAuthUserOrNull(memberId)
             assertThat(authMember).isNull()
         }
     }

@@ -15,11 +15,11 @@ class AccessTokenPortFixture : AccessTokenGeneratePort, AccessTokenParsePort {
         private const val EXPIRES_AT_INDEX = 5
     }
 
-    override fun generate(authMember: AuthMember, issuedAt: AppDateTime, expiresAt: AppDateTime): AccessToken {
-        val tokenValue = makeTokenValue(authMember, issuedAt, expiresAt)
+    override fun generate(authUser: AuthUser, issuedAt: AppDateTime, expiresAt: AppDateTime): AccessToken {
+        val tokenValue = makeTokenValue(authUser, issuedAt, expiresAt)
         return accessTokenFixture(
-            memberId = authMember.memberId,
-            role = authMember.role,
+            memberId = authUser.userId,
+            role = authUser.role,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
             expiresAt = expiresAt,
@@ -37,9 +37,9 @@ class AccessTokenPortFixture : AccessTokenGeneratePort, AccessTokenParsePort {
         )
     }
 
-    private fun makeTokenValue(authMember: AuthMember, issuedAt: AppDateTime, expiresAt: AppDateTime): String {
-        return "${authMember.memberId}," + // 0
-                "${authMember.role.name}," + // 1
+    private fun makeTokenValue(authUser: AuthUser, issuedAt: AppDateTime, expiresAt: AppDateTime): String {
+        return "${authUser.userId}," + // 0
+                "${authUser.role.name}," + // 1
                 "${AccessToken.VALID_TOKEN_TYPE}," + // 2
                 "${AccessToken.VALID_ISSUER}," + // 3
                 "${issuedAt}," + // 4

@@ -1,29 +1,29 @@
 package com.ttasjwi.board.system.common.auth
 
-class AuthMember
+class AuthUser
 internal constructor(
-    val memberId: Long,
+    val userId: Long,
     val role: Role,
 ) {
 
     companion object {
 
         fun create(
-            memberId: Long,
+            userId: Long,
             role: Role
-        ): AuthMember {
-            return AuthMember(
-                memberId = memberId,
+        ): AuthUser {
+            return AuthUser(
+                userId = userId,
                 role = role,
             )
         }
 
         fun restore(
-            memberId: Long,
+            userId: Long,
             roleName: String
-        ): AuthMember {
-            return AuthMember(
-                memberId = memberId,
+        ): AuthUser {
+            return AuthUser(
+                userId = userId,
                 role = Role.restore(roleName)
             )
         }
@@ -31,19 +31,19 @@ internal constructor(
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is AuthMember) return false
-        if (memberId != other.memberId) return false
+        if (other !is AuthUser) return false
+        if (userId != other.userId) return false
         if (role != other.role) return false
         return true
     }
 
     override fun hashCode(): Int {
-        var result = memberId.hashCode()
+        var result = userId.hashCode()
         result = 31 * result + role.hashCode()
         return result
     }
 
     override fun toString(): String {
-        return "AuthMember(memberId=$memberId, role=$role)"
+        return "AuthMember(memberId=$userId, role=$role)"
     }
 }

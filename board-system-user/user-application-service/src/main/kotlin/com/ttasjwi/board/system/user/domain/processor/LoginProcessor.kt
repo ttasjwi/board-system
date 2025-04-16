@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.user.domain.processor
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.auth.AccessToken
 import com.ttasjwi.board.system.common.auth.AccessTokenGeneratePort
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.RefreshToken
 import com.ttasjwi.board.system.user.domain.dto.LoginCommand
 import com.ttasjwi.board.system.user.domain.exception.LoginFailureException
@@ -25,11 +25,11 @@ internal class LoginProcessor(
         val member = getMemberOrThrow(command)
         matchesPassword(command.rawPassword, member.password)
 
-        val authMember = AuthMember.create(member.memberId, member.role)
+        val authUser = AuthUser.create(member.memberId, member.role)
 
         val accessToken =
-            accessTokenGeneratePort.generate(authMember, command.currentTime, command.currentTime.plusMinutes(30))
-        val refreshToken = refreshTokenHandler.createAndPersist(authMember.memberId, command.currentTime)
+            accessTokenGeneratePort.generate(authUser, command.currentTime, command.currentTime.plusMinutes(30))
+        val refreshToken = refreshTokenHandler.createAndPersist(authUser.userId, command.currentTime)
 
         return Pair(accessToken, refreshToken)
     }

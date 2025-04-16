@@ -62,8 +62,8 @@ class TokenRefreshProcessorTest {
         val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(member.memberId)
         val isPrevRefreshTokenExists = refreshTokenIdPersistencePortFixture.exists(member.memberId, refreshToken.refreshTokenId)
 
-        assertThat(accessToken.authMember.memberId).isEqualTo(refreshToken.memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(member.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(refreshToken.memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(member.role)
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
 
@@ -99,8 +99,8 @@ class TokenRefreshProcessorTest {
         val isPrevRefreshTokenExists = refreshTokenIdPersistencePortFixture.exists(member.memberId, refreshToken.refreshTokenId)
         val isNewRefreshTokenExists = refreshTokenIdPersistencePortFixture.exists(member.memberId, newRefreshToken.refreshTokenId)
 
-        assertThat(accessToken.authMember.memberId).isEqualTo(refreshToken.memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(member.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(refreshToken.memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(member.role)
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
 

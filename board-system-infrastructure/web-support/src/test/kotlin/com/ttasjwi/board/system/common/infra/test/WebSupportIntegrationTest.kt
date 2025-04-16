@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.common.infra.test
 import com.ttasjwi.board.system.common.auth.AccessTokenGeneratePort
 import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.infra.test.config.TestFilterConfig
 import com.ttasjwi.board.system.common.infra.test.config.TestSecurityConfig
 import com.ttasjwi.board.system.common.infra.test.config.TestTimeConfig
@@ -58,7 +58,7 @@ abstract class WebSupportIntegrationTest {
         expiresAt: AppDateTime
     ): String {
         return accessTokenGeneratePort.generate(
-            authMember = authMemberFixture(memberId, role),
+            authUser = authUserFixture(memberId, role),
             issuedAt = issuedAt,
             expiresAt = expiresAt,
         ).tokenValue

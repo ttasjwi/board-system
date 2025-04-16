@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.common.infra.test.mvc
 
 import com.nimbusds.jose.util.StandardCharset
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.infra.test.WebSupportIntegrationTest
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.junit.jupiter.api.DisplayName
@@ -145,9 +145,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 일반 사용자이면, 접근 가능")
         fun roleUserTest() {
             // given
-            val authMember = authMemberFixture(memberId = 5544, role = Role.USER)
+            val authMember = authUserFixture(userId = 5544, role = Role.USER)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -168,7 +168,7 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
                     status().isOk,
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.path").value(path),
-                    jsonPath("$.memberId").value(authMember.memberId),
+                    jsonPath("$.memberId").value(authMember.userId),
                     jsonPath("$.role").value(authMember.role.name)
                 )
         }
@@ -177,9 +177,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 어드민 사용자이면, 접근 가능")
         fun roleAdminTest() {
             // given
-            val authMember = authMemberFixture(memberId = 3488, role = Role.ADMIN)
+            val authMember = authUserFixture(userId = 3488, role = Role.ADMIN)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -200,7 +200,7 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
                     status().isOk,
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.path").value(path),
-                    jsonPath("$.memberId").value(authMember.memberId),
+                    jsonPath("$.memberId").value(authMember.userId),
                     jsonPath("$.role").value(authMember.role.name)
                 )
         }
@@ -209,9 +209,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 루트 사용자이면, 접근 가능")
         fun roleRootTest() {
             // given
-            val authMember = authMemberFixture(memberId = 5544, role = Role.ROOT)
+            val authMember = authUserFixture(userId = 5544, role = Role.ROOT)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -232,7 +232,7 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
                     status().isOk,
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.path").value(path),
-                    jsonPath("$.memberId").value(authMember.memberId),
+                    jsonPath("$.memberId").value(authMember.userId),
                     jsonPath("$.role").value(authMember.role.name)
                 )
         }
@@ -266,9 +266,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 일반사용자이면, 접근 불가능")
         fun roleUserTest() {
             // given
-            val authMember = authMemberFixture(memberId = 5544, role = Role.USER)
+            val authMember = authUserFixture(userId = 5544, role = Role.USER)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -299,9 +299,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 어드민 사용자이면, 접근 가능")
         fun roleAdminTest() {
             // given
-            val authMember = authMemberFixture(memberId = 3488, role = Role.ADMIN)
+            val authMember = authUserFixture(userId = 3488, role = Role.ADMIN)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -322,7 +322,7 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
                     status().isOk,
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.path").value(path),
-                    jsonPath("$.memberId").value(authMember.memberId),
+                    jsonPath("$.memberId").value(authMember.userId),
                     jsonPath("$.role").value(authMember.role.name)
                 )
         }
@@ -331,9 +331,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 루트 사용자이면, 접근 가능")
         fun roleRootTest() {
             // given
-            val authMember = authMemberFixture(memberId = 5544, role = Role.ROOT)
+            val authMember = authUserFixture(userId = 5544, role = Role.ROOT)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -354,7 +354,7 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
                     status().isOk,
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.path").value(path),
-                    jsonPath("$.memberId").value(authMember.memberId),
+                    jsonPath("$.memberId").value(authMember.userId),
                     jsonPath("$.role").value(authMember.role.name)
                 )
         }
@@ -388,9 +388,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 일반 사용자이면, 접근 불가능")
         fun roleUserTest() {
             // given
-            val authMember = authMemberFixture(memberId = 5544, role = Role.USER)
+            val authMember = authUserFixture(userId = 5544, role = Role.USER)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -419,9 +419,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 어드민 사용자이면, 접근 불가능")
         fun roleAdminTest() {
             // given
-            val authMember = authMemberFixture(memberId = 3488, role = Role.ADMIN)
+            val authMember = authUserFixture(userId = 3488, role = Role.ADMIN)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -452,9 +452,9 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
         @DisplayName("액세스토큰이 유효하고 루트 사용자이면, 접근 가능")
         fun roleRootTest() {
             // given
-            val authMember = authMemberFixture(memberId = 5544, role = Role.ROOT)
+            val authMember = authUserFixture(userId = 5544, role = Role.ROOT)
             val accessTokenValue = generateAccessTokenValue(
-                memberId = authMember.memberId,
+                memberId = authMember.userId,
                 role = authMember.role,
                 issuedAt = appDateTimeFixture(minute = 0),
                 expiresAt = appDateTimeFixture(minute = 30)
@@ -474,7 +474,7 @@ class AuthenticationMvcTest : WebSupportIntegrationTest() {
                     status().isOk,
                     content().contentType(MediaType.APPLICATION_JSON),
                     jsonPath("$.path").value(path),
-                    jsonPath("$.memberId").value(authMember.memberId),
+                    jsonPath("$.memberId").value(authMember.userId),
                     jsonPath("$.role").value(authMember.role.name)
                 )
         }

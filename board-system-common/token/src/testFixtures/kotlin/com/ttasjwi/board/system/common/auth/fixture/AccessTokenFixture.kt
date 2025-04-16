@@ -29,8 +29,8 @@ private fun AccessToken.Companion.testCreate(
     expiresAt: AppDateTime
 ): AccessToken {
     return AccessToken(
-        authMember = authMemberFixture(
-            memberId = memberId,
+        authUser = authUserFixture(
+            userId = memberId,
             role = role,
         ),
         tokenType = VALID_TOKEN_TYPE,

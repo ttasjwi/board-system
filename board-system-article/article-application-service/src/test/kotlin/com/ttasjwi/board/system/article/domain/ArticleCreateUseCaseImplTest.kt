@@ -3,11 +3,10 @@ package com.ttasjwi.board.system.article.domain
 import com.ttasjwi.board.system.article.domain.model.ArticleCategory
 import com.ttasjwi.board.system.article.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
-import com.ttasjwi.board.system.article.domain.processor.ArticleCreateProcessor
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -20,7 +19,7 @@ class ArticleCreateProcessorTest {
 
     private lateinit var useCase: ArticleCreateUseCase
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
-    private lateinit var writer: AuthMember
+    private lateinit var writer: AuthUser
     private lateinit var currentTime: AppDateTime
     private lateinit var savedArticleCategory: ArticleCategory
 
@@ -31,10 +30,10 @@ class ArticleCreateProcessorTest {
         useCase = container.articleCreateUseCase
 
         currentTime = appDateTimeFixture(minute = 14)
-        writer = authMemberFixture(memberId = 1234558L, role = Role.USER)
+        writer = authUserFixture(userId = 1234558L, role = Role.USER)
 
         container.timeManagerFixture.changeCurrentTime(currentTime)
-        container.authMemberLoaderFixture.changeAuthMember(writer)
+        container.authMemberLoaderFixture.changeAuthUser(writer)
         savedArticleCategory = container.articleCategoryPersistencePortFixture.save(
             articleCategoryFixture(
                 articleCategoryId = 12314L,
@@ -65,7 +64,7 @@ class ArticleCreateProcessorTest {
         assertThat(response.content).isEqualTo(request.content)
         assertThat(response.boardId).isEqualTo(savedArticleCategory.boardId.toString())
         assertThat(response.articleCategoryId).isEqualTo(request.articleCategoryId.toString())
-        assertThat(response.writerId).isEqualTo(writer.memberId.toString())
+        assertThat(response.writerId).isEqualTo(writer.userId.toString())
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
         assertThat(response.modifiedAt).isEqualTo(currentTime.toZonedDateTime())
 

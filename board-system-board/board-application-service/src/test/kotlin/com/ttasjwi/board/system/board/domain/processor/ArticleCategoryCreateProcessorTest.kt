@@ -13,7 +13,7 @@ import com.ttasjwi.board.system.board.domain.port.fixture.ArticleCategoryPersist
 import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -67,7 +67,7 @@ class ArticleCategoryCreateProcessorTest {
         // given
         val command = ArticleCategoryCreateCommand(
             boardId = savedBoard.boardId,
-            creator = authMemberFixture(memberId = savedBoard.managerId, role = Role.USER),
+            creator = authUserFixture(userId = savedBoard.managerId, role = Role.USER),
             name = "질문",
             slug = "question",
             allowSelfDelete = false,
@@ -108,7 +108,7 @@ class ArticleCategoryCreateProcessorTest {
         // given
         val command = ArticleCategoryCreateCommand(
             boardId = 2L,
-            creator = authMemberFixture(memberId = 1L, role = Role.USER),
+            creator = authUserFixture(userId = 1L, role = Role.USER),
             name = "질문",
             slug = "question",
             allowSelfDelete = false,
@@ -134,7 +134,7 @@ class ArticleCategoryCreateProcessorTest {
         // given
         val command = ArticleCategoryCreateCommand(
             boardId = savedBoard.boardId,
-            creator = authMemberFixture(memberId = 2L, role = Role.USER),
+            creator = authUserFixture(userId = 2L, role = Role.USER),
             name = "질문",
             slug = "question",
             allowSelfDelete = false,
@@ -148,7 +148,7 @@ class ArticleCategoryCreateProcessorTest {
         val ex = assertThrows<NoArticleCategoryCreateAuthorityException> {
             processor.create(command)
         }
-        assertThat(ex.message).isEqualTo("카테고리를 추가할 권한이 없습니다. 게시판의 관리자가 아닙니다. (boardManagerId = ${savedBoard.managerId}, creatorId = ${command.creator.memberId})")
+        assertThat(ex.message).isEqualTo("카테고리를 추가할 권한이 없습니다. 게시판의 관리자가 아닙니다. (boardManagerId = ${savedBoard.managerId}, creatorId = ${command.creator.userId})")
     }
 
 
@@ -158,7 +158,7 @@ class ArticleCategoryCreateProcessorTest {
         // given
         val command = ArticleCategoryCreateCommand(
             boardId = savedBoard.boardId,
-            creator = authMemberFixture(memberId = 1L, role = Role.USER),
+            creator = authUserFixture(userId = 1L, role = Role.USER),
             name = savedArticleCategory.name,
             slug = "gnr",
             allowSelfDelete = false,
@@ -181,7 +181,7 @@ class ArticleCategoryCreateProcessorTest {
         // given
         val command = ArticleCategoryCreateCommand(
             boardId = savedBoard.boardId,
-            creator = authMemberFixture(memberId = 1L, role = Role.USER),
+            creator = authUserFixture(userId = 1L, role = Role.USER),
             name = "질문",
             slug = savedArticleCategory.slug,
             allowSelfDelete = false,

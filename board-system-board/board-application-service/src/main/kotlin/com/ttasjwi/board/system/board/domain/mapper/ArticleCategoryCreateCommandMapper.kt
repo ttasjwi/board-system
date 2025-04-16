@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.board.domain.dto.ArticleCategoryCreateCommand
 import com.ttasjwi.board.system.board.domain.policy.ArticleCategoryNamePolicy
 import com.ttasjwi.board.system.board.domain.policy.ArticleCategorySlugPolicy
 import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
-import com.ttasjwi.board.system.common.auth.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.TimeManager
@@ -14,7 +14,7 @@ import com.ttasjwi.board.system.common.time.TimeManager
 internal class ArticleCategoryCreateCommandMapper(
     private val articleCategoryNamePolicy: ArticleCategoryNamePolicy,
     private val articleCategorySlugPolicy: ArticleCategorySlugPolicy,
-    private val authMemberLoader: AuthMemberLoader,
+    private val authUserLoader: AuthUserLoader,
     private val timeManager: TimeManager
 ) {
 
@@ -31,7 +31,7 @@ internal class ArticleCategoryCreateCommandMapper(
 
         return ArticleCategoryCreateCommand(
             boardId = boardId,
-            creator = authMemberLoader.loadCurrentAuthMember()!!,
+            creator = authUserLoader.loadCurrentAuthUser()!!,
             name = articleCategoryName!!,
             slug = articleCategorySlug!!,
             allowSelfDelete = allowSelfDelete!!,

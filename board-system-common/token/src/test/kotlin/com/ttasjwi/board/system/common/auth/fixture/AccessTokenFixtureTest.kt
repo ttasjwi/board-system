@@ -17,12 +17,12 @@ class AccessTokenFixtureTest {
         val accessToken = accessTokenFixture()
 
         // then
-        assertThat(accessToken.authMember.memberId).isNotNull()
-        assertThat(accessToken.authMember.role).isNotNull()
+        assertThat(accessToken.authUser.userId).isNotNull()
+        assertThat(accessToken.authUser.role).isNotNull()
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isNotNull()
         assertThat(accessToken.expiresAt).isNotNull()
-        assertThat(accessToken.authMember).isNotNull()
+        assertThat(accessToken.authUser).isNotNull()
     }
 
     @Test
@@ -45,8 +45,8 @@ class AccessTokenFixtureTest {
         )
 
         // then
-        assertThat(accessToken.authMember.memberId).isEqualTo(memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(role)
+        assertThat(accessToken.authUser.userId).isEqualTo(memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(role)
         assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
         assertThat(accessToken.issuedAt).isEqualTo(issuedAt)
         assertThat(accessToken.expiresAt).isEqualTo(expiresAt)

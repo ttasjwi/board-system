@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.common.auth
 
 import com.ttasjwi.board.system.common.auth.fixture.accessTokenFixture
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
@@ -19,22 +19,22 @@ class AccessTokenTest {
             // given
             val memberId = 1L
             val role = Role.ADMIN
-            val authMember = authMemberFixture(memberId = memberId, role = role)
+            val authMember = authUserFixture(userId = memberId, role = role)
             val tokenValue = "tokenValue"
             val issuedAt = appDateTimeFixture(minute = 10)
             val expiresAt = appDateTimeFixture(minute = 40)
 
             // when
             val accessToken = AccessToken.create(
-                authMember = authMember,
+                authUser = authMember,
                 tokenValue = tokenValue,
                 issuedAt = issuedAt,
                 expiresAt = expiresAt
             )
 
             // then
-            assertThat(accessToken.authMember.memberId).isEqualTo(memberId)
-            assertThat(accessToken.authMember.role).isEqualTo(role)
+            assertThat(accessToken.authUser.userId).isEqualTo(memberId)
+            assertThat(accessToken.authUser.role).isEqualTo(role)
             assertThat(accessToken.tokenType).isEqualTo(AccessToken.VALID_TOKEN_TYPE)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuer).isEqualTo(AccessToken.VALID_ISSUER)
@@ -67,8 +67,8 @@ class AccessTokenTest {
             )
 
             // then
-            assertThat(accessToken.authMember.memberId).isEqualTo(memberId)
-            assertThat(accessToken.authMember.role.name).isEqualTo(roleName)
+            assertThat(accessToken.authUser.userId).isEqualTo(memberId)
+            assertThat(accessToken.authUser.role.name).isEqualTo(roleName)
             assertThat(accessToken.tokenType).isEqualTo(AccessToken.VALID_TOKEN_TYPE)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuer).isEqualTo(AccessToken.VALID_ISSUER)

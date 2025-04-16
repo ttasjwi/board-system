@@ -22,7 +22,7 @@ interface JpaMemberRepository : JpaRepository<JpaUser, Long> {
         FROM users u
         WHERE u.user_id = :userId
     """, nativeQuery = true)
-    fun findAuthMemberProjectionOrNull(@Param("userId") userId: Long): AuthMemberProjection?
+    fun findAuthUserProjectionOrNull(@Param("userId") userId: Long): AuthUserProjection?
 
     fun existsByEmail(email: String): Boolean
     fun existsByUsername(username: String): Boolean

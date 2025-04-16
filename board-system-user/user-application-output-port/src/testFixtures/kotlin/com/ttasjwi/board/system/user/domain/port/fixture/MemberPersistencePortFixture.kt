@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.user.domain.port.fixture
 
-import com.ttasjwi.board.system.common.auth.AuthMember
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.AuthUser
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.user.domain.model.Member
 import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
 
@@ -18,8 +18,8 @@ class MemberPersistencePortFixture : MemberPersistencePort {
         return storage[memberId]
     }
 
-    override fun findAuthMemberOrNull(memberId: Long): AuthMember? {
-        return findByIdOrNull(memberId)?.let { authMemberFixture(it.memberId, it.role) }
+    override fun findAuthUserOrNull(userId: Long): AuthUser? {
+        return findByIdOrNull(userId)?.let { authUserFixture(it.memberId, it.role) }
     }
 
     override fun findByEmailOrNull(email: String): Member? {

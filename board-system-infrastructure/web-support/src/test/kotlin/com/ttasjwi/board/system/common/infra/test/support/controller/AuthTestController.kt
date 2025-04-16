@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.common.infra.test.support.controller
 
 import com.ttasjwi.board.system.common.annotation.auth.*
-import com.ttasjwi.board.system.common.auth.AuthMember
-import com.ttasjwi.board.system.common.auth.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthUser
+import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class AuthTestController(
-    private val authMemberLoader: AuthMemberLoader,
+    private val authUserLoader: AuthUserLoader,
 ) {
 
     @PermitAll
@@ -20,21 +20,21 @@ class AuthTestController(
     @RequireAuthenticated
     @GetMapping("/api/v1/test/web-support/auth/authenticated")
     fun testAuthenticated(): AuthTestResponse {
-        val authMember = authMemberLoader.loadCurrentAuthMember()!!
+        val authMember = authUserLoader.loadCurrentAuthUser()!!
         return AuthTestResponse.of("/api/v1/test/web-support/auth/authenticated", authMember)
     }
 
     @RequireAdminRole
     @GetMapping("/api/v1/test/web-support/auth/admin-role")
     fun testAdminRole(): AuthTestResponse {
-        val authMember = authMemberLoader.loadCurrentAuthMember()!!
+        val authMember = authUserLoader.loadCurrentAuthUser()!!
         return AuthTestResponse.of("/api/v1/test/web-support/auth/admin-role", authMember)
     }
 
     @RequireRootRole
     @GetMapping("/api/v1/test/web-support/auth/root-role")
     fun testRootRole(): AuthTestResponse {
-        val authMember = authMemberLoader.loadCurrentAuthMember()!!
+        val authMember = authUserLoader.loadCurrentAuthUser()!!
         return AuthTestResponse.of("/api/v1/test/web-support/auth/root-role", authMember)
     }
 }
@@ -46,11 +46,11 @@ data class AuthTestResponse(
 ) {
 
     companion object {
-        fun of(path: String, authMember: AuthMember): AuthTestResponse {
+        fun of(path: String, authUser: AuthUser): AuthTestResponse {
             return AuthTestResponse(
                 path = path,
-                memberId = authMember.memberId,
-                role = authMember.role.name
+                memberId = authUser.userId,
+                role = authUser.role.name
             )
         }
     }

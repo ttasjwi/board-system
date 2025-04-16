@@ -8,7 +8,7 @@ import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleTitlePolicy
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.processor.ArticleCreateProcessor
-import com.ttasjwi.board.system.common.auth.fixture.AuthMemberLoaderFixture
+import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 
 internal class TestContainer private constructor() {
@@ -20,7 +20,7 @@ internal class TestContainer private constructor() {
     }
 
     val timeManagerFixture: TimeManagerFixture by lazy { TimeManagerFixture() }
-    val authMemberLoaderFixture: AuthMemberLoaderFixture by lazy { AuthMemberLoaderFixture() }
+    val authMemberLoaderFixture: AuthUserLoaderFixture by lazy { AuthUserLoaderFixture() }
 
     // port
     val articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture by lazy { ArticleCategoryPersistencePortFixture() }
@@ -35,7 +35,7 @@ internal class TestContainer private constructor() {
         ArticleCreateCommandMapper(
             articleTitlePolicy = articleTitlePolicyFixture,
             articleContentPolicy = articleContentPolicyFixture,
-            authMemberLoader = authMemberLoaderFixture,
+            authUserLoader = authMemberLoaderFixture,
             timeManager = timeManagerFixture,
         )
     }

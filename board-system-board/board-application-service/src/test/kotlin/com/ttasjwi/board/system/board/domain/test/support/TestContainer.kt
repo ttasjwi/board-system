@@ -11,7 +11,7 @@ import com.ttasjwi.board.system.board.domain.port.fixture.ArticleCategoryPersist
 import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.processor.ArticleCategoryCreateProcessor
 import com.ttasjwi.board.system.board.domain.processor.BoardCreateProcessor
-import com.ttasjwi.board.system.common.auth.fixture.AuthMemberLoaderFixture
+import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 
 internal class TestContainer private constructor() {
@@ -24,7 +24,7 @@ internal class TestContainer private constructor() {
     }
 
     val timeManagerFixture: TimeManagerFixture by lazy { TimeManagerFixture() }
-    val authMemberLoaderFixture: AuthMemberLoaderFixture by lazy { AuthMemberLoaderFixture() }
+    val authMemberLoaderFixture: AuthUserLoaderFixture by lazy { AuthUserLoaderFixture() }
 
     // port
     val boardPersistencePortFixture: BoardPersistencePortFixture by lazy { BoardPersistencePortFixture() }
@@ -45,7 +45,7 @@ internal class TestContainer private constructor() {
             boardNamePolicy = boardNamePolicyFixture,
             boardDescriptionPolicy = boardDescriptionPolicyFixture,
             boardSlugPolicy = boardSlugPolicyFixture,
-            authMemberLoader = authMemberLoaderFixture,
+            authUserLoader = authMemberLoaderFixture,
             timeManager = timeManagerFixture
         )
     }
@@ -54,7 +54,7 @@ internal class TestContainer private constructor() {
         ArticleCategoryCreateCommandMapper(
             articleCategoryNamePolicy = articleCategoryNamePolicyFixture,
             articleCategorySlugPolicy = articleCategorySlugPolicyFixture,
-            authMemberLoader = authMemberLoaderFixture,
+            authUserLoader = authMemberLoaderFixture,
             timeManager = timeManagerFixture
         )
     }

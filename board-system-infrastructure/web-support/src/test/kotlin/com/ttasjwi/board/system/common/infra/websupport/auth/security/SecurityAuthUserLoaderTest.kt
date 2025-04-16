@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.common.infra.websupport.auth.security
 
-import com.ttasjwi.board.system.common.auth.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -12,27 +12,27 @@ import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.context.SecurityContextHolder
 
 @DisplayName("SecurityAuthMemberLoader 테스트")
-class SecurityAuthMemberLoaderTest {
+class SecurityAuthUserLoaderTest {
 
-    private lateinit var authMemberLoader: AuthMemberLoader
+    private lateinit var authUserLoader: AuthUserLoader
 
     @BeforeEach
     fun setup() {
-        authMemberLoader = SecurityAuthMemberLoader()
+        authUserLoader = SecurityAuthUserLoader()
     }
 
     @Test
     @DisplayName("시큐리티 컨텍스트에 AuthMemberAuthentication 이 있으면, AuthMember 가 반환된다.")
     fun testAuthMember() {
         // given
-        val authMember = authMemberFixture(memberId = 1235L, role = Role.USER)
+        val authMember = authUserFixture(userId = 1235L, role = Role.USER)
 
         val securityContext = SecurityContextHolder.getContextHolderStrategy().createEmptyContext()
         securityContext.authentication = AuthMemberAuthentication.from(authMember)
         SecurityContextHolder.getContextHolderStrategy().context = securityContext
 
         // when
-        val loadedAuthMember = authMemberLoader.loadCurrentAuthMember()
+        val loadedAuthMember = authUserLoader.loadCurrentAuthUser()
 
         // then
         assertThat(loadedAuthMember).isEqualTo(authMember)
@@ -45,7 +45,7 @@ class SecurityAuthMemberLoaderTest {
         SecurityContextHolder.getContextHolderStrategy().clearContext()
 
         // when
-        val loadedAuthMember = authMemberLoader.loadCurrentAuthMember()
+        val loadedAuthMember = authUserLoader.loadCurrentAuthUser()
 
         // then
         assertThat(loadedAuthMember).isNull()
@@ -59,7 +59,7 @@ class SecurityAuthMemberLoaderTest {
             AnonymousAuthenticationToken("hello", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"))
 
         // when
-        val loadedAuthMember = authMemberLoader.loadCurrentAuthMember()
+        val loadedAuthMember = authUserLoader.loadCurrentAuthUser()
 
         // then
         assertThat(loadedAuthMember).isNull()

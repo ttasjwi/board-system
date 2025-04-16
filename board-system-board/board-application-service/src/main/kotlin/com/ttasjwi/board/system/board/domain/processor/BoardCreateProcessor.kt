@@ -59,7 +59,7 @@ internal class BoardCreateProcessor(
             name = command.boardName,
             description = command.boardDescription,
             slug = command.boardSlug,
-            managerId = command.creator.memberId,
+            managerId = command.creator.userId,
             currentTime = command.currentTime
         )
     }

@@ -62,8 +62,8 @@ class LoginProcessorTest {
         val refreshTokenExists =
             refreshTokenPersistencePortFixture.exists(refreshToken.memberId, refreshToken.refreshTokenId)
 
-        assertThat(accessToken.authMember.memberId).isEqualTo(savedMember.memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(savedMember.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(savedMember.memberId)
+        assertThat(accessToken.authUser.role).isEqualTo(savedMember.role)
         assertThat(accessToken.issuedAt).isEqualTo(successCommand.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(successCommand.currentTime.plusMinutes(30))
 

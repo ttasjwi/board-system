@@ -10,7 +10,7 @@ import com.ttasjwi.board.system.board.domain.model.ArticleCategory
 import com.ttasjwi.board.system.board.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.board.domain.port.BoardPersistencePort
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import org.springframework.transaction.annotation.Transactional
 
@@ -47,11 +47,11 @@ class ArticleCategoryCreateProcessor(
             )
     }
 
-    private fun checkAuthority(board: Board, creator: AuthMember) {
-        if (board.managerId != creator.memberId) {
+    private fun checkAuthority(board: Board, creator: AuthUser) {
+        if (board.managerId != creator.userId) {
             throw NoArticleCategoryCreateAuthorityException(
                 boardManagerId = board.managerId,
-                creatorId = creator.memberId
+                creatorId = creator.userId
             )
         }
     }
