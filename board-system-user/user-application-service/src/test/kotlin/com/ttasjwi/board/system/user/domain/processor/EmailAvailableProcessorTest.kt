@@ -21,9 +21,9 @@ class EmailAvailableProcessorTest {
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        val memberPersistencePortFixture = container.memberPersistencePortFixture
+        val userPersistencePortFixture = container.userPersistencePortFixture
         processor = container.emailAvailableProcessor
-        savedUser = memberPersistencePortFixture.save(
+        savedUser = userPersistencePortFixture.save(
             userFixture(
                 userId = 123456L,
                 email = "registered@gmail.com"

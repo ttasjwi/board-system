@@ -14,7 +14,7 @@ class NicknameAvailableController(
 ) {
 
     @PermitAll
-    @GetMapping("/api/v1/members/nickname-available")
+    @GetMapping("/api/v1/users/nickname-available")
     fun checkNicknameAvailable(request: NicknameAvailableRequest): ResponseEntity<NicknameAvailableResponse> {
         return ResponseEntity.ok(useCase.checkNicknameAvailable(request))
     }

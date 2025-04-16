@@ -7,8 +7,8 @@ import com.ttasjwi.board.system.user.domain.model.SocialService
 import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.socialServiceUserFixture
-import com.ttasjwi.board.system.user.domain.port.fixture.MemberPersistencePortFixture
-import com.ttasjwi.board.system.user.domain.port.fixture.MemberRefreshTokenIdListPersistencePortFixture
+import com.ttasjwi.board.system.user.domain.port.fixture.UserPersistencePortFixture
+import com.ttasjwi.board.system.user.domain.port.fixture.UserRefreshTokenIdListPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.RefreshTokenIdPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.SocialConnectionPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
@@ -22,18 +22,18 @@ import org.junit.jupiter.api.Test
 class SocialLoginProcessorTest {
 
     private lateinit var socialLoginProcessor: SocialLoginProcessor
-    private lateinit var memberPersistencePortFixture: MemberPersistencePortFixture
+    private lateinit var userPersistencePortFixture: UserPersistencePortFixture
     private lateinit var socialConnectionPersistencePortFixture: SocialConnectionPersistencePortFixture
-    private lateinit var memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture
+    private lateinit var userRefreshTokenIdListPersistencePortFixture: UserRefreshTokenIdListPersistencePortFixture
     private lateinit var refreshTokenIdPersistencePortFixture: RefreshTokenIdPersistencePortFixture
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        memberPersistencePortFixture = container.memberPersistencePortFixture
+        userPersistencePortFixture = container.userPersistencePortFixture
         socialConnectionPersistencePortFixture = container.socialConnectionPersistencePortFixture
         socialLoginProcessor = container.socialLoginProcessor
-        memberRefreshTokenIdListPersistencePortFixture = container.memberRefreshTokenIdListPersistencePortFixture
+        userRefreshTokenIdListPersistencePortFixture = container.userRefreshTokenIdListPersistencePortFixture
         refreshTokenIdPersistencePortFixture = container.refreshTokenIdPersistencePortFixture
     }
 
@@ -45,11 +45,11 @@ class SocialLoginProcessorTest {
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
         val email = "hello@gmail.com"
-        val member = memberPersistencePortFixture.save(userFixture(email = email))
+        val user = userPersistencePortFixture.save(userFixture(email = email))
         socialConnectionPersistencePortFixture.save(
             socialConnectionFixture(
                 socialConnectionId = 15567L,
-                userId = member.userId,
+                userId = user.userId,
                 socialService = socialService,
                 socialServiceUserId = socialServiceUserId,
                 linkedAt = appDateTimeFixture(minute = 3)
@@ -63,25 +63,25 @@ class SocialLoginProcessorTest {
         )
 
         // when
-        val (createdMember, accessToken, refreshToken) = socialLoginProcessor.socialLogin(command)
+        val (createdUser, accessToken, refreshToken) = socialLoginProcessor.socialLogin(command)
 
         // then
-        val memberTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(member.userId)
-        assertThat(createdMember).isNull()
-        assertThat(accessToken.authUser.userId).isEqualTo(member.userId)
-        assertThat(accessToken.authUser.role).isEqualTo(member.role)
+        val userTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(user.userId)
+        assertThat(createdUser).isNull()
+        assertThat(accessToken.authUser.userId).isEqualTo(user.userId)
+        assertThat(accessToken.authUser.role).isEqualTo(user.role)
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
 
-        assertThat(refreshToken.memberId).isEqualTo(member.userId)
+        assertThat(refreshToken.userId).isEqualTo(user.userId)
         assertThat(refreshToken.refreshTokenId).isNotNull()
         assertThat(refreshToken.tokenValue).isNotNull()
         assertThat(refreshToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(refreshToken.expiresAt).isEqualTo(command.currentTime.plusHours(RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR))
 
-        assertThat(memberTokenIds).containsExactly(refreshToken.refreshTokenId)
-        assertThat(refreshTokenIdPersistencePortFixture.exists(member.userId, refreshToken.refreshTokenId)).isTrue()
+        assertThat(userTokenIds).containsExactly(refreshToken.refreshTokenId)
+        assertThat(refreshTokenIdPersistencePortFixture.exists(user.userId, refreshToken.refreshTokenId)).isTrue()
     }
 
     @Test
@@ -91,7 +91,7 @@ class SocialLoginProcessorTest {
         val socialService = SocialService.GOOGLE
         val socialServiceUserId = "abcd12345"
         val email = "hello@gmail.com"
-        val member = memberPersistencePortFixture.save(userFixture(email = email))
+        val user = userPersistencePortFixture.save(userFixture(email = email))
 
         val command = SocialLoginCommand(
             socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
@@ -100,31 +100,31 @@ class SocialLoginProcessorTest {
         )
 
         // when
-        val (createdMember, accessToken, refreshToken) = socialLoginProcessor.socialLogin(command)
+        val (createdUser, accessToken, refreshToken) = socialLoginProcessor.socialLogin(command)
 
         // then
-        val memberTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(member.userId)
+        val userTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(user.userId)
         val findSocialConnection = socialConnectionPersistencePortFixture.findBySocialServiceUserOrNull(
             socialServiceUser = command.socialServiceUser
         )!!
 
-        assertThat(createdMember).isNull()
-        assertThat(accessToken.authUser.userId).isEqualTo(member.userId)
-        assertThat(accessToken.authUser.role).isEqualTo(member.role)
+        assertThat(createdUser).isNull()
+        assertThat(accessToken.authUser.userId).isEqualTo(user.userId)
+        assertThat(accessToken.authUser.role).isEqualTo(user.role)
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
-        assertThat(refreshToken.memberId).isEqualTo(member.userId)
+        assertThat(refreshToken.userId).isEqualTo(user.userId)
         assertThat(refreshToken.refreshTokenId).isNotNull()
         assertThat(refreshToken.tokenValue).isNotNull()
         assertThat(refreshToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(refreshToken.expiresAt).isEqualTo(command.currentTime.plusHours(RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR))
 
-        assertThat(memberTokenIds).containsExactly(refreshToken.refreshTokenId)
-        assertThat(refreshTokenIdPersistencePortFixture.exists(member.userId, refreshToken.refreshTokenId)).isTrue()
+        assertThat(userTokenIds).containsExactly(refreshToken.refreshTokenId)
+        assertThat(refreshTokenIdPersistencePortFixture.exists(user.userId, refreshToken.refreshTokenId)).isTrue()
 
         assertThat(findSocialConnection.socialConnectionId).isNotNull
-        assertThat(findSocialConnection.userId).isEqualTo(member.userId)
+        assertThat(findSocialConnection.userId).isEqualTo(user.userId)
         assertThat(findSocialConnection.socialServiceUser).isEqualTo(command.socialServiceUser)
         assertThat(findSocialConnection.linkedAt).isEqualTo(command.currentTime)
     }
@@ -144,44 +144,44 @@ class SocialLoginProcessorTest {
         )
 
         // when
-        val (createdMember, accessToken, refreshToken) = socialLoginProcessor.socialLogin(command)
+        val (createdUser, accessToken, refreshToken) = socialLoginProcessor.socialLogin(command)
 
         // then
         val findSocialConnection = socialConnectionPersistencePortFixture.findBySocialServiceUserOrNull(
             socialServiceUser = command.socialServiceUser
         )!!
-        val findMember = memberPersistencePortFixture.findByIdOrNull(findSocialConnection.userId)!!
-        val memberTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(createdMember!!.userId)
+        val findUser = userPersistencePortFixture.findByIdOrNull(findSocialConnection.userId)!!
+        val userTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(createdUser!!.userId)
 
-        assertThat(createdMember).isNotNull
-        assertThat(createdMember.userId).isNotNull()
-        assertThat(createdMember.email).isEqualTo(command.email)
-        assertThat(createdMember.username).isNotNull()
-        assertThat(createdMember.nickname).isNotNull()
-        assertThat(createdMember.password).isNotNull()
-        assertThat(createdMember.registeredAt).isEqualTo(command.currentTime)
-        assertThat(createdMember.role).isEqualTo(Role.USER)
-        assertThat(findMember.userId).isEqualTo(createdMember.userId)
-        assertThat(findMember.email).isEqualTo(createdMember.email)
-        assertThat(findMember.username).isEqualTo(createdMember.username)
-        assertThat(findMember.nickname).isEqualTo(createdMember.nickname)
-        assertThat(findMember.password).isEqualTo(createdMember.password)
-        assertThat(findMember.role).isEqualTo(createdMember.role)
-        assertThat(findMember.registeredAt).isEqualTo(createdMember.registeredAt)
-        assertThat(accessToken.authUser.userId).isEqualTo(createdMember.userId)
-        assertThat(accessToken.authUser.role).isEqualTo(createdMember.role)
+        assertThat(createdUser).isNotNull
+        assertThat(createdUser.userId).isNotNull()
+        assertThat(createdUser.email).isEqualTo(command.email)
+        assertThat(createdUser.username).isNotNull()
+        assertThat(createdUser.nickname).isNotNull()
+        assertThat(createdUser.password).isNotNull()
+        assertThat(createdUser.registeredAt).isEqualTo(command.currentTime)
+        assertThat(createdUser.role).isEqualTo(Role.USER)
+        assertThat(findUser.userId).isEqualTo(createdUser.userId)
+        assertThat(findUser.email).isEqualTo(createdUser.email)
+        assertThat(findUser.username).isEqualTo(createdUser.username)
+        assertThat(findUser.nickname).isEqualTo(createdUser.nickname)
+        assertThat(findUser.password).isEqualTo(createdUser.password)
+        assertThat(findUser.role).isEqualTo(createdUser.role)
+        assertThat(findUser.registeredAt).isEqualTo(createdUser.registeredAt)
+        assertThat(accessToken.authUser.userId).isEqualTo(createdUser.userId)
+        assertThat(accessToken.authUser.role).isEqualTo(createdUser.role)
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
-        assertThat(refreshToken.memberId).isEqualTo(createdMember.userId)
+        assertThat(refreshToken.userId).isEqualTo(createdUser.userId)
         assertThat(refreshToken.refreshTokenId).isNotNull()
         assertThat(refreshToken.tokenValue).isNotNull()
         assertThat(refreshToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(refreshToken.expiresAt).isEqualTo(command.currentTime.plusHours(RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR))
-        assertThat(memberTokenIds).containsExactly(refreshToken.refreshTokenId)
+        assertThat(userTokenIds).containsExactly(refreshToken.refreshTokenId)
         assertThat(
             refreshTokenIdPersistencePortFixture.exists(
-                createdMember.userId,
+                createdUser.userId,
                 refreshToken.refreshTokenId
             )
         ).isTrue()

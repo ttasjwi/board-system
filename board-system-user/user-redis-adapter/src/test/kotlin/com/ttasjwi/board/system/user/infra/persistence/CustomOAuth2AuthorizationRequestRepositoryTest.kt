@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
-import com.ttasjwi.board.system.user.infra.test.MemberRedisAdapterTest
+import com.ttasjwi.board.system.user.infra.test.UserRedisAdapterTest
 import io.mockk.every
 import io.mockk.mockk
 import jakarta.servlet.http.HttpServletRequest
@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
 
 @DisplayName("RedisOAuth2AuthorizationRequestRepository 테스트")
-class CustomOAuth2AuthorizationRequestRepositoryTest : MemberRedisAdapterTest() {
+class CustomOAuth2AuthorizationRequestRepositoryTest : UserRedisAdapterTest() {
 
     @Nested
     @DisplayName("saveAuthorizationRequest")

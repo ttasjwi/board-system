@@ -37,7 +37,7 @@ class SocialLoginUseCaseFixtureTest {
         assertThat(result.accessTokenExpiresAt).isNotNull()
         assertThat(result.refreshToken).isNotNull()
         assertThat(result.refreshTokenExpiresAt).isNotNull()
-        assertThat(result.memberCreated).isTrue()
-        assertThat(result.createdMember).isNotNull
+        assertThat(result.userCreated).isTrue()
+        assertThat(result.createdUser).isNotNull
     }
 }

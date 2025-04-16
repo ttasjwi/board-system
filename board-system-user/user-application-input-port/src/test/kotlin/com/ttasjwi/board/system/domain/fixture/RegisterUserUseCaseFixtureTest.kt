@@ -1,26 +1,26 @@
 package com.ttasjwi.board.system.domain.fixture
 
-import com.ttasjwi.board.system.user.domain.RegisterMemberRequest
-import com.ttasjwi.board.system.user.domain.RegisterMemberUseCase
-import com.ttasjwi.board.system.user.domain.fixture.RegisterMemberUseCaseFixture
+import com.ttasjwi.board.system.user.domain.RegisterUserRequest
+import com.ttasjwi.board.system.user.domain.RegisterUserUseCase
+import com.ttasjwi.board.system.user.domain.fixture.RegisterUserUseCaseFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("RegisterMemberUseCaseFixture 테스트")
-class RegisterMemberUseCaseFixtureTest {
+@DisplayName("RegisterUserUseCaseFixture 테스트")
+class RegisterUserUseCaseFixtureTest {
 
-    private lateinit var useCase: RegisterMemberUseCase
+    private lateinit var useCase: RegisterUserUseCase
 
     @BeforeEach
     fun setUp() {
-        useCase = RegisterMemberUseCaseFixture()
+        useCase = RegisterUserUseCaseFixture()
     }
 
     @Test
     fun test() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = "1111",
             username = "hello",
@@ -28,7 +28,7 @@ class RegisterMemberUseCaseFixtureTest {
         )
         val result = useCase.register(request)
 
-        assertThat(result.memberId).isNotNull()
+        assertThat(result.userId).isNotNull()
         assertThat(result.email).isEqualTo(request.email)
         assertThat(result.username).isEqualTo(request.username)
         assertThat(result.nickname).isEqualTo(request.nickname)

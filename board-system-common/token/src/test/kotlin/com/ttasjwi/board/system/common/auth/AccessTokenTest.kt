@@ -17,23 +17,23 @@ class AccessTokenTest {
         @DisplayName("전달된 값을 기반으로 잘 생성되는 지 테스트")
         fun test() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val role = Role.ADMIN
-            val authMember = authUserFixture(userId = memberId, role = role)
+            val authUser = authUserFixture(userId = userId, role = role)
             val tokenValue = "tokenValue"
             val issuedAt = appDateTimeFixture(minute = 10)
             val expiresAt = appDateTimeFixture(minute = 40)
 
             // when
             val accessToken = AccessToken.create(
-                authUser = authMember,
+                authUser = authUser,
                 tokenValue = tokenValue,
                 issuedAt = issuedAt,
                 expiresAt = expiresAt
             )
 
             // then
-            assertThat(accessToken.authUser.userId).isEqualTo(memberId)
+            assertThat(accessToken.authUser.userId).isEqualTo(userId)
             assertThat(accessToken.authUser.role).isEqualTo(role)
             assertThat(accessToken.tokenType).isEqualTo(AccessToken.VALID_TOKEN_TYPE)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
@@ -51,7 +51,7 @@ class AccessTokenTest {
         @DisplayName("전달된 값들이 내부 값으로 잘 복원되는 지 테스트")
         fun test() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val roleName = "USER"
             val tokenValue = "accessToken1"
             val issuedAt = appDateTimeFixture(minute = 0).toInstant()
@@ -59,7 +59,7 @@ class AccessTokenTest {
 
             // when
             val accessToken = AccessToken.restore(
-                memberId = memberId,
+                userId = userId,
                 roleName = roleName,
                 tokenValue = tokenValue,
                 issuedAt = issuedAt,
@@ -67,7 +67,7 @@ class AccessTokenTest {
             )
 
             // then
-            assertThat(accessToken.authUser.userId).isEqualTo(memberId)
+            assertThat(accessToken.authUser.userId).isEqualTo(userId)
             assertThat(accessToken.authUser.role.name).isEqualTo(roleName)
             assertThat(accessToken.tokenType).isEqualTo(AccessToken.VALID_TOKEN_TYPE)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)

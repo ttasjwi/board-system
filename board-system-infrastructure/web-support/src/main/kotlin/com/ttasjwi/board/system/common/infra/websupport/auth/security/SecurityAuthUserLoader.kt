@@ -10,7 +10,7 @@ class SecurityAuthUserLoader : AuthUserLoader {
         val authentication = SecurityContextHolder.getContextHolderStrategy()?.context?.authentication
             ?: return null
 
-        if (authentication !is AuthMemberAuthentication) {
+        if (authentication !is AuthUserAuthentication) {
             return null
         }
         return authentication.principal as AuthUser

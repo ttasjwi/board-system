@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 
 interface RefreshTokenIdPersistencePort {
 
-    fun save(memberId: Long, refreshTokenId: Long, expiresAt: AppDateTime)
-    fun exists(memberId: Long, refreshTokenId: Long): Boolean
-    fun remove(memberId: Long, refreshTokenId: Long)
+    fun save(userId: Long, refreshTokenId: Long, expiresAt: AppDateTime)
+    fun exists(userId: Long, refreshTokenId: Long): Boolean
+    fun remove(userId: Long, refreshTokenId: Long)
 }

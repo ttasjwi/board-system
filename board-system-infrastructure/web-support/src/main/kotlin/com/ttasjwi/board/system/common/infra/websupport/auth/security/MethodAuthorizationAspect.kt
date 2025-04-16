@@ -28,18 +28,18 @@ class MethodAuthorizationAspect(
 
     @Before("@annotation(com.ttasjwi.board.system.common.annotation.auth.RequireAdminRole)")
     fun checkAdminRole() {
-        val authMember = authUserLoader.loadCurrentAuthUser() ?: throw UnauthenticatedException()
+        val authUser = authUserLoader.loadCurrentAuthUser() ?: throw UnauthenticatedException()
 
-        if (authMember.role !in ADMIN_ROLES) {
+        if (authUser.role !in ADMIN_ROLES) {
             throw AccessDeniedException()
         }
     }
 
     @Before("@annotation(com.ttasjwi.board.system.common.annotation.auth.RequireRootRole)")
     fun checkRootRole() {
-        val authMember = authUserLoader.loadCurrentAuthUser() ?: throw UnauthenticatedException()
+        val authUser = authUserLoader.loadCurrentAuthUser() ?: throw UnauthenticatedException()
 
-        if (authMember.role != Role.ROOT) {
+        if (authUser.role != Role.ROOT) {
             throw AccessDeniedException()
         }
     }

@@ -5,14 +5,14 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 fun refreshTokenFixture(
-    memberId: Long = 1L,
+    userId: Long = 1L,
     refreshTokenId: Long = 1L,
     tokenValue: String = "refreshTokenValue",
     issuedAt: AppDateTime = appDateTimeFixture(dayOfMonth = 1),
     expiresAt: AppDateTime = issuedAt.plusHours(24),
 ): RefreshToken {
     return RefreshToken.testCreate(
-        memberId = memberId,
+        userId = userId,
         refreshTokenId = refreshTokenId,
         tokenValue = tokenValue,
         issuedAt = issuedAt,
@@ -21,14 +21,14 @@ fun refreshTokenFixture(
 }
 
 private fun RefreshToken.Companion.testCreate(
-    memberId: Long,
+    userId: Long,
     refreshTokenId: Long,
     tokenValue: String,
     issuedAt: AppDateTime,
     expiresAt: AppDateTime,
 ): RefreshToken {
     return RefreshToken(
-        memberId = memberId,
+        userId = userId,
         refreshTokenId = refreshTokenId,
         tokenType = VALID_TOKEN_TYPE,
         tokenValue = tokenValue,

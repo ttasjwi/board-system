@@ -6,14 +6,14 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
 fun accessTokenFixture(
-    memberId: Long = 1L,
+    userId: Long = 1L,
     role: Role = Role.USER,
     tokenValue: String = "accessToken",
     issuedAt: AppDateTime = appDateTimeFixture(minute = 0),
     expiresAt: AppDateTime = issuedAt.plusMinutes(30),
 ): AccessToken {
     return AccessToken.testCreate(
-        memberId = memberId,
+        userId = userId,
         role = role,
         tokenValue = tokenValue,
         issuedAt = issuedAt,
@@ -22,7 +22,7 @@ fun accessTokenFixture(
 }
 
 private fun AccessToken.Companion.testCreate(
-    memberId: Long,
+    userId: Long,
     role: Role,
     tokenValue: String,
     issuedAt: AppDateTime,
@@ -30,7 +30,7 @@ private fun AccessToken.Companion.testCreate(
 ): AccessToken {
     return AccessToken(
         authUser = authUserFixture(
-            userId = memberId,
+            userId = userId,
             role = role,
         ),
         tokenType = VALID_TOKEN_TYPE,

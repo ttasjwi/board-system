@@ -8,19 +8,19 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("MemberCreator: 회원 생성 도메인 서비스")
+@DisplayName("UserCreator: 사용자 생성 도메인 서비스")
 class UserCreatorTest {
 
-    private lateinit var memberCreator: MemberCreator
+    private lateinit var userCreator: UserCreator
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        memberCreator = container.memberCreator
+        userCreator = container.userCreator
     }
 
     @Test
-    @DisplayName("create: 값들로부터 회원을 생성한다.")
+    @DisplayName("create: 값들로부터 사용자를 생성한다.")
     fun createTest() {
         // given
         val email = "hello@gmail.com"
@@ -30,15 +30,15 @@ class UserCreatorTest {
         val currentTime = appDateTimeFixture(minute = 3)
 
         // when
-        val member = memberCreator.create(email, rawPassword, username, nickname, currentTime)
+        val user = userCreator.create(email, rawPassword, username, nickname, currentTime)
 
-        assertThat(member.userId).isNotNull()
-        assertThat(member.email).isEqualTo(email)
-        assertThat(member.password).isNotNull()
-        assertThat(member.username).isEqualTo(username)
-        assertThat(member.nickname).isEqualTo(nickname)
-        assertThat(member.role).isEqualTo(Role.USER)
-        assertThat(member.registeredAt).isEqualTo(currentTime)
+        assertThat(user.userId).isNotNull()
+        assertThat(user.email).isEqualTo(email)
+        assertThat(user.password).isNotNull()
+        assertThat(user.username).isEqualTo(username)
+        assertThat(user.nickname).isEqualTo(nickname)
+        assertThat(user.role).isEqualTo(Role.USER)
+        assertThat(user.registeredAt).isEqualTo(currentTime)
     }
 
 
@@ -50,15 +50,15 @@ class UserCreatorTest {
         val currentTime = appDateTimeFixture(minute = 3)
 
         // when
-        val member = memberCreator.createRandom(email, currentTime)
+        val user = userCreator.createRandom(email, currentTime)
 
         // then
-        assertThat(member.userId).isNotNull()
-        assertThat(member.email).isEqualTo(email)
-        assertThat(member.password).isNotNull()
-        assertThat(member.username).isNotNull()
-        assertThat(member.nickname).isNotNull()
-        assertThat(member.role).isEqualTo(Role.USER)
-        assertThat(member.registeredAt).isEqualTo(currentTime)
+        assertThat(user.userId).isNotNull()
+        assertThat(user.email).isEqualTo(email)
+        assertThat(user.password).isNotNull()
+        assertThat(user.username).isNotNull()
+        assertThat(user.nickname).isNotNull()
+        assertThat(user.role).isEqualTo(Role.USER)
+        assertThat(user.registeredAt).isEqualTo(currentTime)
     }
 }

@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.user.domain.model.SocialService
 import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.socialConnectionFixture
-import com.ttasjwi.board.system.user.domain.port.fixture.MemberPersistencePortFixture
+import com.ttasjwi.board.system.user.domain.port.fixture.UserPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.SocialConnectionPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -18,14 +18,14 @@ class SocialLoginUseCaseImplTest {
 
     private lateinit var useCase: SocialLoginUseCase
     private lateinit var timeManagerFixture: TimeManagerFixture
-    private lateinit var memberPersistencePortFixture: MemberPersistencePortFixture
+    private lateinit var userPersistencePortFixture: UserPersistencePortFixture
     private lateinit var socialConnectionPersistencePortFixture: SocialConnectionPersistencePortFixture
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
         timeManagerFixture = container.timeManagerFixture
-        memberPersistencePortFixture = container.memberPersistencePortFixture
+        userPersistencePortFixture = container.userPersistencePortFixture
         socialConnectionPersistencePortFixture = container.socialConnectionPersistencePortFixture
         useCase = container.socialLoginUseCase
     }
@@ -40,10 +40,10 @@ class SocialLoginUseCaseImplTest {
         val currentTime = appDateTimeFixture(minute = 5)
         timeManagerFixture.changeCurrentTime(currentTime)
 
-        val member = memberPersistencePortFixture.save(userFixture(email = email))
+        val user = userPersistencePortFixture.save(userFixture(email = email))
         socialConnectionPersistencePortFixture.save(
             socialConnectionFixture(
-                userId = member.userId,
+                userId = user.userId,
                 socialService = SocialService.GOOGLE,
                 socialServiceUserId = socialServiceUserId,
                 linkedAt = appDateTimeFixture(minute = 3)
@@ -65,8 +65,8 @@ class SocialLoginUseCaseImplTest {
         assertThat(result.accessTokenExpiresAt).isNotNull()
         assertThat(result.refreshToken).isNotNull()
         assertThat(result.refreshTokenExpiresAt).isNotNull()
-        assertThat(result.memberCreated).isFalse()
-        assertThat(result.createdMember).isNull()
+        assertThat(result.userCreated).isFalse()
+        assertThat(result.createdUser).isNull()
     }
 
     @Test
@@ -87,7 +87,7 @@ class SocialLoginUseCaseImplTest {
 
         // when
         val response = useCase.socialLogin(request)
-        val createdMember = response.createdMember!!
+        val createdUser = response.createdUser!!
 
         // then
         assertThat(response.accessToken).isNotNull()
@@ -95,13 +95,13 @@ class SocialLoginUseCaseImplTest {
         assertThat(response.accessTokenExpiresAt).isNotNull()
         assertThat(response.refreshToken).isNotNull()
         assertThat(response.refreshTokenExpiresAt).isNotNull()
-        assertThat(response.memberCreated).isTrue()
-        assertThat(createdMember).isNotNull
-        assertThat(createdMember.email).isEqualTo(request.email)
-        assertThat(createdMember.memberId).isNotNull()
-        assertThat(createdMember.username).isNotNull()
-        assertThat(createdMember.nickname).isNotNull()
-        assertThat(createdMember.role).isNotNull()
-        assertThat(createdMember.registeredAt).isEqualTo(currentTime.toZonedDateTime())
+        assertThat(response.userCreated).isTrue()
+        assertThat(createdUser).isNotNull
+        assertThat(createdUser.email).isEqualTo(request.email)
+        assertThat(createdUser.userId).isNotNull()
+        assertThat(createdUser.username).isNotNull()
+        assertThat(createdUser.nickname).isNotNull()
+        assertThat(createdUser.role).isNotNull()
+        assertThat(createdUser.registeredAt).isEqualTo(currentTime.toZonedDateTime())
     }
 }

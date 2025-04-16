@@ -38,15 +38,15 @@ Error:
     message: "Email Not Verified"
     description: "This email has not been verified. Please complete the verification first. (email={0})"
 
-  DuplicateMemberEmail:
+  DuplicateUserEmail:
     message: "Duplicate Email"
-    description: "A member with a duplicate email exists. (email={0})"
-  DuplicateMemberUsername:
+    description: "An user with a duplicate email exists. (email={0})"
+  DuplicateUserUsername:
     message: "Duplicate Username"
-    description: "A member with a duplicate username exists. (username={0})"
-  DuplicateMemberNickname:
+    description: "An user with a duplicate username exists. (username={0})"
+  DuplicateUserNickname:
     message: "Duplicate Nickname"
-    description: "A member with a duplicate nickname exists. (nickname={0})"
+    description: "An user with a duplicate nickname exists. (nickname={0})"
 
   LoginFailure:
     message: "Login failed"

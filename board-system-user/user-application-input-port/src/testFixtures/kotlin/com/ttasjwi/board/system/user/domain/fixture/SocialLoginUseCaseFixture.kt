@@ -14,9 +14,9 @@ class SocialLoginUseCaseFixture : SocialLoginUseCase {
             accessTokenExpiresAt = appDateTimeFixture(minute = 30).toZonedDateTime(),
             refreshToken = "refreshToken",
             refreshTokenExpiresAt = appDateTimeFixture(dayOfMonth = 2, minute = 0).toZonedDateTime(),
-            memberCreated = true,
-            createdMember = SocialLoginResponse.CreatedMember(
-                memberId = "1",
+            userCreated = true,
+            createdUser = SocialLoginResponse.CreatedUser(
+                userId = "1",
                 email = request.email,
                 username = "createdusername",
                 nickname = "creatednickname",

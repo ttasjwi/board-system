@@ -6,13 +6,13 @@ import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.user.domain.EmailAvailableResponse
 import com.ttasjwi.board.system.user.domain.dto.EmailAvailableQuery
 import com.ttasjwi.board.system.user.domain.port.EmailFormatValidatePort
-import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
 import java.util.*
 
 @ApplicationProcessor
 internal class EmailAvailableProcessor(
     private val emailFormatValidatePort: EmailFormatValidatePort,
-    private val memberPersistencePort: MemberPersistencePort,
+    private val userPersistencePort: UserPersistencePort,
     private val messageResolver: MessageResolver,
 ) {
 
@@ -27,7 +27,7 @@ internal class EmailAvailableProcessor(
                 return makeResponse(query.email, false, "EmailAvailableCheck.InvalidFormat", query.locale)
             }
 
-        if (memberPersistencePort.existsByEmail(email)) {
+        if (userPersistencePort.existsByEmail(email)) {
             log.info { "이미 사용 중인 이메일입니다. (email = ${email})" }
             return makeResponse(email, false, "EmailAvailableCheck.Taken", query.locale)
         }

@@ -24,7 +24,7 @@ internal class TestContainer private constructor() {
     }
 
     val timeManagerFixture: TimeManagerFixture by lazy { TimeManagerFixture() }
-    val authMemberLoaderFixture: AuthUserLoaderFixture by lazy { AuthUserLoaderFixture() }
+    val authUserLoaderFixture: AuthUserLoaderFixture by lazy { AuthUserLoaderFixture() }
 
     // port
     val boardPersistencePortFixture: BoardPersistencePortFixture by lazy { BoardPersistencePortFixture() }
@@ -45,7 +45,7 @@ internal class TestContainer private constructor() {
             boardNamePolicy = boardNamePolicyFixture,
             boardDescriptionPolicy = boardDescriptionPolicyFixture,
             boardSlugPolicy = boardSlugPolicyFixture,
-            authUserLoader = authMemberLoaderFixture,
+            authUserLoader = authUserLoaderFixture,
             timeManager = timeManagerFixture
         )
     }
@@ -54,7 +54,7 @@ internal class TestContainer private constructor() {
         ArticleCategoryCreateCommandMapper(
             articleCategoryNamePolicy = articleCategoryNamePolicyFixture,
             articleCategorySlugPolicy = articleCategorySlugPolicyFixture,
-            authUserLoader = authMemberLoaderFixture,
+            authUserLoader = authUserLoaderFixture,
             timeManager = timeManagerFixture
         )
     }

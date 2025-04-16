@@ -21,7 +21,7 @@ class LoginUseCaseImplTest {
         val container = TestContainer.create()
         container.timeManagerFixture.changeCurrentTime(appDateTimeFixture(minute = 10))
 
-        savedUser = container.memberPersistencePortFixture.save(
+        savedUser = container.userPersistencePortFixture.save(
             userFixture(
                 email = "hello@gmail.com",
                 password = "1234",

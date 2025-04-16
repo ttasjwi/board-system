@@ -52,13 +52,13 @@ abstract class WebSupportIntegrationTest {
     }
 
     protected fun generateAccessTokenValue(
-        memberId: Long,
+        userId: Long,
         role: Role,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): String {
         return accessTokenGeneratePort.generate(
-            authUser = authUserFixture(memberId, role),
+            authUser = authUserFixture(userId, role),
             issuedAt = issuedAt,
             expiresAt = expiresAt,
         ).tokenValue

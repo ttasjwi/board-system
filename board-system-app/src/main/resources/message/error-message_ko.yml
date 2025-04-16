@@ -38,15 +38,15 @@ Error:
     message: "인증되지 않은 이메일"
     description: "이 이메일은 인증되지 않았습니다. 인증을 먼저 수행해주세요.(email={0})"
 
-  DuplicateMemberEmail:
+  DuplicateUserEmail:
     message: "이메일 중복"
-    description: "중복되는 이메일의 회원이 존재합니다.(email={0})"
-  DuplicateMemberUsername:
+    description: "중복되는 이메일의 사용자가 존재합니다.(email={0})"
+  DuplicateUserUsername:
     message: "사용자 아이디(username) 중복"
-    description: "중복되는 사용자 아이디(username)의 회원이 존재합니다.(username={0})"
-  DuplicateMemberNickname:
+    description: "중복되는 사용자 아이디(username)의 사용자가 존재합니다.(username={0})"
+  DuplicateUserNickname:
     message: "닉네임 중복"
-    description: "중복되는 닉네임의 회원이 존재합니다.(nickname={0})"
+    description: "중복되는 닉네임의 사용자가 존재합니다.(nickname={0})"
 
   LoginFailure:
     message: "로그인 실패"

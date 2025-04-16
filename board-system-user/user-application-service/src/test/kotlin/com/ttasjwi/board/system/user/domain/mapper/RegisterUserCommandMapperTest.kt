@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.user.domain.RegisterMemberRequest
+import com.ttasjwi.board.system.user.domain.RegisterUserRequest
 import com.ttasjwi.board.system.user.domain.policy.fixture.NicknamePolicyFixture
 import com.ttasjwi.board.system.user.domain.policy.fixture.PasswordPolicyFixture
 import com.ttasjwi.board.system.user.domain.policy.fixture.UsernamePolicyFixture
@@ -17,10 +17,10 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("RegisterMemberCommandMapper 테스트")
+@DisplayName("RegisterUserCommandMapper 테스트")
 class RegisterUserCommandMapperTest {
 
-    private lateinit var commandMapper: RegisterMemberCommandMapper
+    private lateinit var commandMapper: RegisterUserCommandMapper
     private lateinit var currentTime: AppDateTime
 
     @BeforeEach
@@ -28,14 +28,14 @@ class RegisterUserCommandMapperTest {
         val container = TestContainer.create()
         currentTime = appDateTimeFixture(minute = 6)
         container.timeManagerFixture.changeCurrentTime(currentTime)
-        commandMapper = container.registerMemberCommandMapper
+        commandMapper = container.registerUserCommandMapper
     }
 
     @Test
     @DisplayName("성공 테스트")
     fun testSuccess() {
         // given
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = "1234",
             username = "ttasjwi",
@@ -56,7 +56,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("이메일이 누락되면 예외 발생")
     fun testEmailNull() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = null,
             password = "1234",
             username = "ttasjwi",
@@ -77,7 +77,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("패스워드 누락되면 예외 발생")
     fun testPasswordNull() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = null,
             username = "ttasjwi",
@@ -98,7 +98,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("사용자아이디(username) 누락되면 예외 발생")
     fun testUsernameNull() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = "1234",
             username = null,
@@ -119,7 +119,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("닉네임 누락되면 예외 발생")
     fun testNicknameNull() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = "1234",
             username = "ttasjwi",
@@ -140,7 +140,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("이메일 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidEmailFormat() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = EmailFormatValidatePortFixture.ERROR_EMAIL,
             password = "1234",
             username = "ttasjwi",
@@ -161,7 +161,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("패스워드 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidPasswordFormat() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = PasswordPolicyFixture.ERROR_PASSWORD,
             username = "ttasjwi",
@@ -182,7 +182,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("사용자아이디(username) 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidUsernameFormat() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = "1234",
             username = UsernamePolicyFixture.ERROR_USERNAME,
@@ -203,7 +203,7 @@ class RegisterUserCommandMapperTest {
     @Test
     @DisplayName("닉네임 포맷이 유효하지 않을 때 예외 발생")
     fun testInvalidNicknameFormat() {
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = "hello@gmail.com",
             password = "1234",
             username = "ttasjwi",

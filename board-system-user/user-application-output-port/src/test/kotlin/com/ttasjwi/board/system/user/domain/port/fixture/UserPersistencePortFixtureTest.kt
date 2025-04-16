@@ -8,14 +8,14 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("MemberStorageFixture(Appender, Finder) 테스트")
+@DisplayName("UserStorageFixture(Appender, Finder) 테스트")
 class UserPersistencePortFixtureTest {
 
-    private lateinit var memberPersistencePortFixture: MemberPersistencePortFixture
+    private lateinit var userPersistencePortFixture: UserPersistencePortFixture
 
     @BeforeEach
     fun init() {
-        memberPersistencePortFixture = MemberPersistencePortFixture()
+        userPersistencePortFixture = UserPersistencePortFixture()
     }
 
     @Nested
@@ -26,45 +26,45 @@ class UserPersistencePortFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
+            val user = userFixture()
 
             // when
-            val savedMember = memberPersistencePortFixture.save(member)
+            val savedUser = userPersistencePortFixture.save(user)
 
             // then
-            assertThat(savedMember.userId).isNotNull
-            assertThat(savedMember.email).isEqualTo(member.email)
-            assertThat(savedMember.password).isEqualTo(member.password)
-            assertThat(savedMember.username).isEqualTo(member.username)
-            assertThat(savedMember.nickname).isEqualTo(member.nickname)
-            assertThat(savedMember.role).isEqualTo(member.role)
-            assertThat(savedMember.registeredAt).isEqualTo(member.registeredAt)
+            assertThat(savedUser.userId).isNotNull
+            assertThat(savedUser.email).isEqualTo(user.email)
+            assertThat(savedUser.password).isEqualTo(user.password)
+            assertThat(savedUser.username).isEqualTo(user.username)
+            assertThat(savedUser.nickname).isEqualTo(user.nickname)
+            assertThat(savedUser.role).isEqualTo(user.role)
+            assertThat(savedUser.registeredAt).isEqualTo(user.registeredAt)
         }
 
         @DisplayName("id 가 있는 회원을 저장하고 조회하면 기존 회원 정보를 덮어쓴 채 조회된다.")
         @Test
         fun test2() {
             // given
-            val savedMember = memberPersistencePortFixture.save(
+            val savedUser = userPersistencePortFixture.save(
                 userFixture(
                     password = "1111",
                 )
             )
 
-            val changedMember = memberPersistencePortFixture.save(
+            val changedUser = userPersistencePortFixture.save(
                 userFixture(
-                    userId = savedMember.userId,
+                    userId = savedUser.userId,
                     password = "2222",
                 )
             )
 
             // when
-            val findMember = memberPersistencePortFixture.findByIdOrNull(savedMember.userId)!!
+            val findUser = userPersistencePortFixture.findByIdOrNull(savedUser.userId)!!
 
             // then
-            assertThat(findMember.userId).isEqualTo(savedMember.userId)
-            assertThat(findMember.userId).isEqualTo(changedMember.userId)
-            assertThat(findMember.password).isEqualTo(changedMember.password)
+            assertThat(findUser.userId).isEqualTo(savedUser.userId)
+            assertThat(findUser.userId).isEqualTo(changedUser.userId)
+            assertThat(findUser.password).isEqualTo(changedUser.password)
         }
 
     }
@@ -77,62 +77,62 @@ class UserPersistencePortFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistencePortFixture.save(userFixture())
+            val user = userFixture()
+            val savedUser = userPersistencePortFixture.save(userFixture())
 
             // when
-            val findMember = memberPersistencePortFixture.findByIdOrNull(savedMember.userId)!!
+            val findUser = userPersistencePortFixture.findByIdOrNull(savedUser.userId)!!
 
 
             // then
-            assertThat(findMember).isNotNull
-            assertThat(findMember.email).isEqualTo(member.email)
-            assertThat(findMember.username).isEqualTo(member.username)
-            assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password).isEqualTo(member.password)
-            assertThat(findMember.role).isEqualTo(member.role)
-            assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
+            assertThat(findUser).isNotNull
+            assertThat(findUser.email).isEqualTo(user.email)
+            assertThat(findUser.username).isEqualTo(user.username)
+            assertThat(findUser.nickname).isEqualTo(user.nickname)
+            assertThat(findUser.password).isEqualTo(user.password)
+            assertThat(findUser.role).isEqualTo(user.role)
+            assertThat(findUser.registeredAt).isEqualTo(user.registeredAt)
         }
 
         @DisplayName("존재하지 않는 id로 조회하면 null이 조회됨")
         @Test
         fun test2() {
             // given
-            val memberId = 1557L
+            val userId = 1557L
 
             // when
-            val findMember = memberPersistencePortFixture.findByIdOrNull(memberId)
+            val findUser = userPersistencePortFixture.findByIdOrNull(userId)
 
             // then
-            assertThat(findMember).isNull()
+            assertThat(findUser).isNull()
         }
     }
 
     @Nested
-    @DisplayName("findAuthMemberOrNull : 회원을 인증회원 형태로 복원해 조회한다.")
+    @DisplayName("findAuthUserOrNull : 회원을 인증회원 형태로 복원해 조회한다.")
     inner class FindAuthUserOrNullTest {
 
 
         @Test
-        @DisplayName("회원이 있으면 authMember 형태로 조회된다.")
+        @DisplayName("회원이 있으면 authUser 형태로 조회된다.")
         fun success() {
-            val memberId = 149L
+            val userId = 149L
             val role = Role.ROOT
-            val member = userFixture(userId = memberId, role = role)
-            memberPersistencePortFixture.save(member)
+            val user = userFixture(userId = userId, role = role)
+            userPersistencePortFixture.save(user)
 
-            val authMember = memberPersistencePortFixture.findAuthUserOrNull(memberId)!!
+            val authUser = userPersistencePortFixture.findAuthUserOrNull(userId)!!
 
-            assertThat(authMember.userId).isEqualTo(member.userId)
-            assertThat(authMember.role).isEqualTo(role)
+            assertThat(authUser.userId).isEqualTo(user.userId)
+            assertThat(authUser.role).isEqualTo(role)
         }
 
         @Test
         @DisplayName("회원이 없으면 null 이 반환된다.")
         fun nullTest() {
-            val memberId = 121356L
-            val authMember = memberPersistencePortFixture.findAuthUserOrNull(memberId)
-            assertThat(authMember).isNull()
+            val userId = 121356L
+            val authUser = userPersistencePortFixture.findAuthUserOrNull(userId)
+            assertThat(authUser).isNull()
         }
     }
 
@@ -145,16 +145,16 @@ class UserPersistencePortFixtureTest {
         @DisplayName("이메일에 해당하는 회원이 있을 경우 반환된다.")
         fun successTest() {
             // given
-            val member = userFixture(userId = 233L, email = "jest@gmail.com")
-            val savedMember = memberPersistencePortFixture.save(member)
+            val user = userFixture(userId = 233L, email = "jest@gmail.com")
+            val savedUser = userPersistencePortFixture.save(user)
 
             // when
-            val findMember = memberPersistencePortFixture.findByEmailOrNull(savedMember.email)!!
+            val findUser = userPersistencePortFixture.findByEmailOrNull(savedUser.email)!!
 
             // then
-            assertThat(findMember).isNotNull
-            assertThat(findMember.userId).isEqualTo(savedMember.userId)
-            assertThat(findMember.email).isEqualTo(savedMember.email)
+            assertThat(findUser).isNotNull
+            assertThat(findUser.userId).isEqualTo(savedUser.userId)
+            assertThat(findUser.email).isEqualTo(savedUser.email)
         }
 
 
@@ -165,10 +165,10 @@ class UserPersistencePortFixtureTest {
             val email = "abcd@gmail.com"
 
             // when
-            val findMember = memberPersistencePortFixture.findByEmailOrNull(email)
+            val findUser = userPersistencePortFixture.findByEmailOrNull(email)
 
             // then
-            assertThat(findMember).isNull()
+            assertThat(findUser).isNull()
         }
     }
 
@@ -180,11 +180,11 @@ class UserPersistencePortFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistencePortFixture.save(member)
+            val user = userFixture()
+            val savedUser = userPersistencePortFixture.save(user)
 
             // when
-            val isExist = memberPersistencePortFixture.existsByEmail(savedMember.email)
+            val isExist = userPersistencePortFixture.existsByEmail(savedUser.email)
 
             // then
             assertThat(isExist).isTrue()
@@ -197,7 +197,7 @@ class UserPersistencePortFixtureTest {
             val email = "abcd@gmail.com"
 
             // when
-            val isExist = memberPersistencePortFixture.existsByEmail(email)
+            val isExist = userPersistencePortFixture.existsByEmail(email)
 
             // then
             assertThat(isExist).isFalse()
@@ -212,11 +212,11 @@ class UserPersistencePortFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistencePortFixture.save(member)
+            val user = userFixture()
+            val savedUser = userPersistencePortFixture.save(user)
 
             // when
-            val isExist = memberPersistencePortFixture.existsByNickname(savedMember.nickname)
+            val isExist = userPersistencePortFixture.existsByNickname(savedUser.nickname)
 
             // then
             assertThat(isExist).isTrue()
@@ -229,7 +229,7 @@ class UserPersistencePortFixtureTest {
             val nickname = "페이커"
 
             // when
-            val isExist = memberPersistencePortFixture.existsByNickname(nickname)
+            val isExist = userPersistencePortFixture.existsByNickname(nickname)
 
             // then
             assertThat(isExist).isFalse()
@@ -244,11 +244,11 @@ class UserPersistencePortFixtureTest {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistencePortFixture.save(member)
+            val user = userFixture()
+            val savedUser = userPersistencePortFixture.save(user)
 
             // when
-            val isExist = memberPersistencePortFixture.existsByUsername(savedMember.username)
+            val isExist = userPersistencePortFixture.existsByUsername(savedUser.username)
 
             // then
             assertThat(isExist).isTrue()
@@ -260,7 +260,7 @@ class UserPersistencePortFixtureTest {
             // given
             val username = "abcd124"
             // when
-            val isExist = memberPersistencePortFixture.existsByUsername(username)
+            val isExist = userPersistencePortFixture.existsByUsername(username)
 
             // then
             assertThat(isExist).isFalse()

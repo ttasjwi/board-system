@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.auth.RefreshTokenGeneratePort
 import com.ttasjwi.board.system.common.auth.RefreshTokenParsePort
 import com.ttasjwi.board.system.common.auth.fixture.refreshTokenFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.user.domain.port.MemberRefreshTokenIdListPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserRefreshTokenIdListPersistencePort
 import com.ttasjwi.board.system.user.domain.port.RefreshTokenIdPersistencePort
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -17,7 +17,7 @@ class RefreshTokenHandlerTest {
     private lateinit var refreshTokenHandler: RefreshTokenHandler
     private lateinit var refreshTokenGeneratePort: RefreshTokenGeneratePort
     private lateinit var refreshTokenParsePort: RefreshTokenParsePort
-    private lateinit var memberRefreshTokenIdListPersistencePort: MemberRefreshTokenIdListPersistencePort
+    private lateinit var userRefreshTokenIdListPersistencePort: UserRefreshTokenIdListPersistencePort
     private lateinit var refreshTokenIdPersistencePort: RefreshTokenIdPersistencePort
 
     @BeforeEach
@@ -26,7 +26,7 @@ class RefreshTokenHandlerTest {
         refreshTokenHandler = container.refreshTokenHandler
         refreshTokenGeneratePort = container.refreshTokenPortFixture
         refreshTokenParsePort = container.refreshTokenPortFixture
-        memberRefreshTokenIdListPersistencePort = container.memberRefreshTokenIdListPersistencePortFixture
+        userRefreshTokenIdListPersistencePort = container.userRefreshTokenIdListPersistencePortFixture
         refreshTokenIdPersistencePort = container.refreshTokenIdPersistencePortFixture
     }
 
@@ -38,49 +38,49 @@ class RefreshTokenHandlerTest {
         @DisplayName("생성 후 저장된다.")
         fun simpleSuccess() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val issuedAt = appDateTimeFixture(dayOfMonth = 1)
 
             // when
-            val refreshToken = refreshTokenHandler.createAndPersist(memberId, issuedAt)
+            val refreshToken = refreshTokenHandler.createAndPersist(userId, issuedAt)
 
             // then
-            val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
-            val createdTokenIsSaved = refreshTokenIdPersistencePort.exists(memberId, refreshToken.refreshTokenId)
+            val userRefreshTokenIds = userRefreshTokenIdListPersistencePort.findAll(userId)
+            val createdTokenIsSaved = refreshTokenIdPersistencePort.exists(userId, refreshToken.refreshTokenId)
 
-            assertThat(refreshToken.memberId).isEqualTo(memberId)
+            assertThat(refreshToken.userId).isEqualTo(userId)
             assertThat(refreshToken.refreshTokenId).isNotNull()
             assertThat(refreshToken.tokenValue).isNotNull()
-            assertThat(memberRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)
+            assertThat(userRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)
             assertThat(createdTokenIsSaved).isTrue()
         }
 
         @Test
         @DisplayName("생성 후 저장과정하기 직전, 실제 만료된 리프레시토큰Id 들을 찾아 회원리프레시토큰Id 목록에서 제거 후 저장한다.")
-        fun actuallyExpiredTokenRemoveFromMemberRefreshTokenIdListTest() {
+        fun actuallyExpiredTokenRemoveFromUserRefreshTokenIdListTest() {
             // given
-            val memberId = 2L
+            val userId = 2L
 
-            memberRefreshTokenIdListPersistencePort.add(memberId, 1L, limit = 3)
+            userRefreshTokenIdListPersistencePort.add(userId, 1L, limit = 3)
 
-            memberRefreshTokenIdListPersistencePort.add(memberId, 2L, limit = 2)
-            refreshTokenIdPersistencePort.save(memberId, 2L, expiresAt = appDateTimeFixture(dayOfMonth = 2, hour = 1))
+            userRefreshTokenIdListPersistencePort.add(userId, 2L, limit = 2)
+            refreshTokenIdPersistencePort.save(userId, 2L, expiresAt = appDateTimeFixture(dayOfMonth = 2, hour = 1))
 
             val issuedAt = appDateTimeFixture(dayOfMonth = 1, hour = 2)
 
             // when
-            val refreshToken = refreshTokenHandler.createAndPersist(memberId, issuedAt)
+            val refreshToken = refreshTokenHandler.createAndPersist(userId, issuedAt)
 
             // then
-            val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
+            val userRefreshTokenIds = userRefreshTokenIdListPersistencePort.findAll(userId)
 
-            assertThat(refreshToken.memberId).isEqualTo(memberId)
+            assertThat(refreshToken.userId).isEqualTo(userId)
             assertThat(refreshToken.refreshTokenId).isNotNull()
             assertThat(refreshToken.tokenValue).isNotNull()
-            assertThat(memberRefreshTokenIds).containsExactlyInAnyOrder(2L, refreshToken.refreshTokenId)
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, 1L)).isFalse()
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, 2L)).isTrue()
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, refreshToken.refreshTokenId)).isTrue()
+            assertThat(userRefreshTokenIds).containsExactlyInAnyOrder(2L, refreshToken.refreshTokenId)
+            assertThat(refreshTokenIdPersistencePort.exists(userId, 1L)).isFalse()
+            assertThat(refreshTokenIdPersistencePort.exists(userId, 2L)).isTrue()
+            assertThat(refreshTokenIdPersistencePort.exists(userId, refreshToken.refreshTokenId)).isTrue()
         }
 
         /**
@@ -93,26 +93,26 @@ class RefreshTokenHandlerTest {
         @DisplayName("회원의 토큰목록이 가득찼고 모두 유효하다면, 가장 오래된 토큰을 제거하고 새로운 토큰을 추가한다.")
         fun ifTokenCountIsMaximumTest1() {
             // given
-            val memberId = 1L
-            val saveCount = RefreshTokenHandler.MAX_MEMBER_REFRESH_TOKEN_COUNT + 1
+            val userId = 1L
+            val saveCount = RefreshTokenHandler.MAX_USER_REFRESH_TOKEN_COUNT + 1
 
             // when
             val savedTokenIds = mutableListOf<Long>()
             for (i in 1..saveCount) {
                 val token = refreshTokenHandler.createAndPersist(
-                    memberId = 1L,
+                    userId = 1L,
                     issuedAt = appDateTimeFixture(dayOfMonth = 1, minute = i)
                 )
                 savedTokenIds.add(token.refreshTokenId)
             }
 
             // then
-            val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
+            val userRefreshTokenIds = userRefreshTokenIdListPersistencePort.findAll(userId)
 
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, savedTokenIds.first())).isFalse()
+            assertThat(refreshTokenIdPersistencePort.exists(userId, savedTokenIds.first())).isFalse()
 
             savedTokenIds.removeFirst()
-            assertThat(memberRefreshTokenIds).containsExactlyInAnyOrderElementsOf(savedTokenIds)
+            assertThat(userRefreshTokenIds).containsExactlyInAnyOrderElementsOf(savedTokenIds)
         }
 
 
@@ -120,34 +120,34 @@ class RefreshTokenHandlerTest {
         @DisplayName("회원의 토큰목록이 가득찼으나 존재하지 않는 토큰이 하나라도 있는 경우, 가장 오래된 토큰은 제거되지 않는다.")
         fun ifTokenCountIsMaximumTest2() {
             // given
-            val memberId = 1L
+            val userId = 1L
 
             // when
             val firstToken = refreshTokenHandler.createAndPersist(
-                memberId = 1,
+                userId = 1,
                 issuedAt = appDateTimeFixture(dayOfMonth = 1, minute = 1)
             )
 
             var currentTokenId = firstToken.refreshTokenId
-            for (i in 2..RefreshTokenHandler.MAX_MEMBER_REFRESH_TOKEN_COUNT) {
+            for (i in 2..RefreshTokenHandler.MAX_USER_REFRESH_TOKEN_COUNT) {
                 currentTokenId += 1L
-                memberRefreshTokenIdListPersistencePort.add(
-                    memberId,
+                userRefreshTokenIdListPersistencePort.add(
+                    userId,
                     refreshTokenId = currentTokenId,
-                    limit = RefreshTokenHandler.MAX_MEMBER_REFRESH_TOKEN_COUNT.toLong()
+                    limit = RefreshTokenHandler.MAX_USER_REFRESH_TOKEN_COUNT.toLong()
                 )
             }
 
             val lastToken = refreshTokenHandler.createAndPersist(
-                memberId = 1,
+                userId = 1,
                 issuedAt = appDateTimeFixture(dayOfMonth = 1, minute = 20)
             )
 
             // then
-            val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, firstToken.refreshTokenId)).isTrue()
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, lastToken.refreshTokenId)).isTrue()
-            assertThat(memberRefreshTokenIds).containsExactlyInAnyOrder(
+            val userRefreshTokenIds = userRefreshTokenIdListPersistencePort.findAll(userId)
+            assertThat(refreshTokenIdPersistencePort.exists(userId, firstToken.refreshTokenId)).isTrue()
+            assertThat(refreshTokenIdPersistencePort.exists(userId, lastToken.refreshTokenId)).isTrue()
+            assertThat(userRefreshTokenIds).containsExactlyInAnyOrder(
                 firstToken.refreshTokenId,
                 lastToken.refreshTokenId
             )
@@ -174,7 +174,7 @@ class RefreshTokenHandlerTest {
             val parsedToken = refreshTokenHandler.parse(refreshToken.tokenValue)
 
             // then
-            assertThat(parsedToken.memberId).isEqualTo(refreshToken.memberId)
+            assertThat(parsedToken.userId).isEqualTo(refreshToken.userId)
             assertThat(parsedToken.refreshTokenId).isEqualTo(refreshToken.refreshTokenId)
             assertThat(parsedToken.issuedAt).isEqualTo(refreshToken.issuedAt)
             assertThat(parsedToken.expiresAt).isEqualTo(refreshToken.expiresAt)
@@ -192,7 +192,7 @@ class RefreshTokenHandlerTest {
         fun test1() {
             // given
             val refreshToken = refreshTokenHandler.createAndPersist(
-                memberId = 1L,
+                userId = 1L,
                 issuedAt = appDateTimeFixture(dayOfMonth = 1, minute = 0)
             )
 
@@ -211,7 +211,7 @@ class RefreshTokenHandlerTest {
         fun test2() {
             // given
             val refreshToken =
-                refreshTokenFixture(memberId = 1L, refreshTokenId = 1L, expiresAt = appDateTimeFixture(dayOfMonth = 2))
+                refreshTokenFixture(userId = 1L, refreshTokenId = 1L, expiresAt = appDateTimeFixture(dayOfMonth = 2))
 
             //when
             val ex = assertThrows<RefreshTokenExpiredException> {
@@ -229,7 +229,7 @@ class RefreshTokenHandlerTest {
         fun test3() {
             // given
             val refreshToken =
-                refreshTokenFixture(memberId = 1L, refreshTokenId = 1L, expiresAt = appDateTimeFixture(dayOfMonth = 2))
+                refreshTokenFixture(userId = 1L, refreshTokenId = 1L, expiresAt = appDateTimeFixture(dayOfMonth = 2))
 
             // when
             // then
@@ -258,9 +258,9 @@ class RefreshTokenHandlerTest {
         @DisplayName("리프레시 토큰 재갱신이 필요할 경우 갱신하고, 기존 토큰을 말소한다.")
         fun test1() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val prevRefreshToken = refreshTokenHandler.createAndPersist(
-                memberId = memberId,
+                userId = userId,
                 issuedAt = appDateTimeFixture(dayOfMonth = 1, minute = 0)
             )
 
@@ -275,16 +275,16 @@ class RefreshTokenHandlerTest {
             )
 
             // then
-            val memberTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
-            assertThat(newRefreshToken.memberId).isEqualTo(prevRefreshToken.memberId)
+            val userTokenIds = userRefreshTokenIdListPersistencePort.findAll(userId)
+            assertThat(newRefreshToken.userId).isEqualTo(prevRefreshToken.userId)
             assertThat(newRefreshToken.refreshTokenId).isNotEqualTo(prevRefreshToken.refreshTokenId)
             assertThat(newRefreshToken.tokenValue).isNotEqualTo(prevRefreshToken.tokenValue)
             assertThat(newRefreshToken.issuedAt).isNotEqualTo(prevRefreshToken.issuedAt)
             assertThat(newRefreshToken.expiresAt).isNotEqualTo(prevRefreshToken.expiresAt)
 
-            assertThat(memberTokenIds).containsExactly(newRefreshToken.refreshTokenId)
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, prevRefreshToken.refreshTokenId)).isFalse()
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, newRefreshToken.refreshTokenId)).isTrue()
+            assertThat(userTokenIds).containsExactly(newRefreshToken.refreshTokenId)
+            assertThat(refreshTokenIdPersistencePort.exists(userId, prevRefreshToken.refreshTokenId)).isFalse()
+            assertThat(refreshTokenIdPersistencePort.exists(userId, newRefreshToken.refreshTokenId)).isTrue()
         }
 
         /**
@@ -294,9 +294,9 @@ class RefreshTokenHandlerTest {
         @DisplayName("리프레시 토큰 재갱신이 필요하지 않을 경우 갱신하지 않고 그대로 반환한다.")
         fun test2() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val prevRefreshToken = refreshTokenHandler.createAndPersist(
-                memberId = memberId,
+                userId = userId,
                 issuedAt = appDateTimeFixture(dayOfMonth = 1, minute = 0)
             )
 
@@ -309,15 +309,15 @@ class RefreshTokenHandlerTest {
             )
 
             // then
-            val memberTokenIds = memberRefreshTokenIdListPersistencePort.findAll(memberId)
-            assertThat(newRefreshToken.memberId).isEqualTo(prevRefreshToken.memberId)
+            val userTokenIds = userRefreshTokenIdListPersistencePort.findAll(userId)
+            assertThat(newRefreshToken.userId).isEqualTo(prevRefreshToken.userId)
             assertThat(newRefreshToken.refreshTokenId).isEqualTo(prevRefreshToken.refreshTokenId)
             assertThat(newRefreshToken.tokenValue).isEqualTo(prevRefreshToken.tokenValue)
             assertThat(newRefreshToken.issuedAt).isEqualTo(prevRefreshToken.issuedAt)
             assertThat(newRefreshToken.expiresAt).isEqualTo(prevRefreshToken.expiresAt)
 
-            assertThat(memberTokenIds).containsExactly(prevRefreshToken.refreshTokenId)
-            assertThat(refreshTokenIdPersistencePort.exists(memberId, prevRefreshToken.refreshTokenId)).isTrue()
+            assertThat(userTokenIds).containsExactly(prevRefreshToken.refreshTokenId)
+            assertThat(refreshTokenIdPersistencePort.exists(userId, prevRefreshToken.refreshTokenId)).isTrue()
         }
     }
 }

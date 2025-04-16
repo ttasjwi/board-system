@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.user.domain.dto.TokenRefreshCommand
 import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
-import com.ttasjwi.board.system.user.domain.port.fixture.MemberRefreshTokenIdListPersistencePortFixture
+import com.ttasjwi.board.system.user.domain.port.fixture.UserRefreshTokenIdListPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.RefreshTokenIdPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
@@ -21,7 +21,7 @@ class TokenRefreshProcessorTest {
 
     private lateinit var processor: TokenRefreshProcessor
     private lateinit var refreshTokenHandler: RefreshTokenHandler
-    private lateinit var memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture
+    private lateinit var userRefreshTokenIdListPersistencePortFixture: UserRefreshTokenIdListPersistencePortFixture
     private lateinit var refreshTokenIdPersistencePortFixture: RefreshTokenIdPersistencePortFixture
     private lateinit var user: User
 
@@ -30,10 +30,10 @@ class TokenRefreshProcessorTest {
         val container = TestContainer.create()
 
         refreshTokenHandler = container.refreshTokenHandler
-        memberRefreshTokenIdListPersistencePortFixture = container.memberRefreshTokenIdListPersistencePortFixture
+        userRefreshTokenIdListPersistencePortFixture = container.userRefreshTokenIdListPersistencePortFixture
         refreshTokenIdPersistencePortFixture = container.refreshTokenIdPersistencePortFixture
         processor = container.tokenRefreshProcessor
-        user = container.memberPersistencePortFixture.save(
+        user = container.userPersistencePortFixture.save(
             userFixture(
                 userId = 145688L,
                 role = Role.ADMIN,
@@ -59,21 +59,21 @@ class TokenRefreshProcessorTest {
         val (accessToken, newRefreshToken) = processor.tokenRefresh(command)
 
         // then
-        val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(user.userId)
+        val userRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(user.userId)
         val isPrevRefreshTokenExists = refreshTokenIdPersistencePortFixture.exists(user.userId, refreshToken.refreshTokenId)
 
-        assertThat(accessToken.authUser.userId).isEqualTo(refreshToken.memberId)
+        assertThat(accessToken.authUser.userId).isEqualTo(refreshToken.userId)
         assertThat(accessToken.authUser.role).isEqualTo(user.role)
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
 
-        assertThat(newRefreshToken.memberId).isEqualTo(refreshToken.memberId)
+        assertThat(newRefreshToken.userId).isEqualTo(refreshToken.userId)
         assertThat(newRefreshToken.refreshTokenId).isEqualTo(refreshToken.refreshTokenId)
         assertThat(newRefreshToken.tokenValue).isEqualTo(refreshToken.tokenValue)
         assertThat(newRefreshToken.issuedAt).isEqualTo(refreshToken.issuedAt)
         assertThat(newRefreshToken.expiresAt).isEqualTo(refreshToken.expiresAt)
 
-        assertThat(memberRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)
+        assertThat(userRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)
         assertThat(isPrevRefreshTokenExists).isTrue()
     }
 
@@ -95,30 +95,30 @@ class TokenRefreshProcessorTest {
         val (accessToken, newRefreshToken) = processor.tokenRefresh(command)
 
         // then
-        val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(user.userId)
+        val userRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(user.userId)
         val isPrevRefreshTokenExists = refreshTokenIdPersistencePortFixture.exists(user.userId, refreshToken.refreshTokenId)
         val isNewRefreshTokenExists = refreshTokenIdPersistencePortFixture.exists(user.userId, newRefreshToken.refreshTokenId)
 
-        assertThat(accessToken.authUser.userId).isEqualTo(refreshToken.memberId)
+        assertThat(accessToken.authUser.userId).isEqualTo(refreshToken.userId)
         assertThat(accessToken.authUser.role).isEqualTo(user.role)
         assertThat(accessToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(command.currentTime.plusMinutes(30))
 
 
-        assertThat(newRefreshToken.memberId).isEqualTo(refreshToken.memberId)
+        assertThat(newRefreshToken.userId).isEqualTo(refreshToken.userId)
         assertThat(newRefreshToken.refreshTokenId).isNotEqualTo(refreshToken.refreshTokenId)
         assertThat(newRefreshToken.tokenValue).isNotEqualTo(refreshToken.tokenValue)
         assertThat(newRefreshToken.issuedAt).isEqualTo(command.currentTime)
         assertThat(newRefreshToken.expiresAt).isEqualTo(command.currentTime.plusHours(RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR))
 
-        assertThat(memberRefreshTokenIds).containsExactly(newRefreshToken.refreshTokenId)
+        assertThat(userRefreshTokenIds).containsExactly(newRefreshToken.refreshTokenId)
         assertThat(isPrevRefreshTokenExists).isFalse()
         assertThat(isNewRefreshTokenExists).isTrue()
     }
 
     @Test
     @DisplayName("리프레시토큰은 파싱됐으나, 회원이 존재하지 않을 경우 예외가 발생한다.")
-    fun testMemberNotFound() {
+    fun testUserNotFound() {
         val refreshToken = refreshTokenHandler.createAndPersist(1343514131L, appDateTimeFixture())
 
         val command = TokenRefreshCommand(refreshToken.tokenValue, appDateTimeFixture(hour = 5))

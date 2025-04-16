@@ -21,9 +21,9 @@ class UsernameAvailableProcessorTest {
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        val memberPersistencePortFixture = container.memberPersistencePortFixture
+        val userPersistencePortFixture = container.userPersistencePortFixture
         processor = container.usernameAvailableProcessor
-        savedUser = memberPersistencePortFixture.save(
+        savedUser = userPersistencePortFixture.save(
             userFixture(
                 username = "notregistered"
             )

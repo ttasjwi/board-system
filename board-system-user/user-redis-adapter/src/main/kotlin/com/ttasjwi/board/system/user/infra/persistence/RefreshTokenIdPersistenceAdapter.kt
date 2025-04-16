@@ -12,25 +12,25 @@ class RefreshTokenIdPersistenceAdapter(
 
     companion object {
 
-        // board-system::member::{memberId}::refresh-token::{refreshTokenId}
-        private const val KEY_FORMAT = "board-system::member::%s::refresh-token::%s"
+        // board-system::user::{userId}::refresh-token::{refreshTokenId}
+        private const val KEY_FORMAT = "board-system::user::%s::refresh-token::%s"
     }
 
-    override fun save(memberId: Long, refreshTokenId: Long, expiresAt: AppDateTime) {
-        val key = generateKey(memberId, refreshTokenId)
+    override fun save(userId: Long, refreshTokenId: Long, expiresAt: AppDateTime) {
+        val key = generateKey(userId, refreshTokenId)
         redisTemplate.opsForValue().set(key, refreshTokenId.toString())
         redisTemplate.expireAt(key, expiresAt.toInstant())
     }
 
-    override fun exists(memberId: Long, refreshTokenId: Long): Boolean {
-        return redisTemplate.hasKey(generateKey(memberId, refreshTokenId))
+    override fun exists(userId: Long, refreshTokenId: Long): Boolean {
+        return redisTemplate.hasKey(generateKey(userId, refreshTokenId))
     }
 
-    override fun remove(memberId: Long, refreshTokenId: Long) {
-        redisTemplate.delete(generateKey(memberId, refreshTokenId))
+    override fun remove(userId: Long, refreshTokenId: Long) {
+        redisTemplate.delete(generateKey(userId, refreshTokenId))
     }
 
-    private fun generateKey(memberId: Long, refreshTokenId: Long): String {
-        return KEY_FORMAT.format(memberId, refreshTokenId)
+    private fun generateKey(userId: Long, refreshTokenId: Long): String {
+        return KEY_FORMAT.format(userId, refreshTokenId)
     }
 }

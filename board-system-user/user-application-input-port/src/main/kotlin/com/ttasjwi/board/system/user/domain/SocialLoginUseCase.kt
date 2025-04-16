@@ -23,12 +23,12 @@ data class SocialLoginResponse(
     val accessTokenExpiresAt: ZonedDateTime,
     val refreshToken: String,
     val refreshTokenExpiresAt: ZonedDateTime,
-    val memberCreated: Boolean,
-    val createdMember: CreatedMember?,
+    val userCreated: Boolean,
+    val createdUser: CreatedUser?,
 ) {
 
-    data class CreatedMember(
-        val memberId: String,
+    data class CreatedUser(
+        val userId: String,
         val email: String,
         val username: String,
         val nickname: String,

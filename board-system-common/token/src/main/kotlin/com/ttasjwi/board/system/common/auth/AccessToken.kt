@@ -45,7 +45,7 @@ internal constructor(
          * 이 메서드는 순수하게 AccessToken 객체를 생성만 하며, 내부에서는 어떠한 유효성 검사도 수행하지 않습니다.
          */
         fun restore(
-            memberId: Long,
+            userId: Long,
             roleName: String,
             tokenValue: String,
             issuedAt: Instant,
@@ -53,7 +53,7 @@ internal constructor(
         ): AccessToken {
             return AccessToken(
                 authUser = AuthUser.restore(
-                    userId = memberId,
+                    userId = userId,
                     roleName = roleName,
                 ),
                 tokenType = VALID_TOKEN_TYPE,

@@ -16,23 +16,23 @@ class JwtRefreshTokenGenerateAdapter(
     }
 
     override fun generate(
-        memberId: Long,
+        userId: Long,
         refreshTokenId: Long,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): RefreshToken {
-        val jwt = makeJwt(memberId, refreshTokenId, issuedAt, expiresAt)
+        val jwt = makeJwt(userId, refreshTokenId, issuedAt, expiresAt)
         return makeRefreshTokenFromJwt(jwt)
     }
 
     private fun makeJwt(
-        memberId: Long,
+        userId: Long,
         refreshTokenId: Long,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): Jwt {
         val jwsHeader = makeHeader()
-        val jwtClaimsSet = makeClaimSet(memberId, refreshTokenId, issuedAt, expiresAt)
+        val jwtClaimsSet = makeClaimSet(userId, refreshTokenId, issuedAt, expiresAt)
         val params = JwtEncoderParameters.from(jwsHeader, jwtClaimsSet)
 
         return jwtEncoder.encode(params)
@@ -45,13 +45,13 @@ class JwtRefreshTokenGenerateAdapter(
     }
 
     private fun makeClaimSet(
-        memberId: Long,
+        userId: Long,
         refreshTokenId: Long,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): JwtClaimsSet {
         return JwtClaimsSet.builder()
-            .subject(memberId.toString())
+            .subject(userId.toString())
             .issuer(RefreshToken.VALID_ISSUER)
             .issuedAt(issuedAt.toInstant())
             .expiresAt(expiresAt.toInstant())
@@ -62,7 +62,7 @@ class JwtRefreshTokenGenerateAdapter(
 
     private fun makeRefreshTokenFromJwt(jwt: Jwt): RefreshToken {
         return RefreshToken.restore(
-            memberId = jwt.subject.toLong(),
+            userId = jwt.subject.toLong(),
             refreshTokenId = jwt.getClaim(REFRESH_TOKEN_ID_CLAIM),
             tokenValue = jwt.tokenValue,
             issuedAt = jwt.issuedAt!!,

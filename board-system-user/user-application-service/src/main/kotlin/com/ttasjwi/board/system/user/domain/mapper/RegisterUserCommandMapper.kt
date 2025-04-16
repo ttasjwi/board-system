@@ -5,15 +5,15 @@ import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.logger.getLogger
 import com.ttasjwi.board.system.common.time.TimeManager
-import com.ttasjwi.board.system.user.domain.RegisterMemberRequest
-import com.ttasjwi.board.system.user.domain.dto.RegisterMemberCommand
+import com.ttasjwi.board.system.user.domain.RegisterUserRequest
+import com.ttasjwi.board.system.user.domain.dto.RegisterUserCommand
 import com.ttasjwi.board.system.user.domain.policy.NicknamePolicy
 import com.ttasjwi.board.system.user.domain.policy.PasswordPolicy
 import com.ttasjwi.board.system.user.domain.policy.UsernamePolicy
 import com.ttasjwi.board.system.user.domain.port.EmailFormatValidatePort
 
 @ApplicationCommandMapper
-internal class RegisterMemberCommandMapper(
+internal class RegisterUserCommandMapper(
     private val emailFormatValidatePort: EmailFormatValidatePort,
     private val usernamePolicy: UsernamePolicy,
     private val nicknamePolicy: NicknamePolicy,
@@ -21,10 +21,10 @@ internal class RegisterMemberCommandMapper(
     private val timeManager: TimeManager,
 ) {
     companion object {
-        private val log = getLogger(RegisterMemberCommandMapper::class.java)
+        private val log = getLogger(RegisterUserCommandMapper::class.java)
     }
 
-    fun mapToCommand(request: RegisterMemberRequest): RegisterMemberCommand {
+    fun mapToCommand(request: RegisterUserRequest): RegisterUserCommand {
         log.info { "요청 입력값이 유효한 지 확인합니다." }
         val exceptionCollector = ValidationExceptionCollector()
 
@@ -37,7 +37,7 @@ internal class RegisterMemberCommandMapper(
 
         log.info { "요청 입력값들은 유효합니다." }
 
-        return RegisterMemberCommand(
+        return RegisterUserCommand(
             email = email!!,
             rawPassword = rawPassword!!,
             username = username!!,

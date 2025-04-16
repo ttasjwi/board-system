@@ -1,47 +1,47 @@
 package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
-import com.ttasjwi.board.system.user.domain.dto.RegisterMemberCommand
+import com.ttasjwi.board.system.user.domain.dto.RegisterUserCommand
 import com.ttasjwi.board.system.user.domain.exception.DuplicateUserEmailException
 import com.ttasjwi.board.system.user.domain.exception.DuplicateUserNicknameException
 import com.ttasjwi.board.system.user.domain.exception.DuplicateUserUsernameException
 import com.ttasjwi.board.system.user.domain.exception.EmailVerificationNotFoundException
 import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.port.EmailVerificationPersistencePort
-import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
-import com.ttasjwi.board.system.user.domain.service.MemberCreator
+import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
+import com.ttasjwi.board.system.user.domain.service.UserCreator
 import org.springframework.transaction.annotation.Transactional
 
 @ApplicationProcessor
-internal class RegisterMemberProcessor(
-    private val memberPersistencePort: MemberPersistencePort,
+internal class RegisterUserProcessor(
+    private val userPersistencePort: UserPersistencePort,
     private val emailVerificationPersistencePort: EmailVerificationPersistencePort,
-    private val memberCreator: MemberCreator,
+    private val userCreator: UserCreator,
 ) {
 
     @Transactional
-    fun register(command: RegisterMemberCommand): User {
+    fun register(command: RegisterUserCommand): User {
         checkDuplicate(command)
         checkEmailVerificationAndRemove(command)
 
-        val member = createMember(command)
-        memberPersistencePort.save(member)
-        return member
+        val user = createUser(command)
+        userPersistencePort.save(user)
+        return user
     }
 
-    private fun checkDuplicate(command: RegisterMemberCommand) {
-        if (memberPersistencePort.existsByEmail(command.email)) {
+    private fun checkDuplicate(command: RegisterUserCommand) {
+        if (userPersistencePort.existsByEmail(command.email)) {
             throw DuplicateUserEmailException(command.email)
         }
-        if (memberPersistencePort.existsByUsername(command.username)) {
+        if (userPersistencePort.existsByUsername(command.username)) {
             throw DuplicateUserUsernameException(command.username)
         }
-        if (memberPersistencePort.existsByNickname(command.nickname)) {
+        if (userPersistencePort.existsByNickname(command.nickname)) {
             throw DuplicateUserNicknameException(command.nickname)
         }
     }
 
-    private fun checkEmailVerificationAndRemove(command: RegisterMemberCommand) {
+    private fun checkEmailVerificationAndRemove(command: RegisterUserCommand) {
         val emailVerification = emailVerificationPersistencePort.findByEmailOrNull(command.email)
             ?: throw EmailVerificationNotFoundException(command.email)
 
@@ -52,8 +52,8 @@ internal class RegisterMemberProcessor(
         emailVerificationPersistencePort.remove(emailVerification.email)
     }
 
-    private fun createMember(command: RegisterMemberCommand): User {
-        return memberCreator.create(
+    private fun createUser(command: RegisterUserCommand): User {
+        return userCreator.create(
             email = command.email,
             rawPassword = command.rawPassword,
             username = command.username,

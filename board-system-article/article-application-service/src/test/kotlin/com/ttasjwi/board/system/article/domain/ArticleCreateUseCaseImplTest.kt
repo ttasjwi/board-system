@@ -33,7 +33,7 @@ class ArticleCreateProcessorTest {
         writer = authUserFixture(userId = 1234558L, role = Role.USER)
 
         container.timeManagerFixture.changeCurrentTime(currentTime)
-        container.authMemberLoaderFixture.changeAuthUser(writer)
+        container.authUserLoaderFixture.changeAuthUser(writer)
         savedArticleCategory = container.articleCategoryPersistencePortFixture.save(
             articleCategoryFixture(
                 articleCategoryId = 12314L,

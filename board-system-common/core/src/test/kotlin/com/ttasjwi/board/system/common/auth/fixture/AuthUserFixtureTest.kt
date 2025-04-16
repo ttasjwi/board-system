@@ -11,9 +11,9 @@ class AuthUserFixtureTest {
     @Test
     @DisplayName("인자를 전달하지 않아도 기본값을 가지고 있다.")
     fun test1() {
-        val authMember = authUserFixture()
-        assertThat(authMember.userId).isNotNull()
-        assertThat(authMember.role).isNotNull()
+        val authUser = authUserFixture()
+        assertThat(authUser.userId).isNotNull()
+        assertThat(authUser.role).isNotNull()
     }
 
     @Test

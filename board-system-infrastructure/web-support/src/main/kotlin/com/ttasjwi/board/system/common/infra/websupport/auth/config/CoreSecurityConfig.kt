@@ -28,12 +28,12 @@ class CoreSecurityConfig(
     }
 
     @Bean
-    fun authMemberLoader(): AuthUserLoader {
+    fun authUserLoader(): AuthUserLoader {
         return SecurityAuthUserLoader()
     }
 
     @Bean
     fun methodSecurityAspect(): MethodAuthorizationAspect {
-        return MethodAuthorizationAspect(authMemberLoader())
+        return MethodAuthorizationAspect(authUserLoader())
     }
 }

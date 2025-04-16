@@ -35,9 +35,9 @@ class AuthUserLoaderFixtureTest {
         authUserLoaderFixture.changeAuthUser(authUser)
 
         // when
-        val loadedAuthMember = authUserLoaderFixture.loadCurrentAuthUser()
+        val loadedAuthUser = authUserLoaderFixture.loadCurrentAuthUser()
 
         // then
-        assertThat(loadedAuthMember).isEqualTo(authUser)
+        assertThat(loadedAuthUser).isEqualTo(authUser)
     }
 }

@@ -6,13 +6,13 @@ import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.user.domain.NicknameAvailableResponse
 import com.ttasjwi.board.system.user.domain.dto.NicknameAvailableQuery
 import com.ttasjwi.board.system.user.domain.policy.NicknamePolicy
-import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
 import java.util.*
 
 @ApplicationProcessor
 internal class NicknameAvailableProcessor(
     private val nicknamePolicy: NicknamePolicy,
-    private val memberPersistencePort: MemberPersistencePort,
+    private val userPersistencePort: UserPersistencePort,
     private val messageResolver: MessageResolver,
 ) {
 
@@ -27,7 +27,7 @@ internal class NicknameAvailableProcessor(
                 return makeResponse(query.nickname, false, "NicknameAvailableCheck.InvalidFormat", query.locale)
             }
 
-        if (memberPersistencePort.existsByNickname(nickname)) {
+        if (userPersistencePort.existsByNickname(nickname)) {
             log.info { "이미 사용 중인 닉네임입니다. (nickname = ${nickname})" }
             return makeResponse(query.nickname, false, "NicknameAvailableCheck.Taken", query.locale)
         }

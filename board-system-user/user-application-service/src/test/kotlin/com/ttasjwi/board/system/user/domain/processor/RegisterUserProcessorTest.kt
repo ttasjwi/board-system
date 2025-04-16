@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.user.domain.dto.RegisterMemberCommand
+import com.ttasjwi.board.system.user.domain.dto.RegisterUserCommand
 import com.ttasjwi.board.system.user.domain.exception.DuplicateUserEmailException
 import com.ttasjwi.board.system.user.domain.exception.DuplicateUserNicknameException
 import com.ttasjwi.board.system.user.domain.exception.DuplicateUserUsernameException
@@ -11,7 +11,7 @@ import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.model.fixture.emailVerificationFixtureVerified
 import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.EmailVerificationPersistencePortFixture
-import com.ttasjwi.board.system.user.domain.port.fixture.MemberPersistencePortFixture
+import com.ttasjwi.board.system.user.domain.port.fixture.UserPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.PasswordEncryptionPortFixture
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -20,11 +20,11 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("RegisterMemberProcessor: 회원가입 명령을 처리하는 애플리케이션 처리자")
+@DisplayName("RegisterUserProcessor: 회원가입 명령을 처리하는 애플리케이션 처리자")
 class RegisterUserProcessorTest {
 
-    private lateinit var processor: RegisterMemberProcessor
-    private lateinit var memberPersistencePortFixture: MemberPersistencePortFixture
+    private lateinit var processor: RegisterUserProcessor
+    private lateinit var userPersistencePortFixture: UserPersistencePortFixture
     private lateinit var emailVerificationPersistencePortFixture: EmailVerificationPersistencePortFixture
     private lateinit var passwordEncryptionPortFixture: PasswordEncryptionPortFixture
     private lateinit var registeredUser: User
@@ -32,11 +32,11 @@ class RegisterUserProcessorTest {
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        memberPersistencePortFixture = container.memberPersistencePortFixture
+        userPersistencePortFixture = container.userPersistencePortFixture
         emailVerificationPersistencePortFixture = container.emailVerificationPersistencePortFixture
         passwordEncryptionPortFixture = container.passwordEncryptionPortFixture
-        processor = container.registerMemberProcessor
-        registeredUser = memberPersistencePortFixture.save(
+        processor = container.registerUserProcessor
+        registeredUser = userPersistencePortFixture.save(
             userFixture(
                 userId = 12345L,
                 email = "registered@gmail.com",
@@ -62,7 +62,7 @@ class RegisterUserProcessorTest {
             ), appDateTimeFixture(minute = 33)
         )
 
-        val command = RegisterMemberCommand(
+        val command = RegisterUserCommand(
             email = email,
             rawPassword = "1234",
             username = "testuser",
@@ -71,34 +71,34 @@ class RegisterUserProcessorTest {
         )
 
         // when
-        val createdMember = processor.register(command)
+        val createdUser = processor.register(command)
 
         // then
-        val findMember = memberPersistencePortFixture.findByIdOrNull(createdMember.userId)!!
+        val findUser = userPersistencePortFixture.findByIdOrNull(createdUser.userId)!!
         val findEmailVerification = emailVerificationPersistencePortFixture.findByEmailOrNull(email)
 
-        assertThat(createdMember.userId).isNotNull()
-        assertThat(createdMember.email).isEqualTo(command.email)
-        assertThat(createdMember.password).isEqualTo(passwordEncryptionPortFixture.encode(command.rawPassword))
-        assertThat(createdMember.username).isEqualTo(command.username)
-        assertThat(createdMember.nickname).isEqualTo(command.nickname)
-        assertThat(createdMember.role).isEqualTo(Role.USER)
-        assertThat(createdMember.registeredAt).isEqualTo(command.currentTime)
+        assertThat(createdUser.userId).isNotNull()
+        assertThat(createdUser.email).isEqualTo(command.email)
+        assertThat(createdUser.password).isEqualTo(passwordEncryptionPortFixture.encode(command.rawPassword))
+        assertThat(createdUser.username).isEqualTo(command.username)
+        assertThat(createdUser.nickname).isEqualTo(command.nickname)
+        assertThat(createdUser.role).isEqualTo(Role.USER)
+        assertThat(createdUser.registeredAt).isEqualTo(command.currentTime)
 
         assertThat(findEmailVerification).isNull()
-        assertThat(findMember.userId).isEqualTo(createdMember.userId)
-        assertThat(findMember.email).isEqualTo(createdMember.email)
-        assertThat(findMember.password).isEqualTo(createdMember.password)
-        assertThat(findMember.username).isEqualTo(createdMember.username)
-        assertThat(findMember.nickname).isEqualTo(createdMember.nickname)
-        assertThat(findMember.role).isEqualTo(createdMember.role)
-        assertThat(findMember.registeredAt).isEqualTo(createdMember.registeredAt)
+        assertThat(findUser.userId).isEqualTo(createdUser.userId)
+        assertThat(findUser.email).isEqualTo(createdUser.email)
+        assertThat(findUser.password).isEqualTo(createdUser.password)
+        assertThat(findUser.username).isEqualTo(createdUser.username)
+        assertThat(findUser.nickname).isEqualTo(createdUser.nickname)
+        assertThat(findUser.role).isEqualTo(createdUser.role)
+        assertThat(findUser.registeredAt).isEqualTo(createdUser.registeredAt)
     }
 
     @Test
     @DisplayName("중복되는 이메일의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateEmail() {
-        val command = RegisterMemberCommand(
+        val command = RegisterUserCommand(
             email = registeredUser.email,
             rawPassword = "1234",
             username = "testuser",
@@ -112,7 +112,7 @@ class RegisterUserProcessorTest {
     @Test
     @DisplayName("중복되는 사용자 아이디(username)의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateUsername() {
-        val command = RegisterMemberCommand(
+        val command = RegisterUserCommand(
             email = "hello@gmail.com",
             rawPassword = "1234",
             username = registeredUser.username,
@@ -126,7 +126,7 @@ class RegisterUserProcessorTest {
     @Test
     @DisplayName("중복되는 닉네임의 회원이 존재하면 예외가 발생한다")
     fun testDuplicateNickname() {
-        val command = RegisterMemberCommand(
+        val command = RegisterUserCommand(
             email = "hello@gmail.com",
             rawPassword = "1234",
             username = "testuser",
@@ -140,7 +140,7 @@ class RegisterUserProcessorTest {
     @Test
     @DisplayName("이메일 인증을 조회하지 못 했을 경우(만료됐거나, 없음) 예외가 발생한다.")
     fun testEmailVerificationNotFound() {
-        val command = RegisterMemberCommand(
+        val command = RegisterUserCommand(
             email = "hello@gmail.com",
             rawPassword = "1234",
             username = "testuser",

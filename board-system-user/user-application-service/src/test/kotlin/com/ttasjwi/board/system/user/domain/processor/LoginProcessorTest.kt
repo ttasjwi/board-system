@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.user.domain.dto.LoginCommand
 import com.ttasjwi.board.system.user.domain.exception.LoginFailureException
 import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
-import com.ttasjwi.board.system.user.domain.port.fixture.MemberRefreshTokenIdListPersistencePortFixture
+import com.ttasjwi.board.system.user.domain.port.fixture.UserRefreshTokenIdListPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.RefreshTokenIdPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
@@ -22,14 +22,14 @@ class LoginProcessorTest {
     private lateinit var processor: LoginProcessor
     private lateinit var successCommand: LoginCommand
     private lateinit var savedUser: User
-    private lateinit var memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture
+    private lateinit var userRefreshTokenIdListPersistencePortFixture: UserRefreshTokenIdListPersistencePortFixture
     private lateinit var refreshTokenPersistencePortFixture: RefreshTokenIdPersistencePortFixture
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
 
-        savedUser = container.memberPersistencePortFixture.save(
+        savedUser = container.userPersistencePortFixture.save(
             userFixture(
                 userId = 1543L,
                 email = "hello@gmail.com",
@@ -45,7 +45,7 @@ class LoginProcessorTest {
             rawPassword = "1234",
             currentTime = appDateTimeFixture(minute = 10)
         )
-        memberRefreshTokenIdListPersistencePortFixture = container.memberRefreshTokenIdListPersistencePortFixture
+        userRefreshTokenIdListPersistencePortFixture = container.userRefreshTokenIdListPersistencePortFixture
         refreshTokenPersistencePortFixture = container.refreshTokenIdPersistencePortFixture
         processor = container.loginProcessor
     }
@@ -58,25 +58,25 @@ class LoginProcessorTest {
         val (accessToken, refreshToken) = processor.login(successCommand)
 
         // then
-        val memberRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(refreshToken.memberId)
+        val userRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(refreshToken.userId)
         val refreshTokenExists =
-            refreshTokenPersistencePortFixture.exists(refreshToken.memberId, refreshToken.refreshTokenId)
+            refreshTokenPersistencePortFixture.exists(refreshToken.userId, refreshToken.refreshTokenId)
 
         assertThat(accessToken.authUser.userId).isEqualTo(savedUser.userId)
         assertThat(accessToken.authUser.role).isEqualTo(savedUser.role)
         assertThat(accessToken.issuedAt).isEqualTo(successCommand.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(successCommand.currentTime.plusMinutes(30))
 
-        assertThat(refreshToken.memberId).isEqualTo(savedUser.userId)
+        assertThat(refreshToken.userId).isEqualTo(savedUser.userId)
         assertThat(refreshToken.issuedAt).isEqualTo(successCommand.currentTime)
         assertThat(refreshToken.expiresAt).isEqualTo(successCommand.currentTime.plusHours(RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR))
-        assertThat(memberRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)
+        assertThat(userRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)
         assertThat(refreshTokenExists).isTrue()
     }
 
     @Test
     @DisplayName("이메일에 대응하는 회원을 찾지 못 하면 로그인 실패 예외가 발생한다.")
-    fun testMemberNotFound() {
+    fun testUserNotFound() {
         // given
         val command = LoginCommand(
             email = "jello@gmail.com",

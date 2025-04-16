@@ -8,24 +8,24 @@ import com.ttasjwi.board.system.common.auth.RefreshToken
 import com.ttasjwi.board.system.user.domain.dto.LoginCommand
 import com.ttasjwi.board.system.user.domain.exception.LoginFailureException
 import com.ttasjwi.board.system.user.domain.model.User
-import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
 import com.ttasjwi.board.system.user.domain.port.PasswordEncryptionPort
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
 
 
 @ApplicationProcessor
 internal class LoginProcessor(
-    private val memberPersistencePort: MemberPersistencePort,
+    private val userPersistencePort: UserPersistencePort,
     private val passwordEncryptionPort: PasswordEncryptionPort,
     private val accessTokenGeneratePort: AccessTokenGeneratePort,
     private val refreshTokenHandler: RefreshTokenHandler,
 ) {
 
     fun login(command: LoginCommand): Pair<AccessToken, RefreshToken> {
-        val member = getMemberOrThrow(command)
-        matchesPassword(command.rawPassword, member.password)
+        val user = getUserOrThrow(command)
+        matchesPassword(command.rawPassword, user.password)
 
-        val authUser = AuthUser.create(member.userId, member.role)
+        val authUser = AuthUser.create(user.userId, user.role)
 
         val accessToken =
             accessTokenGeneratePort.generate(authUser, command.currentTime, command.currentTime.plusMinutes(30))
@@ -37,8 +37,8 @@ internal class LoginProcessor(
     /**
      * 로그인을 할 회원 조회
      */
-    private fun getMemberOrThrow(command: LoginCommand): User {
-        return memberPersistencePort.findByEmailOrNull(command.email)
+    private fun getUserOrThrow(command: LoginCommand): User {
+        return userPersistencePort.findByEmailOrNull(command.email)
             ?: throw LoginFailureException("로그인 실패 - 일치하는 이메일(email=${command.email})의 회원을 찾지 못 함")
     }
 

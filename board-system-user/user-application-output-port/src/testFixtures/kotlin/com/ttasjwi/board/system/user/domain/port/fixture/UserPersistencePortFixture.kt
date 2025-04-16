@@ -3,9 +3,9 @@ package com.ttasjwi.board.system.user.domain.port.fixture
 import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.user.domain.model.User
-import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
 
-class MemberPersistencePortFixture : MemberPersistencePort {
+class UserPersistencePortFixture : UserPersistencePort {
 
     private val storage = mutableMapOf<Long, User>()
 
@@ -14,8 +14,8 @@ class MemberPersistencePortFixture : MemberPersistencePort {
         return user
     }
 
-    override fun findByIdOrNull(memberId: Long): User? {
-        return storage[memberId]
+    override fun findByIdOrNull(userId: Long): User? {
+        return storage[userId]
     }
 
     override fun findAuthUserOrNull(userId: Long): AuthUser? {

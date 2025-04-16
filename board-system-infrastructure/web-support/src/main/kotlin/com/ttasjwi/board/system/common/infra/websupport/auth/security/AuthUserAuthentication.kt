@@ -5,14 +5,14 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
-internal class AuthMemberAuthentication
+internal class AuthUserAuthentication
 private constructor(
     private val authUser: AuthUser
 ) : Authentication {
 
     companion object {
-        fun from(authUser: AuthUser): AuthMemberAuthentication {
-            return AuthMemberAuthentication(authUser)
+        fun from(authUser: AuthUser): AuthUserAuthentication {
+            return AuthUserAuthentication(authUser)
         }
     }
 

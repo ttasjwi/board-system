@@ -11,7 +11,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken
 import org.springframework.security.core.authority.AuthorityUtils
 import org.springframework.security.core.context.SecurityContextHolder
 
-@DisplayName("SecurityAuthMemberLoader 테스트")
+@DisplayName("SecurityAuthUserLoader 테스트")
 class SecurityAuthUserLoaderTest {
 
     private lateinit var authUserLoader: AuthUserLoader
@@ -22,20 +22,20 @@ class SecurityAuthUserLoaderTest {
     }
 
     @Test
-    @DisplayName("시큐리티 컨텍스트에 AuthMemberAuthentication 이 있으면, AuthMember 가 반환된다.")
-    fun testAuthMember() {
+    @DisplayName("시큐리티 컨텍스트에 AuthUserAuthentication 이 있으면, AuthUser 가 반환된다.")
+    fun testAuthUser() {
         // given
-        val authMember = authUserFixture(userId = 1235L, role = Role.USER)
+        val authUser = authUserFixture(userId = 1235L, role = Role.USER)
 
         val securityContext = SecurityContextHolder.getContextHolderStrategy().createEmptyContext()
-        securityContext.authentication = AuthMemberAuthentication.from(authMember)
+        securityContext.authentication = AuthUserAuthentication.from(authUser)
         SecurityContextHolder.getContextHolderStrategy().context = securityContext
 
         // when
-        val loadedAuthMember = authUserLoader.loadCurrentAuthUser()
+        val loadedAuthUser = authUserLoader.loadCurrentAuthUser()
 
         // then
-        assertThat(loadedAuthMember).isEqualTo(authMember)
+        assertThat(loadedAuthUser).isEqualTo(authUser)
     }
 
     @Test
@@ -45,23 +45,23 @@ class SecurityAuthUserLoaderTest {
         SecurityContextHolder.getContextHolderStrategy().clearContext()
 
         // when
-        val loadedAuthMember = authUserLoader.loadCurrentAuthUser()
+        val loadedAuthUser = authUserLoader.loadCurrentAuthUser()
 
         // then
-        assertThat(loadedAuthMember).isNull()
+        assertThat(loadedAuthUser).isNull()
     }
 
     @Test
-    @DisplayName("AuthMemberAuthentication 이 아닐 경우, null 이 반환된다")
+    @DisplayName("AuthUserAuthentication 이 아닐 경우, null 이 반환된다")
     fun testAnonymous() {
         // given
         SecurityContextHolder.getContext().authentication =
             AnonymousAuthenticationToken("hello", "anonymousUser", AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"))
 
         // when
-        val loadedAuthMember = authUserLoader.loadCurrentAuthUser()
+        val loadedAuthUser = authUserLoader.loadCurrentAuthUser()
 
         // then
-        assertThat(loadedAuthMember).isNull()
+        assertThat(loadedAuthUser).isNull()
     }
 }

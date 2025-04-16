@@ -26,7 +26,7 @@ class TokenRefreshUseCaseImplTest {
         refreshTokenHandler = container.refreshTokenHandler
         timeManagerFixture = container.timeManagerFixture
         useCase = container.tokenRefreshUseCase
-        user = container.memberPersistencePortFixture.save(
+        user = container.userPersistencePortFixture.save(
             userFixture(
                 userId = 12345L,
                 role = Role.ROOT

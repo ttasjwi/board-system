@@ -18,16 +18,16 @@ class RefreshTokenTest {
         @Test
         @DisplayName("전달한 값을 기반으로 토큰이 잘 생성되는 지 테스트")
         fun test() {
-            val memberId = 1L
+            val userId = 1L
             val refreshTokenId = 12345L
             val tokenValue = "token"
             val issuedAt = appDateTimeFixture(dayOfMonth = 1)
             val expiresAt = appDateTimeFixture(dayOfMonth = 2)
 
-            val refreshToken = RefreshToken.create(memberId, refreshTokenId, issuedAt, expiresAt, tokenValue)
+            val refreshToken = RefreshToken.create(userId, refreshTokenId, issuedAt, expiresAt, tokenValue)
 
             // then
-            assertThat(refreshToken.memberId).isEqualTo(memberId)
+            assertThat(refreshToken.userId).isEqualTo(userId)
             assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
             assertThat(refreshToken.tokenType).isEqualTo(RefreshToken.VALID_TOKEN_TYPE)
             assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)
@@ -45,7 +45,7 @@ class RefreshTokenTest {
         @DisplayName("전달된 값들을 기반으로 내부 값들이 잘 복원되는 지 테스트")
         fun test() {
             // given
-            val memberId = 1L
+            val userId = 1L
             val refreshTokenId = 132314135L
             val tokenValue = "refreshToken1"
             val issuedAt = appDateTimeFixture(dayOfMonth = 1).toInstant()
@@ -53,7 +53,7 @@ class RefreshTokenTest {
 
             // when
             val refreshToken = RefreshToken.restore(
-                memberId = memberId,
+                userId = userId,
                 refreshTokenId = refreshTokenId,
                 tokenValue = tokenValue,
                 issuedAt = issuedAt,
@@ -61,7 +61,7 @@ class RefreshTokenTest {
             )
 
             // then
-            assertThat(refreshToken.memberId).isEqualTo(memberId)
+            assertThat(refreshToken.userId).isEqualTo(userId)
             assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
             assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)
             assertThat(refreshToken.issuedAt.toInstant()).isEqualTo(issuedAt)

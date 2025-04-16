@@ -5,7 +5,7 @@ import java.time.Instant
 
 class RefreshToken
 internal constructor(
-    val memberId: Long,
+    val userId: Long,
     val refreshTokenId: Long,
     val tokenType: String,
     val tokenValue: String,
@@ -19,14 +19,14 @@ internal constructor(
         const val VALID_ISSUER = "BoardSystem"
 
         fun create(
-            memberId: Long,
+            userId: Long,
             refreshTokenId: Long,
             issuedAt: AppDateTime,
             expiresAt: AppDateTime,
             tokenValue: String,
         ): RefreshToken {
             return RefreshToken(
-                memberId = memberId,
+                userId = userId,
                 refreshTokenId = refreshTokenId,
                 tokenType = VALID_TOKEN_TYPE,
                 tokenValue = tokenValue,
@@ -37,14 +37,14 @@ internal constructor(
         }
 
         fun restore(
-            memberId: Long,
+            userId: Long,
             refreshTokenId: Long,
             tokenValue: String,
             issuedAt: Instant,
             expiresAt: Instant
         ): RefreshToken {
             return RefreshToken(
-                memberId = memberId,
+                userId = userId,
                 refreshTokenId = refreshTokenId,
                 tokenType = VALID_TOKEN_TYPE,
                 tokenValue = tokenValue,

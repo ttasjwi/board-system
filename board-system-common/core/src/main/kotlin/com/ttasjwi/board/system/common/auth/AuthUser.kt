@@ -44,6 +44,6 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "AuthMember(memberId=$userId, role=$role)"
+        return "AuthUser(userId=$userId, role=$role)"
     }
 }

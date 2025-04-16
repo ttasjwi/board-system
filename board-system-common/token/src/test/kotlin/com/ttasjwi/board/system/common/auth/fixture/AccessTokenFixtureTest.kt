@@ -29,7 +29,7 @@ class AccessTokenFixtureTest {
     @DisplayName("커스텀 파라미터 생성 테스트")
     fun test2() {
         // given
-        val memberId = 2L
+        val userId = 2L
         val role = Role.ADMIN
         val tokenValue = "tokentoken"
         val issuedAt = appDateTimeFixture(minute = 3)
@@ -37,7 +37,7 @@ class AccessTokenFixtureTest {
 
         // when
         val accessToken = accessTokenFixture(
-            memberId = memberId,
+            userId = userId,
             role = role,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
@@ -45,7 +45,7 @@ class AccessTokenFixtureTest {
         )
 
         // then
-        assertThat(accessToken.authUser.userId).isEqualTo(memberId)
+        assertThat(accessToken.authUser.userId).isEqualTo(userId)
         assertThat(accessToken.authUser.role).isEqualTo(role)
         assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
         assertThat(accessToken.issuedAt).isEqualTo(issuedAt)

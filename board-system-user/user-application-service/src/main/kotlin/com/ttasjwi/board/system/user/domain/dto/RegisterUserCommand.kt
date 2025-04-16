@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.user.domain.dto
 
 import com.ttasjwi.board.system.common.time.AppDateTime
 
-internal data class RegisterMemberCommand(
+internal data class RegisterUserCommand(
     val email: String,
     val rawPassword: String,
     val username: String,

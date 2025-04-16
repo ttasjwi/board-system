@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 class RefreshTokenPortFixture : RefreshTokenGeneratePort, RefreshTokenParsePort {
 
     companion object {
-        private const val MEMBER_ID_INDEX = 0
+        private const val USER_ID_INDEX = 0
         private const val REFRESH_TOKEN_ID_INDEX = 1
         private const val TOKEN_TYPE_INDEX = 2
         private const val ISSUER_INDEX = 3
@@ -18,15 +18,15 @@ class RefreshTokenPortFixture : RefreshTokenGeneratePort, RefreshTokenParsePort 
     }
 
     override fun generate(
-        memberId: Long,
+        userId: Long,
         refreshTokenId: Long,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): RefreshToken {
-        val tokenValue = makeTokenValue(memberId, refreshTokenId, issuedAt, expiresAt)
+        val tokenValue = makeTokenValue(userId, refreshTokenId, issuedAt, expiresAt)
 
         return refreshTokenFixture(
-            memberId = memberId,
+            userId = userId,
             refreshTokenId = refreshTokenId,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
@@ -38,7 +38,7 @@ class RefreshTokenPortFixture : RefreshTokenGeneratePort, RefreshTokenParsePort 
         val split = tokenValue.split(",")
 
         return refreshTokenFixture(
-            memberId = split[MEMBER_ID_INDEX].toLong(),
+            userId = split[USER_ID_INDEX].toLong(),
             refreshTokenId = split[REFRESH_TOKEN_ID_INDEX].toLong(),
             tokenValue = tokenValue,
             issuedAt = split[ISSUED_AT_INDEX].let { AppDateTime.from(ZonedDateTime.parse(it)) },
@@ -47,12 +47,12 @@ class RefreshTokenPortFixture : RefreshTokenGeneratePort, RefreshTokenParsePort 
     }
 
     private fun makeTokenValue(
-        memberId: Long,
+        userId: Long,
         refreshTokenId: Long,
         issuedAt: AppDateTime,
         expiresAt: AppDateTime
     ): String {
-        return "${memberId}," + // 0
+        return "${userId}," + // 0
                 "${refreshTokenId}," + // 1
                 "${RefreshToken.VALID_TOKEN_TYPE}," + // 2
                 "${RefreshToken.VALID_ISSUER}," + // 3

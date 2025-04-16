@@ -37,7 +37,7 @@ class BoardCreateCommandMapperTest {
             userId = 1557L,
             role = Role.USER
         )
-        container.authMemberLoaderFixture.changeAuthUser(authUser)
+        container.authUserLoaderFixture.changeAuthUser(authUser)
 
         commandMapper = container.boardCreateCommandMapper
     }

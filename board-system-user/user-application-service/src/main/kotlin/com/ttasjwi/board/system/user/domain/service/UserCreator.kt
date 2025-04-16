@@ -10,7 +10,7 @@ import com.ttasjwi.board.system.user.domain.policy.UsernamePolicy
 import com.ttasjwi.board.system.user.domain.port.PasswordEncryptionPort
 
 @DomainService
-class MemberCreator(
+class UserCreator(
     private val passwordEncryptionPort: PasswordEncryptionPort,
     private val usernamePolicy: UsernamePolicy,
     private val nicknamePolicy: NicknamePolicy,

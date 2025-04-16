@@ -15,8 +15,8 @@ internal class SocialLoginUseCaseImpl(
 
     override fun socialLogin(request: SocialLoginRequest): SocialLoginResponse {
         val command = commandMapper.mapToCommand(request)
-        val (createdMember, accessToken, refreshToken) = processor.socialLogin(command)
-        return makeResponse(createdMember, accessToken, refreshToken)
+        val (createdUser, accessToken, refreshToken) = processor.socialLogin(command)
+        return makeResponse(createdUser, accessToken, refreshToken)
     }
 
     /**
@@ -33,10 +33,10 @@ internal class SocialLoginUseCaseImpl(
             accessTokenExpiresAt = accessToken.expiresAt.toZonedDateTime(),
             refreshToken = refreshToken.tokenValue,
             refreshTokenExpiresAt = refreshToken.expiresAt.toZonedDateTime(),
-            memberCreated = createdUser != null,
-            createdMember = createdUser?.let {
-                SocialLoginResponse.CreatedMember(
-                    memberId = it.userId.toString(),
+            userCreated = createdUser != null,
+            createdUser = createdUser?.let {
+                SocialLoginResponse.CreatedUser(
+                    userId = it.userId.toString(),
                     email = it.email,
                     username = it.username,
                     nickname = it.nickname,

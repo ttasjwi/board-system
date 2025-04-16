@@ -14,7 +14,7 @@ class UsernameAvailableController(
 ) {
 
     @PermitAll
-    @GetMapping("/api/v1/members/username-available")
+    @GetMapping("/api/v1/users/username-available")
     fun checkUsernameAvailable(request: UsernameAvailableRequest): ResponseEntity<UsernameAvailableResponse> {
         return ResponseEntity.ok(useCase.checkUsernameAvailable(request))
     }

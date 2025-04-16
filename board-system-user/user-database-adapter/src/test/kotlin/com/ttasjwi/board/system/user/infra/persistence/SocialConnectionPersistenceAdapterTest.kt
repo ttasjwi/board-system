@@ -2,14 +2,14 @@ package com.ttasjwi.board.system.user.infra.persistence
 
 import com.ttasjwi.board.system.user.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.socialServiceUserFixture
-import com.ttasjwi.board.system.user.infra.test.MemberDataBaseIntegrationTest
+import com.ttasjwi.board.system.user.infra.test.UserDataBaseIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("SocialConnectionStorageImpl 테스트")
-class SocialConnectionPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
+class SocialConnectionPersistenceAdapterTest : UserDataBaseIntegrationTest() {
 
     @DisplayName("FindBySocialServiceUserOrNull: 소셜 서비스 사용자로 소셜 연동을 조회할 수 있다")
     @Nested

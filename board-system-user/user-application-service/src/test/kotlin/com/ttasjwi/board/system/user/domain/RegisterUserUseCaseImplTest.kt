@@ -10,10 +10,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("RegisterMemberUseCaseImpl: 회원가입 유즈케이스 구현체")
+@DisplayName("RegisterUserUseCaseImpl: 회원가입 유즈케이스 구현체")
 class RegisterUserUseCaseImplTest {
 
-    private lateinit var useCase: RegisterMemberUseCase
+    private lateinit var useCase: RegisterUserUseCase
     private lateinit var emailVerificationPersistencePortFixture: EmailVerificationPersistencePortFixture
     private lateinit var currentTime: AppDateTime
 
@@ -23,7 +23,7 @@ class RegisterUserUseCaseImplTest {
         currentTime = appDateTimeFixture(minute = 6)
         container.timeManagerFixture.changeCurrentTime(currentTime)
         emailVerificationPersistencePortFixture = container.emailVerificationPersistencePortFixture
-        useCase = container.registerMemberUseCase
+        useCase = container.registerUserUseCase
     }
 
     @Test
@@ -41,7 +41,7 @@ class RegisterUserUseCaseImplTest {
             ), appDateTimeFixture(minute = 33)
         )
 
-        val request = RegisterMemberRequest(
+        val request = RegisterUserRequest(
             email = email,
             password = "1111",
             username = "testuser",
@@ -50,7 +50,7 @@ class RegisterUserUseCaseImplTest {
 
         val response = useCase.register(request)
 
-        assertThat(response.memberId).isNotNull()
+        assertThat(response.userId).isNotNull()
         assertThat(response.email).isEqualTo(request.email)
         assertThat(response.username).isEqualTo(request.username)
         assertThat(response.nickname).isEqualTo(request.nickname)

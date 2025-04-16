@@ -20,28 +20,28 @@ class AuthTestController(
     @RequireAuthenticated
     @GetMapping("/api/v1/test/web-support/auth/authenticated")
     fun testAuthenticated(): AuthTestResponse {
-        val authMember = authUserLoader.loadCurrentAuthUser()!!
-        return AuthTestResponse.of("/api/v1/test/web-support/auth/authenticated", authMember)
+        val authUser = authUserLoader.loadCurrentAuthUser()!!
+        return AuthTestResponse.of("/api/v1/test/web-support/auth/authenticated", authUser)
     }
 
     @RequireAdminRole
     @GetMapping("/api/v1/test/web-support/auth/admin-role")
     fun testAdminRole(): AuthTestResponse {
-        val authMember = authUserLoader.loadCurrentAuthUser()!!
-        return AuthTestResponse.of("/api/v1/test/web-support/auth/admin-role", authMember)
+        val authUser = authUserLoader.loadCurrentAuthUser()!!
+        return AuthTestResponse.of("/api/v1/test/web-support/auth/admin-role", authUser)
     }
 
     @RequireRootRole
     @GetMapping("/api/v1/test/web-support/auth/root-role")
     fun testRootRole(): AuthTestResponse {
-        val authMember = authUserLoader.loadCurrentAuthUser()!!
-        return AuthTestResponse.of("/api/v1/test/web-support/auth/root-role", authMember)
+        val authUser = authUserLoader.loadCurrentAuthUser()!!
+        return AuthTestResponse.of("/api/v1/test/web-support/auth/root-role", authUser)
     }
 }
 
 data class AuthTestResponse(
     val path: String,
-    val memberId: Long,
+    val userId: Long,
     val role: String,
 ) {
 
@@ -49,7 +49,7 @@ data class AuthTestResponse(
         fun of(path: String, authUser: AuthUser): AuthTestResponse {
             return AuthTestResponse(
                 path = path,
-                memberId = authUser.userId,
+                userId = authUser.userId,
                 role = authUser.role.name
             )
         }

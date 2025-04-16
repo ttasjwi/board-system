@@ -1,51 +1,51 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
-import com.ttasjwi.board.system.user.domain.port.MemberRefreshTokenIdListPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserRefreshTokenIdListPersistencePort
 import org.springframework.data.redis.connection.StringRedisConnection
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.stereotype.Component
 
 @Component
-class MemberRefreshTokenIdListPersistenceAdapter(
+class UserRefreshTokenIdListPersistenceAdapter(
     private val redisTemplate: StringRedisTemplate
-) : MemberRefreshTokenIdListPersistencePort {
+) : UserRefreshTokenIdListPersistencePort {
 
     companion object {
-        // board-system::member::{memberId}::refresh-token-ids
-        private const val KEY_FORMAT = "board-system::member::%s::refresh-token-ids"
+        // board-system::user::{userId}::refresh-token-ids
+        private const val KEY_FORMAT = "board-system::user::%s::refresh-token-ids"
     }
 
-    override fun add(memberId: Long, refreshTokenId: Long, limit: Long) {
+    override fun add(userId: Long, refreshTokenId: Long, limit: Long) {
         redisTemplate.executePipelined {
             val conn = it as StringRedisConnection
-            val key = generateKey(memberId)
+            val key = generateKey(userId)
             conn.zAdd(key, 0.0, toPaddedString(refreshTokenId)) // 동일한 score 일 경우 value 값에 의해 정렬 상태가 만들어짐
             conn.zRemRange(key, 0, -limit - 1) // 최신의 limit 건만 유지되도록 함
             null
         }
     }
 
-    override fun findAll(memberId: Long): List<Long> {
-        val key = generateKey(memberId)
+    override fun findAll(userId: Long): List<Long> {
+        val key = generateKey(userId)
         return redisTemplate.opsForZSet()
             .range(key, 0, -1)!!.map { it.toLong() }
     }
 
-    override fun remove(memberId: Long, refreshTokenId: Long) {
-        val key = generateKey(memberId)
+    override fun remove(userId: Long, refreshTokenId: Long) {
+        val key = generateKey(userId)
         redisTemplate.opsForZSet()
             .remove(key, toPaddedString(refreshTokenId))
     }
 
-    override fun exists(memberId: Long, refreshTokenId: Long): Boolean {
-        val key = generateKey(memberId)
+    override fun exists(userId: Long, refreshTokenId: Long): Boolean {
+        val key = generateKey(userId)
         val rank = redisTemplate.opsForZSet()
             .rank(key, toPaddedString(refreshTokenId))
         return rank != null
     }
 
-    private fun generateKey(memberId: Long): String {
-        return KEY_FORMAT.format(memberId)
+    private fun generateKey(userId: Long): String {
+        return KEY_FORMAT.format(userId)
     }
 
     /**

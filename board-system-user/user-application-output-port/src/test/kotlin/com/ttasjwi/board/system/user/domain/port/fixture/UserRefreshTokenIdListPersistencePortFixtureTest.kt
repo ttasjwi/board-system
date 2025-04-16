@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test
 
 class UserRefreshTokenIdListPersistencePortFixtureTest {
 
-    private lateinit var memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture
+    private lateinit var userRefreshTokenIdListPersistencePortFixture: UserRefreshTokenIdListPersistencePortFixture
 
     @BeforeEach
     fun setup() {
-        memberRefreshTokenIdListPersistencePortFixture = MemberRefreshTokenIdListPersistencePortFixture()
+        userRefreshTokenIdListPersistencePortFixture = UserRefreshTokenIdListPersistencePortFixture()
     }
 
     @Nested
@@ -22,15 +22,15 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("단건 추가 후 조회 테스트")
         fun test1() {
-            val memberId = 1L
+            val userId = 1L
             val refreshTokenId = 1234L
-            memberRefreshTokenIdListPersistencePortFixture.add(
-                memberId = memberId,
+            userRefreshTokenIdListPersistencePortFixture.add(
+                userId = userId,
                 refreshTokenId = refreshTokenId,
                 limit = 1,
             )
 
-            val findRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(memberId)
+            val findRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(userId)
 
             assertThat(findRefreshTokenIds).hasSize(1)
             assertThat(findRefreshTokenIds[0]).isEqualTo(refreshTokenId)
@@ -40,17 +40,17 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("limit 이하까지 추가했을 때, limit 이하건 내에서는 그대로 유지된다.")
         fun test2() {
-            val memberId = 1L
+            val userId = 1L
 
             for (id in 1..5) {
-                memberRefreshTokenIdListPersistencePortFixture.add(
-                    memberId = memberId,
+                userRefreshTokenIdListPersistencePortFixture.add(
+                    userId = userId,
                     refreshTokenId = id.toLong(),
                     limit = 5,
                 )
             }
 
-            val findRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(memberId)
+            val findRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(userId)
 
             assertThat(findRefreshTokenIds).hasSize(5)
             assertThat(findRefreshTokenIds).containsExactlyInAnyOrder(1, 2, 3, 4, 5)
@@ -59,16 +59,16 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("limit 를 초과할 경우, 최신의(아이디순) limit 건만 유지된다.")
         fun test3() {
-            val memberId = 1L
+            val userId = 1L
 
             for (id in 1..5) {
-                memberRefreshTokenIdListPersistencePortFixture.add(
-                    memberId = memberId,
+                userRefreshTokenIdListPersistencePortFixture.add(
+                    userId = userId,
                     refreshTokenId = id.toLong(),
                     limit = 3,
                 )
             }
-            val tokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(memberId)
+            val tokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(userId)
             assertThat(tokenIds).hasSize(3)
             assertThat(tokenIds).containsExactlyInAnyOrder(3, 4, 5)
         }
@@ -76,8 +76,8 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("저장한 RefreshTokenId 가 없으면 빈 리스트가 반환된다.")
         fun test4() {
-            val memberId = 1L
-            val tokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(memberId)
+            val userId = 1L
+            val tokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(userId)
             assertThat(tokenIds).hasSize(0)
         }
     }
@@ -89,12 +89,12 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("사용자가 가진 토큰목록이 없는 경우 아무 것도 하지 않음.")
         fun test1() {
-            val memberId = 1L
+            val userId = 1L
             val refreshTokenId = 1234L
 
-            memberRefreshTokenIdListPersistencePortFixture.remove(memberId, refreshTokenId)
+            userRefreshTokenIdListPersistencePortFixture.remove(userId, refreshTokenId)
 
-            val findRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(memberId)
+            val findRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(userId)
 
             assertThat(findRefreshTokenIds).isEmpty()
         }
@@ -102,28 +102,28 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("사용자가 가진 토큰목록에서 해당 토큰을 제거한다.")
         fun test2() {
-            val memberId = 1L
-            memberRefreshTokenIdListPersistencePortFixture.add(
-                memberId = memberId,
+            val userId = 1L
+            userRefreshTokenIdListPersistencePortFixture.add(
+                userId = userId,
                 refreshTokenId = 1,
                 limit = 3,
             )
 
-            memberRefreshTokenIdListPersistencePortFixture.add(
-                memberId = memberId,
+            userRefreshTokenIdListPersistencePortFixture.add(
+                userId = userId,
                 refreshTokenId = 2,
                 limit = 3,
             )
 
-            memberRefreshTokenIdListPersistencePortFixture.add(
-                memberId = memberId,
+            userRefreshTokenIdListPersistencePortFixture.add(
+                userId = userId,
                 refreshTokenId = 3,
                 limit = 3,
             )
 
-            memberRefreshTokenIdListPersistencePortFixture.remove(memberId, 2L)
+            userRefreshTokenIdListPersistencePortFixture.remove(userId, 2L)
 
-            val findRefreshTokenIds = memberRefreshTokenIdListPersistencePortFixture.findAll(memberId)
+            val findRefreshTokenIds = userRefreshTokenIdListPersistencePortFixture.findAll(userId)
 
             assertThat(findRefreshTokenIds).containsExactlyInAnyOrder(1L, 3L)
         }
@@ -136,10 +136,10 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("사용자가 가진 토큰목록 자체가 없는 경우 false 반환")
         fun test1() {
-            val memberId = 1L
+            val userId = 1L
             val refreshTokenId = 1234L
 
-            val isExist = memberRefreshTokenIdListPersistencePortFixture.exists(memberId, refreshTokenId)
+            val isExist = userRefreshTokenIdListPersistencePortFixture.exists(userId, refreshTokenId)
 
             assertThat(isExist).isFalse()
         }
@@ -147,15 +147,15 @@ class UserRefreshTokenIdListPersistencePortFixtureTest {
         @Test
         @DisplayName("사용자가 가진 토큰목록이 있으면 토큰의 존재여부를 확인하여 반환한다.")
         fun test2() {
-            val memberId = 1L
-            memberRefreshTokenIdListPersistencePortFixture.add(
-                memberId = memberId,
+            val userId = 1L
+            userRefreshTokenIdListPersistencePortFixture.add(
+                userId = userId,
                 refreshTokenId = 1,
                 limit = 3,
             )
 
-            val isExist1 = memberRefreshTokenIdListPersistencePortFixture.exists(memberId, 1L)
-            val isExist2 = memberRefreshTokenIdListPersistencePortFixture.exists(memberId, 2L)
+            val isExist1 = userRefreshTokenIdListPersistencePortFixture.exists(userId, 1L)
+            val isExist2 = userRefreshTokenIdListPersistencePortFixture.exists(userId, 2L)
 
             assertThat(isExist1).isTrue()
             assertThat(isExist2).isFalse()

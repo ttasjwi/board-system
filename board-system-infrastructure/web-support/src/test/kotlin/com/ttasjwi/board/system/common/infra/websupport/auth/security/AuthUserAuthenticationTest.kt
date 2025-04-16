@@ -11,7 +11,7 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
-@DisplayName("AuthMemberAuthentication: AuthMember를 통해 얻어낸 Spring Security Authentication")
+@DisplayName("AuthUserAuthentication: AuthUser를 통해 얻어낸 Spring Security Authentication")
 class AuthUserAuthenticationTest {
 
     private lateinit var authUser: AuthUser
@@ -20,7 +20,7 @@ class AuthUserAuthenticationTest {
     @BeforeEach
     fun setup() {
         authUser = authUserFixture(userId = 1357L, role = Role.ADMIN)
-        authentication = AuthMemberAuthentication.from(authUser)
+        authentication = AuthUserAuthentication.from(authUser)
     }
 
     @Test
@@ -68,7 +68,7 @@ class AuthUserAuthenticationTest {
     }
 
     @Test
-    @DisplayName("getPrincipal: authMember 반환")
+    @DisplayName("getPrincipal: authUser 반환")
     fun testGetPrincipal() {
         // given
         // when

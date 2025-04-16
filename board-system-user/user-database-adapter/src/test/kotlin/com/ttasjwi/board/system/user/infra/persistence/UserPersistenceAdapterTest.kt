@@ -2,64 +2,64 @@ package com.ttasjwi.board.system.user.infra.persistence
 
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
-import com.ttasjwi.board.system.user.infra.test.MemberDataBaseIntegrationTest
+import com.ttasjwi.board.system.user.infra.test.UserDataBaseIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("MemberPersistenceAdapter 테스트")
-class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
+@DisplayName("UserPersistenceAdapter 테스트")
+class UserPersistenceAdapterTest : UserDataBaseIntegrationTest() {
 
     @Nested
-    @DisplayName("save: 회원을 저장하고, id 를 발급받아 반환시킨다.")
+    @DisplayName("save: 사용자를 저장하고, id 를 발급받아 반환시킨다.")
     inner class SaveTest {
 
-        @DisplayName("id가 없는 회원을 저장하면 id가 발급된다.")
+        @DisplayName("id가 없는 사용자를 저장하면 id가 발급된다.")
         @Test
         fun test1() {
             // given
-            val member = userFixture()
+            val user = userFixture()
 
             // when
-            val savedMember = memberPersistenceAdapter.save(member)
+            val savedUser = userPersistenceAdapter.save(user)
 
             // then
-            assertThat(savedMember.userId).isNotNull
-            assertThat(savedMember.email).isEqualTo(member.email)
-            assertThat(savedMember.password).isEqualTo(member.password)
-            assertThat(savedMember.username).isEqualTo(member.username)
-            assertThat(savedMember.nickname).isEqualTo(member.nickname)
-            assertThat(savedMember.role).isEqualTo(member.role)
-            assertThat(savedMember.registeredAt).isEqualTo(member.registeredAt)
+            assertThat(savedUser.userId).isNotNull
+            assertThat(savedUser.email).isEqualTo(user.email)
+            assertThat(savedUser.password).isEqualTo(user.password)
+            assertThat(savedUser.username).isEqualTo(user.username)
+            assertThat(savedUser.nickname).isEqualTo(user.nickname)
+            assertThat(savedUser.role).isEqualTo(user.role)
+            assertThat(savedUser.registeredAt).isEqualTo(user.registeredAt)
         }
 
         @DisplayName("id 가 있는 회원을 저장하고 조회하면 기존 회원 정보를 덮어쓴 채 조회된다.")
         @Test
         fun test2() {
             // given
-            val savedMember = memberPersistenceAdapter.save(
+            val savedUser = userPersistenceAdapter.save(
                 userFixture(
                     userId = 1L,
                     password = "1111",
                 )
             )
 
-            val changedMember = memberPersistenceAdapter.save(
+            val changedUser = userPersistenceAdapter.save(
                 userFixture(
-                    userId = savedMember.userId,
+                    userId = savedUser.userId,
                     password = "2222",
                 )
             )
             flushAndClearEntityManager()
 
             // when
-            val findMember = memberPersistenceAdapter.findByIdOrNull(savedMember.userId)!!
+            val findUser = userPersistenceAdapter.findByIdOrNull(savedUser.userId)!!
 
             // then
-            assertThat(findMember.userId).isEqualTo(savedMember.userId)
-            assertThat(findMember.userId).isEqualTo(changedMember.userId)
-            assertThat(findMember.password).isEqualTo(changedMember.password)
+            assertThat(findUser.userId).isEqualTo(savedUser.userId)
+            assertThat(findUser.userId).isEqualTo(changedUser.userId)
+            assertThat(findUser.password).isEqualTo(changedUser.password)
         }
 
     }
@@ -72,63 +72,63 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistenceAdapter.save(userFixture())
+            val user = userFixture()
+            val savedUser = userPersistenceAdapter.save(userFixture())
             flushAndClearEntityManager()
 
             // when
-            val findMember = memberPersistenceAdapter.findByIdOrNull(savedMember.userId)!!
+            val findUser = userPersistenceAdapter.findByIdOrNull(savedUser.userId)!!
 
             // then
-            assertThat(findMember).isNotNull
-            assertThat(findMember.email).isEqualTo(member.email)
-            assertThat(findMember.username).isEqualTo(member.username)
-            assertThat(findMember.nickname).isEqualTo(member.nickname)
-            assertThat(findMember.password).isEqualTo(member.password)
-            assertThat(findMember.role).isEqualTo(member.role)
-            assertThat(findMember.registeredAt).isEqualTo(member.registeredAt)
+            assertThat(findUser).isNotNull
+            assertThat(findUser.email).isEqualTo(user.email)
+            assertThat(findUser.username).isEqualTo(user.username)
+            assertThat(findUser.nickname).isEqualTo(user.nickname)
+            assertThat(findUser.password).isEqualTo(user.password)
+            assertThat(findUser.role).isEqualTo(user.role)
+            assertThat(findUser.registeredAt).isEqualTo(user.registeredAt)
         }
 
         @DisplayName("존재하지 않는 id로 조회하면 null이 조회됨")
         @Test
         fun test2() {
             // given
-            val memberId = 1557L
+            val userId = 1557L
 
             // when
-            val findMember = memberPersistenceAdapter.findByIdOrNull(memberId)
+            val findUser = userPersistenceAdapter.findByIdOrNull(userId)
 
             // then
-            assertThat(findMember).isNull()
+            assertThat(findUser).isNull()
         }
     }
 
 
     @Nested
-    @DisplayName("findAuthMemberOrNull : 회원을 인증회원 형태로 복원해 조회한다.")
+    @DisplayName("findAuthUserOrNull : 사용자를 인증 사용자 형태로 복원해 조회한다.")
     inner class FindAuthUserOrNullTest {
 
 
         @Test
-        @DisplayName("회원이 있으면 authMember 형태로 조회된다.")
+        @DisplayName("사용자가 있으면 authUser 형태로 조회된다.")
         fun success() {
-            val memberId = 149L
+            val userId = 149L
             val role = Role.ROOT
-            val member = userFixture(userId = memberId, role = role)
-            memberPersistenceAdapter.save(member)
+            val user = userFixture(userId = userId, role = role)
+            userPersistenceAdapter.save(user)
 
-            val authMember = memberPersistenceAdapter.findAuthUserOrNull(memberId)!!
+            val authUser = userPersistenceAdapter.findAuthUserOrNull(userId)!!
 
-            assertThat(authMember.userId).isEqualTo(member.userId)
-            assertThat(authMember.role).isEqualTo(role)
+            assertThat(authUser.userId).isEqualTo(user.userId)
+            assertThat(authUser.role).isEqualTo(role)
         }
 
         @Test
         @DisplayName("회원이 없으면 null 이 반환된다.")
         fun nullTest() {
-            val memberId = 121356L
-            val authMember = memberPersistenceAdapter.findAuthUserOrNull(memberId)
-            assertThat(authMember).isNull()
+            val userId = 121356L
+            val authUser = userPersistenceAdapter.findAuthUserOrNull(userId)
+            assertThat(authUser).isNull()
         }
     }
 
@@ -141,16 +141,16 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
         @DisplayName("이메일에 해당하는 회원이 있을 경우 반환된다.")
         fun successTest() {
             // given
-            val member = userFixture(userId = 233L, email = "jest@gmail.com")
-            val savedMember = memberPersistenceAdapter.save(member)
+            val user = userFixture(userId = 233L, email = "jest@gmail.com")
+            val savedUser = userPersistenceAdapter.save(user)
 
             // when
-            val findMember = memberPersistenceAdapter.findByEmailOrNull(savedMember.email)!!
+            val findUser = userPersistenceAdapter.findByEmailOrNull(savedUser.email)!!
 
             // then
-            assertThat(findMember).isNotNull
-            assertThat(findMember.userId).isEqualTo(savedMember.userId)
-            assertThat(findMember.email).isEqualTo(savedMember.email)
+            assertThat(findUser).isNotNull
+            assertThat(findUser.userId).isEqualTo(savedUser.userId)
+            assertThat(findUser.email).isEqualTo(savedUser.email)
         }
 
 
@@ -161,10 +161,10 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
             val email = "abcd@gmail.com"
 
             // when
-            val findMember = memberPersistenceAdapter.findByEmailOrNull(email)
+            val findUser = userPersistenceAdapter.findByEmailOrNull(email)
 
             // then
-            assertThat(findMember).isNull()
+            assertThat(findUser).isNull()
         }
     }
 
@@ -175,12 +175,12 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistenceAdapter.save(member)
+            val user = userFixture()
+            val savedUser = userPersistenceAdapter.save(user)
             flushAndClearEntityManager()
 
             // when
-            val isExist = memberPersistenceAdapter.existsByEmail(savedMember.email)
+            val isExist = userPersistenceAdapter.existsByEmail(savedUser.email)
 
             // then
             assertThat(isExist).isTrue()
@@ -193,7 +193,7 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
             val email = "abcd@gmail.com"
 
             // when
-            val isExist = memberPersistenceAdapter.existsByEmail(email)
+            val isExist = userPersistenceAdapter.existsByEmail(email)
 
             // then
             assertThat(isExist).isFalse()
@@ -208,12 +208,12 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistenceAdapter.save(member)
+            val user = userFixture()
+            val savedUser = userPersistenceAdapter.save(user)
             flushAndClearEntityManager()
 
             // when
-            val isExist = memberPersistenceAdapter.existsByNickname(savedMember.nickname)
+            val isExist = userPersistenceAdapter.existsByNickname(savedUser.nickname)
 
             // then
             assertThat(isExist).isTrue()
@@ -226,7 +226,7 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
             val nickname = "페이커"
 
             // when
-            val isExist = memberPersistenceAdapter.existsByNickname(nickname)
+            val isExist = userPersistenceAdapter.existsByNickname(nickname)
 
             // then
             assertThat(isExist).isFalse()
@@ -241,12 +241,12 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
         @Test
         fun test1() {
             // given
-            val member = userFixture()
-            val savedMember = memberPersistenceAdapter.save(member)
+            val user = userFixture()
+            val savedUser = userPersistenceAdapter.save(user)
             flushAndClearEntityManager()
 
             // when
-            val isExist = memberPersistenceAdapter.existsByUsername(savedMember.username)
+            val isExist = userPersistenceAdapter.existsByUsername(savedUser.username)
 
             // then
             assertThat(isExist).isTrue()
@@ -258,7 +258,7 @@ class UserPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
             // given
             val username = "abcd124"
             // when
-            val isExist = memberPersistenceAdapter.existsByUsername(username)
+            val isExist = userPersistenceAdapter.existsByUsername(username)
 
             // then
             assertThat(isExist).isFalse()

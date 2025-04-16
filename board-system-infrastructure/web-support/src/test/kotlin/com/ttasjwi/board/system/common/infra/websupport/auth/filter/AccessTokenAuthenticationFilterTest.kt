@@ -90,7 +90,7 @@ class AccessTokenAuthenticationFilterTest {
     fun testWithValidAccessToken() {
         // given
         val accessToken = accessTokenFixture(
-            memberId = 1L,
+            userId = 1L,
             role = Role.USER,
             tokenValue = "tokenValue",
             issuedAt = appDateTimeFixture(minute = 0),
@@ -119,7 +119,7 @@ class AccessTokenAuthenticationFilterTest {
     fun testWithExpiredAccessToken() {
         // given
         val accessToken = accessTokenFixture(
-            memberId = 1L,
+            userId = 1L,
             role = Role.USER,
             tokenValue = "tokenValue",
             issuedAt = appDateTimeFixture(minute = 0),

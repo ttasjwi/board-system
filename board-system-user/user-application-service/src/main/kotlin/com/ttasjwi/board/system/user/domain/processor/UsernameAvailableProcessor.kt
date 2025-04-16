@@ -6,13 +6,13 @@ import com.ttasjwi.board.system.common.message.MessageResolver
 import com.ttasjwi.board.system.user.domain.UsernameAvailableResponse
 import com.ttasjwi.board.system.user.domain.dto.UsernameAvailableQuery
 import com.ttasjwi.board.system.user.domain.policy.UsernamePolicy
-import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
+import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
 import java.util.*
 
 @ApplicationProcessor
 internal class UsernameAvailableProcessor(
     private val usernamePolicy: UsernamePolicy,
-    private val memberPersistencePort: MemberPersistencePort,
+    private val userPersistencePort: UserPersistencePort,
     private val messageResolver: MessageResolver,
 ) {
 
@@ -27,7 +27,7 @@ internal class UsernameAvailableProcessor(
                 return makeResponse(query.username, false, "UsernameAvailableCheck.InvalidFormat", query.locale)
             }
 
-        if (memberPersistencePort.existsByUsername(username)) {
+        if (userPersistencePort.existsByUsername(username)) {
             log.info { "이미 사용 중인 사용자 아이디(username)입니다. (username = ${username})" }
             return makeResponse(query.username, false, "UsernameAvailableCheck.Taken", query.locale)
         }

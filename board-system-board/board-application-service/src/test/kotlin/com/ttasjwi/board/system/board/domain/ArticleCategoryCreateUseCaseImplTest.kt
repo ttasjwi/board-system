@@ -39,7 +39,7 @@ class ArticleCategoryCreateUseCaseImplTest {
         currentTime = appDateTimeFixture(minute = 9)
         container.timeManagerFixture.changeCurrentTime(currentTime)
 
-        container.authMemberLoaderFixture.changeAuthUser(authUserFixture(savedBoard.managerId, Role.USER))
+        container.authUserLoaderFixture.changeAuthUser(authUserFixture(savedBoard.managerId, Role.USER))
     }
 
 

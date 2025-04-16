@@ -8,24 +8,24 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("Member: 회원")
+@DisplayName("User: 사용자(회원)")
 class UserTest {
 
     @Nested
-    @DisplayName("create: 회원을 생성한다")
+    @DisplayName("create: 사용자를 생성한다")
     inner class Create {
 
         @Test
         @DisplayName("생성하면 일반 사용자 권한을 가진 사용자가 id 없는 상태로 생성된다.")
         fun test() {
-            val memberId = 1234L
+            val userId = 1234L
             val email = "jello@gmail.com"
             val username = "jello"
             val nickname = "헬로"
             val rawPassword = "1111"
             val registeredAt = appDateTimeFixture()
             val user = User.create(
-                userId = memberId,
+                userId = userId,
                 email = email,
                 username = username,
                 nickname = nickname,
