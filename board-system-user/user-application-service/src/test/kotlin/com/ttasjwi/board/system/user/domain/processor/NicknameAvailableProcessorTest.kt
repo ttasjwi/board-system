@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.user.domain.dto.NicknameAvailableQuery
-import com.ttasjwi.board.system.user.domain.model.Member
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.User
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.policy.fixture.NicknamePolicyFixture
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -16,15 +16,15 @@ import java.util.*
 class NicknameAvailableProcessorTest {
 
     private lateinit var processor: NicknameAvailableProcessor
-    private lateinit var savedMember: Member
+    private lateinit var savedUser: User
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
         val memberPersistencePortFixture = container.memberPersistencePortFixture
         processor = container.nicknameAvailableProcessor
-        savedMember = memberPersistencePortFixture.save(
-            memberFixture(
+        savedUser = memberPersistencePortFixture.save(
+            userFixture(
                 nickname = "saved"
             )
         )
@@ -55,7 +55,7 @@ class NicknameAvailableProcessorTest {
         @DisplayName("포맷이 올바르지만 이미 사용중인 닉네임이면, 이미 사용 중이라는 결과를 반환한다.")
         fun testTaken() {
             val query = NicknameAvailableQuery(
-                nickname = savedMember.nickname,
+                nickname = savedUser.nickname,
                 locale = Locale.CHINESE
             )
 

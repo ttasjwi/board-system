@@ -31,7 +31,7 @@ class JpaSocialConnection(
         fun from(socialConnection: SocialConnection): JpaSocialConnection {
             return JpaSocialConnection(
                 socialConnectionId = socialConnection.socialConnectionId,
-                userId = socialConnection.memberId,
+                userId = socialConnection.userId,
                 socialService = socialConnection.socialServiceUser.socialService.name,
                 socialServiceUserId = socialConnection.socialServiceUser.socialServiceUserId,
                 linkedAt = socialConnection.linkedAt.toLocalDateTime()
@@ -42,7 +42,7 @@ class JpaSocialConnection(
     internal fun restoreDomain(): SocialConnection {
         return SocialConnection.restore(
             socialConnectionId = this.socialConnectionId,
-            memberId = this.userId,
+            userId = this.userId,
             socialServiceName = this.socialService,
             socialServiceUserId = this.socialServiceUserId,
             linkedAt = this.linkedAt

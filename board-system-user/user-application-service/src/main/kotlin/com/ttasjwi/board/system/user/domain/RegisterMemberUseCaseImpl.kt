@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.user.domain
 
 import com.ttasjwi.board.system.common.annotation.component.UseCase
 import com.ttasjwi.board.system.user.domain.mapper.RegisterMemberCommandMapper
-import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.processor.RegisterMemberProcessor
 
 @UseCase
@@ -17,14 +17,14 @@ internal class RegisterMemberUseCaseImpl(
         return makeResponse(member)
     }
 
-    private fun makeResponse(member: Member): RegisterMemberResponse {
+    private fun makeResponse(user: User): RegisterMemberResponse {
         return RegisterMemberResponse(
-            memberId = member.memberId.toString(),
-            email = member.email,
-            username = member.username,
-            nickname = member.nickname,
-            role = member.role.name,
-            registeredAt = member.registeredAt.toZonedDateTime(),
+            memberId = user.userId.toString(),
+            email = user.email,
+            username = user.username,
+            nickname = user.nickname,
+            role = user.role.name,
+            registeredAt = user.registeredAt.toZonedDateTime(),
         )
     }
 }

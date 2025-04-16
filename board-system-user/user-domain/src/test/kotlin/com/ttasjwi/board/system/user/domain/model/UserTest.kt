@@ -2,14 +2,14 @@ package com.ttasjwi.board.system.user.domain.model
 
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("Member: 회원")
-class MemberTest {
+class UserTest {
 
     @Nested
     @DisplayName("create: 회원을 생성한다")
@@ -24,8 +24,8 @@ class MemberTest {
             val nickname = "헬로"
             val rawPassword = "1111"
             val registeredAt = appDateTimeFixture()
-            val member = Member.create(
-                memberId = memberId,
+            val user = User.create(
+                userId = memberId,
                 email = email,
                 username = username,
                 nickname = nickname,
@@ -33,14 +33,14 @@ class MemberTest {
                 registeredAt = registeredAt
             )
 
-            assertThat(member).isNotNull()
-            assertThat(member.memberId).isNotNull()
-            assertThat(member.email).isEqualTo(email)
-            assertThat(member.username).isEqualTo(username)
-            assertThat(member.nickname).isEqualTo(nickname)
-            assertThat(member.password).isEqualTo(rawPassword)
-            assertThat(member.role).isEqualTo(Role.USER)
-            assertThat(member.registeredAt).isEqualTo(registeredAt)
+            assertThat(user).isNotNull()
+            assertThat(user.userId).isNotNull()
+            assertThat(user.email).isEqualTo(email)
+            assertThat(user.username).isEqualTo(username)
+            assertThat(user.nickname).isEqualTo(nickname)
+            assertThat(user.password).isEqualTo(rawPassword)
+            assertThat(user.role).isEqualTo(Role.USER)
+            assertThat(user.registeredAt).isEqualTo(registeredAt)
         }
     }
 
@@ -57,8 +57,8 @@ class MemberTest {
             val nickname = "땃쥐"
             val roleName = "USER"
             val registeredAt = appDateTimeFixture().toLocalDateTime()
-            val member = Member.restore(
-                memberId = id,
+            val user = User.restore(
+                userId = id,
                 email = email,
                 password = password,
                 username = username,
@@ -67,14 +67,14 @@ class MemberTest {
                 registeredAt = registeredAt,
             )
 
-            assertThat(member).isNotNull
-            assertThat(member.memberId).isEqualTo(id)
-            assertThat(member.email).isEqualTo(email)
-            assertThat(member.password).isEqualTo(password)
-            assertThat(member.username).isEqualTo(username)
-            assertThat(member.nickname).isEqualTo(nickname)
-            assertThat(member.role).isEqualTo(Role.restore(roleName))
-            assertThat(member.registeredAt.toLocalDateTime()).isEqualTo(registeredAt)
+            assertThat(user).isNotNull
+            assertThat(user.userId).isEqualTo(id)
+            assertThat(user.email).isEqualTo(email)
+            assertThat(user.password).isEqualTo(password)
+            assertThat(user.username).isEqualTo(username)
+            assertThat(user.nickname).isEqualTo(nickname)
+            assertThat(user.role).isEqualTo(Role.restore(roleName))
+            assertThat(user.registeredAt.toLocalDateTime()).isEqualTo(registeredAt)
         }
     }
 
@@ -86,10 +86,10 @@ class MemberTest {
         @Test
         @DisplayName("toString 이 의도한 대로 문자열을 반환하는 지 테스트")
         fun test() {
-            val member = memberFixture()
+            val user = userFixture()
 
-            assertThat(member.toString()).isEqualTo(
-                "Member(memberId=${member.memberId}, email=${member.email}, password=[!!SECRET!!], username=${member.username}, nickname=${member.nickname}, role=${member.role}, registeredAt=${member.registeredAt})"
+            assertThat(user.toString()).isEqualTo(
+                "User(userId=${user.userId}, email=${user.email}, password=[!!SECRET!!], username=${user.username}, nickname=${user.nickname}, role=${user.role}, registeredAt=${user.registeredAt})"
             )
         }
     }

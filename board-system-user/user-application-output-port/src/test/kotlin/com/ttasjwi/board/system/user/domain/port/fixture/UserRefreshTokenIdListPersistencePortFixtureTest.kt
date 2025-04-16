@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class MemberRefreshTokenIdListPersistencePortFixtureTest {
+class UserRefreshTokenIdListPersistencePortFixtureTest {
 
     private lateinit var memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture
 

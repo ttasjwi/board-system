@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("MemberCreator: 회원 생성 도메인 서비스")
-class MemberCreatorTest {
+class UserCreatorTest {
 
     private lateinit var memberCreator: MemberCreator
 
@@ -32,7 +32,7 @@ class MemberCreatorTest {
         // when
         val member = memberCreator.create(email, rawPassword, username, nickname, currentTime)
 
-        assertThat(member.memberId).isNotNull()
+        assertThat(member.userId).isNotNull()
         assertThat(member.email).isEqualTo(email)
         assertThat(member.password).isNotNull()
         assertThat(member.username).isEqualTo(username)
@@ -53,7 +53,7 @@ class MemberCreatorTest {
         val member = memberCreator.createRandom(email, currentTime)
 
         // then
-        assertThat(member.memberId).isNotNull()
+        assertThat(member.userId).isNotNull()
         assertThat(member.email).isEqualTo(email)
         assertThat(member.password).isNotNull()
         assertThat(member.username).isNotNull()

@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.annotation.component.UseCase
 import com.ttasjwi.board.system.common.auth.AccessToken
 import com.ttasjwi.board.system.common.auth.RefreshToken
 import com.ttasjwi.board.system.user.domain.mapper.SocialLoginCommandMapper
-import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.processor.SocialLoginProcessor
 
 @UseCase
@@ -23,7 +23,7 @@ internal class SocialLoginUseCaseImpl(
      * 소셜 로그인 결과를 생성합니다.
      */
     private fun makeResponse(
-        createdMember: Member?,
+        createdUser: User?,
         accessToken: AccessToken,
         refreshToken: RefreshToken,
     ): SocialLoginResponse {
@@ -33,10 +33,10 @@ internal class SocialLoginUseCaseImpl(
             accessTokenExpiresAt = accessToken.expiresAt.toZonedDateTime(),
             refreshToken = refreshToken.tokenValue,
             refreshTokenExpiresAt = refreshToken.expiresAt.toZonedDateTime(),
-            memberCreated = createdMember != null,
-            createdMember = createdMember?.let {
+            memberCreated = createdUser != null,
+            createdMember = createdUser?.let {
                 SocialLoginResponse.CreatedMember(
-                    memberId = it.memberId.toString(),
+                    memberId = it.userId.toString(),
                     email = it.email,
                     username = it.username,
                     nickname = it.nickname,

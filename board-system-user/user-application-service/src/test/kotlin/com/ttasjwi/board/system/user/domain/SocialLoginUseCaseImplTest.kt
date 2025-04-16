@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.user.domain
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.user.domain.model.SocialService
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.socialConnectionFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.MemberPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.SocialConnectionPersistencePortFixture
@@ -40,10 +40,10 @@ class SocialLoginUseCaseImplTest {
         val currentTime = appDateTimeFixture(minute = 5)
         timeManagerFixture.changeCurrentTime(currentTime)
 
-        val member = memberPersistencePortFixture.save(memberFixture(email = email))
+        val member = memberPersistencePortFixture.save(userFixture(email = email))
         socialConnectionPersistencePortFixture.save(
             socialConnectionFixture(
-                memberId = member.memberId,
+                userId = member.userId,
                 socialService = SocialService.GOOGLE,
                 socialServiceUserId = socialServiceUserId,
                 linkedAt = appDateTimeFixture(minute = 3)

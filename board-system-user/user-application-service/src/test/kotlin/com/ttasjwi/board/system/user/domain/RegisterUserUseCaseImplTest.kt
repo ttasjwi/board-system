@@ -11,7 +11,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("RegisterMemberUseCaseImpl: 회원가입 유즈케이스 구현체")
-class RegisterMemberUseCaseImplTest {
+class RegisterUserUseCaseImplTest {
 
     private lateinit var useCase: RegisterMemberUseCase
     private lateinit var emailVerificationPersistencePortFixture: EmailVerificationPersistencePortFixture

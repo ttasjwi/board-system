@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test
 @DisplayName("SocialConnection 픽스쳐 테스트")
 class SocialConnectionFixtureTest {
 
-
     @Test
     @DisplayName("디폴트")
     fun test1() {
@@ -19,7 +18,7 @@ class SocialConnectionFixtureTest {
 
         // then
         assertThat(socialConnection.socialConnectionId).isNotNull
-        assertThat(socialConnection.memberId).isNotNull
+        assertThat(socialConnection.userId).isNotNull
         assertThat(socialConnection.socialServiceUser).isNotNull
         assertThat(socialConnection.linkedAt).isNotNull
     }
@@ -28,24 +27,24 @@ class SocialConnectionFixtureTest {
     @DisplayName("커스텀 파라미터")
     fun test2() {
         // given
-        val id = 2L
-        val memberId = 133L
+        val socialConnectionId = 2L
+        val userId = 133L
         val socialService = SocialService.NAVER
         val socialServiceUserId = "adfadf7ad7"
         val linkedAt = appDateTimeFixture(minute = 13)
 
         // when
         val socialConnection = socialConnectionFixture(
-            id = id,
-            memberId = memberId,
+            socialConnectionId = socialConnectionId,
+            userId = userId,
             socialService = socialService,
             socialServiceUserId = socialServiceUserId,
             linkedAt = linkedAt
         )
 
         // then
-        assertThat(socialConnection.socialConnectionId).isEqualTo(id)
-        assertThat(socialConnection.memberId).isEqualTo(memberId)
+        assertThat(socialConnection.socialConnectionId).isEqualTo(socialConnectionId)
+        assertThat(socialConnection.userId).isEqualTo(userId)
         assertThat(socialConnection.socialServiceUser.socialService).isEqualTo(socialService)
         assertThat(socialConnection.socialServiceUser.socialServiceUserId).isEqualTo(socialServiceUserId)
         assertThat(socialConnection.linkedAt).isEqualTo(linkedAt)

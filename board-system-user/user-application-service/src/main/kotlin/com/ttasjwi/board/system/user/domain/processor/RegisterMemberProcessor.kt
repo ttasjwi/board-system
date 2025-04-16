@@ -2,11 +2,11 @@ package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.user.domain.dto.RegisterMemberCommand
-import com.ttasjwi.board.system.user.domain.exception.DuplicateMemberEmailException
-import com.ttasjwi.board.system.user.domain.exception.DuplicateMemberNicknameException
-import com.ttasjwi.board.system.user.domain.exception.DuplicateMemberUsernameException
+import com.ttasjwi.board.system.user.domain.exception.DuplicateUserEmailException
+import com.ttasjwi.board.system.user.domain.exception.DuplicateUserNicknameException
+import com.ttasjwi.board.system.user.domain.exception.DuplicateUserUsernameException
 import com.ttasjwi.board.system.user.domain.exception.EmailVerificationNotFoundException
-import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.port.EmailVerificationPersistencePort
 import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
 import com.ttasjwi.board.system.user.domain.service.MemberCreator
@@ -20,7 +20,7 @@ internal class RegisterMemberProcessor(
 ) {
 
     @Transactional
-    fun register(command: RegisterMemberCommand): Member {
+    fun register(command: RegisterMemberCommand): User {
         checkDuplicate(command)
         checkEmailVerificationAndRemove(command)
 
@@ -31,13 +31,13 @@ internal class RegisterMemberProcessor(
 
     private fun checkDuplicate(command: RegisterMemberCommand) {
         if (memberPersistencePort.existsByEmail(command.email)) {
-            throw DuplicateMemberEmailException(command.email)
+            throw DuplicateUserEmailException(command.email)
         }
         if (memberPersistencePort.existsByUsername(command.username)) {
-            throw DuplicateMemberUsernameException(command.username)
+            throw DuplicateUserUsernameException(command.username)
         }
         if (memberPersistencePort.existsByNickname(command.nickname)) {
-            throw DuplicateMemberNicknameException(command.nickname)
+            throw DuplicateUserNicknameException(command.nickname)
         }
     }
 
@@ -52,7 +52,7 @@ internal class RegisterMemberProcessor(
         emailVerificationPersistencePort.remove(emailVerification.email)
     }
 
-    private fun createMember(command: RegisterMemberCommand): Member {
+    private fun createMember(command: RegisterMemberCommand): User {
         return memberCreator.create(
             email = command.email,
             rawPassword = command.rawPassword,

@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.AppDateTime
 import java.time.LocalDateTime
 
-class Member
+class User
 internal constructor(
-    val memberId: Long,
+    val userId: Long,
     email: String,
     password: String,
     username: String,
@@ -36,15 +36,15 @@ internal constructor(
          * 가입 회원 생성
          */
         fun create(
-            memberId: Long,
+            userId: Long,
             email: String,
             password: String,
             username: String,
             nickname: String,
             registeredAt: AppDateTime,
-        ): Member {
-            return Member(
-                memberId = memberId,
+        ): User {
+            return User(
+                userId = userId,
                 email = email,
                 password = password,
                 username = username,
@@ -55,16 +55,16 @@ internal constructor(
         }
 
         fun restore(
-            memberId: Long,
+            userId: Long,
             email: String,
             password: String,
             username: String,
             nickname: String,
             roleName: String,
             registeredAt: LocalDateTime
-        ): Member {
-            return Member(
-                memberId = memberId,
+        ): User {
+            return User(
+                userId = userId,
                 email = email,
                 password = password,
                 username = username,
@@ -76,6 +76,6 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "Member(memberId=$memberId, email=$email, password=[!!SECRET!!], username=$username, nickname=$nickname, role=$role, registeredAt=$registeredAt)"
+        return "User(userId=$userId, email=$email, password=[!!SECRET!!], username=$username, nickname=$nickname, role=$role, registeredAt=$registeredAt)"
     }
 }

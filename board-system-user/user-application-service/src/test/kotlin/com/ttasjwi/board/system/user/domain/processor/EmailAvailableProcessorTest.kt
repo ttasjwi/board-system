@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.user.domain.dto.EmailAvailableQuery
-import com.ttasjwi.board.system.user.domain.model.Member
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.User
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.EmailFormatValidatePortFixture
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -16,16 +16,16 @@ import java.util.*
 class EmailAvailableProcessorTest {
 
     private lateinit var processor: EmailAvailableProcessor
-    private lateinit var savedMember: Member
+    private lateinit var savedUser: User
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
         val memberPersistencePortFixture = container.memberPersistencePortFixture
         processor = container.emailAvailableProcessor
-        savedMember = memberPersistencePortFixture.save(
-            memberFixture(
-                memberId = 123456L,
+        savedUser = memberPersistencePortFixture.save(
+            userFixture(
+                userId = 123456L,
                 email = "registered@gmail.com"
             )
         )
@@ -56,7 +56,7 @@ class EmailAvailableProcessorTest {
         @DisplayName("포맷이 올바르지만 이미 사용중인 이메일이면, 이미 사용 중이라는 결과를 반환한다.")
         fun testTaken() {
             val query = EmailAvailableQuery(
-                email = savedMember.email,
+                email = savedUser.email,
                 locale = Locale.ENGLISH
             )
 

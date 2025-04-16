@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
 import com.ttasjwi.board.system.common.auth.AuthUser
-import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.port.MemberPersistencePort
 import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaUser
 import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaMemberRepository
@@ -13,13 +13,13 @@ class MemberPersistenceAdapter(
     private val jpaMemberRepository: JpaMemberRepository
 ) : MemberPersistencePort {
 
-    override fun save(member: Member): Member {
-        val jpaUser = JpaUser.from(member)
+    override fun save(user: User): User {
+        val jpaUser = JpaUser.from(user)
         jpaMemberRepository.save(jpaUser)
-        return member
+        return user
     }
 
-    override fun findByIdOrNull(memberId: Long): Member? {
+    override fun findByIdOrNull(memberId: Long): User? {
         return jpaMemberRepository.findByIdOrNull(memberId)?.restoreDomain()
     }
 
@@ -29,7 +29,7 @@ class MemberPersistenceAdapter(
         }
     }
 
-    override fun findByEmailOrNull(email: String): Member? {
+    override fun findByEmailOrNull(email: String): User? {
         return jpaMemberRepository.findByEmailOrNull(email)?.restoreDomain()
     }
 

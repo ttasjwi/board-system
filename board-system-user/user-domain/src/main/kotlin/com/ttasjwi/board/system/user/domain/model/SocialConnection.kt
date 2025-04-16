@@ -9,7 +9,7 @@ import java.time.LocalDateTime
 class SocialConnection
 internal constructor(
     val socialConnectionId: Long,
-    val memberId: Long,
+    val userId: Long,
     val socialServiceUser: SocialServiceUser,
     val linkedAt: AppDateTime,
 ) {
@@ -18,13 +18,13 @@ internal constructor(
 
         fun create(
             socialConnectionId: Long,
-            memberId: Long,
+            userId: Long,
             socialServiceUser: SocialServiceUser,
             currentTime: AppDateTime
         ): SocialConnection {
             return SocialConnection(
                 socialConnectionId = socialConnectionId,
-                memberId = memberId,
+                userId = userId,
                 socialServiceUser = socialServiceUser,
                 linkedAt = currentTime,
             )
@@ -32,17 +32,21 @@ internal constructor(
 
         fun restore(
             socialConnectionId: Long,
-            memberId: Long,
+            userId: Long,
             socialServiceName: String,
             socialServiceUserId: String,
             linkedAt: LocalDateTime
         ): SocialConnection {
             return SocialConnection(
                 socialConnectionId = socialConnectionId,
-                memberId = memberId,
+                userId = userId,
                 socialServiceUser = SocialServiceUser.restore(socialServiceName, socialServiceUserId),
                 linkedAt = AppDateTime.from(linkedAt)
             )
         }
+    }
+
+    override fun toString(): String {
+        return "SocialConnection(socialConnectionId=$socialConnectionId, userId=$userId, socialServiceUser=$socialServiceUser, linkedAt=$linkedAt)"
     }
 }

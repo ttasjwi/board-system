@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("MemberRefreshTokenIdListPersistenceAdapter 테스트")
-class MemberRefreshTokenIdListPersistenceAdapterTest : MemberRedisAdapterTest() {
+class UserRefreshTokenIdListPersistenceAdapterTest : MemberRedisAdapterTest() {
 
     @AfterEach
     fun tearDown() {

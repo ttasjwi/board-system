@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.user.domain.service
 import com.ttasjwi.board.system.common.annotation.component.DomainService
 import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.model.User
 import com.ttasjwi.board.system.user.domain.policy.NicknamePolicy
 import com.ttasjwi.board.system.user.domain.policy.PasswordPolicy
 import com.ttasjwi.board.system.user.domain.policy.UsernamePolicy
@@ -25,9 +25,9 @@ class MemberCreator(
         username: String,
         nickname: String,
         currentTime: AppDateTime
-    ): Member {
-        return Member.create(
-            memberId = idGenerator.nextId(),
+    ): User {
+        return User.create(
+            userId = idGenerator.nextId(),
             email = email,
             password = passwordEncryptionPort.encode(rawPassword),
             username = username,
@@ -36,7 +36,7 @@ class MemberCreator(
         )
     }
 
-    fun createRandom(email: String, currentTime: AppDateTime): Member {
+    fun createRandom(email: String, currentTime: AppDateTime): User {
         return create(
             email = email,
             rawPassword = passwordPolicy.createRandomPassword(),

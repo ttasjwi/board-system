@@ -4,8 +4,8 @@ import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.user.domain.dto.LoginCommand
 import com.ttasjwi.board.system.user.domain.exception.LoginFailureException
-import com.ttasjwi.board.system.user.domain.model.Member
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.User
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.MemberRefreshTokenIdListPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.RefreshTokenIdPersistencePortFixture
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
@@ -21,7 +21,7 @@ class LoginProcessorTest {
 
     private lateinit var processor: LoginProcessor
     private lateinit var successCommand: LoginCommand
-    private lateinit var savedMember: Member
+    private lateinit var savedUser: User
     private lateinit var memberRefreshTokenIdListPersistencePortFixture: MemberRefreshTokenIdListPersistencePortFixture
     private lateinit var refreshTokenPersistencePortFixture: RefreshTokenIdPersistencePortFixture
 
@@ -29,9 +29,9 @@ class LoginProcessorTest {
     fun setup() {
         val container = TestContainer.create()
 
-        savedMember = container.memberPersistencePortFixture.save(
-            memberFixture(
-                memberId = 1543L,
+        savedUser = container.memberPersistencePortFixture.save(
+            userFixture(
+                userId = 1543L,
                 email = "hello@gmail.com",
                 password = "1234",
                 username = "username",
@@ -62,12 +62,12 @@ class LoginProcessorTest {
         val refreshTokenExists =
             refreshTokenPersistencePortFixture.exists(refreshToken.memberId, refreshToken.refreshTokenId)
 
-        assertThat(accessToken.authUser.userId).isEqualTo(savedMember.memberId)
-        assertThat(accessToken.authUser.role).isEqualTo(savedMember.role)
+        assertThat(accessToken.authUser.userId).isEqualTo(savedUser.userId)
+        assertThat(accessToken.authUser.role).isEqualTo(savedUser.role)
         assertThat(accessToken.issuedAt).isEqualTo(successCommand.currentTime)
         assertThat(accessToken.expiresAt).isEqualTo(successCommand.currentTime.plusMinutes(30))
 
-        assertThat(refreshToken.memberId).isEqualTo(savedMember.memberId)
+        assertThat(refreshToken.memberId).isEqualTo(savedUser.userId)
         assertThat(refreshToken.issuedAt).isEqualTo(successCommand.currentTime)
         assertThat(refreshToken.expiresAt).isEqualTo(successCommand.currentTime.plusHours(RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR))
         assertThat(memberRefreshTokenIds).containsExactly(refreshToken.refreshTokenId)

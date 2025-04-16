@@ -29,7 +29,7 @@ class SocialConnectionPersistenceAdapterTest : MemberDataBaseIntegrationTest() {
 
             // then
             assertThat(findSocialConnection.socialConnectionId).isEqualTo(socialConnection.socialConnectionId)
-            assertThat(findSocialConnection.memberId).isEqualTo(socialConnection.memberId)
+            assertThat(findSocialConnection.userId).isEqualTo(socialConnection.userId)
             assertThat(findSocialConnection.socialServiceUser).isEqualTo(socialConnection.socialServiceUser)
             assertThat(findSocialConnection.linkedAt).isEqualTo(socialConnection.linkedAt)
         }

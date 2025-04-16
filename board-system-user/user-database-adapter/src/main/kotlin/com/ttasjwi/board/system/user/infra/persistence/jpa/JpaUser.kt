@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.user.infra.persistence.jpa
 
-import com.ttasjwi.board.system.user.domain.model.Member
+import com.ttasjwi.board.system.user.domain.model.User
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
@@ -36,22 +36,22 @@ class JpaUser(
 
     companion object {
 
-        internal fun from(member: Member): JpaUser {
+        internal fun from(user: User): JpaUser {
             return JpaUser(
-                userId = member.memberId,
-                email = member.email,
-                password = member.password,
-                username = member.username,
-                nickname = member.nickname,
-                role = member.role.name,
-                registeredAt = member.registeredAt.toLocalDateTime(),
+                userId = user.userId,
+                email = user.email,
+                password = user.password,
+                username = user.username,
+                nickname = user.nickname,
+                role = user.role.name,
+                registeredAt = user.registeredAt.toLocalDateTime(),
             )
         }
     }
 
-    internal fun restoreDomain(): Member {
-        return Member.restore(
-            memberId = this.userId,
+    internal fun restoreDomain(): User {
+        return User.restore(
+            userId = this.userId,
             email = this.email,
             password = this.password,
             username = this.username,

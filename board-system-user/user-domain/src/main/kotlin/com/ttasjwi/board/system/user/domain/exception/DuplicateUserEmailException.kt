@@ -3,12 +3,12 @@ package com.ttasjwi.board.system.user.domain.exception
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.ErrorStatus
 
-class DuplicateMemberEmailException(
+class DuplicateUserEmailException(
     email: String,
 ) : CustomException(
     status = ErrorStatus.CONFLICT,
-    code = "Error.DuplicateMemberEmail",
+    code = "Error.DuplicateUserEmail",
     args = listOf(email),
     source = "email",
-    debugMessage = "중복되는 이메일의 회원이 존재합니다.(email=${email})"
+    debugMessage = "중복되는 이메일의 사용자가 존재합니다.(email=${email})"
 )

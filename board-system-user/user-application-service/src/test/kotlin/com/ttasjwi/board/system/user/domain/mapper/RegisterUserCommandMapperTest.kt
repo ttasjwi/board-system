@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 @DisplayName("RegisterMemberCommandMapper 테스트")
-class RegisterMemberCommandMapperTest {
+class RegisterUserCommandMapperTest {
 
     private lateinit var commandMapper: RegisterMemberCommandMapper
     private lateinit var currentTime: AppDateTime

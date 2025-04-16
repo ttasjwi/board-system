@@ -6,15 +6,15 @@ import com.ttasjwi.board.system.user.domain.model.SocialConnection
 import com.ttasjwi.board.system.user.domain.model.SocialService
 
 fun socialConnectionFixture(
-    id: Long = 1L,
-    memberId: Long = 1L,
+    socialConnectionId: Long = 1L,
+    userId: Long = 1L,
     socialService: SocialService = SocialService.GOOGLE,
     socialServiceUserId: String = "asdfadfad",
     linkedAt: AppDateTime = appDateTimeFixture(minute = 0)
 ): SocialConnection {
     return SocialConnection(
-        socialConnectionId = id,
-        memberId = memberId,
+        socialConnectionId = socialConnectionId,
+        userId = userId,
         socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
         linkedAt = linkedAt
     )

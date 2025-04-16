@@ -3,8 +3,8 @@ package com.ttasjwi.board.system.user.domain
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import com.ttasjwi.board.system.user.domain.model.Member
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.User
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -18,7 +18,7 @@ class TokenRefreshUseCaseImplTest {
     private lateinit var useCase: TokenRefreshUseCase
     private lateinit var refreshTokenHandler: RefreshTokenHandler
     private lateinit var timeManagerFixture: TimeManagerFixture
-    private lateinit var member: Member
+    private lateinit var user: User
 
     @BeforeEach
     fun setup() {
@@ -26,9 +26,9 @@ class TokenRefreshUseCaseImplTest {
         refreshTokenHandler = container.refreshTokenHandler
         timeManagerFixture = container.timeManagerFixture
         useCase = container.tokenRefreshUseCase
-        member = container.memberPersistencePortFixture.save(
-            memberFixture(
-                memberId = 12345L,
+        user = container.memberPersistencePortFixture.save(
+            userFixture(
+                userId = 12345L,
                 role = Role.ROOT
             )
         )
@@ -39,7 +39,7 @@ class TokenRefreshUseCaseImplTest {
     @DisplayName("리프레시토큰을 만료하지 않아도 되는 경우, 리프레시 토큰이 갱신되지 않은 결과가 반환되는 지 테스트")
     fun testRefreshTokenNotRefresh() {
         // given
-        val refreshToken = refreshTokenHandler.createAndPersist(member.memberId, appDateTimeFixture())
+        val refreshToken = refreshTokenHandler.createAndPersist(user.userId, appDateTimeFixture())
 
         val currentTime = appDateTimeFixture(
             hour = (RefreshTokenHandler.REFRESH_TOKEN_VALIDITY_HOUR

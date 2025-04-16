@@ -1,8 +1,8 @@
 package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.user.domain.dto.UsernameAvailableQuery
-import com.ttasjwi.board.system.user.domain.model.Member
-import com.ttasjwi.board.system.user.domain.model.fixture.memberFixture
+import com.ttasjwi.board.system.user.domain.model.User
+import com.ttasjwi.board.system.user.domain.model.fixture.userFixture
 import com.ttasjwi.board.system.user.domain.policy.fixture.UsernamePolicyFixture
 import com.ttasjwi.board.system.user.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -16,15 +16,15 @@ import java.util.*
 class UsernameAvailableProcessorTest {
 
     private lateinit var processor: UsernameAvailableProcessor
-    private lateinit var savedMember: Member
+    private lateinit var savedUser: User
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
         val memberPersistencePortFixture = container.memberPersistencePortFixture
         processor = container.usernameAvailableProcessor
-        savedMember = memberPersistencePortFixture.save(
-            memberFixture(
+        savedUser = memberPersistencePortFixture.save(
+            userFixture(
                 username = "notregistered"
             )
         )
@@ -55,7 +55,7 @@ class UsernameAvailableProcessorTest {
         @DisplayName("포맷이 올바르지만 이미 사용중인 Username이면, 이미 사용 중이라는 결과를 반환한다.")
         fun testTaken() {
             val query = UsernameAvailableQuery(
-                username = savedMember.username,
+                username = savedUser.username,
                 locale = Locale.CHINESE
             )
 
