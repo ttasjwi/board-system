@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.board.domain.ArticleCategoryCreateRequest
 import com.ttasjwi.board.system.board.domain.policy.fixture.ArticleCategoryNamePolicyFixture
 import com.ttasjwi.board.system.board.domain.policy.fixture.ArticleCategorySlugPolicyFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
@@ -23,7 +23,7 @@ class ArticleCategoryCreateCommandMapperTest {
 
     private lateinit var commandMapper: ArticleCategoryCreateCommandMapper
     private lateinit var currentTime: AppDateTime
-    private lateinit var authMember: AuthMember
+    private lateinit var authUser: AuthUser
 
     @BeforeEach
     fun setUp() {
@@ -33,11 +33,11 @@ class ArticleCategoryCreateCommandMapperTest {
         currentTime = appDateTimeFixture(minute = 5)
         container.timeManagerFixture.changeCurrentTime(currentTime)
 
-        authMember = authMemberFixture(
-            memberId = 1557L,
+        authUser = authUserFixture(
+            userId = 1557L,
             role = Role.USER
         )
-        container.authMemberLoaderFixture.changeAuthMember(authMember)
+        container.authUserLoaderFixture.changeAuthUser(authUser)
     }
 
 
@@ -59,7 +59,7 @@ class ArticleCategoryCreateCommandMapperTest {
 
         // then
         assertThat(command.boardId).isEqualTo(boardId)
-        assertThat(command.creator).isEqualTo(authMember)
+        assertThat(command.creator).isEqualTo(authUser)
         assertThat(command.name).isEqualTo(request.name)
         assertThat(command.slug).isEqualTo(request.slug)
         assertThat(command.allowSelfDelete).isEqualTo(request.allowSelfDelete)

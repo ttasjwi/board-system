@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.article.domain.dto.ArticleCreateCommand
 import com.ttasjwi.board.system.article.domain.policy.ArticleContentPolicy
 import com.ttasjwi.board.system.article.domain.policy.ArticleTitlePolicy
 import com.ttasjwi.board.system.common.annotation.component.ApplicationCommandMapper
-import com.ttasjwi.board.system.common.auth.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 import com.ttasjwi.board.system.common.time.TimeManager
@@ -14,7 +14,7 @@ import com.ttasjwi.board.system.common.time.TimeManager
 internal class ArticleCreateCommandMapper(
     private val articleTitlePolicy: ArticleTitlePolicy,
     private val articleContentPolicy: ArticleContentPolicy,
-    private val authMemberLoader: AuthMemberLoader,
+    private val authUserLoader: AuthUserLoader,
     private val timeManager: TimeManager,
 ) {
 
@@ -31,7 +31,7 @@ internal class ArticleCreateCommandMapper(
             title = title!!,
             content = content!!,
             articleCategoryId = articleCategoryId!!,
-            writer = authMemberLoader.loadCurrentAuthMember()!!,
+            writer = authUserLoader.loadCurrentAuthUser()!!,
             currentTime = timeManager.now(),
         )
     }

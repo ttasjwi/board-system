@@ -17,19 +17,19 @@ class AccessTokenFixtureTest {
         val accessToken = accessTokenFixture()
 
         // then
-        assertThat(accessToken.authMember.memberId).isNotNull()
-        assertThat(accessToken.authMember.role).isNotNull()
+        assertThat(accessToken.authUser.userId).isNotNull()
+        assertThat(accessToken.authUser.role).isNotNull()
         assertThat(accessToken.tokenValue).isNotNull()
         assertThat(accessToken.issuedAt).isNotNull()
         assertThat(accessToken.expiresAt).isNotNull()
-        assertThat(accessToken.authMember).isNotNull()
+        assertThat(accessToken.authUser).isNotNull()
     }
 
     @Test
     @DisplayName("커스텀 파라미터 생성 테스트")
     fun test2() {
         // given
-        val memberId = 2L
+        val userId = 2L
         val role = Role.ADMIN
         val tokenValue = "tokentoken"
         val issuedAt = appDateTimeFixture(minute = 3)
@@ -37,7 +37,7 @@ class AccessTokenFixtureTest {
 
         // when
         val accessToken = accessTokenFixture(
-            memberId = memberId,
+            userId = userId,
             role = role,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
@@ -45,8 +45,8 @@ class AccessTokenFixtureTest {
         )
 
         // then
-        assertThat(accessToken.authMember.memberId).isEqualTo(memberId)
-        assertThat(accessToken.authMember.role).isEqualTo(role)
+        assertThat(accessToken.authUser.userId).isEqualTo(userId)
+        assertThat(accessToken.authUser.role).isEqualTo(role)
         assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
         assertThat(accessToken.issuedAt).isEqualTo(issuedAt)
         assertThat(accessToken.expiresAt).isEqualTo(expiresAt)

@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS members(
-    member_id     BIGINT       NOT NULL PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS users(
+    user_id       BIGINT       NOT NULL PRIMARY KEY,
     email         VARCHAR(255) NOT NULL UNIQUE,
     password      VARCHAR(68)  NOT NULL,
     username      VARCHAR(15)  NOT NULL UNIQUE,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS members(
 
 CREATE TABLE IF NOT EXISTS social_connections(
     social_connection_id   BIGINT       NOT NULL PRIMARY KEY,
-    member_id              BIGINT       NOT NULL,
+    user_id                BIGINT       NOT NULL,
     social_service         VARCHAR(20)  NOT NULL,
     social_service_user_id VARCHAR(100) NOT NULL,
     linked_at              DATETIME     NOT NULL

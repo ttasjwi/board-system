@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.article.domain.model.fixture.articleCategoryFixt
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -45,7 +45,7 @@ class ArticleCreateProcessorTest {
             title = "제목",
             content = "본문",
             articleCategoryId = savedArticleCategory.articleCategoryId,
-            writer = authMemberFixture(memberId = 15747L, role = Role.USER),
+            writer = authUserFixture(userId = 15747L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 43)
         )
 
@@ -60,7 +60,7 @@ class ArticleCreateProcessorTest {
         assertThat(article.content).isEqualTo(command.content)
         assertThat(article.boardId).isEqualTo(savedArticleCategory.boardId)
         assertThat(article.articleCategoryId).isEqualTo(command.articleCategoryId)
-        assertThat(article.writerId).isEqualTo(command.writer.memberId)
+        assertThat(article.writerId).isEqualTo(command.writer.userId)
         assertThat(article.createdAt).isEqualTo(command.currentTime)
         assertThat(article.modifiedAt).isEqualTo(command.currentTime)
 
@@ -76,7 +76,7 @@ class ArticleCreateProcessorTest {
             title = "제목",
             content = "본문",
             articleCategoryId = 584236L,
-            writer = authMemberFixture(memberId = 15747L, role = Role.USER),
+            writer = authUserFixture(userId = 15747L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 43)
         )
 

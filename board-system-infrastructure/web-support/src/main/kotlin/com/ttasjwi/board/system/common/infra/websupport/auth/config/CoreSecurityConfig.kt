@@ -1,9 +1,9 @@
 package com.ttasjwi.board.system.common.infra.websupport.auth.config
 
 import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
-import com.ttasjwi.board.system.common.auth.AuthMemberLoader
+import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import com.ttasjwi.board.system.common.infra.websupport.auth.security.MethodAuthorizationAspect
-import com.ttasjwi.board.system.common.infra.websupport.auth.security.SecurityAuthMemberLoader
+import com.ttasjwi.board.system.common.infra.websupport.auth.security.SecurityAuthUserLoader
 import com.ttasjwi.board.system.common.time.TimeManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -28,12 +28,12 @@ class CoreSecurityConfig(
     }
 
     @Bean
-    fun authMemberLoader(): AuthMemberLoader {
-        return SecurityAuthMemberLoader()
+    fun authUserLoader(): AuthUserLoader {
+        return SecurityAuthUserLoader()
     }
 
     @Bean
     fun methodSecurityAspect(): MethodAuthorizationAspect {
-        return MethodAuthorizationAspect(authMemberLoader())
+        return MethodAuthorizationAspect(authUserLoader())
     }
 }

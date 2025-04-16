@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.auth.AccessTokenExpiredException
 import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.auth.fixture.accessTokenFixture
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import io.mockk.*
@@ -53,7 +53,7 @@ class AccessTokenAuthenticationFilterTest {
     fun testAuthenticated() {
         // given
         SecurityContextHolder.getContext().authentication = UsernamePasswordAuthenticationToken.authenticated(
-            authMemberFixture(1L, Role.USER),
+            authUserFixture(1L, Role.USER),
             "",
             mutableListOf(SimpleGrantedAuthority("ROLE_USER"))
         )
@@ -90,7 +90,7 @@ class AccessTokenAuthenticationFilterTest {
     fun testWithValidAccessToken() {
         // given
         val accessToken = accessTokenFixture(
-            memberId = 1L,
+            userId = 1L,
             role = Role.USER,
             tokenValue = "tokenValue",
             issuedAt = appDateTimeFixture(minute = 0),
@@ -119,7 +119,7 @@ class AccessTokenAuthenticationFilterTest {
     fun testWithExpiredAccessToken() {
         // given
         val accessToken = accessTokenFixture(
-            memberId = 1L,
+            userId = 1L,
             role = Role.USER,
             tokenValue = "tokenValue",
             issuedAt = appDateTimeFixture(minute = 0),

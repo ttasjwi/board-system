@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -39,7 +39,7 @@ class ArticleCategoryCreateUseCaseImplTest {
         currentTime = appDateTimeFixture(minute = 9)
         container.timeManagerFixture.changeCurrentTime(currentTime)
 
-        container.authMemberLoaderFixture.changeAuthMember(authMemberFixture(savedBoard.managerId, Role.USER))
+        container.authUserLoaderFixture.changeAuthUser(authUserFixture(savedBoard.managerId, Role.USER))
     }
 
 

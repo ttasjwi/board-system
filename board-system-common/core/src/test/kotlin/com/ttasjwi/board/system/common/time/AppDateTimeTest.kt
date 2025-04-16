@@ -385,8 +385,8 @@ class AppDateTimeTest {
         }
 
         @Test
-        @DisplayName("다른 ZonedDateTime 을 기반으로 생성되면 동등하지 않다")
-        fun testDifferentAuthMember() {
+        @DisplayName("다른 시간을 기반으로 생성되면 동등하지 않다")
+        fun testDifferentDateTime() {
             // given
             val appDateTime = AppDateTime.of(2025, 1, 1, 0, 0, 0)
             val other = AppDateTime.of(2025, 2, 1, 0, 0, 0)

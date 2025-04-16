@@ -8,7 +8,7 @@ import com.ttasjwi.board.system.board.domain.model.fixture.boardFixture
 import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -46,7 +46,7 @@ class BoardCreateProcessorTest {
             boardName = "고양이",
             boardDescription = "고양이 게시판입니다.",
             boardSlug = "cat",
-            creator = authMemberFixture(memberId = 1557L, role = Role.USER),
+            creator = authUserFixture(userId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )
 
@@ -59,7 +59,7 @@ class BoardCreateProcessorTest {
         assertThat(response.boardId).isNotNull()
         assertThat(response.name).isEqualTo(command.boardName)
         assertThat(response.description).isEqualTo(command.boardDescription)
-        assertThat(response.managerId).isEqualTo(command.creator.memberId.toString())
+        assertThat(response.managerId).isEqualTo(command.creator.userId.toString())
         assertThat(response.slug).isEqualTo(command.boardSlug)
         assertThat(response.createdAt).isEqualTo(command.currentTime.toZonedDateTime())
         assertThat(findBoard).isNotNull
@@ -74,7 +74,7 @@ class BoardCreateProcessorTest {
             boardName = savedBoard.name,
             boardDescription = "고양이 게시판입니다.",
             boardSlug = "cat",
-            creator = authMemberFixture(memberId = 1557L, role = Role.USER),
+            creator = authUserFixture(userId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )
 
@@ -90,7 +90,7 @@ class BoardCreateProcessorTest {
             boardName = "고양이",
             boardDescription = "고양이 게시판입니다.",
             boardSlug = savedBoard.slug,
-            creator = authMemberFixture(memberId = 1557L, role = Role.USER),
+            creator = authUserFixture(userId = 1557L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 6)
         )
 

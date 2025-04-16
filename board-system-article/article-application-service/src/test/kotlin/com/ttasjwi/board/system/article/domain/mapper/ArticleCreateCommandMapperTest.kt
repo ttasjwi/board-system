@@ -4,9 +4,9 @@ import com.ttasjwi.board.system.article.domain.ArticleCreateRequest
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleContentPolicyFixture
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleTitlePolicyFixture
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.exception.CustomException
 import com.ttasjwi.board.system.common.exception.NullArgumentException
 import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.assertThrows
 class ArticleCreateCommandMapperTest {
 
     private lateinit var articleCreateCommandMapper: ArticleCreateCommandMapper
-    private lateinit var writer: AuthMember
+    private lateinit var writer: AuthUser
     private lateinit var currentTime: AppDateTime
 
     @BeforeEach
@@ -31,10 +31,10 @@ class ArticleCreateCommandMapperTest {
         articleCreateCommandMapper = container.articleCreateCommandMapper
 
         currentTime = appDateTimeFixture(minute = 14)
-        writer = authMemberFixture(memberId = 1234558L, role = Role.USER)
+        writer = authUserFixture(userId = 1234558L, role = Role.USER)
 
         container.timeManagerFixture.changeCurrentTime(currentTime)
-        container.authMemberLoaderFixture.changeAuthMember(writer)
+        container.authUserLoaderFixture.changeAuthUser(writer)
     }
 
     @Test

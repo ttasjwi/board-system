@@ -25,18 +25,18 @@ class RefreshTokenPortFixtureTest {
         @DisplayName("Generate : 작동 테스트")
         fun test() {
             // given
-            val memberId = 144L
+            val userId = 144L
             val refreshTokenId = 1245L
             val issuedAt = appDateTimeFixture(dayOfMonth = 1)
             val expiresAt = appDateTimeFixture(dayOfMonth = 2)
 
             // when
-            val refreshToken = refreshTokenPortFixture.generate(memberId, refreshTokenId, issuedAt, expiresAt)
+            val refreshToken = refreshTokenPortFixture.generate(userId, refreshTokenId, issuedAt, expiresAt)
 
             println("RefreshToken Value: ${refreshToken.tokenValue}")
 
             // then
-            assertThat(refreshToken.memberId).isEqualTo(memberId)
+            assertThat(refreshToken.userId).isEqualTo(userId)
             assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
             assertThat(refreshToken.tokenType).isEqualTo(RefreshToken.VALID_TOKEN_TYPE)
             assertThat(refreshToken.tokenValue).isNotNull()
@@ -60,7 +60,7 @@ class RefreshTokenPortFixtureTest {
             val accessToken = refreshTokenPortFixture.parse(tokenValue)
 
             // then
-            assertThat(accessToken.memberId).isEqualTo(144L)
+            assertThat(accessToken.userId).isEqualTo(144L)
             assertThat(accessToken.refreshTokenId).isEqualTo(1245L)
             assertThat(accessToken.tokenType).isEqualTo(RefreshToken.VALID_TOKEN_TYPE)
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)

@@ -26,17 +26,17 @@ class AccessTokenPortFixtureTest {
         @DisplayName("Generate : 작동 테스트")
         fun test() {
             // given
-            val authMember = authMemberFixture()
+            val authUser = authUserFixture()
             val issuedAt = appDateTimeFixture(minute = 5)
             val expiresAt = appDateTimeFixture(minute = 35)
 
             // when
-            val accessToken = accessTokenPortFixture.generate(authMember, issuedAt, expiresAt)
+            val accessToken = accessTokenPortFixture.generate(authUser, issuedAt, expiresAt)
 
             println("AccessToken Value: ${accessToken.tokenValue}")
 
             // then
-            assertThat(accessToken.authMember).isEqualTo(authMember)
+            assertThat(accessToken.authUser).isEqualTo(authUser)
             assertThat(accessToken.tokenType).isEqualTo(AccessToken.VALID_TOKEN_TYPE)
             assertThat(accessToken.issuedAt).isEqualTo(issuedAt)
             assertThat(accessToken.expiresAt).isEqualTo(expiresAt)
@@ -53,16 +53,16 @@ class AccessTokenPortFixtureTest {
         @DisplayName("복원 성공 테스트")
         fun testSuccess() {
             // given
-            val authMember = authMemberFixture()
+            val authUser = authUserFixture()
             val issuedAt = appDateTimeFixture(minute = 5)
             val expiresAt = appDateTimeFixture(minute = 35)
-            val tokenValue = accessTokenPortFixture.generate(authMember, issuedAt, expiresAt).tokenValue
+            val tokenValue = accessTokenPortFixture.generate(authUser, issuedAt, expiresAt).tokenValue
 
             // when
             val accessToken = accessTokenPortFixture.parse(tokenValue)
 
             // then
-            assertThat(accessToken.authMember).isEqualTo(authMemberFixture())
+            assertThat(accessToken.authUser).isEqualTo(authUserFixture())
             assertThat(accessToken.tokenValue).isEqualTo(tokenValue)
             assertThat(accessToken.issuedAt).isEqualTo(appDateTimeFixture(minute = 5))
             assertThat(accessToken.expiresAt).isEqualTo(appDateTimeFixture(minute = 35))

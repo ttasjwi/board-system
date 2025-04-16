@@ -2,9 +2,9 @@ package com.ttasjwi.board.system.board.domain
 
 import com.ttasjwi.board.system.board.domain.port.fixture.BoardPersistencePortFixture
 import com.ttasjwi.board.system.board.domain.test.support.TestContainer
-import com.ttasjwi.board.system.common.auth.AuthMember
+import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 class BoardCreateUseCaseImplTest {
 
     private lateinit var useCase: BoardCreateUseCase
-    private lateinit var authMember: AuthMember
+    private lateinit var authUser: AuthUser
     private lateinit var currentTime: AppDateTime
     private lateinit var boardPersistencePortFixture: BoardPersistencePortFixture
 
@@ -24,11 +24,11 @@ class BoardCreateUseCaseImplTest {
     fun setup() {
         val container = TestContainer.create()
 
-        authMember = authMemberFixture(
-            memberId = 1557L,
+        authUser = authUserFixture(
+            userId = 1557L,
             role = Role.USER
         )
-        container.authMemberLoaderFixture.changeAuthMember(authMember)
+        container.authUserLoaderFixture.changeAuthUser(authUser)
         currentTime = appDateTimeFixture(minute = 6)
         container.timeManagerFixture.changeCurrentTime(currentTime)
         boardPersistencePortFixture = container.boardPersistencePortFixture
@@ -54,7 +54,7 @@ class BoardCreateUseCaseImplTest {
         assertThat(response.boardId).isNotNull()
         assertThat(response.name).isEqualTo(request.name)
         assertThat(response.description).isEqualTo(request.description)
-        assertThat(response.managerId).isEqualTo(authMember.memberId.toString())
+        assertThat(response.managerId).isEqualTo(authUser.userId.toString())
         assertThat(response.slug).isEqualTo(request.slug)
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
         assertThat(findBoard).isNotNull

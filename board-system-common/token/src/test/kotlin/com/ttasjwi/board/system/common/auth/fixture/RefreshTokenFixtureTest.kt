@@ -17,7 +17,7 @@ class RefreshTokenFixtureTest {
         val refreshToken = refreshTokenFixture()
 
         // then
-        assertThat(refreshToken.memberId).isNotNull()
+        assertThat(refreshToken.userId).isNotNull()
         assertThat(refreshToken.refreshTokenId).isNotNull()
         assertThat(refreshToken.tokenType).isEqualTo(RefreshToken.VALID_TOKEN_TYPE)
         assertThat(refreshToken.tokenValue).isNotNull()
@@ -30,7 +30,7 @@ class RefreshTokenFixtureTest {
     @DisplayName("커스텀 파라미터 생성 테스트")
     fun test2() {
         // given
-        val memberId = 2L
+        val userId = 2L
         val refreshTokenId = 234567L
         val tokenValue = "tokentoken"
         val issuedAt = appDateTimeFixture(dayOfMonth = 1)
@@ -38,7 +38,7 @@ class RefreshTokenFixtureTest {
 
         // when
         val refreshToken = refreshTokenFixture(
-            memberId = memberId,
+            userId = userId,
             refreshTokenId = refreshTokenId,
             tokenValue = tokenValue,
             issuedAt = issuedAt,
@@ -46,7 +46,7 @@ class RefreshTokenFixtureTest {
         )
 
         // then
-        assertThat(refreshToken.memberId).isEqualTo(memberId)
+        assertThat(refreshToken.userId).isEqualTo(userId)
         assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
         assertThat(refreshToken.tokenType).isEqualTo(RefreshToken.VALID_TOKEN_TYPE)
         assertThat(refreshToken.tokenValue).isEqualTo(tokenValue)

@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.common.auth.infra.token
 
 import com.ttasjwi.board.system.common.auth.AccessToken
 import com.ttasjwi.board.system.common.auth.Role
-import com.ttasjwi.board.system.common.auth.fixture.authMemberFixture
+import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.auth.infra.test.JwtIntegrationTest
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import io.mockk.every
@@ -19,8 +19,8 @@ import org.springframework.security.oauth2.jwt.JwtException
 @DisplayName("Jwt 액세스 토큰 생성, 파싱 테스트")
 class JwtAccessTokenPortTest : JwtIntegrationTest() {
 
-    private val authMember = authMemberFixture(
-        memberId = 1L,
+    private val authUser = authUserFixture(
+        userId = 1L,
         role = Role.USER
     )
     private val issuedAt = appDateTimeFixture(minute = 0)
@@ -33,22 +33,22 @@ class JwtAccessTokenPortTest : JwtIntegrationTest() {
         @Test
         @DisplayName("생성된 토큰 인스턴스는 토큰값을 가진다.")
         fun test() {
-            val accessToken = accessTokenGeneratePort.generate(authMember, issuedAt, expiresAt)
+            val accessToken = accessTokenGeneratePort.generate(authUser, issuedAt, expiresAt)
             assertThat(accessToken.tokenValue).isNotNull()
         }
 
         @Test
         @DisplayName("생성된 토큰 인스턴스는 전달받은 인증된 회원의 정보를 가진다.")
         fun test2() {
-            val accessToken = accessTokenGeneratePort.generate(authMember, issuedAt, expiresAt)
-            assertThat(accessToken.authMember.memberId).isEqualTo(authMember.memberId)
-            assertThat(accessToken.authMember.role).isEqualTo(authMember.role)
+            val accessToken = accessTokenGeneratePort.generate(authUser, issuedAt, expiresAt)
+            assertThat(accessToken.authUser.userId).isEqualTo(authUser.userId)
+            assertThat(accessToken.authUser.role).isEqualTo(authUser.role)
         }
 
         @Test
         @DisplayName("생성된 토큰 객체는 전달받은 발급시간, 만료시간 정보를 가진다")
         fun test3() {
-            val accessToken = accessTokenGeneratePort.generate(authMember, issuedAt, expiresAt)
+            val accessToken = accessTokenGeneratePort.generate(authUser, issuedAt, expiresAt)
             assertThat(accessToken.issuedAt).isEqualTo(issuedAt)
             assertThat(accessToken.expiresAt).isEqualTo(expiresAt)
         }
@@ -61,13 +61,13 @@ class JwtAccessTokenPortTest : JwtIntegrationTest() {
         @Test
         @DisplayName("복원된 토큰 객체는 처음 생성시점의 액세스 토큰의 상태를 유지한다.")
         fun test1() {
-            val accessToken = accessTokenGeneratePort.generate(authMember, issuedAt, expiresAt)
+            val accessToken = accessTokenGeneratePort.generate(authUser, issuedAt, expiresAt)
             val parsedAccessToken = accessTokenParsePort.parse(accessToken.tokenValue)
 
             println("tokenValue = ${accessToken.tokenValue}")
-            println("authMember = ${parsedAccessToken.authMember}")
+            println("authUser = ${parsedAccessToken.authUser}")
 
-            assertThat(parsedAccessToken.authMember).isEqualTo(accessToken.authMember)
+            assertThat(parsedAccessToken.authUser).isEqualTo(accessToken.authUser)
             assertThat(parsedAccessToken.tokenType).isEqualTo(accessToken.tokenType)
             assertThat(parsedAccessToken.tokenValue).isEqualTo(accessToken.tokenValue)
             assertThat(parsedAccessToken.issuer).isEqualTo(accessToken.issuer)

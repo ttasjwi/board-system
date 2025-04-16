@@ -32,7 +32,7 @@ class JwtAccessTokenParseAdapter(
 
     private fun makeAccessTokenFromJwt(jwt: Jwt): AccessToken {
         return AccessToken.restore(
-            memberId = jwt.subject.toLong(),
+            userId = jwt.subject.toLong(),
             roleName = jwt.getClaim(ROLE_CLAIM),
             tokenValue = jwt.tokenValue,
             issuedAt = jwt.issuedAt!!,

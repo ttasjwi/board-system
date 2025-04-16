@@ -6,11 +6,11 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.Locale
 
+@DisplayName("[user-domain] EmailVerificationStartedEvent: 이메일 인증 시작됨 이벤트")
 class EmailVerificationStartedEventTest {
 
-
     @Test
-    @DisplayName("")
+    @DisplayName("이메일 인증 시작됨 이벤트를 생성한다.")
     fun createTest() {
         val email = "hello@gmail.com"
         val code = "1234a"

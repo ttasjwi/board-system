@@ -5,7 +5,7 @@ import java.time.Instant
 
 class AccessToken
 internal constructor(
-    val authMember: AuthMember,
+    val authUser: AuthUser,
     val tokenType: String = VALID_TOKEN_TYPE,
     val tokenValue: String,
     val issuer: String = VALID_ISSUER,
@@ -24,13 +24,13 @@ internal constructor(
          * 토큰 값, 발급 시각, 만료 시각 등은 이미 적절히 생성된 상태라고 가정하며, 이 메서드는 순수하게 도메인 객체를 생성만 합니다.
          */
         fun create(
-            authMember: AuthMember,
+            authUser: AuthUser,
             tokenValue: String,
             issuedAt: AppDateTime,
             expiresAt: AppDateTime,
         ): AccessToken {
             return AccessToken(
-                authMember = authMember,
+                authUser = authUser,
                 tokenValue = tokenValue,
                 tokenType = VALID_TOKEN_TYPE,
                 issuer = VALID_ISSUER,
@@ -45,15 +45,15 @@ internal constructor(
          * 이 메서드는 순수하게 AccessToken 객체를 생성만 하며, 내부에서는 어떠한 유효성 검사도 수행하지 않습니다.
          */
         fun restore(
-            memberId: Long,
+            userId: Long,
             roleName: String,
             tokenValue: String,
             issuedAt: Instant,
             expiresAt: Instant,
         ): AccessToken {
             return AccessToken(
-                authMember = AuthMember.restore(
-                    memberId = memberId,
+                authUser = AuthUser.restore(
+                    userId = userId,
                     roleName = roleName,
                 ),
                 tokenType = VALID_TOKEN_TYPE,

@@ -32,7 +32,7 @@ class JwtRefreshTokenParseAdapter(
 
     private fun makeRefreshTokenFromJwt(jwt: Jwt): RefreshToken {
         return RefreshToken.restore(
-            memberId = jwt.subject.toLong(),
+            userId = jwt.subject.toLong(),
             refreshTokenId = jwt.getClaim(REFRESH_TOKEN_ID_CLAIM),
             tokenValue = jwt.tokenValue,
             issuedAt = jwt.issuedAt!!,

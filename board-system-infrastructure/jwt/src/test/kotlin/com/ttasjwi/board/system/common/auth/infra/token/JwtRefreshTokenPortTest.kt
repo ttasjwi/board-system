@@ -17,7 +17,7 @@ import org.springframework.security.oauth2.jwt.JwtException
 @DisplayName("Jwt 리프레시토큰 생성, 파싱 테스트")
 class JwtRefreshTokenPortTest : JwtIntegrationTest() {
 
-    private val memberId = 12345678L
+    private val userId = 12345678L
     private val refreshTokenId = 12431541666L
     private val issuedAt = appDateTimeFixture(dayOfMonth = 1)
     private val expiresAt = appDateTimeFixture(dayOfMonth = 2)
@@ -29,22 +29,22 @@ class JwtRefreshTokenPortTest : JwtIntegrationTest() {
         @Test
         @DisplayName("생성된 리프레시 토큰 인스턴스는 토큰값을 가진다.")
         fun test() {
-            val refreshToken = refreshTokenGeneratePort.generate(memberId, refreshTokenId, issuedAt, expiresAt)
+            val refreshToken = refreshTokenGeneratePort.generate(userId, refreshTokenId, issuedAt, expiresAt)
             assertThat(refreshToken.tokenValue).isNotNull()
         }
 
         @Test
         @DisplayName("생성된 토큰 인스턴스는 전달받은 식별정보를 가진다.")
         fun test2() {
-            val refreshToken = refreshTokenGeneratePort.generate(memberId, refreshTokenId, issuedAt, expiresAt)
-            assertThat(refreshToken.memberId).isEqualTo(memberId)
+            val refreshToken = refreshTokenGeneratePort.generate(userId, refreshTokenId, issuedAt, expiresAt)
+            assertThat(refreshToken.userId).isEqualTo(userId)
             assertThat(refreshToken.refreshTokenId).isEqualTo(refreshTokenId)
         }
 
         @Test
         @DisplayName("생성된 토큰 객체는 전달받은 발급시간 정보, 만료시간 정보를 가진다")
         fun test3() {
-            val refreshToken = refreshTokenGeneratePort.generate(memberId, refreshTokenId, issuedAt, expiresAt)
+            val refreshToken = refreshTokenGeneratePort.generate(userId, refreshTokenId, issuedAt, expiresAt)
             assertThat(refreshToken.issuedAt).isEqualTo(issuedAt)
             assertThat(refreshToken.expiresAt).isEqualTo(expiresAt)
         }
@@ -57,15 +57,15 @@ class JwtRefreshTokenPortTest : JwtIntegrationTest() {
         @Test
         @DisplayName("복원된 토큰 객체는 처음 생성시점의 액세스 토큰과 동등하다.")
         fun test1() {
-            val refreshToken = refreshTokenGeneratePort.generate(memberId, refreshTokenId, issuedAt, expiresAt)
+            val refreshToken = refreshTokenGeneratePort.generate(userId, refreshTokenId, issuedAt, expiresAt)
             val tokenValue = refreshToken.tokenValue
             val parsedRefreshToken = refreshTokenParsePort.parse(tokenValue)
 
             println("tokenValue = $tokenValue")
-            println("memberId = ${parsedRefreshToken.memberId}")
+            println("userId = ${parsedRefreshToken.userId}")
             println("refreshTokenId = ${parsedRefreshToken.refreshTokenId}")
 
-            assertThat(parsedRefreshToken.memberId).isEqualTo(refreshToken.memberId)
+            assertThat(parsedRefreshToken.userId).isEqualTo(refreshToken.userId)
             assertThat(parsedRefreshToken.refreshTokenId).isEqualTo(refreshToken.refreshTokenId)
             assertThat(parsedRefreshToken.tokenType).isEqualTo(refreshToken.tokenType)
             assertThat(parsedRefreshToken.tokenValue).isEqualTo(refreshToken.tokenValue)
