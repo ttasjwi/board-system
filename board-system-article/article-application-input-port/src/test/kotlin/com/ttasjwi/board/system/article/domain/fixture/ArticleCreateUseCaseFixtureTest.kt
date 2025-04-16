@@ -24,7 +24,6 @@ class ArticleCreateUseCaseFixtureTest {
         val request = ArticleCreateRequest(
             title = "제목",
             content = "본문",
-            boardId = 1L,
             articleCategoryId = 1L
         )
 
@@ -35,7 +34,7 @@ class ArticleCreateUseCaseFixtureTest {
         assertThat(response.articleId).isNotNull()
         assertThat(response.title).isEqualTo(request.title)
         assertThat(response.content).isEqualTo(request.content)
-        assertThat(response.boardId).isEqualTo(request.boardId.toString())
+        assertThat(response.boardId).isNotNull()
         assertThat(response.articleCategoryId).isEqualTo(request.articleCategoryId.toString())
         assertThat(response.writerId).isNotNull()
         assertThat(response.createdAt).isNotNull()

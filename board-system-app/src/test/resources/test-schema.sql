@@ -38,3 +38,14 @@ CREATE TABLE IF NOT EXISTS article_categories(
     CONSTRAINT uq_board_id_and_name UNIQUE (board_id, name),
     CONSTRAINT uq_board_id_and_slug UNIQUE (board_id, slug)
 );
+
+CREATE TABLE IF NOT EXISTS articles(
+    article_id          BIGINT        NOT NULL PRIMARY KEY,
+    title               VARCHAR(50)   NOT NULL,
+    content             VARCHAR(3000) NOT NULL,
+    board_id            BIGINT        NOT NULL,
+    article_category_id BIGINT        NOT NULL,
+    writer_id           BIGINT        NOT NULL,
+    created_at          DATETIME      NOT NULL,
+    modified_at         DATETIME      NOT NULL
+);

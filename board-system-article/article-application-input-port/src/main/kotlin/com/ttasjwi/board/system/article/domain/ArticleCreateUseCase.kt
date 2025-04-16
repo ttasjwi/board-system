@@ -9,7 +9,6 @@ interface ArticleCreateUseCase {
 data class ArticleCreateRequest(
     val title: String?,
     val content: String?,
-    val boardId: Long?,
     val articleCategoryId: Long?,
 )
 

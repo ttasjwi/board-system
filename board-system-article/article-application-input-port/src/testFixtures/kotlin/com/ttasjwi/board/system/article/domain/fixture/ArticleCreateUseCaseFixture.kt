@@ -12,7 +12,7 @@ class ArticleCreateUseCaseFixture : ArticleCreateUseCase {
             articleId = "1",
             title = request.title!!,
             content = request.content!!,
-            boardId = request.boardId!!.toString(),
+            boardId = "131433451451",
             articleCategoryId = request.articleCategoryId!!.toString(),
             writerId = "155557",
             createdAt = appDateTimeFixture(minute = 5).toZonedDateTime(),
