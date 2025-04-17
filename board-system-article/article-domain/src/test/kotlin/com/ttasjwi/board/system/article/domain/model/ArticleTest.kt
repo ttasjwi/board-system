@@ -24,6 +24,7 @@ class ArticleTest {
             val boardId = 1234556L
             val articleCategoryId = 2314558888L
             val writerId = 334L
+            val writerNickname = "깜찍이"
             val createdAt = appDateTimeFixture(minute = 13)
 
             // when
@@ -34,6 +35,7 @@ class ArticleTest {
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
                 writerId = writerId,
+                writerNickname = writerNickname,
                 createdAt = createdAt,
             )
 
@@ -44,6 +46,7 @@ class ArticleTest {
             assertThat(article.boardId).isEqualTo(boardId)
             assertThat(article.articleCategoryId).isEqualTo(articleCategoryId)
             assertThat(article.writerId).isEqualTo(writerId)
+            assertThat(article.writerNickname).isEqualTo(writerNickname)
             assertThat(article.createdAt).isEqualTo(createdAt)
             assertThat(article.modifiedAt).isEqualTo(createdAt)
         }
@@ -64,6 +67,7 @@ class ArticleTest {
             val boardId = 1234556L
             val articleCategoryId = 2314558888L
             val writerId = 334L
+            val writerNickname = "작성자"
             val createdAt = appDateTimeFixture(minute = 13).toLocalDateTime()
             val modifiedAt = appDateTimeFixture(minute = 26).toLocalDateTime()
 
@@ -75,6 +79,7 @@ class ArticleTest {
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
                 writerId = writerId,
+                writerNickname = writerNickname,
                 createdAt = createdAt,
                 modifiedAt = modifiedAt,
             )
@@ -86,6 +91,7 @@ class ArticleTest {
             assertThat(article.boardId).isEqualTo(boardId)
             assertThat(article.articleCategoryId).isEqualTo(articleCategoryId)
             assertThat(article.writerId).isEqualTo(writerId)
+            assertThat(article.writerNickname).isEqualTo(writerNickname)
             assertThat(article.createdAt.toLocalDateTime()).isEqualTo(createdAt)
             assertThat(article.modifiedAt.toLocalDateTime()).isEqualTo(modifiedAt)
         }
@@ -106,6 +112,7 @@ class ArticleTest {
             val boardId = 1234556L
             val articleCategoryId = 2314558888L
             val writerId = 334L
+            val writerNickname = "땃쥐"
             val createdAt = appDateTimeFixture(minute = 13)
             val modifiedAt = appDateTimeFixture(minute = 43)
 
@@ -115,6 +122,7 @@ class ArticleTest {
                 content = content,
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
+                writerNickname = writerNickname,
                 writerId = writerId,
                 createdAt = createdAt,
                 modifiedAt = modifiedAt,
@@ -124,7 +132,7 @@ class ArticleTest {
             val string = article.toString()
 
             // then
-            assertThat(string).isEqualTo("Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, createdAt=$createdAt, modifiedAt=$modifiedAt)")
+            assertThat(string).isEqualTo("Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, writerNickname='$writerNickname', createdAt=$createdAt, modifiedAt=$modifiedAt)")
         }
     }
 }

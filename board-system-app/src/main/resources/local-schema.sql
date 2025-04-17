@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS articles(
     board_id            BIGINT        NOT NULL,
     article_category_id BIGINT        NOT NULL,
     writer_id           BIGINT        NOT NULL,
+    writer_nickname     VARCHAR(15)   NOT NULL,
     created_at          DATETIME      NOT NULL,
     modified_at         DATETIME      NOT NULL
 );

@@ -2,10 +2,12 @@ package com.ttasjwi.board.system.article.domain.processor
 
 import com.ttasjwi.board.system.article.domain.dto.ArticleCreateCommand
 import com.ttasjwi.board.system.article.domain.exception.ArticleCategoryNotFoundException
+import com.ttasjwi.board.system.article.domain.exception.ArticleWriterNicknameNotFoundException
 import com.ttasjwi.board.system.article.domain.model.Article
 import com.ttasjwi.board.system.article.domain.model.ArticleCategory
 import com.ttasjwi.board.system.article.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
+import com.ttasjwi.board.system.article.domain.port.ArticleWriterNicknamePersistencePort
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import org.springframework.transaction.annotation.Transactional
@@ -13,13 +15,17 @@ import org.springframework.transaction.annotation.Transactional
 @ApplicationProcessor
 internal class ArticleCreateProcessor(
     private val articlePersistencePort: ArticlePersistencePort,
-    private val articleCategoryPersistencePort: ArticleCategoryPersistencePort
+    private val articleCategoryPersistencePort: ArticleCategoryPersistencePort,
+    private val articleWriterNicknamePersistencePort: ArticleWriterNicknamePersistencePort
 ) {
 
     private val articleIdGenerator: IdGenerator = IdGenerator.create()
 
     @Transactional
     fun create(command: ArticleCreateCommand): Article {
+        // 작성시점의 사용자 닉네임 조회
+        val writerNickname = getArticleWriterNicknameOrThrow(command.writer.userId)
+
         // 게시글 카테고리 조회
         val articleCategory = getArticleCategoryOrThrow(command.articleCategoryId)
 
@@ -28,9 +34,16 @@ internal class ArticleCreateProcessor(
 
 
         // 게시글 생성, 저장
-        val article = createAndPersist(articleCategory, command)
+        val article = createAndPersist(writerNickname, articleCategory, command)
 
         return article
+    }
+
+    private fun getArticleWriterNicknameOrThrow(writerId: Long): String {
+        return (articleWriterNicknamePersistencePort.findWriterNicknameOrNull(writerId = writerId)
+            ?: throw ArticleWriterNicknameNotFoundException(
+                source = "articleWriterId", argument = writerId
+            ))
     }
 
     private fun getArticleCategoryOrThrow(articleCategoryId: Long): ArticleCategory {
@@ -41,7 +54,7 @@ internal class ArticleCreateProcessor(
             )
     }
 
-    private fun createAndPersist(articleCategory: ArticleCategory, command: ArticleCreateCommand): Article {
+    private fun createAndPersist(writerNickname: String, articleCategory: ArticleCategory, command: ArticleCreateCommand): Article {
         val article = Article.create(
             articleId = articleIdGenerator.nextId(),
             title = command.title,
@@ -49,6 +62,7 @@ internal class ArticleCreateProcessor(
             boardId = articleCategory.boardId,
             articleCategoryId = articleCategory.articleCategoryId,
             writerId = command.writer.userId,
+            writerNickname = writerNickname,
             createdAt = command.currentTime
         )
         articlePersistencePort.save(article)

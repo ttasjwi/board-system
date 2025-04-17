@@ -11,6 +11,7 @@ internal constructor(
     val boardId: Long,
     articleCategoryId: Long,
     val writerId: Long,
+    val writerNickname: String,
     val createdAt: AppDateTime,
     modifiedAt: AppDateTime,
 ) {
@@ -27,7 +28,6 @@ internal constructor(
     var modifiedAt: AppDateTime = modifiedAt
         private set
 
-
     companion object {
 
         fun create(
@@ -37,6 +37,7 @@ internal constructor(
             boardId: Long,
             articleCategoryId: Long,
             writerId: Long,
+            writerNickname: String,
             createdAt: AppDateTime,
         ): Article {
             return Article(
@@ -46,6 +47,7 @@ internal constructor(
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
                 writerId = writerId,
+                writerNickname = writerNickname,
                 createdAt = createdAt,
                 modifiedAt = createdAt,
             )
@@ -58,6 +60,7 @@ internal constructor(
             boardId: Long,
             articleCategoryId: Long,
             writerId: Long,
+            writerNickname: String,
             createdAt: LocalDateTime,
             modifiedAt: LocalDateTime,
         ): Article {
@@ -68,6 +71,7 @@ internal constructor(
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
                 writerId = writerId,
+                writerNickname = writerNickname,
                 createdAt = AppDateTime.from(createdAt),
                 modifiedAt = AppDateTime.from(modifiedAt)
             )
@@ -75,7 +79,7 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, createdAt=$createdAt, modifiedAt=$modifiedAt)"
+        return "Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, writerNickname='$writerNickname', createdAt=$createdAt, modifiedAt=$modifiedAt)"
     }
 
 }

@@ -29,6 +29,9 @@ class JpaArticle(
     @Column(name = "writer_id")
     val writerId: Long,
 
+    @Column(name = "writer_nickname")
+    val writerNickname: String,
+
     @Column(name = "created_at")
     val createdAt: LocalDateTime,
 
@@ -46,6 +49,7 @@ class JpaArticle(
                 boardId = article.boardId,
                 articleCategoryId = article.articleCategoryId,
                 writerId = article.writerId,
+                writerNickname = article.writerNickname,
                 createdAt = article.createdAt.toLocalDateTime(),
                 modifiedAt = article.modifiedAt.toLocalDateTime()
             )
@@ -60,6 +64,7 @@ class JpaArticle(
             boardId = this.boardId,
             articleCategoryId = this.articleCategoryId,
             writerId = this.writerId,
+            writerNickname = this.writerNickname,
             createdAt = this.createdAt,
             modifiedAt = this.modifiedAt
         )

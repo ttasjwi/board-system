@@ -19,6 +19,7 @@ data class ArticleCreateResponse(
     val boardId: String,
     val articleCategoryId: String,
     val writerId: String,
+    val writerNickname: String,
     val createdAt: ZonedDateTime,
     val modifiedAt: ZonedDateTime,
 )
