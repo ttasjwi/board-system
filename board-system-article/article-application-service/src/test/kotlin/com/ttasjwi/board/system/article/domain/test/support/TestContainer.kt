@@ -2,6 +2,8 @@ package com.ttasjwi.board.system.article.domain.test.support
 
 import com.ttasjwi.board.system.article.domain.ArticleCreateUseCase
 import com.ttasjwi.board.system.article.domain.ArticleCreateUseCaseImpl
+import com.ttasjwi.board.system.article.domain.ArticleReadUseCase
+import com.ttasjwi.board.system.article.domain.ArticleReadUseCaseImpl
 import com.ttasjwi.board.system.article.domain.mapper.ArticleCreateCommandMapper
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleContentPolicyFixture
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleTitlePolicyFixture
@@ -56,6 +58,12 @@ internal class TestContainer private constructor() {
         ArticleCreateUseCaseImpl(
             commandMapper = articleCreateCommandMapper,
             processor = articleCreateProcessor,
+        )
+    }
+
+    val articleReadUseCase: ArticleReadUseCase by lazy {
+        ArticleReadUseCaseImpl(
+            articlePersistencePort = articlePersistencePortFixture,
         )
     }
 }
