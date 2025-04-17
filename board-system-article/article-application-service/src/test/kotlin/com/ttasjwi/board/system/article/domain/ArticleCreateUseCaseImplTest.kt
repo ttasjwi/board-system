@@ -20,6 +20,7 @@ class ArticleCreateProcessorTest {
     private lateinit var useCase: ArticleCreateUseCase
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
     private lateinit var writer: AuthUser
+    private lateinit var writerNickname: String
     private lateinit var currentTime: AppDateTime
     private lateinit var savedArticleCategory: ArticleCategory
 
@@ -31,9 +32,14 @@ class ArticleCreateProcessorTest {
 
         currentTime = appDateTimeFixture(minute = 14)
         writer = authUserFixture(userId = 1234558L, role = Role.USER)
+        writerNickname = "땃쥐"
 
         container.timeManagerFixture.changeCurrentTime(currentTime)
         container.authUserLoaderFixture.changeAuthUser(writer)
+        container.articleWriterNicknamePersistencePortFixture.save(
+            writerId = writer.userId,
+            writerNickname = writerNickname,
+        )
         savedArticleCategory = container.articleCategoryPersistencePortFixture.save(
             articleCategoryFixture(
                 articleCategoryId = 12314L,
@@ -65,9 +71,9 @@ class ArticleCreateProcessorTest {
         assertThat(response.boardId).isEqualTo(savedArticleCategory.boardId.toString())
         assertThat(response.articleCategoryId).isEqualTo(request.articleCategoryId.toString())
         assertThat(response.writerId).isEqualTo(writer.userId.toString())
+        assertThat(response.writerNickname).isEqualTo(writerNickname)
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
         assertThat(response.modifiedAt).isEqualTo(currentTime.toZonedDateTime())
-
         assertThat(findArticle.title).isEqualTo(request.title)
         assertThat(findArticle.content).isEqualTo(request.content)
     }

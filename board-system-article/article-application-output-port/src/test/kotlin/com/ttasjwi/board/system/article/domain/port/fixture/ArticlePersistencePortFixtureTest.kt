@@ -30,6 +30,7 @@ class ArticlePersistencePortFixtureTest {
             val boardId = 1234556L
             val articleCategoryId = 2314558888L
             val writerId = 334L
+            val writerNickname = "writer"
             val createdAt = appDateTimeFixture(minute = 13)
             val modifiedAt = appDateTimeFixture(minute = 13)
 
@@ -40,6 +41,7 @@ class ArticlePersistencePortFixtureTest {
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
                 writerId = writerId,
+                writerNickname = writerNickname,
                 createdAt = createdAt,
                 modifiedAt = modifiedAt,
             )
@@ -55,6 +57,7 @@ class ArticlePersistencePortFixtureTest {
             assertThat(findArticle.boardId).isEqualTo(boardId)
             assertThat(findArticle.articleCategoryId).isEqualTo(articleCategoryId)
             assertThat(findArticle.writerId).isEqualTo(writerId)
+            assertThat(findArticle.writerNickname).isEqualTo(writerNickname)
             assertThat(findArticle.createdAt).isEqualTo(createdAt)
             assertThat(findArticle.modifiedAt).isEqualTo(modifiedAt)
         }
@@ -71,6 +74,7 @@ class ArticlePersistencePortFixtureTest {
                 boardId = 1234556L,
                 articleCategoryId = 2314558888L,
                 writerId = 334L,
+                writerNickname = "writer",
                 createdAt = appDateTimeFixture(minute = 13),
                 modifiedAt = appDateTimeFixture(minute = 43),
             )
@@ -84,6 +88,7 @@ class ArticlePersistencePortFixtureTest {
                 boardId = article.boardId,
                 articleCategoryId = article.articleCategoryId,
                 writerId = article.writerId,
+                writerNickname = article.writerNickname,
                 createdAt = article.createdAt,
                 modifiedAt = appDateTimeFixture(minute = 43),
             )
@@ -97,6 +102,8 @@ class ArticlePersistencePortFixtureTest {
             assertThat(findArticle.content).isEqualTo(modifiedArticle.content)
             assertThat(findArticle.boardId).isEqualTo(article.boardId)
             assertThat(findArticle.articleCategoryId).isEqualTo(article.articleCategoryId)
+            assertThat(findArticle.writerId).isEqualTo(article.writerId)
+            assertThat(findArticle.writerNickname).isEqualTo(article.writerNickname)
             assertThat(findArticle.createdAt).isEqualTo(article.createdAt)
             assertThat(findArticle.modifiedAt).isEqualTo(modifiedArticle.modifiedAt)
         }

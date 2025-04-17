@@ -24,6 +24,7 @@ class ArticlePersistenceAdapterTest : ArticleDataBaseIntegrationTest() {
             val boardId = 1234556L
             val articleCategoryId = 2314558888L
             val writerId = 334L
+            val writerNickname = "귀여운작성자"
             val createdAt = appDateTimeFixture(minute = 13)
             val modifiedAt = appDateTimeFixture(minute = 13)
 
@@ -34,6 +35,7 @@ class ArticlePersistenceAdapterTest : ArticleDataBaseIntegrationTest() {
                 boardId = boardId,
                 articleCategoryId = articleCategoryId,
                 writerId = writerId,
+                writerNickname= writerNickname,
                 createdAt = createdAt,
                 modifiedAt = modifiedAt,
             )
@@ -50,6 +52,7 @@ class ArticlePersistenceAdapterTest : ArticleDataBaseIntegrationTest() {
             assertThat(findArticle.boardId).isEqualTo(boardId)
             assertThat(findArticle.articleCategoryId).isEqualTo(articleCategoryId)
             assertThat(findArticle.writerId).isEqualTo(writerId)
+            assertThat(findArticle.writerNickname).isEqualTo(writerNickname)
             assertThat(findArticle.createdAt).isEqualTo(createdAt)
             assertThat(findArticle.modifiedAt).isEqualTo(modifiedAt)
         }
@@ -66,6 +69,7 @@ class ArticlePersistenceAdapterTest : ArticleDataBaseIntegrationTest() {
                 boardId = 1234556L,
                 articleCategoryId = 2314558888L,
                 writerId = 334L,
+                writerNickname = "멋쟁이작성자",
                 createdAt = appDateTimeFixture(minute = 13),
                 modifiedAt = appDateTimeFixture(minute = 43),
             )
@@ -79,6 +83,7 @@ class ArticlePersistenceAdapterTest : ArticleDataBaseIntegrationTest() {
                 boardId = article.boardId,
                 articleCategoryId = article.articleCategoryId,
                 writerId = article.writerId,
+                writerNickname = article.writerNickname,
                 createdAt = article.createdAt,
                 modifiedAt = appDateTimeFixture(minute = 43),
             )
@@ -93,6 +98,8 @@ class ArticlePersistenceAdapterTest : ArticleDataBaseIntegrationTest() {
             assertThat(findArticle.content).isEqualTo(modifiedArticle.content)
             assertThat(findArticle.boardId).isEqualTo(article.boardId)
             assertThat(findArticle.articleCategoryId).isEqualTo(article.articleCategoryId)
+            assertThat(findArticle.writerId).isEqualTo(article.writerId)
+            assertThat(findArticle.writerNickname).isEqualTo(article.writerNickname)
             assertThat(findArticle.createdAt).isEqualTo(article.createdAt)
             assertThat(findArticle.modifiedAt).isEqualTo(modifiedArticle.modifiedAt)
         }

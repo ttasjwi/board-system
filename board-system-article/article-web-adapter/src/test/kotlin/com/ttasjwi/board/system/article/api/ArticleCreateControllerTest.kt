@@ -41,6 +41,7 @@ class ArticleCreateControllerTest {
         assertThat(response.boardId).isNotNull()
         assertThat(response.articleCategoryId).isEqualTo(request.articleCategoryId.toString())
         assertThat(response.writerId).isNotNull()
+        assertThat(response.writerNickname).isNotNull()
         assertThat(response.createdAt).isNotNull()
         assertThat(response.writerId).isNotNull()
     }

@@ -26,6 +26,7 @@ internal class ArticleCreateUseCaseImpl(
             boardId = article.boardId.toString(),
             articleCategoryId = article.articleCategoryId.toString(),
             writerId = article.writerId.toString(),
+            writerNickname = article.writerNickname,
             createdAt = article.createdAt.toZonedDateTime(),
             modifiedAt = article.modifiedAt.toZonedDateTime(),
         )

@@ -11,6 +11,7 @@ fun articleFixture(
     boardId: Long = 1L,
     articleCategoryId: Long = 1L,
     writerId: Long = 1L,
+    writerNickname: String = "작성자",
     createdAt: AppDateTime = appDateTimeFixture(),
     modifiedAt: AppDateTime = createdAt,
 ): Article {
@@ -21,6 +22,7 @@ fun articleFixture(
         boardId = boardId,
         articleCategoryId = articleCategoryId,
         writerId = writerId,
+        writerNickname = writerNickname,
         createdAt = createdAt,
         modifiedAt = modifiedAt,
     )
