@@ -1,0 +1,7 @@
+spring:
+  web:
+    locale: ko
+message:
+  encoding: "UTF-8"
+  errorBaseName: message/error-message
+  generalBaseName: message/general-message

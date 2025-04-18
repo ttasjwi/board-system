@@ -1,0 +1,35 @@
+== 회원/인증 API 명세
+
+=== 아이디 유효성 확인
+=== 이메일 유효성 확인
+=== 닉네임 유효성 확인
+
+=== 이메일 인증 시작
+
+=== 이메일 인증
+
+=== 회원가입
+
+=== 로그인
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/auth/login`
+- 권한 : 누구나
+
+이메일과 패스워드를 통해 서비스에 로그인합니다.
+
+==== 요청
+include::{snippets}/login-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/login-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/login-success/http-request.adoc[]
+include::{snippets}/login-success/http-response.adoc[]
+
+=== 소셜서비스 인가
+
+=== 소셜로그인
+
+=== 토큰 재갱신

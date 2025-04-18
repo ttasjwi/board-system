@@ -1,0 +1,10 @@
+===== 멀티파트
+|===
+|파트명|설명|필수여부|제약조건
+{{#requestParts}}
+|{{#tableCellContent}}`+{{name}}+`{{/tableCellContent}}
+|{{#tableCellContent}}{{description}}{{/tableCellContent}}
+|{{#tableCellContent}}{{^optional}}true{{/optional}}{{/tableCellContent}}
+|{{#tableCellContent}}{{#constraint}}{{.}}{{/constraint}}{{/tableCellContent}}
+{{/requestParts}}
+|===

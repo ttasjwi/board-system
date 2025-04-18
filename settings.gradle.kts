@@ -52,4 +52,7 @@ include(
     "board-system-infrastructure:event-publisher",
     "board-system-infrastructure:jwt",
     "board-system-infrastructure:web-support",
+
+    // support
+    "board-system-test:restdocs-support"
 )

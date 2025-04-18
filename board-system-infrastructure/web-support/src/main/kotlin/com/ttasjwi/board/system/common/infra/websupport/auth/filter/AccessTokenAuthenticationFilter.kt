@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.common.infra.websupport.auth.filter
 
 import com.ttasjwi.board.system.common.auth.AccessTokenParsePort
+import com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthUserAuthentication
 import com.ttasjwi.board.system.common.infra.websupport.auth.token.BearerTokenResolver
 import com.ttasjwi.board.system.common.time.TimeManager
 import jakarta.servlet.FilterChain
@@ -51,14 +52,14 @@ internal class AccessTokenAuthenticationFilter(
 
     private fun isAuthenticated() = SecurityContextHolder.getContextHolderStrategy().context.authentication != null
 
-    private fun attemptAuthenticate(tokenValue: String): com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthUserAuthentication {
+    private fun attemptAuthenticate(tokenValue: String): AuthUserAuthentication {
         val accessToken = accessTokenParsePort.parse(tokenValue)
         val currentTime = timeManager.now()
         accessToken.throwIfExpired(currentTime)
-        return com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthUserAuthentication.from(accessToken.authUser)
+        return AuthUserAuthentication.from(accessToken.authUser)
     }
 
-    private fun saveAuthenticationToSecurityContextHolder(authentication: com.ttasjwi.board.system.common.infra.websupport.auth.security.AuthUserAuthentication) {
+    private fun saveAuthenticationToSecurityContextHolder(authentication: AuthUserAuthentication) {
         val securityContext = SecurityContextHolder.getContextHolderStrategy().createEmptyContext()
         securityContext.authentication = authentication
         SecurityContextHolder.getContextHolderStrategy().context = securityContext

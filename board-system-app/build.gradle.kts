@@ -1,3 +1,9 @@
+plugins {
+    id("org.asciidoctor.jvm.convert") version "4.0.4"
+}
+
+val asciidoctorExt: Configuration by configurations.creating
+
 dependencies {
     implementation(project(":board-system-common:core"))
 
@@ -33,8 +39,49 @@ dependencies {
     implementation(project(":board-system-infrastructure:database-support"))
     implementation(project(":board-system-infrastructure:web-support"))
     implementation(project(":board-system-infrastructure:event-publisher"))
+
+    // restdocs adoc -> html
+    asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
+}
+
+tasks.asciidoctor {
+    dependsOn("copySnippets")
+    configurations(asciidoctorExt.name)
+
+    doFirst {
+        delete {
+            file("src/main/resources/static/docs")
+        }
+    }
+
+    inputs.dir("build/generated-snippets")
+    attributes["snippets"] = file("build/generated-snippets")
+    baseDirFollowsSourceFile()
+}
+
+tasks.register("copySnippets", Copy::class) {
+    dependsOn(tasks.test)
+    dependsOn(":board-system-user:user-web-adapter:test")
+    dependsOn(":board-system-board:board-web-adapter:test")
+    dependsOn(":board-system-article:article-web-adapter:test")
+
+    from(file("$rootDir/board-system-user/user-web-adapter/build/generated-snippets"))
+    from(file("$rootDir/board-system-board/board-web-adapter/build/generated-snippets"))
+    from(file("$rootDir/board-system-article/article-web-adapter/build/generated-snippets"))
+    into(file("build/generated-snippets"))
+}
+
+tasks.register("copyHtml", Copy::class) {
+    dependsOn(tasks.asciidoctor)
+    from(file("build/docs/asciidoc/"))
+    into(file("src/main/resources/static/docs"))
+}
+
+tasks.build {
+    dependsOn("copyHtml")
 }
 
 tasks.getByName("bootJar") {
+    dependsOn("copyHtml")
     enabled = true
 }

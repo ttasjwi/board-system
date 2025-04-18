@@ -1,0 +1,21 @@
+= Board System API 명세
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+:sectnums:
+:docinfo: shared-head
+
+[[overview_http_verbs]]
+== HTTP 메서드
+
+[[overview_http-status-codes]]
+== HTTP 상태코드
+
+[[overview_error]]
+
+include::user-api.adoc[]
+include::board-api.adoc[]
+include::article-api.adoc[]
