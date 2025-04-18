@@ -11,6 +11,22 @@
 === 회원가입
 
 === 로그인
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/auth/login`
+- 권한 : 누구나
+
+이메일과 패스워드를 통해 서비스에 로그인합니다.
+
+==== 요청
+include::{snippets}/login-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/login-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/login-success/http-request.adoc[]
+include::{snippets}/login-success/http-response.adoc[]
 
 === 소셜서비스 인가
 
