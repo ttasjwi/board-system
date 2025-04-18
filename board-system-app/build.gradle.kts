@@ -1,3 +1,9 @@
+plugins {
+    id("org.asciidoctor.jvm.convert") version "4.0.4"
+}
+
+val asciidoctorExt: Configuration by configurations.creating
+
 dependencies {
     implementation(project(":board-system-common:core"))
 
@@ -33,8 +39,42 @@ dependencies {
     implementation(project(":board-system-infrastructure:database-support"))
     implementation(project(":board-system-infrastructure:web-support"))
     implementation(project(":board-system-infrastructure:event-publisher"))
+
+    // restdocs adoc -> html
+    asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
+}
+
+tasks.asciidoctor {
+    dependsOn(tasks.test)
+    dependsOn(":board-system-board:board-web-adapter:test")
+    configurations(asciidoctorExt.name)
+
+    doFirst {
+        delete {
+            file("src/main/resources/static/docs")
+        }
+    }
+
+    inputs.dir("$rootDir/board-system-board/board-web-adapter/build/generated-snippets")
+
+    sources {
+        include("**/*.adoc")
+    }
+
+    baseDirFollowsSourceFile()
+}
+
+tasks.register("copyHtml", Copy::class) {
+    dependsOn(tasks.asciidoctor)
+    from(file("build/docs/asciidoc/"))
+    into(file("src/main/resources/static/docs"))
+}
+
+tasks.build {
+    dependsOn("copyHtml")
 }
 
 tasks.getByName("bootJar") {
+    dependsOn("copyHtml")
     enabled = true
 }
