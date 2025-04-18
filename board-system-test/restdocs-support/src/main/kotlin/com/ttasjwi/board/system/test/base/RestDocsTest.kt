@@ -46,6 +46,7 @@ abstract class RestDocsTest {
                     .operationPreprocessors()
                     .withRequestDefaults(
                         Preprocessors.prettyPrint(),
+                        Preprocessors.modifyUris().scheme("http").host("board-system.com").removePort(),
                         conditionalAuthorizationMasker,
                     )
                     .withResponseDefaults(Preprocessors.prettyPrint())

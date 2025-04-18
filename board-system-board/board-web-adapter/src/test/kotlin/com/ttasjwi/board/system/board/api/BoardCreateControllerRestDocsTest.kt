@@ -85,18 +85,15 @@ class BoardCreateControllerRestDocsTest : BoardRestDocsTest() {
                     "slug"
                             type STRING
                             means "게시판 슬러그(게시판 구분 영문자)"
-                            constraint "최소 4자, 최대 20자. 영어 소문자와 숫자로만 구성되어야 함."
-                            example "animal",
+                            constraint "최소 4자, 최대 20자. 영어 소문자와 숫자로만 구성되어야 함.",
                     "name"
                             type STRING
                             means "게시판 이름"
-                            constraint "최소 2자, 최대 6자. 영어, 숫자, 완성형 한글, 스페이스, / 로만 구성되어야 함."
-                            example "동물",
+                            constraint "최소 2자, 최대 6자. 영어, 숫자, 완성형 한글, 스페이스, / 로만 구성되어야 함.",
                     "description"
                             type STRING
                             means "게시판 설명"
-                            constraint "최대 100자"
-                            example "동물을 주제로 다루는 게시판입니다.",
+                            constraint "최대 100자",
                 ),
                 responseBody(
                     "boardId"

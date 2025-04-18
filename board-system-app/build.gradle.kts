@@ -62,8 +62,10 @@ tasks.asciidoctor {
 tasks.register("copySnippets", Copy::class) {
     dependsOn(tasks.test)
     dependsOn(":board-system-board:board-web-adapter:test")
+    dependsOn(":board-system-article:article-web-adapter:test")
 
     from(file("$rootDir/board-system-board/board-web-adapter/build/generated-snippets"))
+    from(file("$rootDir/board-system-article/article-web-adapter/build/generated-snippets"))
     into(file("build/generated-snippets"))
 }
 

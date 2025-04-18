@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: test
+  config:
+    import:
+      - web-support.yml

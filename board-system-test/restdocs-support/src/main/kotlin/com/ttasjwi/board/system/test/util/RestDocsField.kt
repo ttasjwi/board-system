@@ -12,12 +12,6 @@ class RestDocsField(
             descriptor.attributes["default"] = value
         }
 
-    private var example: String
-        get() = descriptor.attributes["example"] as String
-        set(value) {
-            descriptor.attributes["example"] = value
-        }
-
     private var constraint: String
         get() = descriptor.attributes["constraint"] as String
         set(value) {
@@ -41,11 +35,6 @@ class RestDocsField(
 
     infix fun withDefaultValue(value: String): RestDocsField {
         this.default = value
-        return this
-    }
-
-    infix fun example(value: String): RestDocsField {
-        this.example = value
         return this
     }
 
