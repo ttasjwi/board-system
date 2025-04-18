@@ -45,8 +45,7 @@ dependencies {
 }
 
 tasks.asciidoctor {
-    dependsOn(tasks.test)
-    dependsOn(":board-system-board:board-web-adapter:test")
+    dependsOn("copySnippets")
     configurations(asciidoctorExt.name)
 
     doFirst {
@@ -55,13 +54,17 @@ tasks.asciidoctor {
         }
     }
 
-    inputs.dir("$rootDir/board-system-board/board-web-adapter/build/generated-snippets")
-
-    sources {
-        include("**/*.adoc")
-    }
-
+    inputs.dir("build/generated-snippets")
+    attributes["snippets"] = file("build/generated-snippets")
     baseDirFollowsSourceFile()
+}
+
+tasks.register("copySnippets", Copy::class) {
+    dependsOn(tasks.test)
+    dependsOn(":board-system-board:board-web-adapter:test")
+
+    from(file("$rootDir/board-system-board/board-web-adapter/build/generated-snippets"))
+    into(file("build/generated-snippets"))
 }
 
 tasks.register("copyHtml", Copy::class) {

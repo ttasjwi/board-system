@@ -1,6 +1,24 @@
 == 게시판 API 명세
 
 === 게시판 생성
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/boards`
+- 권한 : 인증된 사용자 누구든지
+- 인증방식 : 액세스 토큰
+
+게시판을 생성합니다.
+
+==== 요청
+include::{snippets}/board-create-success/request-headers.adoc[]
+include::{snippets}/board-create-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/board-create-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/board-create-success/http-request.adoc[]
+include::{snippets}/board-create-success/http-response.adoc[]
 
 === 게시글 카테고리 생성
 

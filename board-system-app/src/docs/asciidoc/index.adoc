@@ -8,9 +8,6 @@
 :sectnums:
 :docinfo: shared-head
 
-[[overview]]
-= 개요
-
 [[overview_http_verbs]]
 == HTTP 메서드
 
