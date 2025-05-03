@@ -17,6 +17,7 @@ dependencies {
     implementation(project(":board-system-user:user-redis-adapter"))
     implementation(project(":board-system-user:user-password-adapter"))
     implementation(project(":board-system-user:user-email-format-validate-adapter"))
+    implementation(project(":board-system-user:user-oauth2-client-adapter"))
 
     // board
     implementation(project(":board-system-board:board-web-adapter"))

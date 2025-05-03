@@ -1,9 +1,8 @@
 package com.ttasjwi.board.system.user.infra.test
 
-import com.ttasjwi.board.system.user.infra.persistence.CustomOAuth2AuthorizationRequestRepository
 import com.ttasjwi.board.system.user.infra.persistence.EmailVerificationPersistenceAdapter
-import com.ttasjwi.board.system.user.infra.persistence.UserRefreshTokenIdListPersistenceAdapter
 import com.ttasjwi.board.system.user.infra.persistence.RefreshTokenIdPersistenceAdapter
+import com.ttasjwi.board.system.user.infra.persistence.UserRefreshTokenIdListPersistenceAdapter
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.redis.core.StringRedisTemplate
@@ -19,9 +18,6 @@ abstract class UserRedisAdapterTest {
 
     @Autowired
     protected lateinit var refreshTokenIdPersistenceAdapter: RefreshTokenIdPersistenceAdapter
-
-    @Autowired
-    protected lateinit var customOAuth2AuthorizationRequestRepository: CustomOAuth2AuthorizationRequestRepository
 
     @Autowired
     protected lateinit var redisTemplate: StringRedisTemplate

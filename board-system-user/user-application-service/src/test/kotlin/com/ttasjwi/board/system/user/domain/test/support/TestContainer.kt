@@ -108,12 +108,6 @@ internal class TestContainer private constructor() {
         )
     }
 
-    val socialLoginCommandMapper: SocialLoginCommandMapper by lazy {
-        SocialLoginCommandMapper(
-            timeManager = timeManagerFixture,
-        )
-    }
-
     val tokenRefreshCommandMapper: TokenRefreshCommandMapper by lazy {
         TokenRefreshCommandMapper(
             timeManager = timeManagerFixture,
@@ -175,16 +169,6 @@ internal class TestContainer private constructor() {
         )
     }
 
-    val socialLoginProcessor: SocialLoginProcessor by lazy {
-        SocialLoginProcessor(
-            userPersistencePort = userPersistencePortFixture,
-            userCreator = userCreator,
-            socialConnectionPersistencePort = socialConnectionPersistencePortFixture,
-            accessTokenGeneratePort = accessTokenPortFixture,
-            refreshTokenHandler = refreshTokenHandler,
-        )
-    }
-
     val tokenRefreshProcessor: TokenRefreshProcessor by lazy {
         TokenRefreshProcessor(
             userPersistencePort = userPersistencePortFixture,
@@ -241,13 +225,6 @@ internal class TestContainer private constructor() {
         LoginUseCaseImpl(
             commandMapper = loginCommandMapper,
             processor = loginProcessor,
-        )
-    }
-
-    val socialLoginUseCase: SocialLoginUseCaseImpl by lazy {
-        SocialLoginUseCaseImpl(
-            commandMapper = socialLoginCommandMapper,
-            processor = socialLoginProcessor,
         )
     }
 
