@@ -53,6 +53,33 @@ internal constructor(
             )
         }
 
+        fun restore(
+            authorizationUri: String,
+            oAuth2ClientRegistrationId: String,
+            responseType: String,
+            clientId: String,
+            redirectUri: String,
+            scopes: Set<String>,
+            state: String,
+            codeChallenge: String,
+            codeChallengeMethod: String,
+            codeVerifier: String,
+            nonce: String?,
+            nonceHash: String?,
+        ): OAuth2AuthorizationRequest {
+            return OAuth2AuthorizationRequest(
+                authorizationUri = authorizationUri,
+                oAuth2ClientRegistrationId = oAuth2ClientRegistrationId,
+                responseType = OAuth2AuthorizationResponseType.of(responseType),
+                clientId = clientId,
+                redirectUri = redirectUri,
+                scopes = scopes,
+                state = state,
+                pkceParams = PKCEParams.restore(codeChallenge, codeChallengeMethod, codeVerifier),
+                nonceParams = NonceParams.restore(nonce, nonceHash)
+            )
+        }
+
         /**
          * Scope 목록에 "openid"가 있으면 Nonce 적용
          */
@@ -102,6 +129,16 @@ internal constructor(
                     nonceHash = nonceHash
                 )
             }
+
+            fun restore(nonce: String?, nonceHash: String?): NonceParams? {
+                if (nonce == null || nonceHash == null) {
+                    return null
+                }
+                return NonceParams(
+                    nonce = nonce,
+                    nonceHash = nonceHash
+                )
+            }
         }
     }
 
@@ -128,6 +165,18 @@ internal constructor(
                     codeVerifier = codeVerifier,
                     codeChallengeMethod = codeChallengeMethod,
                     codeChallenge = codeChallenge
+                )
+            }
+
+            fun restore(
+                codeChallenge: String,
+                codeChallengeMethod: String,
+                codeVerifier: String,
+            ): PKCEParams {
+                return PKCEParams(
+                    codeChallenge = codeChallenge,
+                    codeChallengeMethod = codeChallengeMethod,
+                    codeVerifier = codeVerifier
                 )
             }
         }

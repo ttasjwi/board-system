@@ -9,7 +9,7 @@ enum class OAuth2AuthorizationResponseType (val value: String) {
         private fun allOAuth2AuthorizationResponseType(): Set<OAuth2AuthorizationResponseType> = OAuth2AuthorizationResponseType.entries.toSet()
 
         fun of(value: String): OAuth2AuthorizationResponseType {
-            val findType = allOAuth2AuthorizationResponseType().find { it.value == value }
+            val findType = allOAuth2AuthorizationResponseType().find { it.value == value.lowercase() }
             if (findType == null) {
                 throw NoSuchElementException("No OAuth2AuthorizationResponseType found for $value")
             }
