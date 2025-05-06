@@ -6,12 +6,10 @@ import com.ttasjwi.board.system.user.domain.model.OAuth2AuthorizationRequest
 import com.ttasjwi.board.system.user.domain.model.OAuth2ClientRegistration
 import com.ttasjwi.board.system.user.domain.port.OAuth2AuthorizationRequestPersistencePort
 import com.ttasjwi.board.system.user.domain.port.OAuth2ClientRegistrationPersistencePort
-import com.ttasjwi.board.system.user.domain.service.OAuth2AuthorizationRequestGenerator
 
 @ApplicationProcessor
 class SocialServiceAuthorizationProcessor(
     private val oAuth2ClientRegistrationPersistencePort: OAuth2ClientRegistrationPersistencePort,
-    private val oauth2AuthorizationRequestGenerator: OAuth2AuthorizationRequestGenerator,
     private val oAuth2AuthorizationRequestPersistencePort: OAuth2AuthorizationRequestPersistencePort,
 ) {
 
@@ -20,7 +18,7 @@ class SocialServiceAuthorizationProcessor(
         val clientRegistration = getClientRegistrationOrThrow(command.oAuth2ClientRegistrationId)
 
         // OAuth2 인가요청 생성
-        val oauth2AuthorizationRequest = oauth2AuthorizationRequestGenerator.generate(clientRegistration)
+        val oauth2AuthorizationRequest = OAuth2AuthorizationRequest.create(clientRegistration)
 
         // OAuth2 인가요청 저장 (5분간 유효)
         oAuth2AuthorizationRequestPersistencePort.save(oauth2AuthorizationRequest, command.currentTime.plusMinutes(5))

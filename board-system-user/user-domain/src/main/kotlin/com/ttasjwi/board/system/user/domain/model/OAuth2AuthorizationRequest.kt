@@ -1,7 +1,10 @@
 package com.ttasjwi.board.system.user.domain.model
 
+import com.ttasjwi.board.system.user.domain.util.Base64SecureKeyGenerator
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+import java.util.*
 
 class OAuth2AuthorizationRequest
 internal constructor(
@@ -32,28 +35,39 @@ internal constructor(
 
     companion object {
 
-        fun create(
-            authorizationUri: String,
-            oAuth2ClientRegistrationId: String,
-            responseType: OAuth2AuthorizationResponseType,
-            clientId: String,
-            redirectUri: String,
-            scopes: Set<String>,
-            state: String,
-            pkceParams: PKCEParams,
-            nonceParams: NonceParams?,
-        ): OAuth2AuthorizationRequest {
+        private val stateGenerator: Base64SecureKeyGenerator = Base64SecureKeyGenerator.init(Base64.getUrlEncoder())
+        private val secureKeyGenerator: Base64SecureKeyGenerator =
+            Base64SecureKeyGenerator.init(Base64.getUrlEncoder().withoutPadding(), 96)
+
+        fun create(clientRegistration: OAuth2ClientRegistration): OAuth2AuthorizationRequest {
             return OAuth2AuthorizationRequest(
-                authorizationUri = authorizationUri,
-                oAuth2ClientRegistrationId = oAuth2ClientRegistrationId,
-                responseType = responseType,
-                clientId = clientId,
-                redirectUri = redirectUri,
-                scopes = scopes,
-                state = state,
-                pkceParams = pkceParams,
-                nonceParams = nonceParams,
+                authorizationUri = clientRegistration.providerDetails.authorizationUri,
+                oAuth2ClientRegistrationId = clientRegistration.registrationId,
+                responseType = OAuth2AuthorizationResponseType.CODE,
+                clientId = clientRegistration.clientId,
+                redirectUri = clientRegistration.redirectUri,
+                scopes = clientRegistration.scopes,
+                state = stateGenerator.generateKey(),
+                pkceParams = PKCEParams.create(),
+                nonceParams = generateNonceParamsIfNecessary(clientRegistration),
             )
+        }
+
+        /**
+         * Scope 목록에 "openid"가 있으면 Nonce 적용
+         */
+        private fun generateNonceParamsIfNecessary(clientRegistration: OAuth2ClientRegistration): OAuth2AuthorizationRequest.NonceParams? {
+            // Scope 목록에 "openid"가 있으면 Nonce 적용, 없으면 null 반환
+            if (!clientRegistration.scopes.contains("openid")) {
+                return null
+            }
+            return NonceParams.create()
+        }
+
+        private fun createHash(value: String): String {
+            val md = MessageDigest.getInstance("SHA-256")
+            val digest = md.digest(value.toByteArray(StandardCharsets.US_ASCII))
+            return Base64.getUrlEncoder().withoutPadding().encodeToString(digest)
         }
     }
 
@@ -72,11 +86,50 @@ internal constructor(
     data class NonceParams(
         val nonce: String,
         val nonceHash: String,
-    )
+    ) {
+
+        companion object {
+
+            fun create(): NonceParams {
+                // 원본 값
+                val nonce = secureKeyGenerator.generateKey()
+
+                // 해시된 값
+                val nonceHash = createHash(nonce)
+
+                return NonceParams(
+                    nonce = nonce,
+                    nonceHash = nonceHash
+                )
+            }
+        }
+    }
 
     data class PKCEParams(
         val codeChallenge: String,
         val codeChallengeMethod: String,
         val codeVerifier: String
-    )
+    ) {
+
+        companion object {
+
+            fun create(): PKCEParams {
+                // 원본 값
+                val codeVerifier = secureKeyGenerator.generateKey()
+
+                // 알고리즘
+                val codeChallengeMethod = "S256"
+
+
+                // 해시된 값
+                val codeChallenge = createHash(codeVerifier)
+
+                return PKCEParams(
+                    codeVerifier = codeVerifier,
+                    codeChallengeMethod = codeChallengeMethod,
+                    codeChallenge = codeChallenge
+                )
+            }
+        }
+    }
 }

@@ -1,8 +1,8 @@
-package com.ttasjwi.board.system.user.domain.service
+package com.ttasjwi.board.system.user.domain.util
 
 import java.security.SecureRandom
 
-class ByteKeyGenerator(
+internal class ByteKeyGenerator(
     private val secureRandom: SecureRandom,
     private val keyLength: Int,
 ) {

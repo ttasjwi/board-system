@@ -1,8 +1,8 @@
-package com.ttasjwi.board.system.user.domain.service
+package com.ttasjwi.board.system.user.domain.util
 
 import java.util.*
 
-class Base64SecureKeyGenerator
+internal class Base64SecureKeyGenerator
 private constructor(
     private val keyGenerator: ByteKeyGenerator,
     private val base64Encoder: Base64.Encoder,
