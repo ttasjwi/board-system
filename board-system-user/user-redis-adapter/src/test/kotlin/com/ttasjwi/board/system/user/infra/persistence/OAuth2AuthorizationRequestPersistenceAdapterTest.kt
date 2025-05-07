@@ -43,6 +43,7 @@ class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() 
             assertThat(findOAuth2AuthorizationRequest.scopes).containsExactlyInAnyOrderElementsOf(
                 oAuth2AuthorizationRequest.scopes
             )
+            assertThat(findOAuth2AuthorizationRequest.state).isEqualTo(oAuth2AuthorizationRequest.state)
             assertThat(findOAuth2AuthorizationRequest.pkceParams.codeChallenge).isEqualTo(oAuth2AuthorizationRequest.pkceParams.codeChallenge)
             assertThat(findOAuth2AuthorizationRequest.pkceParams.codeChallengeMethod).isEqualTo(
                 oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod
@@ -81,6 +82,7 @@ class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() 
             assertThat(removedOAuth2AuthorizationRequest.scopes).containsExactlyInAnyOrderElementsOf(
                 oAuth2AuthorizationRequest.scopes
             )
+            assertThat(removedOAuth2AuthorizationRequest.state).isEqualTo(oAuth2AuthorizationRequest.state)
             assertThat(removedOAuth2AuthorizationRequest.pkceParams.codeChallenge).isEqualTo(oAuth2AuthorizationRequest.pkceParams.codeChallenge)
             assertThat(removedOAuth2AuthorizationRequest.pkceParams.codeChallengeMethod).isEqualTo(
                 oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod
@@ -122,6 +124,7 @@ class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() 
             assertThat(findOAuth2AuthorizationRequest.scopes).containsExactlyInAnyOrderElementsOf(
                 oAuth2AuthorizationRequest.scopes
             )
+            assertThat(findOAuth2AuthorizationRequest.state).isEqualTo(oAuth2AuthorizationRequest.state)
             assertThat(findOAuth2AuthorizationRequest.pkceParams.codeChallenge).isEqualTo(oAuth2AuthorizationRequest.pkceParams.codeChallenge)
             assertThat(findOAuth2AuthorizationRequest.pkceParams.codeChallengeMethod).isEqualTo(
                 oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod
@@ -160,6 +163,7 @@ class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() 
             assertThat(removedOAuth2AuthorizationRequest.scopes).containsExactlyInAnyOrderElementsOf(
                 oAuth2AuthorizationRequest.scopes
             )
+            assertThat(removedOAuth2AuthorizationRequest.state).isEqualTo(oAuth2AuthorizationRequest.state)
             assertThat(removedOAuth2AuthorizationRequest.pkceParams.codeChallenge).isEqualTo(oAuth2AuthorizationRequest.pkceParams.codeChallenge)
             assertThat(removedOAuth2AuthorizationRequest.pkceParams.codeChallengeMethod).isEqualTo(
                 oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod
@@ -202,6 +206,7 @@ class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() 
             assertThat(findOAuth2AuthorizationRequest.scopes).containsExactlyInAnyOrderElementsOf(
                 oAuth2AuthorizationRequest.scopes
             )
+            assertThat(findOAuth2AuthorizationRequest.state).isEqualTo(oAuth2AuthorizationRequest.state)
             assertThat(findOAuth2AuthorizationRequest.pkceParams.codeChallenge).isEqualTo(oAuth2AuthorizationRequest.pkceParams.codeChallenge)
             assertThat(findOAuth2AuthorizationRequest.pkceParams.codeChallengeMethod).isEqualTo(
                 oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod
@@ -239,6 +244,7 @@ class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() 
             assertThat(removedOAuth2AuthorizationRequest.scopes).containsExactlyInAnyOrderElementsOf(
                 oAuth2AuthorizationRequest.scopes
             )
+            assertThat(removedOAuth2AuthorizationRequest.state).isEqualTo(oAuth2AuthorizationRequest.state)
             assertThat(removedOAuth2AuthorizationRequest.pkceParams.codeChallenge).isEqualTo(oAuth2AuthorizationRequest.pkceParams.codeChallenge)
             assertThat(removedOAuth2AuthorizationRequest.pkceParams.codeChallengeMethod).isEqualTo(
                 oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod

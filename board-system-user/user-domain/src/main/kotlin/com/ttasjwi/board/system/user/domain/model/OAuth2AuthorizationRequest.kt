@@ -20,7 +20,7 @@ internal constructor(
 ) {
 
     val authorizationRequestUri: String by lazy {
-        val queryParams = listOf(
+        val queryParams = mutableListOf(
             "client_id" to clientId,
             "redirect_uri" to redirectUri,
             "response_type" to responseType.value,
@@ -28,8 +28,11 @@ internal constructor(
             "state" to state,
             "code_challenge" to pkceParams.codeChallenge,
             "code_challenge_method" to pkceParams.codeChallengeMethod,
-        ) + (nonceParams?.let { listOf("nonce" to it.nonceHash) } ?: emptyList())
+        )
 
+        if (this.nonceParams != null) {
+            queryParams.add("nonce" to nonceParams.nonce)
+        }
         buildUriWithQuery(authorizationUri, queryParams)
     }
 
@@ -38,6 +41,8 @@ internal constructor(
         private val stateGenerator: Base64SecureKeyGenerator = Base64SecureKeyGenerator.init(Base64.getUrlEncoder())
         private val secureKeyGenerator: Base64SecureKeyGenerator =
             Base64SecureKeyGenerator.init(Base64.getUrlEncoder().withoutPadding(), 96)
+
+        private const val MESSAGE_DIGEST_ALGORITHM = "SHA-256"
 
         fun create(clientRegistration: OAuth2ClientRegistration): OAuth2AuthorizationRequest {
             return OAuth2AuthorizationRequest(
@@ -92,7 +97,7 @@ internal constructor(
         }
 
         private fun createHash(value: String): String {
-            val md = MessageDigest.getInstance("SHA-256")
+            val md = MessageDigest.getInstance(MESSAGE_DIGEST_ALGORITHM)
             val digest = md.digest(value.toByteArray(StandardCharsets.US_ASCII))
             return Base64.getUrlEncoder().withoutPadding().encodeToString(digest)
         }
@@ -150,12 +155,14 @@ internal constructor(
 
         companion object {
 
+            internal const val DEFAULT_CODE_CHALLENGE_METHOD = "S256"
+
             fun create(): PKCEParams {
                 // 원본 값
                 val codeVerifier = secureKeyGenerator.generateKey()
 
                 // 알고리즘
-                val codeChallengeMethod = "S256"
+                val codeChallengeMethod = DEFAULT_CODE_CHALLENGE_METHOD
 
 
                 // 해시된 값
