@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.user.domain.port.fixture
 
 import com.ttasjwi.board.system.user.domain.model.SocialConnection
-import com.ttasjwi.board.system.user.domain.model.SocialServiceUser
+import com.ttasjwi.board.system.user.domain.model.SocialService
 import com.ttasjwi.board.system.user.domain.port.SocialConnectionPersistencePort
 
 class SocialConnectionPersistencePortFixture : SocialConnectionPersistencePort {
@@ -13,7 +13,9 @@ class SocialConnectionPersistencePortFixture : SocialConnectionPersistencePort {
         return socialConnection
     }
 
-    override fun findBySocialServiceUserOrNull(socialServiceUser: SocialServiceUser): SocialConnection? {
-        return storage.values.firstOrNull { it.socialServiceUser == socialServiceUser }
+    override fun read(socialService: SocialService, socialServiceUserId: String): SocialConnection? {
+        return storage.values.firstOrNull {
+            it.socialService == socialService && it.socialServiceUserId == socialServiceUserId
+        }
     }
 }

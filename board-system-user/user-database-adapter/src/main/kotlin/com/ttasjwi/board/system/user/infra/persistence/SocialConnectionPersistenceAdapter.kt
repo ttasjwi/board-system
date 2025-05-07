@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
 import com.ttasjwi.board.system.user.domain.model.SocialConnection
-import com.ttasjwi.board.system.user.domain.model.SocialServiceUser
+import com.ttasjwi.board.system.user.domain.model.SocialService
 import com.ttasjwi.board.system.user.domain.port.SocialConnectionPersistencePort
 import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaSocialConnection
 import com.ttasjwi.board.system.user.infra.persistence.jpa.JpaSocialConnectionRepository
@@ -18,12 +18,10 @@ class SocialConnectionPersistenceAdapter(
         return socialConnection
     }
 
-    override fun findBySocialServiceUserOrNull(
-        socialServiceUser: SocialServiceUser,
-    ): SocialConnection? {
+    override fun read(socialService: SocialService, socialServiceUserId: String): SocialConnection? {
         return jpaSocialConnectionRepository.findBySocialServiceAndSocialServiceUserIdOrNull(
-            socialService = socialServiceUser.socialService.name,
-            socialServiceUserId = socialServiceUser.socialServiceUserId
+            socialService = socialService.name,
+            socialServiceUserId = socialServiceUserId
         )?.restoreDomain()
     }
 }
