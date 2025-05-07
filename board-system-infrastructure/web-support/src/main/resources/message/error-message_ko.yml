@@ -72,9 +72,9 @@ Error:
   AccessDenied:
     message: "리소스 접근 권한 없음"
     description: "리소스에 접근할 수 없습니다. 해당 리소스에 접근할 권한이 없습니다."
-  InvalidOAuth2ProviderId:
-    message: "잘못된 소셜 서비스 제공자 Id"
-    description: "우리 서비스에서 연동하는 소셜서비스 제공자 id가 아닙니다. (서비스 제공자 id= {0})"
+  UnsupportedSocialServiceId:
+    message: "잘못된 소셜 서비스 Id"
+    description: "우리 서비스에서 연동하는 소셜서비스 id가 아닙니다. (서비스 id= {0})"
   OAuth2AuthorizationRequestNotFound:
     message: "소셜 서비스 인가요청 없음"
     description: "우리 서비스를 통해 소셜 서비스에 인가요청을 한 내역이 없습니다. 인가요청을 먼저 해주세요."

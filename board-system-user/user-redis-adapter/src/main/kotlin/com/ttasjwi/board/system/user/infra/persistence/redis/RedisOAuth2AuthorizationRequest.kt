@@ -1,47 +1,58 @@
 package com.ttasjwi.board.system.user.infra.persistence.redis
 
-import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.ttasjwi.board.system.user.domain.model.OAuth2AuthorizationRequest
 
 class RedisOAuth2AuthorizationRequest(
     val authorizationUri: String,
-    val authorizationGrantType: String,
+
+    @field:JsonProperty("oAuth2ClientRegistrationId")
+    val oAuth2ClientRegistrationId: String,
     val responseType: String,
     val clientId: String,
     val redirectUri: String,
     val scopes: Set<String>,
     val state: String,
-    val additionalParameters: Map<String, Any>,
-    val authorizationRequestUri: String,
-    val attributes: Map<String, Any>
+    val codeChallenge: String,
+    val codeChallengeMethod: String,
+    val codeVerifier: String,
+    val nonce: String?,
+    val nonceHash: String?,
 ) {
 
     companion object {
-        fun from(oauth2AuthorizationRequest: OAuth2AuthorizationRequest): RedisOAuth2AuthorizationRequest {
+        fun from(domain: OAuth2AuthorizationRequest): RedisOAuth2AuthorizationRequest {
             return RedisOAuth2AuthorizationRequest(
-                authorizationUri = oauth2AuthorizationRequest.authorizationUri,
-                authorizationGrantType = oauth2AuthorizationRequest.grantType.value,
-                responseType = oauth2AuthorizationRequest.responseType.value,
-                clientId = oauth2AuthorizationRequest.clientId,
-                redirectUri = oauth2AuthorizationRequest.redirectUri,
-                scopes = oauth2AuthorizationRequest.scopes,
-                state = oauth2AuthorizationRequest.state,
-                additionalParameters = oauth2AuthorizationRequest.additionalParameters,
-                authorizationRequestUri = oauth2AuthorizationRequest.authorizationRequestUri,
-                attributes = oauth2AuthorizationRequest.attributes
+                authorizationUri = domain.authorizationUri,
+                oAuth2ClientRegistrationId = domain.oAuth2ClientRegistrationId,
+                responseType = domain.responseType.name,
+                clientId = domain.clientId,
+                redirectUri = domain.redirectUri,
+                scopes = domain.scopes,
+                state = domain.state,
+                codeChallenge = domain.pkceParams.codeChallenge,
+                codeChallengeMethod = domain.pkceParams.codeChallengeMethod,
+                codeVerifier = domain.pkceParams.codeVerifier,
+                nonce = domain.nonceParams?.nonce,
+                nonceHash = domain.nonceParams?.nonceHash,
             )
         }
     }
 
-    fun toOAuth2AuthorizationRequest(): OAuth2AuthorizationRequest {
-        return OAuth2AuthorizationRequest.authorizationCode()
-            .authorizationUri(this.authorizationUri)
-            .clientId(this.clientId)
-            .redirectUri(this.redirectUri)
-            .scopes(this.scopes)
-            .state(this.state)
-            .additionalParameters(this.additionalParameters)
-            .authorizationRequestUri(this.authorizationRequestUri)
-            .attributes(this.attributes)
-            .build()
+    fun restoreDomain(): OAuth2AuthorizationRequest {
+        return OAuth2AuthorizationRequest.restore(
+            authorizationUri = authorizationUri,
+            oAuth2ClientRegistrationId = oAuth2ClientRegistrationId,
+            responseType = responseType,
+            clientId = clientId,
+            redirectUri = redirectUri,
+            scopes = scopes,
+            state = state,
+            codeChallenge = codeChallenge,
+            codeChallengeMethod = codeChallengeMethod,
+            codeVerifier = codeVerifier,
+            nonce = nonce,
+            nonceHash = nonceHash,
+        )
     }
 }

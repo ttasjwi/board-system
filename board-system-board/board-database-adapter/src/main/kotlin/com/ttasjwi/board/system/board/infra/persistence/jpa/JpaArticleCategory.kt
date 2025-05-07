@@ -7,7 +7,7 @@ import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.time.LocalDateTime
 
-@Entity
+@Entity(name = "BoardJpaArticleCategory")
 @Table(name = "article_categories")
 class JpaArticleCategory(
 

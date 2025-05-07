@@ -3,13 +3,15 @@ package com.ttasjwi.board.system.user.infra.persistence.jpa
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
+import org.springframework.stereotype.Repository
 
+@Repository("userJpaUserRepository")
 interface JpaUserRepository : JpaRepository<JpaUser, Long> {
 
     @Query(
         """
         SELECT u
-        FROM JpaUser u
+        FROM UserJpaUser u
         WHERE u.email = :email
     """
     )

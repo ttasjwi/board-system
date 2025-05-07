@@ -6,7 +6,7 @@ import com.ttasjwi.board.system.article.infra.persistence.jpa.JpaArticleCategory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
-@Component
+@Component("articleArticleCategoryPersistenceAdapter")
 class ArticleCategoryPersistenceAdapter(
     private val jpaArticleCategoryRepository: JpaArticleCategoryRepository
 ): ArticleCategoryPersistencePort {

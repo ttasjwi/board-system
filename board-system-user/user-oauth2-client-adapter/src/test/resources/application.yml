@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: test
+  config:
+    import:
+      - oauth2-client.yml
+      - optional:oauth2-client-secret.yml

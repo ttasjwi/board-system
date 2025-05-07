@@ -23,6 +23,7 @@ include(
     "board-system-user:user-database-adapter",
     "board-system-user:user-redis-adapter",
     "board-system-user:user-password-adapter",
+    "board-system-user:user-oauth2-client-adapter",
     "board-system-user:user-email-format-validate-adapter",
 
     // board ====================================================================

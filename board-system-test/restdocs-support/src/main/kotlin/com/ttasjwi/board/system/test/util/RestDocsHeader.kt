@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.test.util
 import org.springframework.restdocs.headers.HeaderDescriptor
 import org.springframework.restdocs.headers.HeaderDocumentation
 import org.springframework.restdocs.headers.RequestHeadersSnippet
+import org.springframework.restdocs.headers.ResponseHeadersSnippet
 
 class RestDocsHeader(
     val descriptor: HeaderDescriptor
@@ -47,4 +48,8 @@ private fun createField(
 
 fun requestHeaders(vararg params: RestDocsHeader): RequestHeadersSnippet {
     return HeaderDocumentation.requestHeaders(params.map { it.descriptor })
+}
+
+fun responseHeaders(vararg params: RestDocsHeader): ResponseHeadersSnippet {
+    return HeaderDocumentation.responseHeaders(params.map { it.descriptor })
 }
