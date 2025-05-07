@@ -103,6 +103,11 @@ internal constructor(
         }
     }
 
+    fun matchesNonce(idTokenNonce: String): Boolean {
+        val idTokenNonceHash = createHash(idTokenNonce)
+        return idTokenNonceHash == nonceParams!!.nonceHash
+    }
+
     private fun buildUriWithQuery(base: String, queryParams: List<Pair<String, String>>): String {
         val queryString = queryParams.joinToString("&") { (k, v) ->
             "${encodeQueryParam(k)}=${encodeQueryParam(v)}"

@@ -15,6 +15,7 @@ import com.ttasjwi.board.system.user.domain.port.OAuth2ClientRegistrationPersist
 import com.ttasjwi.board.system.user.domain.port.SocialConnectionPersistencePort
 import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
 import com.ttasjwi.board.system.user.domain.service.OAuth2UserAuthenticator
+import com.ttasjwi.board.system.user.domain.service.OidcUserAuthenticator
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
 import com.ttasjwi.board.system.user.domain.service.UserCreator
 
@@ -23,6 +24,7 @@ class SocialLoginProcessor(
     private val oAuth2AuthorizationRequestPersistencePort: OAuth2AuthorizationRequestPersistencePort,
     private val oAuth2ClientRegistrationPersistencePort: OAuth2ClientRegistrationPersistencePort,
     private val oAuth2UserAuthenticator: OAuth2UserAuthenticator,
+    private val oidcUserAuthenticator: OidcUserAuthenticator,
     private val userPersistencePort: UserPersistencePort,
     private val socialConnectionPersistencePort: SocialConnectionPersistencePort,
     private val userCreator: UserCreator,
@@ -65,6 +67,9 @@ class SocialLoginProcessor(
     }
 
     private fun authenticateOAuth2User(code: String, clientRegistration: OAuth2ClientRegistration, authorizationRequest: OAuth2AuthorizationRequest): OAuth2UserPrincipal {
+        if (clientRegistration.scopes.contains("openid")) {
+            return oidcUserAuthenticator.authenticate(code, clientRegistration, authorizationRequest)
+        }
         return oAuth2UserAuthenticator.authenticate(code, clientRegistration, authorizationRequest)
     }
 
