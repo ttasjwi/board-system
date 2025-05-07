@@ -3,7 +3,5 @@ spring:
     active: test
   config:
     import:
-      - web-support.yml
       - oauth2-client.yml
       - optional:oauth2-client-secret.yml
-

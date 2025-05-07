@@ -15,6 +15,6 @@ class OAuth2ClientRegistrationPersistencePortFixture : OAuth2ClientRegistrationP
     )
 
     override fun findById(registrationId: String): OAuth2ClientRegistration? {
-        return storage[registrationId]
+        return storage[registrationId.lowercase()]
     }
 }

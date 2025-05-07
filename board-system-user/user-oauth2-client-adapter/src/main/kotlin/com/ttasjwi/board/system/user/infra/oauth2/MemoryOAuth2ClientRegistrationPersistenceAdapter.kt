@@ -8,6 +8,6 @@ class MemoryOAuth2ClientRegistrationPersistenceAdapter(
 ) : OAuth2ClientRegistrationPersistencePort {
 
     override fun findById(registrationId: String): OAuth2ClientRegistration? {
-        return storage[registrationId]
+        return storage[registrationId.lowercase()]
     }
 }
