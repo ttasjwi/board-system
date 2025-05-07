@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.user.domain.processor
 
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.user.domain.dto.SocialServiceAuthorizationCommand
+import com.ttasjwi.board.system.user.domain.exception.UnsupportedSocialServiceIdException
 import com.ttasjwi.board.system.user.domain.model.OAuth2AuthorizationRequest
 import com.ttasjwi.board.system.user.domain.model.OAuth2ClientRegistration
 import com.ttasjwi.board.system.user.domain.port.OAuth2AuthorizationRequestPersistencePort
@@ -28,6 +29,6 @@ class SocialServiceAuthorizationProcessor(
 
     private fun getClientRegistrationOrThrow(socialServiceId: String): OAuth2ClientRegistration {
         return oAuth2ClientRegistrationPersistencePort.findById(socialServiceId)
-            ?: throw NoSuchElementException("SocialServiceId $socialServiceId not found")
+            ?: throw UnsupportedSocialServiceIdException(socialServiceId)
     }
 }

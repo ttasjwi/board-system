@@ -72,9 +72,9 @@ Error:
   AccessDenied:
     message: "Access Denied"
     description: "You do not have permission to access this resource."
-  InvalidOAuth2ProviderId:
-    message: "Invalid social service provider ID"
-    description: "The provided social service provider ID is not supported by our service. (Provider ID: {0})"
+  UnsupportedSocialServiceId:
+    message: "Invalid social service ID"
+    description: "The provided social service ID is not supported by our service. (service ID: {0})"
   OAuth2AuthorizationRequestNotFound:
     message: "No social service authorization request"
     description: "There is no record of an authorization request to the social service through our platform. Please initiate an authorization request first."

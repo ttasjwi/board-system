@@ -39,6 +39,10 @@ internal class TestContainer private constructor() {
     val refreshTokenPortFixture: RefreshTokenPortFixture by lazy { RefreshTokenPortFixture() }
     val emailVerificationPersistencePortFixture: EmailVerificationPersistencePortFixture by lazy { EmailVerificationPersistencePortFixture() }
     val userPersistencePortFixture: UserPersistencePortFixture by lazy { UserPersistencePortFixture() }
+
+    val oAuth2AuthorizationRequestPersistencePortFixture: OAuth2AuthorizationRequestPersistencePortFixture by lazy { OAuth2AuthorizationRequestPersistencePortFixture() }
+    private val oAuth2ClientRegistrationPersistencePortFixture: OAuth2ClientRegistrationPersistencePortFixture by lazy { OAuth2ClientRegistrationPersistencePortFixture() }
+
     val socialConnectionPersistencePortFixture: SocialConnectionPersistencePortFixture by lazy { SocialConnectionPersistencePortFixture() }
     private val emailFormatValidatePortFixture: EmailFormatValidatePortFixture by lazy { EmailFormatValidatePortFixture() }
     val passwordEncryptionPortFixture: PasswordEncryptionPortFixture by lazy { PasswordEncryptionPortFixture() }
@@ -108,6 +112,12 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val socialServiceAuthorizationCommandMapper: SocialServiceAuthorizationCommandMapper by lazy {
+        SocialServiceAuthorizationCommandMapper(
+            timeManager = timeManagerFixture,
+        )
+    }
+
     val tokenRefreshCommandMapper: TokenRefreshCommandMapper by lazy {
         TokenRefreshCommandMapper(
             timeManager = timeManagerFixture,
@@ -169,6 +179,13 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val socialServiceAuthorizationProcessor: SocialServiceAuthorizationProcessor by lazy {
+        SocialServiceAuthorizationProcessor(
+            oAuth2ClientRegistrationPersistencePort = oAuth2ClientRegistrationPersistencePortFixture,
+            oAuth2AuthorizationRequestPersistencePort = oAuth2AuthorizationRequestPersistencePortFixture,
+        )
+    }
+
     val tokenRefreshProcessor: TokenRefreshProcessor by lazy {
         TokenRefreshProcessor(
             userPersistencePort = userPersistencePortFixture,
@@ -225,6 +242,13 @@ internal class TestContainer private constructor() {
         LoginUseCaseImpl(
             commandMapper = loginCommandMapper,
             processor = loginProcessor,
+        )
+    }
+
+    val socialServiceAuthorizationUseCase: SocialServiceAuthorizationUseCase by lazy {
+        SocialServiceAuthorizationUseCaseImpl(
+            commandMapper = socialServiceAuthorizationCommandMapper,
+            processor = socialServiceAuthorizationProcessor,
         )
     }
 
