@@ -75,7 +75,7 @@ internal constructor(
             return OAuth2AuthorizationRequest(
                 authorizationUri = authorizationUri,
                 oAuth2ClientRegistrationId = oAuth2ClientRegistrationId,
-                responseType = OAuth2AuthorizationResponseType.of(responseType),
+                responseType = OAuth2AuthorizationResponseType.restore(responseType),
                 clientId = clientId,
                 redirectUri = redirectUri,
                 scopes = scopes,

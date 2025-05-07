@@ -9,8 +9,8 @@ enum class OAuth2ClientAuthenticationMethod(val value: String) {
 
         private fun allOAuth2ClientAuthenticationMethod(): Set<OAuth2ClientAuthenticationMethod> = entries.toSet()
 
-        fun of(value: String): OAuth2ClientAuthenticationMethod {
-            val findMethod = allOAuth2ClientAuthenticationMethod().find { it.value == value }
+        fun restore(value: String): OAuth2ClientAuthenticationMethod {
+            val findMethod = allOAuth2ClientAuthenticationMethod().find { it.value == value.lowercase() }
             if (findMethod == null) {
                 throw NoSuchElementException("No OAuth2ClientAuthenticationMethod found for $value")
             }

@@ -9,7 +9,7 @@ internal class ByteKeyGenerator(
 
     companion object {
 
-        private const val DEFAULT_KEY_LENGTH = 8
+        internal const val DEFAULT_KEY_LENGTH = 8
 
         fun init(keyLength: Int = DEFAULT_KEY_LENGTH): ByteKeyGenerator {
             return ByteKeyGenerator(

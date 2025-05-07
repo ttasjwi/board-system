@@ -9,7 +9,7 @@ private constructor(
 ) {
 
     companion object {
-        private const val MIN_KEY_LENGTH = 32
+        internal const val MIN_KEY_LENGTH = 32
 
         fun init(base64Encoder: Base64.Encoder, keyLength: Int = MIN_KEY_LENGTH): Base64SecureKeyGenerator {
             if (keyLength < MIN_KEY_LENGTH) {

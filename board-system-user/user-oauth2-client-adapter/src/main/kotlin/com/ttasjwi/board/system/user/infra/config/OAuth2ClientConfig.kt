@@ -21,7 +21,7 @@ class OAuth2ClientConfig {
                 registrationId = clientRegistration.registrationId,
                 clientId = clientRegistration.clientId,
                 clientSecret = clientRegistration.clientSecret,
-                clientAuthenticationMethod = OAuth2ClientAuthenticationMethod.of(clientRegistration.clientAuthenticationMethod.value),
+                clientAuthenticationMethod = OAuth2ClientAuthenticationMethod.restore(clientRegistration.clientAuthenticationMethod.value),
                 redirectUri = clientRegistration.redirectUri,
                 scopes = clientRegistration.scopes,
                 clientName = clientRegistration.clientName,
@@ -30,7 +30,7 @@ class OAuth2ClientConfig {
                     tokenUri = clientRegistration.providerDetails.tokenUri,
                     userInfoEndpoint = OAuth2ClientRegistration.ProviderDetails.UserInfoEndpoint(
                         uri = clientRegistration.providerDetails.userInfoEndpoint.uri,
-                        authenticationMethod = OAuth2ClientAuthenticationMethod.of(clientRegistration.providerDetails.userInfoEndpoint.authenticationMethod.value),
+                        authenticationMethod = OAuth2ClientAuthenticationMethod.restore(clientRegistration.providerDetails.userInfoEndpoint.authenticationMethod.value),
                         usernameAttributeName = clientRegistration.providerDetails.userInfoEndpoint.userNameAttributeName
                     ),
                     jwkSetUri = clientRegistration.providerDetails.jwkSetUri,
