@@ -83,14 +83,14 @@ class OidcOAuth2UserPrincipalAdapter : OidcOAuth2UserPrincipalPort {
         return when (oAuth2ClientRegistration.registrationId) {
             "google" -> {
                 OAuth2UserPrincipal(
-                    socialServiceName = "google",
+                    socialServiceName = oAuth2ClientRegistration.registrationId,
                     socialServiceUserId = claims.getStringClaim("sub"),
                     email = claims.getStringClaim("email"),
                 )
             }
             "kakao" -> {
                 OAuth2UserPrincipal(
-                    socialServiceName = "kakao",
+                    socialServiceName = oAuth2ClientRegistration.registrationId,
                     socialServiceUserId = claims.getStringClaim("sub"),
                     email = claims.getStringClaim("email"),
                 )

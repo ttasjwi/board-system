@@ -36,7 +36,7 @@ class OAuth2UserPrincipalClientAdapter : OAuth2UserPrincipalClientPort {
     ): OAuth2UserPrincipal {
         if (oAuth2ClientRegistration.registrationId == "naver") {
             return OAuth2UserPrincipal(
-                socialServiceName = "naver",
+                socialServiceName = oAuth2ClientRegistration.registrationId,
                 socialServiceUserId = (response["response"] as Map<*, *>)["id"] as String,
                 email = (response["response"] as Map<*, *>)["email"] as String
             )

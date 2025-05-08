@@ -16,7 +16,7 @@ import org.springframework.web.client.body
 import java.util.Base64
 
 @Component
-class OAuth2AccessAccessTokenClientAdapter : OAuth2AccessTokenClientPort {
+class OAuth2AccessTokenClientAdapter : OAuth2AccessTokenClientPort {
 
     private val restClient: RestClient = RestClient.create()
 

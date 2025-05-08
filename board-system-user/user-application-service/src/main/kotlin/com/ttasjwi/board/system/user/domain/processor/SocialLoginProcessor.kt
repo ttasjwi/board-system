@@ -14,17 +14,13 @@ import com.ttasjwi.board.system.user.domain.port.OAuth2AuthorizationRequestPersi
 import com.ttasjwi.board.system.user.domain.port.OAuth2ClientRegistrationPersistencePort
 import com.ttasjwi.board.system.user.domain.port.SocialConnectionPersistencePort
 import com.ttasjwi.board.system.user.domain.port.UserPersistencePort
-import com.ttasjwi.board.system.user.domain.service.OAuth2UserAuthenticator
-import com.ttasjwi.board.system.user.domain.service.OidcUserAuthenticator
-import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
-import com.ttasjwi.board.system.user.domain.service.UserCreator
+import com.ttasjwi.board.system.user.domain.service.*
 
 @ApplicationProcessor
 class SocialLoginProcessor(
     private val oAuth2AuthorizationRequestPersistencePort: OAuth2AuthorizationRequestPersistencePort,
     private val oAuth2ClientRegistrationPersistencePort: OAuth2ClientRegistrationPersistencePort,
-    private val oAuth2UserAuthenticator: OAuth2UserAuthenticator,
-    private val oidcUserAuthenticator: OidcUserAuthenticator,
+    private val oAuth2UserPrincipalLoader: OAuth2UserPrincipalLoader,
     private val userPersistencePort: UserPersistencePort,
     private val socialConnectionPersistencePort: SocialConnectionPersistencePort,
     private val userCreator: UserCreator,
@@ -42,7 +38,7 @@ class SocialLoginProcessor(
         val clientRegistration = oAuth2ClientRegistrationPersistencePort.findById(authorizationRequest.oAuth2ClientRegistrationId)!!
 
         // 소셜서비스 인가
-        val oAuth2UserPrincipal = authenticateOAuth2User(command.code, clientRegistration, authorizationRequest)
+        val oAuth2UserPrincipal = oAuth2UserPrincipalLoader.getOAuth2UserPrincipal(command.code, clientRegistration, authorizationRequest)
 
         // 소셜서비스 사용자 정보를 통해 우리 서비스의 사용자 식별
         val (userCreated, user) = getUserOrCreate(oAuth2UserPrincipal, command.currentTime)
@@ -64,13 +60,6 @@ class SocialLoginProcessor(
     private fun removeAuthorizationRequestOrThrow(state: String): OAuth2AuthorizationRequest {
         return oAuth2AuthorizationRequestPersistencePort.remove(state)
             ?: throw OAuth2AuthorizationRequestNotFoundException(state)
-    }
-
-    private fun authenticateOAuth2User(code: String, clientRegistration: OAuth2ClientRegistration, authorizationRequest: OAuth2AuthorizationRequest): OAuth2UserPrincipal {
-        if (clientRegistration.scopes.contains("openid")) {
-            return oidcUserAuthenticator.authenticate(code, clientRegistration, authorizationRequest)
-        }
-        return oAuth2UserAuthenticator.authenticate(code, clientRegistration, authorizationRequest)
     }
 
     /**
