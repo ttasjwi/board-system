@@ -21,7 +21,7 @@ class SocialConnectionTest {
             // given
             val socialConnectionId = 35L
             val userId = 174L
-            val socialServiceName = "NAVER"
+            val socialService = SocialService.NAVER
             val socialServiceUserId = "a7a7dfa7"
             val currentTime = appDateTimeFixture(minute = 4)
 
@@ -29,19 +29,16 @@ class SocialConnectionTest {
             val socialConnection = SocialConnection.create(
                 socialConnectionId = socialConnectionId,
                 userId = userId,
-                socialServiceUser = SocialServiceUser.restore(socialServiceName, socialServiceUserId),
+                socialService = socialService,
+                socialServiceUserId = socialServiceUserId,
                 currentTime = currentTime
             )
 
             // then
             assertThat(socialConnection.socialConnectionId).isEqualTo(socialConnectionId)
             assertThat(socialConnection.userId).isEqualTo(userId)
-            assertThat(socialConnection.socialServiceUser).isEqualTo(
-                SocialServiceUser.restore(
-                    socialServiceName,
-                    socialServiceUserId
-                )
-            )
+            assertThat(socialConnection.socialService).isEqualTo(socialService)
+            assertThat(socialConnection.socialServiceUserId).isEqualTo(socialServiceUserId)
             assertThat(socialConnection.linkedAt).isEqualTo(currentTime)
         }
 
@@ -73,12 +70,8 @@ class SocialConnectionTest {
             // then
             assertThat(socialConnection.socialConnectionId).isEqualTo(socialConnectionId)
             assertThat(socialConnection.userId).isEqualTo(userId)
-            assertThat(socialConnection.socialServiceUser).isEqualTo(
-                SocialServiceUser.restore(
-                    socialServiceName,
-                    socialServiceUserId
-                )
-            )
+            assertThat(socialConnection.socialService).isEqualTo(SocialService.restore(socialServiceName))
+            assertThat(socialConnection.socialServiceUserId).isEqualTo(socialServiceUserId)
             assertThat(socialConnection.linkedAt.toLocalDateTime()).isEqualTo(linkedAt)
         }
     }
@@ -105,6 +98,6 @@ class SocialConnectionTest {
         val str = socialConnection.toString()
 
         // then
-        assertThat(str).isEqualTo("SocialConnection(socialConnectionId=$socialConnectionId, userId=$userId, socialServiceUser=${socialConnection.socialServiceUser}, linkedAt=$linkedAt)")
+        assertThat(str).isEqualTo("SocialConnection(socialConnectionId=$socialConnectionId, socialService=$socialService, socialServiceUserId=$socialServiceUserId, userId=$userId, linkedAt=$linkedAt)")
     }
 }

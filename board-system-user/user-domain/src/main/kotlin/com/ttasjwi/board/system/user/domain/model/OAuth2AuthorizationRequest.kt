@@ -81,14 +81,14 @@ internal constructor(
                 scopes = scopes,
                 state = state,
                 pkceParams = PKCEParams.restore(codeChallenge, codeChallengeMethod, codeVerifier),
-                nonceParams = NonceParams.restore(nonce, nonceHash)
+                nonceParams = nonce?.let { NonceParams.restore(it, nonceHash!!) }
             )
         }
 
         /**
          * Scope 목록에 "openid"가 있으면 Nonce 적용
          */
-        private fun generateNonceParamsIfNecessary(clientRegistration: OAuth2ClientRegistration): OAuth2AuthorizationRequest.NonceParams? {
+        private fun generateNonceParamsIfNecessary(clientRegistration: OAuth2ClientRegistration): NonceParams? {
             // Scope 목록에 "openid"가 있으면 Nonce 적용, 없으면 null 반환
             if (!clientRegistration.scopes.contains("openid")) {
                 return null
@@ -101,6 +101,11 @@ internal constructor(
             val digest = md.digest(value.toByteArray(StandardCharsets.US_ASCII))
             return Base64.getUrlEncoder().withoutPadding().encodeToString(digest)
         }
+    }
+
+    fun matchesNonce(idTokenNonce: String): Boolean {
+        val idTokenNonceHash = createHash(idTokenNonce)
+        return idTokenNonceHash == nonceParams!!.nonceHash
     }
 
     private fun buildUriWithQuery(base: String, queryParams: List<Pair<String, String>>): String {
@@ -135,14 +140,8 @@ internal constructor(
                 )
             }
 
-            fun restore(nonce: String?, nonceHash: String?): NonceParams? {
-                if (nonce == null || nonceHash == null) {
-                    return null
-                }
-                return NonceParams(
-                    nonce = nonce,
-                    nonceHash = nonceHash
-                )
+            fun restore(nonce: String, nonceHash: String): NonceParams {
+                return NonceParams(nonce, nonceHash)
             }
         }
     }

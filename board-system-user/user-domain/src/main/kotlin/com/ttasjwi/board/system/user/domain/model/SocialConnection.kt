@@ -9,8 +9,9 @@ import java.time.LocalDateTime
 class SocialConnection
 internal constructor(
     val socialConnectionId: Long,
+    val socialService: SocialService,
+    val socialServiceUserId: String,
     val userId: Long,
-    val socialServiceUser: SocialServiceUser,
     val linkedAt: AppDateTime,
 ) {
 
@@ -19,34 +20,37 @@ internal constructor(
         fun create(
             socialConnectionId: Long,
             userId: Long,
-            socialServiceUser: SocialServiceUser,
+            socialService: SocialService,
+            socialServiceUserId: String,
             currentTime: AppDateTime
         ): SocialConnection {
             return SocialConnection(
                 socialConnectionId = socialConnectionId,
                 userId = userId,
-                socialServiceUser = socialServiceUser,
+                socialService = socialService,
+                socialServiceUserId = socialServiceUserId,
                 linkedAt = currentTime,
             )
         }
 
         fun restore(
             socialConnectionId: Long,
-            userId: Long,
             socialServiceName: String,
             socialServiceUserId: String,
+            userId: Long,
             linkedAt: LocalDateTime
         ): SocialConnection {
             return SocialConnection(
                 socialConnectionId = socialConnectionId,
+                socialService = SocialService.restore(socialServiceName),
+                socialServiceUserId = socialServiceUserId,
                 userId = userId,
-                socialServiceUser = SocialServiceUser.restore(socialServiceName, socialServiceUserId),
                 linkedAt = AppDateTime.from(linkedAt)
             )
         }
     }
 
     override fun toString(): String {
-        return "SocialConnection(socialConnectionId=$socialConnectionId, userId=$userId, socialServiceUser=$socialServiceUser, linkedAt=$linkedAt)"
+        return "SocialConnection(socialConnectionId=$socialConnectionId, socialService=$socialService, socialServiceUserId=$socialServiceUserId, userId=$userId, linkedAt=$linkedAt)"
     }
 }

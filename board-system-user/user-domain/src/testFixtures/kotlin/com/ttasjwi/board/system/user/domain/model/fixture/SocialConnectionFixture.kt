@@ -15,7 +15,8 @@ fun socialConnectionFixture(
     return SocialConnection(
         socialConnectionId = socialConnectionId,
         userId = userId,
-        socialServiceUser = socialServiceUserFixture(socialService, socialServiceUserId),
+        socialService = socialService,
+        socialServiceUserId = socialServiceUserId,
         linkedAt = linkedAt
     )
 }

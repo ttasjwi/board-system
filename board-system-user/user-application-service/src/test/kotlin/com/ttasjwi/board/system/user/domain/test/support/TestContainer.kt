@@ -13,8 +13,9 @@ import com.ttasjwi.board.system.user.domain.policy.fixture.PasswordPolicyFixture
 import com.ttasjwi.board.system.user.domain.policy.fixture.UsernamePolicyFixture
 import com.ttasjwi.board.system.user.domain.port.fixture.*
 import com.ttasjwi.board.system.user.domain.processor.*
-import com.ttasjwi.board.system.user.domain.service.UserCreator
+import com.ttasjwi.board.system.user.domain.service.OAuth2UserPrincipalLoader
 import com.ttasjwi.board.system.user.domain.service.RefreshTokenHandler
+import com.ttasjwi.board.system.user.domain.service.UserCreator
 
 internal class TestContainer private constructor() {
 
@@ -48,6 +49,10 @@ internal class TestContainer private constructor() {
     val passwordEncryptionPortFixture: PasswordEncryptionPortFixture by lazy { PasswordEncryptionPortFixture() }
     val userRefreshTokenIdListPersistencePortFixture: UserRefreshTokenIdListPersistencePortFixture by lazy { UserRefreshTokenIdListPersistencePortFixture() }
     val refreshTokenIdPersistencePortFixture: RefreshTokenIdPersistencePortFixture by lazy { RefreshTokenIdPersistencePortFixture() }
+    val oAuth2AccessTokenClientPortFixture: OAuth2AccessTokenClientPortFixture by lazy { OAuth2AccessTokenClientPortFixture() }
+    val oAuth2UserPrincipalClientPortFixture: OAuth2UserPrincipalClientPortFixture by lazy { OAuth2UserPrincipalClientPortFixture() }
+    val oidcOAuth2UserPrincipalPortFixture: OidcOAuth2UserPrincipalPortFixture by lazy { OidcOAuth2UserPrincipalPortFixture() }
+
 
     // service
     val userCreator: UserCreator by lazy {
@@ -65,6 +70,14 @@ internal class TestContainer private constructor() {
             refreshTokenParsePort = refreshTokenPortFixture,
             userRefreshTokenIdListPersistencePort = userRefreshTokenIdListPersistencePortFixture,
             refreshTokenIdPersistencePort = refreshTokenIdPersistencePortFixture
+        )
+    }
+
+    val oAuth2UserPrincipalLoader: OAuth2UserPrincipalLoader by lazy {
+        OAuth2UserPrincipalLoader(
+            oAuth2AccessTokenClientPort = oAuth2AccessTokenClientPortFixture,
+            oAuth2UserPrincipalClientPort = oAuth2UserPrincipalClientPortFixture,
+            oidcOAuth2UserPrincipalPort = oidcOAuth2UserPrincipalPortFixture
         )
     }
 
@@ -114,6 +127,12 @@ internal class TestContainer private constructor() {
 
     val socialServiceAuthorizationCommandMapper: SocialServiceAuthorizationCommandMapper by lazy {
         SocialServiceAuthorizationCommandMapper(
+            timeManager = timeManagerFixture,
+        )
+    }
+
+    val socialLoginCommandMapper: SocialLoginCommandMapper by lazy {
+        SocialLoginCommandMapper(
             timeManager = timeManagerFixture,
         )
     }
@@ -186,6 +205,19 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val socialLoginProcessor: SocialLoginProcessor by lazy {
+        SocialLoginProcessor(
+            oAuth2AuthorizationRequestPersistencePort = oAuth2AuthorizationRequestPersistencePortFixture,
+            oAuth2ClientRegistrationPersistencePort = oAuth2ClientRegistrationPersistencePortFixture,
+            oAuth2UserPrincipalLoader = oAuth2UserPrincipalLoader,
+            userPersistencePort = userPersistencePortFixture,
+            socialConnectionPersistencePort = socialConnectionPersistencePortFixture,
+            userCreator = userCreator,
+            accessTokenGeneratePort = accessTokenPortFixture,
+            refreshTokenHandler = refreshTokenHandler
+        )
+    }
+
     val tokenRefreshProcessor: TokenRefreshProcessor by lazy {
         TokenRefreshProcessor(
             userPersistencePort = userPersistencePortFixture,
@@ -249,6 +281,13 @@ internal class TestContainer private constructor() {
         SocialServiceAuthorizationUseCaseImpl(
             commandMapper = socialServiceAuthorizationCommandMapper,
             processor = socialServiceAuthorizationProcessor,
+        )
+    }
+
+    val socialLoginUseCase: SocialLoginUseCase by lazy {
+        SocialLoginUseCaseImpl(
+            commandMapper = socialLoginCommandMapper,
+            processor = socialLoginProcessor,
         )
     }
 

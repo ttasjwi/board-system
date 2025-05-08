@@ -57,6 +57,14 @@ infix fun String.type(
     return createField(this, docsFieldType.type)
 }
 
+infix fun String.subSectionType(
+    typeName: String,
+): RestDocsField {
+    val descriptor = PayloadDocumentation.subsectionWithPath(this)
+        .type(typeName)
+    return RestDocsField(descriptor)
+}
+
 private fun createField(
     value: String,
     type: JsonFieldType,

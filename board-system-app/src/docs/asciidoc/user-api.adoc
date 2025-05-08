@@ -31,7 +31,7 @@ include::{snippets}/login-success/http-response.adoc[]
 === 소셜서비스 인가
 ==== 기본정보
 - 메서드 : GET
-- URL : `/api/v1/auth/social-service-authorization/+{socialServiceId}+`
+- URL : `/api/v1/auth/social-service-authorization/{socialServiceId}`
 - 권한 : 누구나
 
 소셜 로그인을 위해서는, 우리 서비스가 소셜 서비스로부터 사용자의 정보를 얻어올 수 있는 허가가 필요합니다.
@@ -53,5 +53,24 @@ include::{snippets}/social-service-authorization-success/http-request.adoc[]
 include::{snippets}/social-service-authorization-success/http-response.adoc[]
 
 === 소셜로그인
+- 메서드 : POST
+- URL : `/api/v1/auth/social-login`
+- 권한 : 누구나
+
+소셜 서비스에 허락을 구하고나면, 리다이렉트와 동시에 쿼리 파라미터에 code, state가 전달됩니다.
+URL 디코딩을 한 뒤 소셜로그인 엔드포인트로 이 값들을 JSON 형태로 전달하면 소셜로그인을 할 수 있습니다.
+
+이 때 우리 서비스에 가입되지 않은 사용자는 회원가입이 되면서 소셜 서비스 연동이 되고,
+우리 서비스에 가입됐으나 소셜 연동이 되지 않은 사용자는 소셜 서비스 연동이 됩니다.
+
+==== 요청
+include::{snippets}/social-login-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/social-login-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/social-login-success/http-request.adoc[]
+include::{snippets}/social-login-success/http-response.adoc[]
 
 === 토큰 재갱신

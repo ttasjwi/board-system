@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
+import com.ttasjwi.board.system.user.domain.model.SocialService
 import com.ttasjwi.board.system.user.domain.model.fixture.socialConnectionFixture
-import com.ttasjwi.board.system.user.domain.model.fixture.socialServiceUserFixture
 import com.ttasjwi.board.system.user.infra.test.UserDataBaseIntegrationTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -23,14 +23,16 @@ class SocialConnectionPersistenceAdapterTest : UserDataBaseIntegrationTest() {
             flushAndClearEntityManager()
 
             // when
-            val findSocialConnection = socialConnectionPersistenceAdapter.findBySocialServiceUserOrNull(
-                socialConnection.socialServiceUser
+            val findSocialConnection = socialConnectionPersistenceAdapter.read(
+                socialService = socialConnection.socialService,
+                socialServiceUserId = socialConnection.socialServiceUserId,
             )!!
 
             // then
             assertThat(findSocialConnection.socialConnectionId).isEqualTo(socialConnection.socialConnectionId)
             assertThat(findSocialConnection.userId).isEqualTo(socialConnection.userId)
-            assertThat(findSocialConnection.socialServiceUser).isEqualTo(socialConnection.socialServiceUser)
+            assertThat(findSocialConnection.socialService).isEqualTo(socialConnection.socialService)
+            assertThat(findSocialConnection.socialServiceUserId).isEqualTo(socialConnection.socialServiceUserId)
             assertThat(findSocialConnection.linkedAt).isEqualTo(socialConnection.linkedAt)
         }
 
@@ -38,10 +40,14 @@ class SocialConnectionPersistenceAdapterTest : UserDataBaseIntegrationTest() {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val socialServiceUser = socialServiceUserFixture()
+            val socialService = SocialService.KAKAO
+            val socialServiceUserId = "024756ggf"
 
             // when
-            val socialConnection = socialConnectionPersistenceAdapter.findBySocialServiceUserOrNull(socialServiceUser)
+            val socialConnection = socialConnectionPersistenceAdapter.read(
+                socialService = socialService,
+                socialServiceUserId = socialServiceUserId,
+            )
 
             // then
             assertThat(socialConnection).isNull()

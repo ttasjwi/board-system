@@ -1,7 +1,7 @@
 package com.ttasjwi.board.system.user.domain.port.fixture
 
+import com.ttasjwi.board.system.user.domain.model.SocialService
 import com.ttasjwi.board.system.user.domain.model.fixture.socialConnectionFixture
-import com.ttasjwi.board.system.user.domain.model.fixture.socialServiceUserFixture
 import com.ttasjwi.board.system.user.domain.port.SocialConnectionPersistencePort
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -30,15 +30,17 @@ class SocialConnectionPersistencePortFixtureTest {
             val socialConnection = socialConnectionPersistencePortFixture.save(socialConnectionFixture())
 
             // when
-            val findSocialConnection = socialConnectionPersistencePortFixture.findBySocialServiceUserOrNull(
-                socialConnection.socialServiceUser
+            val findSocialConnection = socialConnectionPersistencePortFixture.read(
+                socialService = socialConnection.socialService,
+                socialServiceUserId = socialConnection.socialServiceUserId
             )!!
 
             // then
             assertThat(findSocialConnection.socialConnectionId).isNotNull()
             assertThat(findSocialConnection.socialConnectionId).isEqualTo(socialConnection.socialConnectionId)
             assertThat(findSocialConnection.userId).isEqualTo(socialConnection.userId)
-            assertThat(findSocialConnection.socialServiceUser).isEqualTo(socialConnection.socialServiceUser)
+            assertThat(findSocialConnection.socialService).isEqualTo(socialConnection.socialService)
+            assertThat(findSocialConnection.socialServiceUserId).isEqualTo(socialConnection.socialServiceUserId)
             assertThat(findSocialConnection.linkedAt).isEqualTo(socialConnection.linkedAt)
         }
 
@@ -46,11 +48,12 @@ class SocialConnectionPersistencePortFixtureTest {
         @DisplayName("못 찾으면 Null 반환됨")
         fun findNullTest() {
             // given
-            val socialProviderUser = socialServiceUserFixture()
+            val socialService = SocialService.GOOGLE
+            val socialServiceUserId = "adfadfad7"
 
             // when
             val socialConnection =
-                socialConnectionPersistencePortFixture.findBySocialServiceUserOrNull(socialProviderUser)
+                socialConnectionPersistencePortFixture.read(socialService, socialServiceUserId)
 
             // then
             assertThat(socialConnection).isNull()

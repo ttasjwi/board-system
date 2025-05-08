@@ -32,8 +32,8 @@ class JpaSocialConnection(
             return JpaSocialConnection(
                 socialConnectionId = socialConnection.socialConnectionId,
                 userId = socialConnection.userId,
-                socialService = socialConnection.socialServiceUser.socialService.name,
-                socialServiceUserId = socialConnection.socialServiceUser.socialServiceUserId,
+                socialService = socialConnection.socialService.name,
+                socialServiceUserId = socialConnection.socialServiceUserId,
                 linkedAt = socialConnection.linkedAt.toLocalDateTime()
             )
         }
