@@ -55,8 +55,8 @@ class OAuth2AuthorizationRequestTest {
                 codeChallenge = oAuth2AuthorizationRequest.pkceParams.codeChallenge,
                 codeChallengeMethod = oAuth2AuthorizationRequest.pkceParams.codeChallengeMethod,
                 codeVerifier = oAuth2AuthorizationRequest.pkceParams.codeVerifier,
-                nonce = oAuth2AuthorizationRequest.nonceParams?.nonce,
-                nonceHash = oAuth2AuthorizationRequest.nonceParams?.nonceHash,
+                nonce = null,
+                nonceHash = null,
             )
 
             // then
@@ -290,6 +290,38 @@ class OAuth2AuthorizationRequestTest {
             assertThat(authorizationRequestUri).containsSequence("code_challenge=")
             assertThat(authorizationRequestUri).containsSequence("code_challenge_method=")
             assertThat(authorizationRequestUri).containsSequence("nonce=")
+        }
+    }
+
+    @Nested
+    @DisplayName("matchesNonce: Nonce 값을 비교하여 올바르면 true, 올바르지 않으면 false 반환")
+    inner class MatchesNonceTest {
+
+        @Test
+        @DisplayName("올바르면 true")
+        fun successTest() {
+            // given
+            val oAuth2AuthorizationRequest = googleOAuth2AuthorizationRequestFixture()
+
+            // when
+            val idTokenNonce = oAuth2AuthorizationRequest.nonceParams!!.nonce
+
+            // then
+            assertThat(oAuth2AuthorizationRequest.matchesNonce(idTokenNonce)).isTrue()
+        }
+
+
+        @Test
+        @DisplayName("올바르지 않으면 false")
+        fun failureTest() {
+            // given
+            val oAuth2AuthorizationRequest = googleOAuth2AuthorizationRequestFixture()
+
+            // when
+            val invalidIdTokenNonce = oAuth2AuthorizationRequest.nonceParams!!.nonce.substring(1)
+
+            // then
+            assertThat(oAuth2AuthorizationRequest.matchesNonce(invalidIdTokenNonce)).isFalse()
         }
     }
 }
