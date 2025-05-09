@@ -23,5 +23,21 @@ include::{snippets}/article-create-success/http-response.adoc[]
 === 게시글 단건 조회
 
 === 게시글 목록 조회(페이지)
+==== 기본정보
+- 메서드 : GET
+- URL : `/api/v1/articles`
+- 권한 : 누구든지
+
+게시글 목록을 페이지 단위로 조회합니다.
+
+==== 요청
+include::{snippets}/article-page-read-success/query-parameters.adoc[]
+
+==== 응답
+include::{snippets}/article-page-read-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-page-read-success/http-request.adoc[]
+include::{snippets}/article-page-read-success/http-response.adoc[]
 
 === 게시글 목록 조회(무한스크롤)

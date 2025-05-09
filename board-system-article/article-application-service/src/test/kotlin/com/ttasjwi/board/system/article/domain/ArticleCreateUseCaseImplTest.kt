@@ -15,7 +15,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("[article-application-service] ArticleCreateUseCaseImpl : 게시글 생성 유즈케이스 구현체")
-class ArticleCreateProcessorTest {
+class ArticleCreateUseCaseImplTest {
 
     private lateinit var useCase: ArticleCreateUseCase
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture

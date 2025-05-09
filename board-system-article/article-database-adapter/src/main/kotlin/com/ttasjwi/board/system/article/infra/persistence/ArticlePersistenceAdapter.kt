@@ -21,4 +21,14 @@ class ArticlePersistenceAdapter(
     override fun findByIdOrNull(articleId: Long): Article? {
         return jpaArticleRepository.findByIdOrNull(articleId)?.retoreToDomain()
     }
+
+    override fun findAllPage(boardId: Long, offSet: Long, pageSize: Long): List<Article> {
+        return jpaArticleRepository
+            .findAllPage(boardId, offSet, pageSize)
+            .map { it.retoreToDomain() }
+    }
+
+    override fun count(boardId: Long, limit: Long): Long {
+        return jpaArticleRepository.count(boardId, limit)
+    }
 }
