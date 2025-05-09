@@ -9,8 +9,19 @@ class RestDocsParam(
     val descriptor: ParameterDescriptor
 ) {
 
+    private var constraint: String
+        get() = descriptor.attributes["constraint"] as String
+        set(value) {
+            descriptor.attributes["constraint"] = value
+        }
+
     infix fun isOptional(value: Boolean): RestDocsParam {
         if (value) descriptor.optional()
+        return this
+    }
+
+    infix fun constraint(value: String): RestDocsParam {
+        this.constraint = value
         return this
     }
 }
