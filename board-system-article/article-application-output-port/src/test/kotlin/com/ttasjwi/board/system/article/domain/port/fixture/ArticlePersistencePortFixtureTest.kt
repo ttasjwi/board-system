@@ -115,4 +115,89 @@ class ArticlePersistencePortFixtureTest {
             assertThat(findArticle).isNull()
         }
     }
+
+
+
+    @Nested
+    @DisplayName("findAllPage: OffSet부터 시작하여, pageSize 만큼의 게시글 정보를 가져온다.")
+    inner class FindAllPageTest {
+
+        @Test
+        @DisplayName("")
+        fun test() {
+            // given
+            val boardId = 1234566L
+
+            for (i in 1..10) {
+                val article = articleFixture(
+                    articleId = i.toLong(),
+                    boardId = boardId,
+                    title = "title-$i",
+                )
+                articlePersistencePortFixture.save(article)
+            }
+            // 10 9 8 / 7 6 ... 1
+            // OffSet 을 3 부터 잡고, pageSize 를 3으로 잡기
+            // 7, 6, 5
+            val articles = articlePersistencePortFixture.findAllPage(
+                boardId = boardId,
+                offSet = 3,
+                pageSize = 3,
+            )
+            val articleIds = articles.map { it.articleId }
+
+            assertThat(articleIds.size).isEqualTo(3)
+            assertThat(articleIds).containsExactly(7, 6, 5)
+        }
+
+    }
+
+    @Nested
+    @DisplayName("count: 최대 limit 건까지 범위 내에서 게시판 게시글의 갯수를 센다.")
+    inner class CountTest {
+
+
+        @Test
+        @DisplayName("게시글 갯수가 limit 보다 같거나, 많으면, limit 만큼 갯수를 센다.")
+        fun test1() {
+            // given
+            val boardId = 1234566L
+            for (i in 1..10) {
+                val article = articleFixture(
+                    articleId = i.toLong(),
+                    boardId = boardId,
+                    title = "title-$i",
+                )
+                articlePersistencePortFixture.save(article)
+            }
+
+            // when
+            val count = articlePersistencePortFixture.count(boardId, 9)
+
+            // then
+            assertThat(count).isEqualTo(9)
+        }
+
+
+        @Test
+        @DisplayName("게시글 갯수가 limit 보다 적으면 게시글 갯수까지만큼 센다.")
+        fun test2() {
+            // given
+            val boardId = 1234566L
+            for (i in 1..10) {
+                val article = articleFixture(
+                    articleId = i.toLong(),
+                    boardId = boardId,
+                    title = "title-$i",
+                )
+                articlePersistencePortFixture.save(article)
+            }
+
+            // when
+            val count = articlePersistencePortFixture.count(boardId, 15)
+
+            // then
+            assertThat(count).isEqualTo(10)
+        }
+    }
 }

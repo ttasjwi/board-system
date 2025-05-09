@@ -15,4 +15,21 @@ class ArticlePersistencePortFixture : ArticlePersistencePort {
     override fun findByIdOrNull(articleId: Long): Article? {
         return storage[articleId]
     }
+
+    override fun findAllPage(boardId: Long, offSet: Long, pageSize: Long): List<Article> {
+        return storage.values
+            .filter { it.boardId == boardId }
+            .sortedByDescending { it.articleId }
+            .drop(offSet.toInt())
+            .take(pageSize.toInt())
+    }
+
+    override fun count(boardId: Long, limit: Long): Long {
+        return storage.values
+            .filter { it.boardId == boardId }
+            .sortedByDescending { it.articleId }
+            .take(limit.toInt())
+            .count()
+            .toLong()
+    }
 }
