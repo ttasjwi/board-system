@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.article.domain
 
 import com.ttasjwi.board.system.article.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
+import com.ttasjwi.board.system.article.domain.processor.ArticlePageReadProcessor
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -44,8 +45,13 @@ class ArticlePageReadUseCaseImplTest {
         val response = articlePageReadUseCase.readAllPage(request)
         val articleIds = response.articles.map { it.articleId }
 
-        // ------- 10페이지 단위 limit 을 적용하므로, 최대 3 * 10 + 1 건까지 count를 세야함.
-        assertThat(response.articleCount).isEqualTo(31)
+        assertThat(response.page).isEqualTo(request.page)
+        assertThat(response.pageSize).isEqualTo(request.pageSize)
+        assertThat(response.pageGroupSize).isEqualTo(ArticlePageReadProcessor.ARTICLE_PAGE_GROUP_SIZE)
+        assertThat(response.pageGroupStart).isEqualTo(1)
+        assertThat(response.pageGroupEnd).isEqualTo(10L)
+        assertThat(response.hasNextPage).isTrue()
+        assertThat(response.hasNextPageGroup).isTrue()
         assertThat(response.articles).hasSize(request.pageSize!!.toInt())
 
         // [50 49 48] -> [47 46 45]

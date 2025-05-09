@@ -14,8 +14,14 @@ data class ArticlePageReadRequest(
 )
 
 data class ArticlePageReadResponse(
-    val articleCount: Long,
-    val articles: List<ArticlePageElement>
+    val page: Long,
+    val pageSize: Long,
+    val pageGroupSize: Long,
+    val pageGroupStart: Long,
+    val pageGroupEnd: Long,
+    val hasNextPage: Boolean,
+    val hasNextPageGroup: Boolean,
+    val articles: List<ArticlePageElement>,
 )
 
 data class ArticlePageElement(

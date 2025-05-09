@@ -47,8 +47,13 @@ class ArticlePageReadProcessorTest {
         val response = articlePageReadProcessor.readAllPage(query)
         val articleIds = response.articles.map { it.articleId }
 
-        // ------- 10페이지 단위 limit 을 적용하므로, 최대 3 * 10 + 1 건까지 count를 세야함.
-        assertThat(response.articleCount).isEqualTo(31)
+        assertThat(response.page).isEqualTo(query.page)
+        assertThat(response.pageSize).isEqualTo(query.pageSize)
+        assertThat(response.pageGroupSize).isEqualTo(ArticlePageReadProcessor.ARTICLE_PAGE_GROUP_SIZE)
+        assertThat(response.pageGroupStart).isEqualTo(1)
+        assertThat(response.pageGroupEnd).isEqualTo(10L)
+        assertThat(response.hasNextPage).isTrue()
+        assertThat(response.hasNextPageGroup).isTrue()
         assertThat(response.articles).hasSize(query.pageSize.toInt())
 
         // [50 49 48] -> [47 46 45]
