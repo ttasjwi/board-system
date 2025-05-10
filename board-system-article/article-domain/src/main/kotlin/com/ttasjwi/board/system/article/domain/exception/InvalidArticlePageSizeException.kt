@@ -5,11 +5,12 @@ import com.ttasjwi.board.system.common.exception.ErrorStatus
 
 class InvalidArticlePageSizeException(
     pageSize: Long,
+    minPageSize: Long,
     maxPageSize: Long,
 ): CustomException(
     status = ErrorStatus.BAD_REQUEST,
     code = "Error.InvalidArticlePageSize",
-    args = listOf(pageSize, maxPageSize),
+    args = listOf(pageSize, minPageSize, maxPageSize),
     source = "pageSize",
-    debugMessage = "게시글 페이지 조회 시, 페이지 크기가 너무 큽니다. (요청 크기= $pageSize, 최대 크기= $pageSize)"
+    debugMessage = "게시글 목록 페이지 크기가 유효하지 않습니다. (요청 크기= $pageSize, 최소 크기=$minPageSize, 최대 크기= $maxPageSize)"
 )

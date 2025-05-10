@@ -1,10 +1,10 @@
 package com.ttasjwi.board.system.article.api
 
 import com.ninjasquad.springmockk.MockkBean
-import com.ttasjwi.board.system.article.domain.ArticlePageElement
-import com.ttasjwi.board.system.article.domain.ArticlePageReadRequest
-import com.ttasjwi.board.system.article.domain.ArticlePageReadResponse
-import com.ttasjwi.board.system.article.domain.ArticlePageReadUseCase
+import com.ttasjwi.board.system.article.domain.ArticleInfiniteScrollItem
+import com.ttasjwi.board.system.article.domain.ArticleInfiniteScrollReadRequest
+import com.ttasjwi.board.system.article.domain.ArticleInfiniteScrollReadResponse
+import com.ttasjwi.board.system.article.domain.ArticleInfiniteScrollReadUseCase
 import com.ttasjwi.board.system.article.test.base.ArticleRestDocsTest
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import com.ttasjwi.board.system.test.util.*
@@ -18,36 +18,30 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.util.LinkedMultiValueMap
 
-@DisplayName("[article-web-adapter] ArticlePageReadController 문서화 테스트")
-@WebMvcTest(ArticlePageReadController::class)
-class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
+@DisplayName("[article-web-adapter] ArticleInfiniteScrollReadController 문서화 테스트")
+@WebMvcTest(ArticleInfiniteScrollReadController::class)
+class ArticleInfiniteScrollReadControllerRestDocsTest : ArticleRestDocsTest() {
 
     @MockkBean
-    private lateinit var articlePageReadUseCase: ArticlePageReadUseCase
+    private lateinit var articleInfiniteScrollReadUseCase: ArticleInfiniteScrollReadUseCase
 
     @Test
     @DisplayName("성공 테스트")
     fun testSuccess() {
         // given
-        val url = "/api/v1/articles"
+        val url = "/api/v1/articles/infinite-scroll"
         val boardId = 12345666L
 
-        val request = ArticlePageReadRequest(
-            boardId = 1234566L,
-            page = 2L,
+        val request = ArticleInfiniteScrollReadRequest(
+            boardId = boardId,
             pageSize = 3L,
+            lastArticleId = 48L,
         )
 
-        val response = ArticlePageReadResponse(
-            page = request.page!!,
-            pageSize = request.pageSize!!,
-            pageGroupSize = 10,
-            pageGroupStart = 1,
-            pageGroupEnd = 10,
-            hasNextPage = true,
-            hasNextPageGroup = true,
+        val response = ArticleInfiniteScrollReadResponse(
+            hasNext = true,
             articles = listOf(
-                ArticlePageElement(
+                ArticleInfiniteScrollItem(
                     articleId = "47",
                     title = "고양이 무서워하는 쥐들 참고해라",
                     content = "참고 하라고 ㅋㅋㅋㅋ",
@@ -58,7 +52,7 @@ class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
                     createdAt = appDateTimeFixture(minute = 28).toZonedDateTime(),
                     modifiedAt = appDateTimeFixture(minute = 28).toZonedDateTime(),
                 ),
-                ArticlePageElement(
+                ArticleInfiniteScrollItem(
                     articleId = "46",
                     title = "윗글 쓴 사람 바보임 ↑↑↑↑↑↑↑↑",
                     content = "그러하다.",
@@ -69,7 +63,7 @@ class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
                     createdAt = appDateTimeFixture(minute = 20).toZonedDateTime(),
                     modifiedAt = appDateTimeFixture(minute = 20).toZonedDateTime(),
                 ),
-                ArticlePageElement(
+                ArticleInfiniteScrollItem(
                     articleId = "45",
                     title = "오늘 점심 뭐먹냐",
                     content = "닭고기? 쥐고기?",
@@ -83,7 +77,7 @@ class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
             )
         )
 
-        every { articlePageReadUseCase.readAllPage(request) } returns response
+        every { articleInfiniteScrollReadUseCase.readAllInfiniteScroll(request) } returns response
 
         // when
         mockMvc
@@ -92,20 +86,14 @@ class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
                     .queryParams(
                         LinkedMultiValueMap<String, String?>().apply {
                             this["boardId"] = request.boardId.toString()
-                            this["page"] = request.page.toString()
                             this["pageSize"] = request.pageSize.toString()
+                            this["lastArticleId"] = request.lastArticleId.toString()
                         }
                     )
             )
             .andExpectAll(
                 status().isOk,
-                jsonPath("$.page").value(response.page),
-                jsonPath("$.pageSize").value(response.pageSize),
-                jsonPath("$.pageGroupSize").value(response.pageGroupSize),
-                jsonPath("$.pageGroupStart").value(response.pageGroupStart),
-                jsonPath("$.pageGroupEnd").value(response.pageGroupEnd),
-                jsonPath("$.hasNextPage").value(response.hasNextPage),
-                jsonPath("$.hasNextPageGroup").value(response.hasNextPageGroup),
+                jsonPath("$.hasNext").value(response.hasNext),
                 jsonPath("$.articles").isNotEmpty(),
                 jsonPath("$.articles[0].articleId").value(response.articles[0].articleId),
                 jsonPath("$.articles[0].title").value(response.articles[0].title),
@@ -136,38 +124,21 @@ class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
                 jsonPath("$.articles[2].modifiedAt").value("2025-01-01T00:14:00+09:00"),
             )
             .andDocument(
-                identifier = "article-page-read-success",
+                identifier = "article-infinite-scroll-read-success",
                 queryParameters(
                     "boardId"
                             paramMeans "게시판 식별자(Id)",
-                    "page"
-                            paramMeans "페이지",
                     "pageSize"
                             paramMeans "한 페이지 당 게시글 수"
-                            constraint "1 이상 50 이하만 허용"
+                            constraint "1 이상 50 이하만 허용",
+                    "lastArticleId"
+                            paramMeans "기준이 되는 게시글 식별자. 있을 경우 이 다음부터, 없으면 처음부터 조회"
+                            isOptional true,
                 ),
                 responseBody(
-                    "page"
-                            type NUMBER
-                            means "현재 페이지",
-                    "pageSize"
-                            type NUMBER
-                            means "한 페이지 당 게시글 수",
-                    "pageGroupSize"
-                            type NUMBER
-                            means "페이지 그룹(예: 1-10페이지, 11-20페이지,...) 의 크기 단위",
-                    "pageGroupStart"
-                            type NUMBER
-                            means "페이지 그룹의 시작페이지 번호(예: 21)",
-                    "pageGroupEnd"
-                            type NUMBER
-                            means "페이지 그룹의 끝페이지 번호(예: 30)",
-                    "hasNextPage"
+                    "hasNext"
                             type BOOLEAN
-                            means "다음 페이지의 존재 여부 부울값",
-                    "hasNextPageGroup"
-                            type BOOLEAN
-                            means "다음 페이지 그룹의 존재 여부 부울값",
+                            means "다음 게시글의 존재 여부 부울값",
                     "articles"
                             subSectionType "Article[]"
                             means "게시글 목록",

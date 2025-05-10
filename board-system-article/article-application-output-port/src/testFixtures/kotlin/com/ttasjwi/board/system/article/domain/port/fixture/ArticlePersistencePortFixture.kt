@@ -32,4 +32,12 @@ class ArticlePersistencePortFixture : ArticlePersistencePort {
             .count()
             .toLong()
     }
+
+    override fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<Article> {
+        return storage.values
+            .filter { it.boardId == boardId }
+            .sortedByDescending { it.articleId }
+            .filter { if (lastArticleId == null) true else it.articleId < lastArticleId }
+            .take(limit.toInt())
+    }
 }

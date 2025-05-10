@@ -3,7 +3,9 @@ package com.ttasjwi.board.system.article.domain.test.support
 import com.ttasjwi.board.system.article.domain.*
 import com.ttasjwi.board.system.article.domain.ArticleCreateUseCaseImpl
 import com.ttasjwi.board.system.article.domain.ArticleReadUseCaseImpl
+import com.ttasjwi.board.system.article.domain.dto.ArticleInfiniteScrollReadQuery
 import com.ttasjwi.board.system.article.domain.mapper.ArticleCreateCommandMapper
+import com.ttasjwi.board.system.article.domain.mapper.ArticleInfiniteScrollReadQueryMapper
 import com.ttasjwi.board.system.article.domain.mapper.ArticlePageReadQueryMapper
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleContentPolicyFixture
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleTitlePolicyFixture
@@ -11,6 +13,7 @@ import com.ttasjwi.board.system.article.domain.port.fixture.ArticleCategoryPersi
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleWriterNicknamePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.processor.ArticleCreateProcessor
+import com.ttasjwi.board.system.article.domain.processor.ArticleInfiniteScrollReadProcessor
 import com.ttasjwi.board.system.article.domain.processor.ArticlePageReadProcessor
 import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
@@ -49,6 +52,9 @@ internal class TestContainer private constructor() {
     val articlePageReadQueryMapper: ArticlePageReadQueryMapper by lazy {
         ArticlePageReadQueryMapper()
     }
+    val articleInfiniteScrollReadQueryMapper: ArticleInfiniteScrollReadQueryMapper by lazy {
+        ArticleInfiniteScrollReadQueryMapper()
+    }
 
     // processor
     val articleCreateProcessor: ArticleCreateProcessor by lazy {
@@ -61,6 +67,12 @@ internal class TestContainer private constructor() {
 
     val articlePageReadProcessor: ArticlePageReadProcessor by lazy {
         ArticlePageReadProcessor(
+            articlePersistencePort = articlePersistencePortFixture,
+        )
+    }
+
+    val articleInfiniteScrollReadProcessor: ArticleInfiniteScrollReadProcessor by lazy {
+        ArticleInfiniteScrollReadProcessor(
             articlePersistencePort = articlePersistencePortFixture,
         )
     }
@@ -83,6 +95,13 @@ internal class TestContainer private constructor() {
         ArticlePageReadUseCaseImpl(
             queryMapper = articlePageReadQueryMapper,
             processor = articlePageReadProcessor,
+        )
+    }
+
+    val articleInfiniteScrollReadUseCase: ArticleInfiniteScrollReadUseCase by lazy {
+        ArticleInfiniteScrollReadUseCaseImpl(
+            queryMapper = articleInfiniteScrollReadQueryMapper,
+            processor = articleInfiniteScrollReadProcessor
         )
     }
 }
