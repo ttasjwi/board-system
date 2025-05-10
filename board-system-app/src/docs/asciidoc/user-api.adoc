@@ -114,6 +114,24 @@ include::{snippets}/email-verification-success/http-request.adoc[]
 include::{snippets}/email-verification-success/http-response.adoc[]
 
 === 회원가입
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/users`
+- 권한 : 누구나
+
+회원가입을 수행합니다. 소셜 로그인 방식으로도 회원가입이 가능합니다.
+이 방식으로 회원 가입 후 소셜 로그인을 통해 소셜 연동을 해도 무방합니다.
+(대신 소셜 계정의 이메일이 같아야합니다.)
+
+==== 요청
+include::{snippets}/register-user-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/register-user-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/register-user-success/http-request.adoc[]
+include::{snippets}/register-user-success/http-response.adoc[]
 
 === 로그인
 ==== 기본정보
