@@ -52,6 +52,29 @@ include::{snippets}/username-available-success/http-response.adoc[]
 
 
 === 닉네임 유효성 확인
+==== 기본정보
+- 메서드 : GET
+- URL : `/api/v1/users/nickname-available`
+- 권한 : 누구든지
+
+닉네임이 우리 서비스에서 사용 가능한 닉네임인지 확인합니다.
+
+==== 요청
+include::{snippets}/nickname-available-success/query-parameters.adoc[]
+
+==== 응답
+include::{snippets}/nickname-available-success/response-fields.adoc[]
+
+===== 응답 참고사항 : `reasonCode` 필드?
+닉네임 유효성 확인 시, 닉네임 사용 가능/불가능 사유를 설명하는 `reasonCode` 필드가 포함됩니다. 이 `reasonCode` 는 다음 유형이 있습니다.
+
+- `NicknameAvailableCheck.Available`: 닉네임이 우리 서비스에서 사용 가능할 때
+- `NicknameAvailableCheck.Taken`: 닉네임의 포맷은 유효하지만 이미 다른 사용자에 의해 사용되고 있어 사용불가능할 때
+- `NicknameAvailableCheck.InvalidFormat`: 닉네임의 포맷이 유효하지 않을 때
+
+==== 예시
+include::{snippets}/nickname-available-success/http-request.adoc[]
+include::{snippets}/nickname-available-success/http-response.adoc[]
 
 === 이메일 인증 시작
 
