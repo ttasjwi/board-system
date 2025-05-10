@@ -76,7 +76,24 @@ include::{snippets}/nickname-available-success/response-fields.adoc[]
 include::{snippets}/nickname-available-success/http-request.adoc[]
 include::{snippets}/nickname-available-success/http-response.adoc[]
 
-=== 이메일 인증 시작
+=== 인증이메일 발송 API
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/users/email-verification/start`
+- 권한 : 누구나
+
+이메일 인증을 위해, 이메일을 발송합니다. 이 때, 지정된 이메일을 통해 사용자의 이메일 인증 코드(code)가 전달됩니다.
+지정된 시간(code 만료 시각)까지 이메일 인증을 완료해야합니다.
+
+==== 요청
+include::{snippets}/email-verification-start-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/email-verification-start-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/email-verification-start-success/http-request.adoc[]
+include::{snippets}/email-verification-start-success/http-response.adoc[]
 
 === 이메일 인증
 
