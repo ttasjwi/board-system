@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.article.domain.mapper
 
-import com.ttasjwi.board.system.article.domain.ArticlePageReadRequest
+import com.ttasjwi.board.system.article.domain.ArticleInfiniteScrollReadRequest
 import com.ttasjwi.board.system.article.domain.exception.InvalidArticlePageSizeException
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.exception.NullArgumentException
@@ -11,15 +11,15 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("[article-application-service] ArticlePageReadQueryMapper 테스트 ")
-class ArticlePageReadQueryMapperTest {
+@DisplayName("[article-application-service] ArticleInfiniteScrollReadQueryMapper 테스트 ")
+class ArticleInfiniteScrollReadQueryMapperTest {
 
-    private lateinit var queryMapper: ArticlePageReadQueryMapper
+    private lateinit var queryMapper: ArticleInfiniteScrollReadQueryMapper
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        queryMapper = container.articlePageReadQueryMapper
+        queryMapper = container.articleInfiniteScrollReadQueryMapper
     }
 
 
@@ -27,10 +27,10 @@ class ArticlePageReadQueryMapperTest {
     @DisplayName("성공 테스트")
     fun testSuccess() {
         // given
-        val request = ArticlePageReadRequest(
+        val request = ArticleInfiniteScrollReadRequest(
             boardId = 1L,
-            page = 3,
-            pageSize = 10
+            pageSize = 10L,
+            lastArticleId = 7L
         )
 
         // when
@@ -38,18 +38,18 @@ class ArticlePageReadQueryMapperTest {
 
         // then
         assertThat(query.boardId).isEqualTo(request.boardId)
-        assertThat(query.page).isEqualTo(request.page)
         assertThat(query.pageSize).isEqualTo(request.pageSize)
+        assertThat(query.lastArticleId).isEqualTo(request.lastArticleId)
     }
 
     @Test
     @DisplayName("boardId 가 null 이면 예외 발생")
     fun boardIdNullTest() {
         // given
-        val request = ArticlePageReadRequest(
+        val request = ArticleInfiniteScrollReadRequest(
             boardId = null,
-            page = 3,
-            pageSize = 10
+            pageSize = 10L,
+            lastArticleId = 7L
         )
 
         // when
@@ -64,37 +64,15 @@ class ArticlePageReadQueryMapperTest {
         assertThat(exceptions[0].source).isEqualTo("boardId")
     }
 
-    @Test
-    @DisplayName("page 가 null 이면 예외 발생")
-    fun pageNullTest() {
-        // given
-        val request = ArticlePageReadRequest(
-            boardId = 1234L,
-            page = null,
-            pageSize = 10
-        )
-
-        // when
-        val exceptionCollector = assertThrows<ValidationExceptionCollector> {
-            queryMapper.mapToQuery(request)
-        }
-
-        // then
-        val exceptions = exceptionCollector.getExceptions()
-        assertThat(exceptions.size).isEqualTo(1)
-        assertThat(exceptions[0]).isInstanceOf(NullArgumentException::class.java)
-        assertThat(exceptions[0].source).isEqualTo("page")
-    }
-
 
     @Test
     @DisplayName("pageSize 가 null 이면 예외 발생")
     fun pageSizeNullTest() {
         // given
-        val request = ArticlePageReadRequest(
-            boardId = 1234L,
-            page = 1,
-            pageSize = null
+        val request = ArticleInfiniteScrollReadRequest(
+            boardId = 1L,
+            pageSize = null,
+            lastArticleId = 7L
         )
 
         // when
@@ -113,10 +91,10 @@ class ArticlePageReadQueryMapperTest {
     @DisplayName("pageSize 범위가 최소 pageSize 범위보다 작으면 예외 발생")
     fun invalidPageSizeTest1() {
         // given
-        val request = ArticlePageReadRequest(
+        val request = ArticleInfiniteScrollReadRequest(
             boardId = 1234L,
-            page = 1,
-            pageSize = ArticlePageReadQueryMapper.MIN_PAGE_SIZE - 1L
+            pageSize = ArticleInfiniteScrollReadQueryMapper.MIN_PAGE_SIZE - 1L,
+            lastArticleId = 7L
         )
 
         // when
@@ -129,17 +107,22 @@ class ArticlePageReadQueryMapperTest {
         assertThat(exceptions.size).isEqualTo(1)
         assertThat(exceptions[0]).isInstanceOf(InvalidArticlePageSizeException::class.java)
         assertThat(exceptions[0].source).isEqualTo("pageSize")
-        assertThat(exceptions[0].args).containsExactly(request.pageSize, ArticlePageReadQueryMapper.MIN_PAGE_SIZE, ArticlePageReadQueryMapper.MAX_PAGE_SIZE)
+        assertThat(exceptions[0].args).containsExactly(
+            request.pageSize,
+            ArticleInfiniteScrollReadQueryMapper.MIN_PAGE_SIZE,
+            ArticleInfiniteScrollReadQueryMapper.MAX_PAGE_SIZE
+        )
     }
+
 
     @Test
     @DisplayName("pageSize 범위가 최대 pageSize 범위를 넘으면 예외 발생")
     fun invalidPageSizeTest2() {
         // given
-        val request = ArticlePageReadRequest(
+        val request = ArticleInfiniteScrollReadRequest(
             boardId = 1234L,
-            page = 1,
-            pageSize = ArticlePageReadQueryMapper.MAX_PAGE_SIZE + 1L
+            pageSize = ArticleInfiniteScrollReadQueryMapper.MAX_PAGE_SIZE + 1L,
+            lastArticleId = 7L
         )
 
         // when
@@ -152,6 +135,10 @@ class ArticlePageReadQueryMapperTest {
         assertThat(exceptions.size).isEqualTo(1)
         assertThat(exceptions[0]).isInstanceOf(InvalidArticlePageSizeException::class.java)
         assertThat(exceptions[0].source).isEqualTo("pageSize")
-        assertThat(exceptions[0].args).containsExactly(request.pageSize, ArticlePageReadQueryMapper.MIN_PAGE_SIZE, ArticlePageReadQueryMapper.MAX_PAGE_SIZE)
+        assertThat(exceptions[0].args).containsExactly(
+            request.pageSize,
+            ArticleInfiniteScrollReadQueryMapper.MIN_PAGE_SIZE,
+            ArticleInfiniteScrollReadQueryMapper.MAX_PAGE_SIZE
+        )
     }
 }

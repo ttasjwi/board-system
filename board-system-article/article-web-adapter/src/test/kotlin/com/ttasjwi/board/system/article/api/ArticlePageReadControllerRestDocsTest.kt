@@ -144,7 +144,7 @@ class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
                             paramMeans "페이지",
                     "pageSize"
                             paramMeans "한 페이지 당 게시글 수"
-                            constraint "50 이하만 허용"
+                            constraint "1 이상 50 이하만 허용"
                 ),
                 responseBody(
                     "page"
