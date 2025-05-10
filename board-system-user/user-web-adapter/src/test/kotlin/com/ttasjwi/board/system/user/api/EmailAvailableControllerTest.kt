@@ -62,7 +62,6 @@ class EmailAvailableControllerTest : UserRestDocsTest() {
                 queryParameters(
                     "email"
                             paramMeans "유효성 확인 대상이 되는 이메일"
-                            constraint "이메일 포맷 규칙을 따라야함."
                 ),
                 responseBody(
                     "yourEmail"

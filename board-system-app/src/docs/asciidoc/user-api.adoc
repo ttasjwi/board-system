@@ -15,7 +15,7 @@ include::{snippets}/email-available-success/query-parameters.adoc[]
 include::{snippets}/email-available-success/response-fields.adoc[]
 
 ===== 응답 참고사항 : `reasonCode` 필드?
-이메일 유효성 확인 시, 이메일 사용 가능/불가능 시 그 이유를 설명하는 `reasonCode` 필드가 포함됩니다. 이 `reasonCode` 는 다음 유형이 있습니다.
+이메일 유효성 확인 시, 이메일 사용 가능/불가능 사유를 설명하는 `reasonCode` 필드가 포함됩니다. 이 `reasonCode` 는 다음 유형이 있습니다.
 
 - `EmailAvailableCheck.Available`: 이메일이 우리 서비스에서 사용 가능한 이메일일 때
 - `EmailAvailableCheck.Taken`: 이메일의 포맷은 유효하지만 이미 다른 사용자에 의해 사용되고 있어 사용불가능한 이메일일 때
@@ -25,7 +25,32 @@ include::{snippets}/email-available-success/response-fields.adoc[]
 include::{snippets}/email-available-success/http-request.adoc[]
 include::{snippets}/email-available-success/http-response.adoc[]
 
-=== 아이디 유효성 확인
+=== username 유효성 확인
+==== 기본정보
+- 메서드 : GET
+- URL : `/api/v1/users/username-available`
+- 권한 : 누구든지
+
+`username(사용자관점 아이디)` 이 우리 서비스에서 사용 가능한 `username` 인지 확인합니다.
+
+==== 요청
+include::{snippets}/username-available-success/query-parameters.adoc[]
+
+==== 응답
+include::{snippets}/username-available-success/response-fields.adoc[]
+
+===== 응답 참고사항 : `reasonCode` 필드?
+`username` 유효성 확인 시, `username` 사용 가능/불가능 사유를 설명하는 `reasonCode` 필드가 포함됩니다. 이 `reasonCode` 는 다음 유형이 있습니다.
+
+- `UsernameAvailableCheck.Available`: `username` 이 우리 서비스에서 사용 가능할 때
+- `UsernameAvailableCheck.Taken`: `username` 의 포맷은 유효하지만 이미 다른 사용자에 의해 사용되고 있어 사용불가능할 때
+- `UsernameAvailableCheck.InvalidFormat`: `username` 의 포맷이 유효하지 않을 때
+
+==== 예시
+include::{snippets}/username-available-success/http-request.adoc[]
+include::{snippets}/username-available-success/http-response.adoc[]
+
+
 === 닉네임 유효성 확인
 
 === 이메일 인증 시작
