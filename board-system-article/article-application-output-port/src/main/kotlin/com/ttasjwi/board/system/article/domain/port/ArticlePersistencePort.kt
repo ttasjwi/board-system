@@ -9,4 +9,6 @@ interface ArticlePersistencePort {
 
     fun findAllPage(boardId: Long, offSet: Long, pageSize: Long): List<Article>
     fun count(boardId: Long, limit: Long): Long
+
+    fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<Article>
 }
