@@ -17,9 +17,9 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.req
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@DisplayName("[user-web-adapter] SocialLoginController 문서화 테스트")
+@DisplayName("[user-web-adapter] SocialLoginController 테스트")
 @WebMvcTest(SocialLoginController::class)
-class SocialLoginControllerRestDocsTest : UserRestDocsTest() {
+class SocialLoginControllerTest : UserRestDocsTest() {
 
     @MockkBean
     private lateinit var useCase: SocialLoginUseCase
