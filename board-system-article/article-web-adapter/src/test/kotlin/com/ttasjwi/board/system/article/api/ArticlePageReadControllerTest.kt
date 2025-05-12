@@ -18,9 +18,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.util.LinkedMultiValueMap
 
-@DisplayName("[article-web-adapter] ArticlePageReadController 문서화 테스트")
+@DisplayName("[article-web-adapter] ArticlePageReadController 테스트")
 @WebMvcTest(ArticlePageReadController::class)
-class ArticlePageReadControllerRestDocsTest : ArticleRestDocsTest() {
+class ArticlePageReadControllerTest : ArticleRestDocsTest() {
 
     @MockkBean
     private lateinit var articlePageReadUseCase: ArticlePageReadUseCase
