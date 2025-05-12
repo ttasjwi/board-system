@@ -18,9 +18,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPat
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import org.springframework.util.LinkedMultiValueMap
 
-@DisplayName("[article-web-adapter] ArticleInfiniteScrollReadController 문서화 테스트")
+@DisplayName("[article-web-adapter] ArticleInfiniteScrollReadController 테스트")
 @WebMvcTest(ArticleInfiniteScrollReadController::class)
-class ArticleInfiniteScrollReadControllerRestDocsTest : ArticleRestDocsTest() {
+class ArticleInfiniteScrollReadControllerTest : ArticleRestDocsTest() {
 
     @MockkBean
     private lateinit var articleInfiniteScrollReadUseCase: ArticleInfiniteScrollReadUseCase
