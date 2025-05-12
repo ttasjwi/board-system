@@ -50,3 +50,17 @@ CREATE TABLE IF NOT EXISTS articles(
     created_at          DATETIME      NOT NULL,
     modified_at         DATETIME      NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS article_comments(
+    article_comment_id             BIGINT        NOT NULL PRIMARY KEY,
+    content                        VARCHAR(3000) NOT NULL,
+    article_id                     BIGINT        NOT NULL,
+    root_parent_comment_id         BIGINT        NOT NULL,
+    writer_id                      BIGINT        NOT NULL,
+    writer_nickname                VARCHAR(15)   NOT NULL UNIQUE,
+    target_comment_writer_id       BIGINT,
+    target_comment_writer_nickname VARCHAR(15),
+    deleted                        BOOLEAN       NOT NULL,
+    created_at                     DATETIME      NOT NULL,
+    modified_at                    DATETIME      NOT NULL
+);
