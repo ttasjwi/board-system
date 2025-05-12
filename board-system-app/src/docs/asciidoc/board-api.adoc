@@ -21,4 +21,24 @@ include::{snippets}/board-create-success/http-request.adoc[]
 include::{snippets}/board-create-success/http-response.adoc[]
 
 === 게시글 카테고리 생성
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/boards/{boardId}/article-categories`
+- 권한 : 게시판의 관리자만 허용
+- 인증방식 : 액세스 토큰
 
+게시판 내에서 게시글을 분류하기 위한, 게시글 카테고리을 생성합니다.
+게시글을 작성하기 위해서는 게시글 카테고리를 지정해야하므로,
+게시판이 정상적으로 동작하기 위해서는 게시글 카테고리를 적어도 하나 생성해야합니다.
+
+==== 요청
+include::{snippets}/article-category-create-success/path-parameters.adoc[]
+include::{snippets}/article-category-create-success/request-headers.adoc[]
+include::{snippets}/article-category-create-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/article-category-create-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-category-create-success/http-request.adoc[]
+include::{snippets}/article-category-create-success/http-response.adoc[]

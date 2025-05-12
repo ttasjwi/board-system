@@ -6,4 +6,3 @@ import org.springframework.context.annotation.Import
 
 @Import(BoardRestDocsTestConfig::class)
 abstract class BoardRestDocsTest : RestDocsTest()
-
