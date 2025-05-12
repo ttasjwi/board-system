@@ -44,6 +44,15 @@ include(
     "board-system-article:article-domain",
     "board-system-article:article-database-adapter",
 
+    // article-comment ===================================================================================
+    "board-system-article-comment",
+    "board-system-article-comment:article-comment-web-adapter",
+    "board-system-article-comment:article-comment-application-input-port",
+    "board-system-article-comment:article-comment-application-service",
+    "board-system-article-comment:article-comment-application-output-port",
+    "board-system-article-comment:article-comment-domain",
+    "board-system-article-comment:article-comment-database-adapter",
+
     // email-sender ==============================================================================
     "board-system-email-sender",
 
