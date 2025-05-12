@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.articlecomment.domain.model.fixture
 
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
