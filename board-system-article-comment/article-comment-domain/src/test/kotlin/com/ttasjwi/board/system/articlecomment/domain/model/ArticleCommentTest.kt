@@ -47,7 +47,7 @@ class ArticleCommentTest {
         assertThat(articleComment.writerNickname).isEqualTo(writerNickname)
         assertThat(articleComment.targetCommentWriterId).isNull()
         assertThat(articleComment.targetCommentWriterNickname).isNull()
-        assertThat(articleComment.deleted).isFalse()
+        assertThat(articleComment.deleteStatus).isEqualTo(ArticleCommentDeleteStatus.NOT_DELETED)
         assertThat(articleComment.createdAt).isEqualTo(createdAt)
         assertThat(articleComment.modifiedAt).isEqualTo(createdAt)
     }
@@ -65,7 +65,7 @@ class ArticleCommentTest {
         val writerNickname = "땃쥐"
         val targetCommentWriterId = 554L
         val targetCommentWriterNickname = "땃고양이"
-        val deleted = true
+        val deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_WRITER
         val createdAt = appDateTimeFixture(minute = 13).toLocalDateTime()
         val modifiedAt = appDateTimeFixture(minute = 15).toLocalDateTime()
 
@@ -79,7 +79,7 @@ class ArticleCommentTest {
             writerNickname = writerNickname,
             targetCommentWriterId = targetCommentWriterId,
             targetCommentWriterNickname = targetCommentWriterNickname,
-            deleted = deleted,
+            deleteStatus = deleteStatus,
             createdAt = createdAt,
             modifiedAt = modifiedAt,
         )
@@ -93,31 +93,47 @@ class ArticleCommentTest {
         assertThat(articleComment.writerNickname).isEqualTo(writerNickname)
         assertThat(articleComment.targetCommentWriterId).isEqualTo(targetCommentWriterId)
         assertThat(articleComment.targetCommentWriterNickname).isEqualTo(targetCommentWriterNickname)
-        assertThat(articleComment.deleted).isEqualTo(deleted)
+        assertThat(articleComment.deleteStatus).isEqualTo(deleteStatus)
         assertThat(articleComment.createdAt).isEqualTo(AppDateTime.from(createdAt))
         assertThat(articleComment.modifiedAt).isEqualTo(AppDateTime.from(modifiedAt))
     }
 
-    @Nested
-    @DisplayName("delete : 댓글 soft 삭제")
-    inner class DeleteTest {
 
-        @Test
-        @DisplayName("delete 를 호출하면 soft 삭제된다.")
-        fun test() {
-            // given
-            val articleComment = articleCommentFixture(
-                deleted = false,
-            )
+    @Test
+    @DisplayName("deleteByWriter : 작성자에 의한 soft 삭제")
+    fun deleteByWriterTest() {
+        // given
+        val articleComment = articleCommentFixture(
+            deleteStatus = ArticleCommentDeleteStatus.NOT_DELETED,
+        )
 
-            // when
-            articleComment.delete()
+        // when
+        articleComment.deleteByWriter()
 
-            // then
-            assertThat(articleComment.deleted).isTrue()
-        }
+        // then
+        assertThat(articleComment.deleteStatus).isEqualTo(ArticleCommentDeleteStatus.DELETED_BY_WRITER)
     }
 
+    @Test
+    @DisplayName("isDeleted : 삭제됐는 지 여부를 반환")
+    fun isDeletedTest() {
+        // given
+        val article1 = articleCommentFixture(
+            deleteStatus = ArticleCommentDeleteStatus.NOT_DELETED
+        )
+        val article2 = articleCommentFixture(
+            deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_WRITER
+        )
+        val article3 = articleCommentFixture(
+            deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_MANAGER
+        )
+
+        // when
+        // then
+        assertThat(article1.isDeleted()).isFalse()
+        assertThat(article2.isDeleted()).isTrue()
+        assertThat(article3.isDeleted()).isTrue()
+    }
 
     @Nested
     @DisplayName("isRootComment: 루트 댓글인지 여부 반환")
@@ -172,7 +188,7 @@ class ArticleCommentTest {
         val writerNickname = "땃쥐"
         val targetCommentWriterId = 554L
         val targetCommentWriterNickname = "땃고양이"
-        val deleted = true
+        val deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_WRITER
         val createdAt = appDateTimeFixture(minute = 13)
         val modifiedAt = appDateTimeFixture(minute = 15)
 
@@ -186,10 +202,10 @@ class ArticleCommentTest {
             writerNickname = writerNickname,
             targetCommentWriterId = targetCommentWriterId,
             targetCommentWriterNickname = targetCommentWriterNickname,
-            deleted = deleted,
+            deleteStatus = deleteStatus,
             createdAt = createdAt,
             modifiedAt = modifiedAt,
         )
-        assertThat(articleComment.toString()).isEqualTo("ArticleComment(articleCommentId=$articleCommentId, articleId=$articleId, rootParentCommentId=$rootParentCommentId, writerId=$writerId, writerNickname='$writerNickname', targetCommentWriterId=$targetCommentWriterId, targetCommentWriterNickname=$targetCommentWriterNickname, createdAt=$createdAt, content='$content', deleted=$deleted, modifiedAt=$modifiedAt)")
+        assertThat(articleComment.toString()).isEqualTo("ArticleComment(articleCommentId=$articleCommentId, articleId=$articleId, rootParentCommentId=$rootParentCommentId, writerId=$writerId, writerNickname='$writerNickname', targetCommentWriterId=$targetCommentWriterId, targetCommentWriterNickname=$targetCommentWriterNickname, createdAt=$createdAt, content='$content', deleteStatus=$deleteStatus, modifiedAt=$modifiedAt)")
     }
 }

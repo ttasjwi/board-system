@@ -42,7 +42,7 @@ class ArticleCommentPersistencePortFixtureTest {
             assertThat(findArticleComment.writerNickname).isEqualTo(articleComment.writerNickname)
             assertThat(findArticleComment.targetCommentWriterId).isEqualTo(articleComment.targetCommentWriterId)
             assertThat(findArticleComment.targetCommentWriterNickname).isEqualTo(articleComment.targetCommentWriterNickname)
-            assertThat(findArticleComment.deleted).isEqualTo(articleComment.deleted)
+            assertThat(findArticleComment.deleteStatus).isEqualTo(articleComment.deleteStatus)
             assertThat(findArticleComment.createdAt).isEqualTo(articleComment.createdAt)
             assertThat(findArticleComment.modifiedAt).isEqualTo(articleComment.modifiedAt)
         }

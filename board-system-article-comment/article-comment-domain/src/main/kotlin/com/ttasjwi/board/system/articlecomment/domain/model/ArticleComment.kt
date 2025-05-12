@@ -13,7 +13,7 @@ internal constructor(
     val writerNickname: String,
     val targetCommentWriterId: Long?,
     val targetCommentWriterNickname: String?,
-    deleted: Boolean,
+    deleteStatus: ArticleCommentDeleteStatus,
     val createdAt: AppDateTime,
     modifiedAt: AppDateTime,
 ) {
@@ -21,7 +21,7 @@ internal constructor(
     var content: String = content
         private set
 
-    var deleted: Boolean = deleted
+    var deleteStatus: ArticleCommentDeleteStatus = deleteStatus
         private set
 
     var modifiedAt: AppDateTime = modifiedAt
@@ -49,7 +49,7 @@ internal constructor(
                 writerNickname = writerNickname,
                 targetCommentWriterId = targetCommentWriterId,
                 targetCommentWriterNickname = targetCommentWriterNickname,
-                deleted = false,
+                deleteStatus = ArticleCommentDeleteStatus.NOT_DELETED,
                 createdAt = createdAt,
                 modifiedAt = createdAt
             )
@@ -64,7 +64,7 @@ internal constructor(
             writerNickname: String,
             targetCommentWriterId: Long?,
             targetCommentWriterNickname: String?,
-            deleted: Boolean,
+            deleteStatus: ArticleCommentDeleteStatus,
             createdAt: LocalDateTime,
             modifiedAt: LocalDateTime,
         ): ArticleComment {
@@ -77,7 +77,7 @@ internal constructor(
                 writerNickname = writerNickname,
                 targetCommentWriterId = targetCommentWriterId,
                 targetCommentWriterNickname = targetCommentWriterNickname,
-                deleted = deleted,
+                deleteStatus = deleteStatus,
                 createdAt = AppDateTime.from(createdAt),
                 modifiedAt = AppDateTime.from(modifiedAt),
             )
@@ -88,11 +88,15 @@ internal constructor(
         return this.articleCommentId == this.rootParentCommentId
     }
 
-    fun delete() {
-        this.deleted = true
+    fun deleteByWriter() {
+        this.deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_WRITER
+    }
+
+    fun isDeleted(): Boolean {
+        return this.deleteStatus != ArticleCommentDeleteStatus.NOT_DELETED
     }
 
     override fun toString(): String {
-        return "ArticleComment(articleCommentId=$articleCommentId, articleId=$articleId, rootParentCommentId=$rootParentCommentId, writerId=$writerId, writerNickname='$writerNickname', targetCommentWriterId=$targetCommentWriterId, targetCommentWriterNickname=$targetCommentWriterNickname, createdAt=$createdAt, content='$content', deleted=$deleted, modifiedAt=$modifiedAt)"
+        return "ArticleComment(articleCommentId=$articleCommentId, articleId=$articleId, rootParentCommentId=$rootParentCommentId, writerId=$writerId, writerNickname='$writerNickname', targetCommentWriterId=$targetCommentWriterId, targetCommentWriterNickname=$targetCommentWriterNickname, createdAt=$createdAt, content='$content', deleteStatus=$deleteStatus, modifiedAt=$modifiedAt)"
     }
 }

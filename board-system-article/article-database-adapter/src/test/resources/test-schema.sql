@@ -101,8 +101,7 @@ CREATE TABLE IF NOT EXISTS article_comments(
     writer_nickname                VARCHAR(15)   NOT NULL UNIQUE,
     target_comment_writer_id       BIGINT,
     target_comment_writer_nickname VARCHAR(15),
-    deleted                        BOOLEAN       NOT NULL,
+    delete_status                  VARCHAR(20)   NOT NULL,
     created_at                     DATETIME      NOT NULL,
     modified_at                    DATETIME      NOT NULL
 );
-

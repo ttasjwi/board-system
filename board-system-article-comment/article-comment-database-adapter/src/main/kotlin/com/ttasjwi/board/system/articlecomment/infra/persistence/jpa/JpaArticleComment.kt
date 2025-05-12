@@ -1,10 +1,8 @@
 package com.ttasjwi.board.system.articlecomment.infra.persistence.jpa
 
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleComment
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
+import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
@@ -36,8 +34,9 @@ class JpaArticleComment(
     @Column(name = "target_comment_writer_nickname")
     val targetCommentWriterNickname: String?,
 
-    @Column(name = "deleted")
-    var deleted: Boolean,
+    @Enumerated(EnumType.STRING)
+    @Column(name = "delete_status")
+    var deleteStaus: ArticleCommentDeleteStatus,
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime,
@@ -58,7 +57,7 @@ class JpaArticleComment(
                 writerNickname = articleComment.writerNickname,
                 targetCommentWriterId = articleComment.targetCommentWriterId,
                 targetCommentWriterNickname = articleComment.targetCommentWriterNickname,
-                deleted = articleComment.deleted,
+                deleteStaus = articleComment.deleteStatus,
                 createdAt = articleComment.createdAt.toLocalDateTime(),
                 modifiedAt = articleComment.modifiedAt.toLocalDateTime()
             )
@@ -75,7 +74,7 @@ class JpaArticleComment(
             writerNickname = this.writerNickname,
             targetCommentWriterId = this.targetCommentWriterId,
             targetCommentWriterNickname = this.targetCommentWriterNickname,
-            deleted = this.deleted,
+            deleteStatus = this.deleteStaus,
             createdAt = this.createdAt,
             modifiedAt = this.modifiedAt,
         )

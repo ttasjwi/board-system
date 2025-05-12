@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.articlecomment.domain.model.fixture
 
+import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -24,7 +25,7 @@ class ArticleCommentFixtureTest {
         assertThat(articleComment.writerNickname).isNotNull()
         assertThat(articleComment.targetCommentWriterId).isNull()
         assertThat(articleComment.targetCommentWriterNickname).isNull()
-        assertThat(articleComment.deleted).isFalse()
+        assertThat(articleComment.deleteStatus).isEqualTo(ArticleCommentDeleteStatus.NOT_DELETED)
         assertThat(articleComment.createdAt).isNotNull()
         assertThat(articleComment.modifiedAt).isNotNull()
     }
@@ -41,7 +42,7 @@ class ArticleCommentFixtureTest {
         val writerNickname = "땃쥐"
         val targetCommentWriterId = 554L
         val targetCommentWriterNickname = "땃고양이"
-        val deleted = true
+        val deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_WRITER
         val createdAt = appDateTimeFixture(minute = 13)
         val modifiedAt = appDateTimeFixture(minute = 15)
 
@@ -55,7 +56,7 @@ class ArticleCommentFixtureTest {
             writerNickname = writerNickname,
             targetCommentWriterId = targetCommentWriterId,
             targetCommentWriterNickname = targetCommentWriterNickname,
-            deleted = deleted,
+            deleteStatus = deleteStatus,
             createdAt = createdAt,
             modifiedAt = modifiedAt,
         )
@@ -69,7 +70,7 @@ class ArticleCommentFixtureTest {
         assertThat(articleComment.writerNickname).isEqualTo(writerNickname)
         assertThat(articleComment.targetCommentWriterId).isEqualTo(targetCommentWriterId)
         assertThat(articleComment.targetCommentWriterNickname).isEqualTo(targetCommentWriterNickname)
-        assertThat(articleComment.deleted).isEqualTo(deleted)
+        assertThat(articleComment.deleteStatus).isEqualTo(deleteStatus)
         assertThat(articleComment.createdAt).isEqualTo(createdAt)
         assertThat(articleComment.modifiedAt).isEqualTo(modifiedAt)
     }

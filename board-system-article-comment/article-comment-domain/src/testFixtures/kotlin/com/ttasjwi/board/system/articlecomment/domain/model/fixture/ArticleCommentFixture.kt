@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.articlecomment.domain.model.fixture
 
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleComment
+import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
 
@@ -13,7 +14,7 @@ fun articleCommentFixture(
     writerNickname: String = "writer-nickname",
     targetCommentWriterId: Long? = null,
     targetCommentWriterNickname: String? = null,
-    deleted: Boolean = false,
+    deleteStatus: ArticleCommentDeleteStatus = ArticleCommentDeleteStatus.NOT_DELETED,
     createdAt: AppDateTime = appDateTimeFixture(),
     modifiedAt: AppDateTime = appDateTimeFixture(),
 ): ArticleComment {
@@ -26,7 +27,7 @@ fun articleCommentFixture(
         writerNickname = writerNickname,
         targetCommentWriterId = targetCommentWriterId,
         targetCommentWriterNickname = targetCommentWriterNickname,
-        deleted = deleted,
+        deleteStatus = deleteStatus,
         createdAt = createdAt,
         modifiedAt = modifiedAt,
     )
