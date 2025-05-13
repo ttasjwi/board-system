@@ -136,6 +136,41 @@ class ArticleCommentTest {
     }
 
     @Nested
+    @DisplayName("belongsToArticle: 댓글이 특정 article 의 댓글인지 여부 확인")
+    inner class BelongsToArticleTest {
+
+
+        @Test
+        @DisplayName("articleId가 일치하면 true")
+        fun test1() {
+            // given
+            val articleId = 123L
+            val articleComment = articleCommentFixture(
+                articleId = articleId,
+            )
+
+            // when
+            // then
+            assertThat(articleComment.belongsToArticle(articleId)).isTrue()
+        }
+
+        @Test
+        @DisplayName("articleId가 일치하지 않으면 false")
+        fun test2() {
+            // given
+            val articleId = 321L
+            val articleComment = articleCommentFixture(
+                articleId = 123L,
+            )
+
+            // when
+            // then
+            assertThat(articleComment.belongsToArticle(articleId)).isFalse()
+        }
+
+    }
+
+    @Nested
     @DisplayName("isRootComment: 루트 댓글인지 여부 반환")
     inner class IsRootCommentTest {
 

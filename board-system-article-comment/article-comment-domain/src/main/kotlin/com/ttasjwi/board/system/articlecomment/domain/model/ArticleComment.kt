@@ -84,6 +84,10 @@ internal constructor(
         }
     }
 
+    fun belongsToArticle(articleId: Long): Boolean {
+        return this.articleId == articleId
+    }
+
     fun isRootComment(): Boolean {
         return this.articleCommentId == this.rootParentCommentId
     }
