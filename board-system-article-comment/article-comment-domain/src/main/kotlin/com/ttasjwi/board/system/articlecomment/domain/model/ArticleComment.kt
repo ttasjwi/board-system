@@ -11,8 +11,8 @@ internal constructor(
     val rootParentCommentId: Long,
     val writerId: Long,
     val writerNickname: String,
-    val targetCommentWriterId: Long?,
-    val targetCommentWriterNickname: String?,
+    val parentCommentWriterId: Long?,
+    val parentCommentWriterNickname: String?,
     deleteStatus: ArticleCommentDeleteStatus,
     val createdAt: AppDateTime,
     modifiedAt: AppDateTime,
@@ -36,8 +36,8 @@ internal constructor(
             rootParentCommentId: Long,
             writerId: Long,
             writerNickname: String,
-            targetCommentWriterId: Long?,
-            targetCommentWriterNickname: String?,
+            parentCommentWriterId: Long?,
+            parentCommentWriterNickname: String?,
             createdAt: AppDateTime,
         ): ArticleComment {
             return ArticleComment(
@@ -47,8 +47,8 @@ internal constructor(
                 rootParentCommentId = rootParentCommentId,
                 writerId = writerId,
                 writerNickname = writerNickname,
-                targetCommentWriterId = targetCommentWriterId,
-                targetCommentWriterNickname = targetCommentWriterNickname,
+                parentCommentWriterId = parentCommentWriterId,
+                parentCommentWriterNickname = parentCommentWriterNickname,
                 deleteStatus = ArticleCommentDeleteStatus.NOT_DELETED,
                 createdAt = createdAt,
                 modifiedAt = createdAt
@@ -62,8 +62,8 @@ internal constructor(
             rootParentCommentId: Long,
             writerId: Long,
             writerNickname: String,
-            targetCommentWriterId: Long?,
-            targetCommentWriterNickname: String?,
+            parentCommentWriterId: Long?,
+            parentCommentWriterNickname: String?,
             deleteStatus: ArticleCommentDeleteStatus,
             createdAt: LocalDateTime,
             modifiedAt: LocalDateTime,
@@ -75,8 +75,8 @@ internal constructor(
                 rootParentCommentId = rootParentCommentId,
                 writerId = writerId,
                 writerNickname = writerNickname,
-                targetCommentWriterId = targetCommentWriterId,
-                targetCommentWriterNickname = targetCommentWriterNickname,
+                parentCommentWriterId = parentCommentWriterId,
+                parentCommentWriterNickname = parentCommentWriterNickname,
                 deleteStatus = deleteStatus,
                 createdAt = AppDateTime.from(createdAt),
                 modifiedAt = AppDateTime.from(modifiedAt),
@@ -97,6 +97,6 @@ internal constructor(
     }
 
     override fun toString(): String {
-        return "ArticleComment(articleCommentId=$articleCommentId, articleId=$articleId, rootParentCommentId=$rootParentCommentId, writerId=$writerId, writerNickname='$writerNickname', targetCommentWriterId=$targetCommentWriterId, targetCommentWriterNickname=$targetCommentWriterNickname, createdAt=$createdAt, content='$content', deleteStatus=$deleteStatus, modifiedAt=$modifiedAt)"
+        return "ArticleComment(articleCommentId=$articleCommentId, articleId=$articleId, rootParentCommentId=$rootParentCommentId, writerId=$writerId, writerNickname='$writerNickname', parentCommentWriterId=$parentCommentWriterId, parentCommentWriterNickname=$parentCommentWriterNickname, createdAt=$createdAt, content='$content', deleteStatus=$deleteStatus, modifiedAt=$modifiedAt)"
     }
 }

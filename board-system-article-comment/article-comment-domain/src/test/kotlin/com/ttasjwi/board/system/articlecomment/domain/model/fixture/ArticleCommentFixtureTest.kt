@@ -23,8 +23,8 @@ class ArticleCommentFixtureTest {
         assertThat(articleComment.rootParentCommentId).isEqualTo(articleComment.articleCommentId)
         assertThat(articleComment.writerId).isNotNull()
         assertThat(articleComment.writerNickname).isNotNull()
-        assertThat(articleComment.targetCommentWriterId).isNull()
-        assertThat(articleComment.targetCommentWriterNickname).isNull()
+        assertThat(articleComment.parentCommentWriterId).isNull()
+        assertThat(articleComment.parentCommentWriterNickname).isNull()
         assertThat(articleComment.deleteStatus).isEqualTo(ArticleCommentDeleteStatus.NOT_DELETED)
         assertThat(articleComment.createdAt).isNotNull()
         assertThat(articleComment.modifiedAt).isNotNull()
@@ -40,8 +40,8 @@ class ArticleCommentFixtureTest {
         val rootParentCommentId = 154L
         val writerId = 555L
         val writerNickname = "땃쥐"
-        val targetCommentWriterId = 554L
-        val targetCommentWriterNickname = "땃고양이"
+        val parentCommentWriterId = 554L
+        val parentCommentWriterNickname = "땃고양이"
         val deleteStatus = ArticleCommentDeleteStatus.DELETED_BY_WRITER
         val createdAt = appDateTimeFixture(minute = 13)
         val modifiedAt = appDateTimeFixture(minute = 15)
@@ -54,8 +54,8 @@ class ArticleCommentFixtureTest {
             rootParentCommentId = rootParentCommentId,
             writerId = writerId,
             writerNickname = writerNickname,
-            targetCommentWriterId = targetCommentWriterId,
-            targetCommentWriterNickname = targetCommentWriterNickname,
+            parentCommentWriterId = parentCommentWriterId,
+            parentCommentWriterNickname = parentCommentWriterNickname,
             deleteStatus = deleteStatus,
             createdAt = createdAt,
             modifiedAt = modifiedAt,
@@ -68,8 +68,8 @@ class ArticleCommentFixtureTest {
         assertThat(articleComment.rootParentCommentId).isEqualTo(rootParentCommentId)
         assertThat(articleComment.writerId).isEqualTo(writerId)
         assertThat(articleComment.writerNickname).isEqualTo(writerNickname)
-        assertThat(articleComment.targetCommentWriterId).isEqualTo(targetCommentWriterId)
-        assertThat(articleComment.targetCommentWriterNickname).isEqualTo(targetCommentWriterNickname)
+        assertThat(articleComment.parentCommentWriterId).isEqualTo(parentCommentWriterId)
+        assertThat(articleComment.parentCommentWriterNickname).isEqualTo(parentCommentWriterNickname)
         assertThat(articleComment.deleteStatus).isEqualTo(deleteStatus)
         assertThat(articleComment.createdAt).isEqualTo(createdAt)
         assertThat(articleComment.modifiedAt).isEqualTo(modifiedAt)

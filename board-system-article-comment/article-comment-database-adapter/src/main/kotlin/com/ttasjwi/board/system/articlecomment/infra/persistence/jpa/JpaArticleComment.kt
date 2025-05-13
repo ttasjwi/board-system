@@ -28,11 +28,11 @@ class JpaArticleComment(
     @Column(name = "writer_nickname")
     val writerNickname: String,
 
-    @Column(name = "target_comment_writer_id")
-    val targetCommentWriterId: Long?,
+    @Column(name = "parent_comment_writer_id")
+    val parentCommentWriterId: Long?,
 
-    @Column(name = "target_comment_writer_nickname")
-    val targetCommentWriterNickname: String?,
+    @Column(name = "parent_comment_writer_nickname")
+    val parentCommentWriterNickname: String?,
 
     @Enumerated(EnumType.STRING)
     @Column(name = "delete_status")
@@ -55,8 +55,8 @@ class JpaArticleComment(
                 rootParentCommentId = articleComment.rootParentCommentId,
                 writerId = articleComment.writerId,
                 writerNickname = articleComment.writerNickname,
-                targetCommentWriterId = articleComment.targetCommentWriterId,
-                targetCommentWriterNickname = articleComment.targetCommentWriterNickname,
+                parentCommentWriterId = articleComment.parentCommentWriterId,
+                parentCommentWriterNickname = articleComment.parentCommentWriterNickname,
                 deleteStaus = articleComment.deleteStatus,
                 createdAt = articleComment.createdAt.toLocalDateTime(),
                 modifiedAt = articleComment.modifiedAt.toLocalDateTime()
@@ -72,8 +72,8 @@ class JpaArticleComment(
             rootParentCommentId = this.rootParentCommentId,
             writerId = this.writerId,
             writerNickname = this.writerNickname,
-            targetCommentWriterId = this.targetCommentWriterId,
-            targetCommentWriterNickname = this.targetCommentWriterNickname,
+            parentCommentWriterId = this.parentCommentWriterId,
+            parentCommentWriterNickname = this.parentCommentWriterNickname,
             deleteStatus = this.deleteStaus,
             createdAt = this.createdAt,
             modifiedAt = this.modifiedAt,
