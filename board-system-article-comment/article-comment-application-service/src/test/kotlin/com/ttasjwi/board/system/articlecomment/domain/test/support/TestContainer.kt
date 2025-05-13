@@ -1,0 +1,73 @@
+package com.ttasjwi.board.system.articlecomment.domain.test.support
+
+import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCase
+import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCaseImpl
+import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentCreateCommandMapper
+import com.ttasjwi.board.system.articlecomment.domain.policy.fixture.ArticleCommentContentPolicyFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticlePersistencePortFixture
+import com.ttasjwi.board.system.articlecomment.domain.processor.ArticleCommentCreateProcessor
+import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
+import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
+
+internal class TestContainer private constructor() {
+
+    companion object {
+        fun create(): TestContainer {
+            return TestContainer()
+        }
+    }
+
+    val timeManagerFixture: TimeManagerFixture by lazy {
+        TimeManagerFixture()
+    }
+
+    val authUserLoaderFixture: AuthUserLoaderFixture by lazy {
+        AuthUserLoaderFixture()
+    }
+
+    // port
+    val articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture by lazy {
+        ArticleCommentPersistencePortFixture()
+    }
+
+    val articlePersistencePortFixture: ArticlePersistencePortFixture by lazy {
+        ArticlePersistencePortFixture()
+    }
+
+    val articleCommentWriterNicknamePersistencePortFixture: ArticleCommentWriterNicknamePersistencePortFixture by lazy {
+        ArticleCommentWriterNicknamePersistencePortFixture()
+    }
+
+    // domain policy
+    val articleCommentContentPolicyFixture: ArticleCommentContentPolicyFixture by lazy {
+        ArticleCommentContentPolicyFixture()
+    }
+
+    // mapper
+    val articleCommentCreateCommandMapper: ArticleCommentCreateCommandMapper by lazy {
+        ArticleCommentCreateCommandMapper(
+            articleCommentContentPolicy = articleCommentContentPolicyFixture,
+            timeManager = timeManagerFixture,
+            authUserLoader = authUserLoaderFixture,
+        )
+    }
+
+    // processor
+    val articleCommentCreateProcessor: ArticleCommentCreateProcessor by lazy {
+        ArticleCommentCreateProcessor(
+            articleCommentPersistencePort = articleCommentPersistencePortFixture,
+            articlePersistencePort = articlePersistencePortFixture,
+            articleCommentWriterNicknamePersistencePort = articleCommentWriterNicknamePersistencePortFixture,
+        )
+    }
+
+    // useCase
+    val articleCommentCreateUseCase: ArticleCommentCreateUseCase by lazy {
+        ArticleCommentCreateUseCaseImpl(
+            commandMapper = articleCommentCreateCommandMapper,
+            processor = articleCommentCreateProcessor,
+        )
+    }
+}
