@@ -1,0 +1,29 @@
+== 게시글 댓글 API 명세
+
+=== 게시글 댓글 작성
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/article-comments`
+- 권한 : 인증된 사용자 누구든지
+- 인증방식 : 액세스 토큰
+
+게시글 댓글을 작성합니다.
+요청 시 부모댓글 Id(parentCommentId) 를 전달할 경우 해당 댓글의 대댓글이 됩니다.
+
+==== 요청
+include::{snippets}/article-comment-create-success/request-headers.adoc[]
+include::{snippets}/article-comment-create-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/article-comment-create-success/response-fields.adoc[]
+
+===== 응답 참고사항 : `deleteStatus` 필드?
+댓글 관련 응답에서는, 댓글의 삭제 상태를 설명하는 `deleteStatus` 필드가 포함됩니다. 이 `deleteStatus` 는 다음 유형이 있습니다.
+
+- `NOT_DELETED`: 댓글이 삭제되지 않은 댓글일 경우
+- `DELETED_BY_WRITER`: 댓글이 댓글 작성자 본인에 의해 삭제된 댓글일 경우
+- `DELETED_BY_MANAGER`: 댓글이 관리자에 의해 삭제된 댓글일 경우
+
+==== 예시
+include::{snippets}/article-comment-create-success/http-request.adoc[]
+include::{snippets}/article-comment-create-success/http-response.adoc[]
