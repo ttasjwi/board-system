@@ -1,9 +1,6 @@
 package com.ttasjwi.board.system.article.domain.test.support
 
 import com.ttasjwi.board.system.article.domain.*
-import com.ttasjwi.board.system.article.domain.ArticleCreateUseCaseImpl
-import com.ttasjwi.board.system.article.domain.ArticleReadUseCaseImpl
-import com.ttasjwi.board.system.article.domain.dto.ArticleInfiniteScrollReadQuery
 import com.ttasjwi.board.system.article.domain.mapper.ArticleCreateCommandMapper
 import com.ttasjwi.board.system.article.domain.mapper.ArticleInfiniteScrollReadQueryMapper
 import com.ttasjwi.board.system.article.domain.mapper.ArticlePageReadQueryMapper

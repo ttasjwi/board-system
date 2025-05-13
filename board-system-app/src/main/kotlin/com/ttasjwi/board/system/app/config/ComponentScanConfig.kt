@@ -9,6 +9,7 @@ import org.springframework.context.annotation.FilterType
 @ComponentScan(
     basePackages = [
         "com.ttasjwi.board.system.article",
+        "com.ttasjwi.board.system.articlecomment",
         "com.ttasjwi.board.system.board",
         "com.ttasjwi.board.system.user",
         "com.ttasjwi.board.system.emailsender",
