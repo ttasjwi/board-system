@@ -27,3 +27,21 @@ include::{snippets}/article-comment-create-success/response-fields.adoc[]
 ==== 예시
 include::{snippets}/article-comment-create-success/http-request.adoc[]
 include::{snippets}/article-comment-create-success/http-response.adoc[]
+
+=== 게시글 댓글 단건 조회
+==== 기본정보
+- 메서드 : GET
+- URL : `/api/v1/article-comments/{commentId}`
+- 권한 : 누구든지
+
+게시글 댓글을 단건 조회합니다.
+
+==== 요청
+include::{snippets}/article-comment-read-success/path-parameters.adoc[]
+
+==== 응답
+include::{snippets}/article-comment-read-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-comment-read-success/http-request.adoc[]
+include::{snippets}/article-comment-read-success/http-response.adoc[]

@@ -2,6 +2,8 @@ package com.ttasjwi.board.system.articlecomment.domain.test.support
 
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCase
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCaseImpl
+import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentReadUseCase
+import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentReadUseCaseImpl
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentCreateCommandMapper
 import com.ttasjwi.board.system.articlecomment.domain.policy.fixture.ArticleCommentContentPolicyFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
@@ -68,6 +70,12 @@ internal class TestContainer private constructor() {
         ArticleCommentCreateUseCaseImpl(
             commandMapper = articleCommentCreateCommandMapper,
             processor = articleCommentCreateProcessor,
+        )
+    }
+
+    val articleCommentReadUseCase: ArticleCommentReadUseCase by lazy {
+        ArticleCommentReadUseCaseImpl(
+            articleCommentPersistencePort = articleCommentPersistencePortFixture
         )
     }
 }
