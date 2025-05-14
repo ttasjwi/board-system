@@ -105,3 +105,17 @@ CREATE TABLE IF NOT EXISTS article_comments(
     created_at                     DATETIME      NOT NULL,
     modified_at                    DATETIME      NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS article_comments(
+    article_comment_id             BIGINT        NOT NULL PRIMARY KEY,
+    content                        VARCHAR(3000) NOT NULL,
+    article_id                     BIGINT        NOT NULL,
+    root_parent_comment_id         BIGINT        NOT NULL,
+    writer_id                      BIGINT        NOT NULL,
+    writer_nickname                VARCHAR(15)   NOT NULL,
+    parent_comment_writer_id       BIGINT,
+    parent_comment_writer_nickname VARCHAR(15),
+    delete_status                  VARCHAR(20)   NOT NULL,
+    created_at                     DATETIME      NOT NULL,
+    modified_at                    DATETIME      NOT NULL
+);

@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS article_comments(
     article_id                     BIGINT        NOT NULL,
     root_parent_comment_id         BIGINT        NOT NULL,
     writer_id                      BIGINT        NOT NULL,
-    writer_nickname                VARCHAR(15)   NOT NULL UNIQUE,
+    writer_nickname                VARCHAR(15)   NOT NULL,
     parent_comment_writer_id       BIGINT,
     parent_comment_writer_nickname VARCHAR(15),
     delete_status                  VARCHAR(20)   NOT NULL,
