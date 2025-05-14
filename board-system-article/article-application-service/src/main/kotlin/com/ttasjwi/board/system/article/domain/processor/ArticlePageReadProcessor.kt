@@ -7,7 +7,7 @@ import com.ttasjwi.board.system.article.domain.model.Article
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.page.PagingInfo
-import com.ttasjwi.board.system.common.page.calculateOffSet
+import com.ttasjwi.board.system.common.page.calculateOffset
 import com.ttasjwi.board.system.common.page.calculatePageLimit
 
 @ApplicationProcessor
@@ -45,7 +45,7 @@ class ArticlePageReadProcessor(
     private fun readArticles(query: ArticlePageReadQuery) =
         articlePersistencePort.findAllPage(
             boardId = query.boardId,
-            offSet = calculateOffSet(
+            offSet = calculateOffset(
                 page = query.page,
                 pageSize = query.pageSize
             ),

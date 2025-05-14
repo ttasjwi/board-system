@@ -1,15 +1,15 @@
 package com.ttasjwi.board.system.articlecomment.domain.test.support
 
-import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCase
+import com.ttasjwi.board.system.articlecomment.domain.*
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCaseImpl
-import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentReadUseCase
-import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentReadUseCaseImpl
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentCreateCommandMapper
+import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentPageReadQueryMapper
 import com.ttasjwi.board.system.articlecomment.domain.policy.fixture.ArticleCommentContentPolicyFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.processor.ArticleCommentCreateProcessor
+import com.ttasjwi.board.system.articlecomment.domain.processor.ArticleCommentPageReadProcessor
 import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 
@@ -56,12 +56,22 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val articleCommentPageReadQueryMapper: ArticleCommentPageReadQueryMapper by lazy {
+        ArticleCommentPageReadQueryMapper()
+    }
+
     // processor
     val articleCommentCreateProcessor: ArticleCommentCreateProcessor by lazy {
         ArticleCommentCreateProcessor(
             articleCommentPersistencePort = articleCommentPersistencePortFixture,
             articlePersistencePort = articlePersistencePortFixture,
             articleCommentWriterNicknamePersistencePort = articleCommentWriterNicknamePersistencePortFixture,
+        )
+    }
+
+    val articleCommentPageReadProcessor: ArticleCommentPageReadProcessor by lazy {
+        ArticleCommentPageReadProcessor(
+            articleCommentPersistencePort = articleCommentPersistencePortFixture,
         )
     }
 
@@ -76,6 +86,13 @@ internal class TestContainer private constructor() {
     val articleCommentReadUseCase: ArticleCommentReadUseCase by lazy {
         ArticleCommentReadUseCaseImpl(
             articleCommentPersistencePort = articleCommentPersistencePortFixture
+        )
+    }
+
+    val articleCommentPageReadUseCase: ArticleCommentPageReadUseCase by lazy {
+        ArticleCommentPageReadUseCaseImpl(
+            queryMapper = articleCommentPageReadQueryMapper,
+            processor = articleCommentPageReadProcessor,
         )
     }
 }

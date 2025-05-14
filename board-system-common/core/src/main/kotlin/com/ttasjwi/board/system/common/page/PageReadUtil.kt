@@ -4,6 +4,6 @@ fun calculatePageLimit(page: Long, pageSize: Long, movablePageCount: Long): Long
     (((page - 1) / movablePageCount) + 1) * pageSize * movablePageCount + 1
 
 
-fun calculateOffSet(page: Long, pageSize: Long): Long =
+fun calculateOffset(page: Long, pageSize: Long): Long =
     (page - 1) * pageSize
 
