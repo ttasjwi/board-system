@@ -21,4 +21,14 @@ class ArticleCommentPersistenceAdapter(
     override fun findById(articleCommentId: Long): ArticleComment? {
         return jpaArticleCommentRepository.findByIdOrNull(articleCommentId)?.restoreDomain()
     }
+
+    override fun findAllPage(articleId: Long, offset: Long, limit: Long): List<ArticleComment> {
+        return jpaArticleCommentRepository
+            .findAllPage(articleId, offset, limit)
+            .map { it.restoreDomain() }
+    }
+
+    override fun count(articleId: Long, limit: Long): Long {
+        return jpaArticleCommentRepository.count(articleId, limit)
+    }
 }
