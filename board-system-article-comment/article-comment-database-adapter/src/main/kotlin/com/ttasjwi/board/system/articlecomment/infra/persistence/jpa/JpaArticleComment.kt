@@ -36,7 +36,7 @@ class JpaArticleComment(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "delete_status")
-    var deleteStaus: ArticleCommentDeleteStatus,
+    var deleteStatus: ArticleCommentDeleteStatus,
 
     @Column(name = "created_at")
     val createdAt: LocalDateTime,
@@ -57,7 +57,7 @@ class JpaArticleComment(
                 writerNickname = articleComment.writerNickname,
                 parentCommentWriterId = articleComment.parentCommentWriterId,
                 parentCommentWriterNickname = articleComment.parentCommentWriterNickname,
-                deleteStaus = articleComment.deleteStatus,
+                deleteStatus = articleComment.deleteStatus,
                 createdAt = articleComment.createdAt.toLocalDateTime(),
                 modifiedAt = articleComment.modifiedAt.toLocalDateTime()
             )
@@ -74,7 +74,7 @@ class JpaArticleComment(
             writerNickname = this.writerNickname,
             parentCommentWriterId = this.parentCommentWriterId,
             parentCommentWriterNickname = this.parentCommentWriterNickname,
-            deleteStatus = this.deleteStaus,
+            deleteStatus = this.deleteStatus,
             createdAt = this.createdAt,
             modifiedAt = this.modifiedAt,
         )

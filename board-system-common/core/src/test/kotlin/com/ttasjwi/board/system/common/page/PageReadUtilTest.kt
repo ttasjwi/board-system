@@ -52,8 +52,8 @@ class PageReadUtilTest {
     }
 
     @Nested
-    @DisplayName("calculateOffSet: 페이징 조회를 시작할 OffSet 을 계산한다.")
-    inner class CalculateOffSetTest {
+    @DisplayName("calculateOffset: 페이징 조회를 시작할 OffSet 을 계산한다.")
+    inner class CalculateOffsetTest {
 
         @Test
         @DisplayName("페이지당 5개 게시글, 1페이지 시작일 경우 OffSet 은 0")
@@ -63,10 +63,10 @@ class PageReadUtilTest {
             val pageSize = 5L
 
             // when
-            val offSet = calculateOffSet(page, pageSize)
+            val offset = calculateOffset(page, pageSize)
 
             // then
-            assertThat(offSet).isEqualTo(0)
+            assertThat(offset).isEqualTo(0)
         }
 
         @Test
@@ -77,10 +77,10 @@ class PageReadUtilTest {
             val pageSize = 5L
 
             // when
-            val offSet = calculateOffSet(page, pageSize)
+            val offset = calculateOffset(page, pageSize)
 
             // then
-            assertThat(offSet).isEqualTo(5)
+            assertThat(offset).isEqualTo(5)
         }
 
         @Test
@@ -91,10 +91,10 @@ class PageReadUtilTest {
             val pageSize = 10L
 
             // when
-            val offSet = calculateOffSet(page, pageSize)
+            val offset = calculateOffset(page, pageSize)
 
             // then
-            assertThat(offSet).isEqualTo(90)
+            assertThat(offset).isEqualTo(90)
         }
     }
 }

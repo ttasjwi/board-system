@@ -20,7 +20,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.req
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@DisplayName("[article-web-adapter] ArticleCreateController 테스트")
+@DisplayName("[article-comment-web-adapter] ArticleCommentCreateController 테스트")
 @WebMvcTest(ArticleCommentCreateController::class)
 class ArticleCommentCreateControllerTest : ArticleCommentRestDocsTest() {
 

@@ -15,4 +15,23 @@ class ArticleCommentPersistencePortFixture : ArticleCommentPersistencePort {
     override fun findById(articleCommentId: Long): ArticleComment? {
         return storage[articleCommentId]
     }
+
+    override fun findAllPage(articleId: Long, offset: Long, limit: Long): List<ArticleComment> {
+        return storage.values
+            .filter { it.articleId == articleId }
+            .sortedWith(
+                compareBy<ArticleComment> { it.rootParentCommentId }
+                    .thenBy { it.articleCommentId }
+            )
+            .drop(offset.toInt())
+            .take(limit.toInt())
+    }
+
+    override fun count(articleId: Long, limit: Long): Long {
+        return storage.values
+            .filter { it.articleId == articleId }
+            .take(limit.toInt())
+            .count()
+            .toLong()
+    }
 }
