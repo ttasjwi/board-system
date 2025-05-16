@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("[article-database-adapter] ArticleWriterNicknamePersistenceAdapter 테스트")
+@DisplayName("[article-comment-database-adapter] ArticleCommentWriterNicknamePersistenceAdapter 테스트")
 class ArticleCommentWriterNicknamePersistenceAdapterTest : ArticleCommentDataBaseIntegrationTest() {
 
     @Nested
