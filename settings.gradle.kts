@@ -53,6 +53,15 @@ include(
     "board-system-article-comment:article-comment-domain",
     "board-system-article-comment:article-comment-database-adapter",
 
+    // article-like ===================================================================================
+    "board-system-article-like",
+    "board-system-article-like:article-like-web-adapter",
+    "board-system-article-like:article-like-application-input-port",
+    "board-system-article-like:article-like-application-service",
+    "board-system-article-like:article-like-application-output-port",
+    "board-system-article-like:article-like-domain",
+    "board-system-article-like:article-like-database-adapter",
+
     // email-sender ==============================================================================
     "board-system-email-sender",
 
