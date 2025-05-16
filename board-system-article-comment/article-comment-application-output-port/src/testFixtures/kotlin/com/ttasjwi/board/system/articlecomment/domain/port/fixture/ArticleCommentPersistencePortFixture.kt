@@ -34,4 +34,27 @@ class ArticleCommentPersistencePortFixture : ArticleCommentPersistencePort {
             .count()
             .toLong()
     }
+
+    override fun findAllInfiniteScroll(
+        articleId: Long,
+        limit: Long,
+        lastRootParentCommentId: Long?,
+        lastCommentId: Long?
+    ): List<ArticleComment> {
+        return storage.values
+            .asSequence()
+            .filter { it.articleId == articleId }
+            .sortedWith(compareBy<ArticleComment> { it.rootParentCommentId }.thenBy { it.articleCommentId })
+            .dropWhile { comment ->
+                // dropWhile : true를 반환하면 포함 x, 처음으로 false를 반환하는 것부터 포함.
+                if (lastRootParentCommentId != null && lastCommentId != null) {
+                    comment.rootParentCommentId < lastRootParentCommentId ||
+                            (comment.rootParentCommentId == lastRootParentCommentId && comment.articleCommentId <= lastCommentId)
+                } else {
+                    false
+                }
+            }
+            .take(limit.toInt())
+            .toList()
+    }
 }

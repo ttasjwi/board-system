@@ -9,4 +9,6 @@ interface ArticleCommentPersistencePort {
 
     fun findAllPage(articleId: Long, offset: Long, limit: Long): List<ArticleComment>
     fun count(articleId: Long, limit: Long): Long
+
+    fun findAllInfiniteScroll(articleId: Long, limit: Long, lastRootParentCommentId: Long?, lastCommentId: Long?): List<ArticleComment>
 }

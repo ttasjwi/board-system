@@ -170,4 +170,116 @@ class ArticleCommentPersistenceAdapterTest : ArticleCommentDataBaseIntegrationTe
             assertThat(count).isEqualTo(10)
         }
     }
+
+    @Nested
+    @DisplayName("findAllInfiniteScroll : 댓글 무한스크롤 조회")
+    inner class FindAllInfiniteScrollTest {
+
+
+        @Test
+        @DisplayName("lastCommentId, lastRootParentCommentId 가 null 이면 처음부터 limit 건 조회")
+        fun test1() {
+            // given
+            val articleId = 1234566L
+            for (i in 1..10) {
+                val commentId = i.toLong()
+                val comment = if (commentId <= 5L) {
+                    articleCommentFixture(
+                        articleCommentId = commentId,
+                        rootParentCommentId = commentId,
+                        articleId = articleId,
+                    )
+                } else {
+                    articleCommentFixture(
+                        articleCommentId = commentId,
+                        rootParentCommentId = commentId - 5L,
+                        articleId = articleId,
+                    )
+                }
+                articleCommentPersistenceAdapter.save(comment)
+            }
+
+
+            // when
+            val articles = articleCommentPersistenceAdapter.findAllInfiniteScroll(
+                articleId = articleId,
+                limit = 7,
+                lastRootParentCommentId = null,
+                lastCommentId = null
+            )
+
+            val articleCommentIds = articles.map { it.articleCommentId }
+
+            assertThat(articleCommentIds.size).isEqualTo(7)
+            assertThat(articleCommentIds).containsExactly(
+                1, 6, 2, 7, 3, 8, 4
+            )
+        }
+
+        @Test
+        @DisplayName("lastCommentId, lastRootParentCommentId 가 모두 null 이 아니면, 해당 지점 지점 다음부터 조회")
+        fun test2() {
+            // given
+            val articleId = 1234566L
+
+            // 1.. 50 (루트 댓글)
+            for (i in 1..50) {
+                val articleCommentId = i.toLong()
+                articleCommentPersistenceAdapter.save(
+                    articleCommentFixture(
+                        articleCommentId = articleCommentId,
+                        articleId = articleId,
+                        rootParentCommentId = articleCommentId
+                    )
+                )
+            }
+
+            // 51..150 (자식댓글)
+            var subCommentId = 51L
+            for (i in 1..50) {
+                val rootParentCommentId = i.toLong()
+                articleCommentPersistenceAdapter.save(
+                    articleCommentFixture(
+                        articleCommentId = subCommentId++,
+                        articleId = articleId,
+                        rootParentCommentId = rootParentCommentId
+                    )
+                )
+                articleCommentPersistenceAdapter.save(
+                    articleCommentFixture(
+                        articleCommentId = subCommentId++,
+                        articleId = articleId,
+                        rootParentCommentId = rootParentCommentId
+                    )
+                )
+            }
+
+            //
+            // 1
+            // └ 51
+            // └ 52
+            // 2
+            // └ 53
+            // -----------------------------
+            // └ 54
+            // 3
+            // └ 55
+            // └ 56
+            // 4
+            // --------------------------
+
+            // when
+            val articles = articleCommentPersistenceAdapter.findAllInfiniteScroll(
+                articleId = articleId,
+                limit = 5,
+                lastRootParentCommentId = 2,
+                lastCommentId = 53
+            )
+
+            // then
+            val articleCommentIds = articles.map { it.articleCommentId }
+            assertThat(articleCommentIds.size).isEqualTo(5)
+            assertThat(articleCommentIds).containsExactly(54, 3, 55, 56, 4)
+        }
+    }
 }

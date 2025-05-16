@@ -31,4 +31,18 @@ class ArticleCommentPersistenceAdapter(
     override fun count(articleId: Long, limit: Long): Long {
         return jpaArticleCommentRepository.count(articleId, limit)
     }
+
+    override fun findAllInfiniteScroll(
+        articleId: Long,
+        limit: Long,
+        lastRootParentCommentId: Long?,
+        lastCommentId: Long?
+    ): List<ArticleComment> {
+        val jpaComments = if (lastRootParentCommentId != null && lastCommentId != null) {
+            jpaArticleCommentRepository.findAllInfiniteScroll(articleId, limit, lastRootParentCommentId, lastCommentId)
+        } else {
+            jpaArticleCommentRepository.findAllInfiniteScroll(articleId, limit)
+        }
+        return jpaComments.map { it.restoreDomain() }
+    }
 }

@@ -51,4 +51,59 @@ interface JpaArticleCommentRepository : JpaRepository<JpaArticleComment, Long> {
         @Param("offset") offset: Long,
         @Param("limit") limit: Long
     ): List<JpaArticleComment>
+
+    @Query(
+        """
+            SELECT 
+                article_comment_id,
+                content,
+                article_id,
+                root_parent_comment_id,
+                writer_id,
+                writer_nickname,
+                parent_comment_writer_id,
+                parent_comment_writer_nickname,
+                delete_status,
+                created_at,
+                modified_at
+            FROM article_comments
+            WHERE article_id = :articleId
+            ORDER BY root_parent_comment_id , article_comment_id
+            LIMIT :limit
+        """, nativeQuery = true
+    )
+    fun findAllInfiniteScroll(
+        @Param("articleId") articleId: Long,
+        @Param("limit") limit: Long,
+    ): List<JpaArticleComment>
+
+    @Query(
+        """
+            SELECT 
+                article_comment_id,
+                content,
+                article_id,
+                root_parent_comment_id,
+                writer_id,
+                writer_nickname,
+                parent_comment_writer_id,
+                parent_comment_writer_nickname,
+                delete_status,
+                created_at,
+                modified_at
+            FROM article_comments
+            WHERE article_id = :articleId AND (
+                root_parent_comment_id > :lastRootParentCommentId OR 
+                    (root_parent_comment_id = :lastRootParentCommentId AND article_comment_id > :lastCommentId)
+            )
+            ORDER BY root_parent_comment_id , article_comment_id
+            LIMIT :limit
+        """, nativeQuery = true
+    )
+    fun findAllInfiniteScroll(
+        @Param("articleId") articleId: Long,
+        @Param("limit") limit: Long,
+        @Param("lastRootParentCommentId") lastRootParentCommentId: Long,
+        @Param("lastCommentId") lastCommentId: Long,
+    ): List<JpaArticleComment>
 }
