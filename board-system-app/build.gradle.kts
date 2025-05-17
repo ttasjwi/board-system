@@ -34,6 +34,11 @@ dependencies {
     implementation(project(":board-system-article-comment:article-comment-application-service"))
     implementation(project(":board-system-article-comment:article-comment-database-adapter"))
 
+    // article-like
+    implementation(project(":board-system-article-like:article-like-web-adapter"))
+    implementation(project(":board-system-article-like:article-like-application-service"))
+    implementation(project(":board-system-article-like:article-like-database-adapter"))
+
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")
 
@@ -71,11 +76,13 @@ tasks.register("copySnippets", Copy::class) {
     dependsOn(":board-system-board:board-web-adapter:test")
     dependsOn(":board-system-article:article-web-adapter:test")
     dependsOn(":board-system-article-comment:article-comment-web-adapter:test")
+    dependsOn(":board-system-article-like:article-like-web-adapter:test")
 
     from(file("$rootDir/board-system-user/user-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-board/board-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-article/article-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-article-comment/article-comment-web-adapter/build/generated-snippets"))
+    from(file("$rootDir/board-system-article-like/article-like-web-adapter/build/generated-snippets"))
     into(file("build/generated-snippets"))
 }
 
