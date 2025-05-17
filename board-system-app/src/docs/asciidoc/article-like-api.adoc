@@ -1,0 +1,22 @@
+== 게시글 좋아요/싫어요 API 명세
+
+=== 게시글 좋아요
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/article-likes`
+- 권한 : 인증된 사용자 누구든지
+- 인증방식 : 액세스 토큰
+
+게시글에 대해 '좋아요' 합니다.
+사용자당, 한 게시글에 한 번만 '좋아요' 할 수 있습니다.
+
+==== 요청
+include::{snippets}/article-like-create-success/request-headers.adoc[]
+include::{snippets}/article-like-create-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/article-like-create-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-like-create-success/http-request.adoc[]
+include::{snippets}/article-like-create-success/http-response.adoc[]
