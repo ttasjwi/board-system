@@ -34,6 +34,11 @@ dependencies {
     implementation(project(":board-system-article-comment:article-comment-application-service"))
     implementation(project(":board-system-article-comment:article-comment-database-adapter"))
 
+    // article-like
+    implementation(project(":board-system-article-like:article-like-web-adapter"))
+    implementation(project(":board-system-article-like:article-like-application-service"))
+    implementation(project(":board-system-article-like:article-like-database-adapter"))
+
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")
 

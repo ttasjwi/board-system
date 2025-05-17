@@ -64,3 +64,16 @@ CREATE TABLE IF NOT EXISTS article_comments(
     created_at                     DATETIME      NOT NULL,
     modified_at                    DATETIME      NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS article_likes(
+    article_like_id BIGINT   NOT NULL PRIMARY KEY,
+    article_id      BIGINT   NOT NULL,
+    user_id         BIGINT   NOT NULL,
+    created_at      DATETIME NOT NULL,
+    CONSTRAINT uq_article_id_and_user_id UNIQUE (article_id, user_id)
+);
+
+CREATE TABLE IF NOT EXISTS article_like_counts(
+    article_id            BIGINT NOT NULL PRIMARY KEY,
+    like_count            BIGINT NOT NULL
+);
