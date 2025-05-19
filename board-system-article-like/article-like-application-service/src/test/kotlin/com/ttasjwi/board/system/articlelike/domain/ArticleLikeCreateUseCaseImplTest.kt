@@ -10,7 +10,7 @@ import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -29,7 +29,7 @@ class ArticleLikeCreateUseCaseImplTest {
         val container = TestContainer.create()
         articleLikeCreateUseCase = container.articleLikeCreateUseCase
 
-        currentTime = appDateTimeFixture(minute= 8)
+        currentTime = appDateTimeFixture(minute = 8)
         container.timeManagerFixture.changeCurrentTime(currentTime)
 
         authUser = authUserFixture(userId = 13L, role = Role.USER)
@@ -58,16 +58,12 @@ class ArticleLikeCreateUseCaseImplTest {
             )
         )
 
-        val request = ArticleLikeCreateRequest(
-            articleId = article.articleId,
-        )
-
         // when
-        val response = articleLikeCreateUseCase.like(request)
+        val response = articleLikeCreateUseCase.like(article.articleId)
 
         // then
         assertThat(response.articleLikeId).isNotNull()
-        assertThat(response.articleId).isEqualTo(request.articleId!!.toString())
+        assertThat(response.articleId).isEqualTo(article.articleId.toString())
         assertThat(response.userId).isEqualTo(authUser.userId.toString())
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
     }

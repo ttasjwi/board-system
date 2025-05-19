@@ -11,8 +11,8 @@ internal class ArticleLikeCreateUseCaseImpl(
     private val processor: ArticleLikeCreateProcessor,
 ) : ArticleLikeCreateUseCase {
 
-    override fun like(request: ArticleLikeCreateRequest) : ArticleLikeCreateResponse {
-        val command = commandMapper.mapToCommand(request)
+    override fun like(articleId: Long): ArticleLikeCreateResponse {
+        val command = commandMapper.mapToCommand(articleId)
         val articleLike = processor.like(command)
         return makeResponse(articleLike)
     }
