@@ -58,16 +58,12 @@ class ArticleDislikeCreateUseCaseImplTest {
             )
         )
 
-        val request = ArticleDislikeCreateRequest(
-            articleId = article.articleId,
-        )
-
         // when
-        val response = articleDislikeCreateUseCase.dislike(request)
+        val response = articleDislikeCreateUseCase.dislike(article.articleId)
 
         // then
         assertThat(response.articleDislikeId).isNotNull()
-        assertThat(response.articleId).isEqualTo(request.articleId!!.toString())
+        assertThat(response.articleId).isEqualTo(article.articleId.toString())
         assertThat(response.userId).isEqualTo(authUser.userId.toString())
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
     }

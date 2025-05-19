@@ -3,12 +3,8 @@ package com.ttasjwi.board.system.articlelike.domain
 import java.time.ZonedDateTime
 
 interface ArticleDislikeCreateUseCase {
-    fun dislike(request: ArticleDislikeCreateRequest): ArticleDislikeCreateResponse
+    fun dislike(articleId: Long): ArticleDislikeCreateResponse
 }
-
-data class ArticleDislikeCreateRequest(
-    val articleId: Long?,
-)
 
 data class ArticleDislikeCreateResponse(
     val articleDislikeId: String,

@@ -11,8 +11,8 @@ internal class ArticleDislikeCreateUseCaseImpl(
     private val processor: ArticleDislikeCreateProcessor,
 ) : ArticleDislikeCreateUseCase {
 
-    override fun dislike(request: ArticleDislikeCreateRequest): ArticleDislikeCreateResponse {
-        val command = commandMapper.mapToCommand(request)
+    override fun dislike(articleId: Long): ArticleDislikeCreateResponse {
+        val command = commandMapper.mapToCommand(articleId)
         val articleDislike = processor.like(command)
         return makeResponse(articleDislike)
     }
