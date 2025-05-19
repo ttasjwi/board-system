@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.articlelike.api
 
 import com.ninjasquad.springmockk.MockkBean
-import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCreateRequest
 import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCreateResponse
 import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCreateUseCase
 import com.ttasjwi.board.system.articlelike.test.base.ArticleLikeRestDocsTest
@@ -15,7 +14,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
-import org.springframework.http.MediaType
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.request
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -31,10 +29,8 @@ class ArticleLikeCreateControllerTest : ArticleLikeRestDocsTest() {
     @DisplayName("성공 테스트")
     fun testSuccess() {
         // given
-        val url = "/api/v1/article-likes"
-        val request = ArticleLikeCreateRequest(
-            articleId = 134L,
-        )
+        val urlPattern = "/api/v1/articles/{articleId}/likes"
+        val articleId = 134L
         val accessToken = generateAccessToken(
             userId = 1557,
             role = Role.USER,
@@ -46,18 +42,16 @@ class ArticleLikeCreateControllerTest : ArticleLikeRestDocsTest() {
 
         val response = ArticleLikeCreateResponse(
             articleLikeId = "134564164146",
-            articleId = request.articleId!!.toString(),
+            articleId = articleId.toString(),
             userId = accessToken.authUser.userId.toString(),
             createdAt = currentTime.toZonedDateTime(),
         )
 
-        every { articleLikeCreateUseCase.like(request) } returns response
+        every { articleLikeCreateUseCase.like(articleId) } returns response
 
         mockMvc
             .perform(
-                request(HttpMethod.POST, url)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(serializeToJson(request))
+                request(HttpMethod.POST, urlPattern, articleId)
                     .header("Authorization", "Bearer ${accessToken.tokenValue}")
             )
             .andExpectAll(
@@ -74,10 +68,9 @@ class ArticleLikeCreateControllerTest : ArticleLikeRestDocsTest() {
                             headerMeans "인증에 필요한 토큰('Bearer [액세스토큰]' 형태)"
                             example "Bearer 액세스토큰",
                 ),
-                requestBody(
+                pathParameters(
                     "articleId"
-                            type NUMBER
-                            means "게시글 식별자"
+                            paramMeans "게시글 식별자"
                             constraint "실제 게시글이 존재해야함."
                 ),
                 responseBody(
@@ -95,23 +88,19 @@ class ArticleLikeCreateControllerTest : ArticleLikeRestDocsTest() {
                             means "좋아요한 시각",
                 )
             )
-        verify(exactly = 1) { articleLikeCreateUseCase.like(request) }
+        verify(exactly = 1) { articleLikeCreateUseCase.like(articleId) }
     }
 
     @Test
     @DisplayName("미인증 사용자는 좋아요할 수 없다.")
     fun testUnauthenticated() {
         // given
-        val url = "/api/v1/article-likes"
-        val request = ArticleLikeCreateRequest(
-            articleId = 134L,
-        )
+        val urlPattern = "/api/v1/articles/{articleId}/likes"
+        val articleId = 134L
 
         mockMvc
             .perform(
-                request(HttpMethod.POST, url)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(serializeToJson(request))
+                request(HttpMethod.POST, urlPattern, articleId)
             )
             .andExpectAll(
                 status().isUnauthorized,
