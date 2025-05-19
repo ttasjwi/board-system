@@ -1,12 +1,12 @@
 package com.ttasjwi.board.system.articlelike.domain.test.support
 
 import com.ttasjwi.board.system.articlelike.domain.*
-import com.ttasjwi.board.system.articlelike.domain.ArticleDislikeCreateUseCaseImpl
-import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCreateUseCaseImpl
+import com.ttasjwi.board.system.articlelike.domain.mapper.ArticleDislikeCancelCommandMapper
 import com.ttasjwi.board.system.articlelike.domain.mapper.ArticleDislikeCreateCommandMapper
 import com.ttasjwi.board.system.articlelike.domain.mapper.ArticleLikeCancelCommandMapper
 import com.ttasjwi.board.system.articlelike.domain.mapper.ArticleLikeCreateCommandMapper
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.*
+import com.ttasjwi.board.system.articlelike.domain.processor.ArticleDislikeCancelProcessor
 import com.ttasjwi.board.system.articlelike.domain.processor.ArticleDislikeCreateProcessor
 import com.ttasjwi.board.system.articlelike.domain.processor.ArticleLikeCancelProcessor
 import com.ttasjwi.board.system.articlelike.domain.processor.ArticleLikeCreateProcessor
@@ -77,6 +77,13 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val articleDislikeCancelCommandMapper: ArticleDislikeCancelCommandMapper by lazy {
+        ArticleDislikeCancelCommandMapper(
+            authUserLoader = authUserLoaderFixture,
+            timeManager = timeManagerFixture,
+        )
+    }
+
     // processor
     val articleLikeCreateProcessor: ArticleLikeCreateProcessor by lazy {
         ArticleLikeCreateProcessor(
@@ -104,6 +111,14 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val articleDislikeCancelProcessor: ArticleDislikeCancelProcessor by lazy {
+        ArticleDislikeCancelProcessor(
+            articlePersistencePort = articlePersistencePortFixture,
+            articleDislikePersistencePort = articleDislikePersistencePortFixture,
+            articleDislikeCountPersistencePort = articleDislikeCountPersistencePortFixture
+        )
+    }
+
     // useCase
     val articleLikeCreateUseCase: ArticleLikeCreateUseCase by lazy {
         ArticleLikeCreateUseCaseImpl(
@@ -123,6 +138,13 @@ internal class TestContainer private constructor() {
         ArticleDislikeCreateUseCaseImpl(
             commandMapper = articleDislikeCreateCommandMapper,
             processor = articleDislikeCreateProcessor,
+        )
+    }
+
+    val articleDislikeCancelUseCase: ArticleDislikeCancelUseCase by lazy {
+        ArticleDislikeCancelUseCaseImpl(
+            commandMapper = articleDislikeCancelCommandMapper,
+            processor = articleDislikeCancelProcessor,
         )
     }
 }
