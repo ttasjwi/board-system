@@ -134,6 +134,13 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val articleLikeCountReadUseCase: ArticleLikeCountReadUseCase by lazy {
+        ArticleLikeCountReadUseCaseImpl(
+            articlePersistencePort = articlePersistencePortFixture,
+            articleLikeCountPersistencePort = articleLikeCountPersistencePortFixture
+        )
+    }
+
     val articleDislikeCreateUseCase: ArticleDislikeCreateUseCase by lazy {
         ArticleDislikeCreateUseCaseImpl(
             commandMapper = articleDislikeCreateCommandMapper,
