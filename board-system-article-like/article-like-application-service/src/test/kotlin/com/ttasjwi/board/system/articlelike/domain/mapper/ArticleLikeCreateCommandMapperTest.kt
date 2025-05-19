@@ -18,14 +18,14 @@ import org.junit.jupiter.api.assertThrows
 @DisplayName("[article-like-application-service] ArticleLikeCreateCommandMapper 테스트")
 class ArticleLikeCreateCommandMapperTest {
 
-    private lateinit var articleLikeCreateaCommandMapper: ArticleLikeCreateCommandMapper
+    private lateinit var articleLikeCreateCommandMapper: ArticleLikeCreateCommandMapper
     private lateinit var currentTime: AppDateTime
     private lateinit var authUser: AuthUser
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        articleLikeCreateaCommandMapper = container.articleLikeCreateCommandMapper
+        articleLikeCreateCommandMapper = container.articleLikeCreateCommandMapper
 
         currentTime = appDateTimeFixture(minute= 8)
         container.timeManagerFixture.changeCurrentTime(currentTime)
@@ -44,7 +44,7 @@ class ArticleLikeCreateCommandMapperTest {
         )
 
         // when
-        val command = articleLikeCreateaCommandMapper.mapToCommand(request)
+        val command = articleLikeCreateCommandMapper.mapToCommand(request)
 
         // then
         assertThat(command.articleId).isEqualTo(request.articleId)
@@ -63,7 +63,7 @@ class ArticleLikeCreateCommandMapperTest {
 
         // when
         val exceptionCollector = assertThrows<ValidationExceptionCollector> {
-            articleLikeCreateaCommandMapper.mapToCommand(request)
+            articleLikeCreateCommandMapper.mapToCommand(request)
         }
 
         // then

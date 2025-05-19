@@ -39,7 +39,7 @@ class ArticleLikeCreateProcessorTest {
         articleCategoryPersistencePortFixture = container.articleCategoryPersistencePortFixture
         articleLikeCountPersistencePortFixture = container.articleLikeCountPersistencePortFixture
         articleLikePersistencePortFixture = container.articleLikePersistencePortFixture
-        articlePersistencePortFixture = container.articlePersistecnePortFixture
+        articlePersistencePortFixture = container.articlePersistencePortFixture
     }
 
 

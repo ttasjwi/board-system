@@ -15,10 +15,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("[article-like-application-service] ArticleLikeCreateUseCase 테스트")
-class ArticleLikeCreateUseCaseImplTest {
+@DisplayName("[article-like-application-service] ArticleDislikeCreateUseCase 테스트")
+class ArticleDislikeCreateUseCaseImplTest {
 
-    private lateinit var articleLikeCreateUseCase: ArticleLikeCreateUseCase
+    private lateinit var articleDislikeCreateUseCase: ArticleDislikeCreateUseCase
     private lateinit var currentTime: AppDateTime
     private lateinit var authUser: AuthUser
     private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
@@ -27,7 +27,7 @@ class ArticleLikeCreateUseCaseImplTest {
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        articleLikeCreateUseCase = container.articleLikeCreateUseCase
+        articleDislikeCreateUseCase = container.articleDislikeCreateUseCase
 
         currentTime = appDateTimeFixture(minute= 8)
         container.timeManagerFixture.changeCurrentTime(currentTime)
@@ -58,16 +58,12 @@ class ArticleLikeCreateUseCaseImplTest {
             )
         )
 
-        val request = ArticleLikeCreateRequest(
-            articleId = article.articleId,
-        )
-
         // when
-        val response = articleLikeCreateUseCase.like(request)
+        val response = articleDislikeCreateUseCase.dislike(article.articleId)
 
         // then
-        assertThat(response.articleLikeId).isNotNull()
-        assertThat(response.articleId).isEqualTo(request.articleId!!.toString())
+        assertThat(response.articleDislikeId).isNotNull()
+        assertThat(response.articleId).isEqualTo(article.articleId.toString())
         assertThat(response.userId).isEqualTo(authUser.userId.toString())
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())
     }
