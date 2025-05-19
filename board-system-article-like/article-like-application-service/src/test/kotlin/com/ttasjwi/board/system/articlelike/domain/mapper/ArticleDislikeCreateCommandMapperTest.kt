@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.articlelike.domain.mapper
 
+import com.ttasjwi.board.system.articlelike.domain.ArticleDislikeCreateRequest
 import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCreateRequest
 import com.ttasjwi.board.system.articlelike.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.AuthUser
@@ -15,17 +16,17 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("[article-like-application-service] ArticleLikeCreateCommandMapper 테스트")
-class ArticleLikeCreateCommandMapperTest {
+@DisplayName("[article-like-application-service] ArticleDislikeCreateCommandMapper 테스트")
+class ArticleDislikeCreateCommandMapperTest {
 
-    private lateinit var articleLikeCreateCommandMapper: ArticleLikeCreateCommandMapper
+    private lateinit var articleDislikeCreateCommandMapper: ArticleDislikeCreateCommandMapper
     private lateinit var currentTime: AppDateTime
     private lateinit var authUser: AuthUser
 
     @BeforeEach
     fun setup() {
         val container = TestContainer.create()
-        articleLikeCreateCommandMapper = container.articleLikeCreateCommandMapper
+        articleDislikeCreateCommandMapper = container.articleDislikeCreateCommandMapper
 
         currentTime = appDateTimeFixture(minute= 8)
         container.timeManagerFixture.changeCurrentTime(currentTime)
@@ -39,16 +40,16 @@ class ArticleLikeCreateCommandMapperTest {
     @DisplayName("성공 테스트")
     fun testSuccess() {
         // given
-        val request = ArticleLikeCreateRequest(
+        val request = ArticleDislikeCreateRequest(
             articleId = 5L
         )
 
         // when
-        val command = articleLikeCreateCommandMapper.mapToCommand(request)
+        val command = articleDislikeCreateCommandMapper.mapToCommand(request)
 
         // then
         assertThat(command.articleId).isEqualTo(request.articleId)
-        assertThat(command.likeUser).isEqualTo(authUser)
+        assertThat(command.dislikeUser).isEqualTo(authUser)
         assertThat(command.currentTime).isEqualTo(currentTime)
     }
 
@@ -57,13 +58,13 @@ class ArticleLikeCreateCommandMapperTest {
     @DisplayName("articleId 가 null 이면 예외 발생")
     fun testArticleIdNull() {
         // given
-        val request = ArticleLikeCreateRequest(
+        val request = ArticleDislikeCreateRequest(
             articleId = null
         )
 
         // when
         val exceptionCollector = assertThrows<ValidationExceptionCollector> {
-            articleLikeCreateCommandMapper.mapToCommand(request)
+            articleDislikeCreateCommandMapper.mapToCommand(request)
         }
 
         // then
