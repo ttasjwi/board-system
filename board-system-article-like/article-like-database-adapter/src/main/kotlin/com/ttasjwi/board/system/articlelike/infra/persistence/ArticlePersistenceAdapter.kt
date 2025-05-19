@@ -14,4 +14,8 @@ class ArticlePersistenceAdapter(
     override fun findByIdOrNull(articleId: Long): Article? {
         return jpaArticleRepository.findByIdOrNull(articleId)?.retoreToDomain()
     }
+
+    override fun existsByArticleId(articleId: Long): Boolean {
+        return jpaArticleRepository.existsById(articleId)
+    }
 }

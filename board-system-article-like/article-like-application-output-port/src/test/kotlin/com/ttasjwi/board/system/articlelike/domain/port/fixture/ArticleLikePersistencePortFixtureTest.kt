@@ -130,4 +130,28 @@ class ArticleLikePersistencePortFixtureTest {
             assertThat(exists).isFalse()
         }
     }
+
+    @Nested
+    @DisplayName("remove : 게시글 좋아요 삭제")
+    inner class RemoveTest {
+
+        @Test
+        @DisplayName("삭제 성공 테스트")
+        fun test() {
+            // given
+            val articleLike = articleLikeFixture(
+                articleLikeId = 123L,
+                articleId = 15L,
+                userId = 13456L,
+            )
+            articleLikePersistencePortFixture.save(articleLike)
+
+            // when
+            articleLikePersistencePortFixture.remove(articleLike.articleId, articleLike.userId)
+
+            // then
+            val exists = articleLikePersistencePortFixture.existsByArticleIdAndUserId(articleLike.articleId, articleLike.userId)
+            assertThat(exists).isFalse()
+        }
+    }
 }

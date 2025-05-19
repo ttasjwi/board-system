@@ -30,4 +30,8 @@ class ArticleLikePersistenceAdapter(
     override fun existsByArticleIdAndUserId(articleId: Long, userId: Long): Boolean {
         return jpaArticleLikeRepository.existsByArticleIdAndUserId(articleId, userId)
     }
+
+    override fun remove(articleId: Long, userId: Long) {
+        return jpaArticleLikeRepository.deleteByArticleIdAndUserId(articleId, userId)
+    }
 }

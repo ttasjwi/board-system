@@ -3,13 +3,12 @@ package com.ttasjwi.board.system.articlelike.infra.persistence
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleLikeFixture
 import com.ttasjwi.board.system.articlelike.infra.test.ArticleLikeDataBaseIntegrationTest
 import org.assertj.core.api.Assertions.*
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("[article-like-database-adapter] ArticleLikePersistenceAdapter 테스트")
-class ArticleLikePersistencePortFixtureTest : ArticleLikeDataBaseIntegrationTest() {
+class ArticleLikePersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest() {
 
     @Nested
     @DisplayName("findByIdOrNull: 조회 테스트")
@@ -121,6 +120,32 @@ class ArticleLikePersistencePortFixtureTest : ArticleLikeDataBaseIntegrationTest
             )
 
             // then
+            assertThat(exists).isFalse()
+        }
+    }
+
+    @Nested
+    @DisplayName("remove : 게시글 좋아요 삭제")
+    inner class RemoveTest {
+
+        @Test
+        @DisplayName("삭제 성공 테스트")
+        fun test() {
+            // given
+            val articleLike = articleLikeFixture(
+                articleLikeId = 123L,
+                articleId = 15L,
+                userId = 13456L,
+            )
+            articleLikeArticleLikePersistenceAdapter.save(articleLike)
+            flushAndClearEntityManager()
+
+            // when
+            articleLikeArticleLikePersistenceAdapter.remove(articleLike.articleId, articleLike.userId)
+            flushAndClearEntityManager()
+
+            // then
+            val exists = articleLikeArticleLikePersistenceAdapter.existsByArticleIdAndUserId(articleLike.articleId, articleLike.userId)
             assertThat(exists).isFalse()
         }
     }
