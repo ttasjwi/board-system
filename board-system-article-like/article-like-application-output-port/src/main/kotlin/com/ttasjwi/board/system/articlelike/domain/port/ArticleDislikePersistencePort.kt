@@ -7,4 +7,5 @@ interface ArticleDislikePersistencePort {
     fun findByIdOrNullTest(articleDislikeId: Long): ArticleDislike?
     fun findByArticleIdAndUserIdOrNull(articleId: Long, userId: Long): ArticleDislike?
     fun existsByArticleIdAndUserId(articleId: Long, userId: Long): Boolean
+    fun remove(articleId: Long, userId: Long)
 }

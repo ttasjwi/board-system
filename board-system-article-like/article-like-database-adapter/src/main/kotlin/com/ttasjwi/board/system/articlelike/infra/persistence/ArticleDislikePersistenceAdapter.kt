@@ -29,4 +29,8 @@ class ArticleDislikePersistenceAdapter(
     override fun existsByArticleIdAndUserId(articleId: Long, userId: Long): Boolean {
         return jpaArticleDislikeRepository.existsByArticleIdAndUserId(articleId, userId)
     }
+
+    override fun remove(articleId: Long, userId: Long) {
+        return jpaArticleDislikeRepository.deleteByArticleIdAndUserId(articleId, userId)
+    }
 }

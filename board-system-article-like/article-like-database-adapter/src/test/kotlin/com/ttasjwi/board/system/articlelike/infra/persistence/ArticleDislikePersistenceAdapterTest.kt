@@ -2,7 +2,7 @@ package com.ttasjwi.board.system.articlelike.infra.persistence
 
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeFixture
 import com.ttasjwi.board.system.articlelike.infra.test.ArticleLikeDataBaseIntegrationTest
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -26,7 +26,8 @@ class ArticleDislikePersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest(
             articleLikeArticleDislikePersistenceAdapter.save(articleDislike)
 
             // when
-            val findArticleDislike = articleLikeArticleDislikePersistenceAdapter.findByIdOrNullTest(articleDislike.articleDislikeId)!!
+            val findArticleDislike =
+                articleLikeArticleDislikePersistenceAdapter.findByIdOrNullTest(articleDislike.articleDislikeId)!!
 
             // then
             assertThat(findArticleDislike.articleDislikeId).isEqualTo(articleDislike.articleDislikeId)
@@ -63,7 +64,10 @@ class ArticleDislikePersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest(
             articleLikeArticleDislikePersistenceAdapter.save(articleDislike)
 
             // when
-            val findArticleDislike = articleLikeArticleDislikePersistenceAdapter.findByArticleIdAndUserIdOrNull(articleDislike.articleId, articleDislike.userId)!!
+            val findArticleDislike = articleLikeArticleDislikePersistenceAdapter.findByArticleIdAndUserIdOrNull(
+                articleDislike.articleId,
+                articleDislike.userId
+            )!!
 
             // then
             assertThat(findArticleDislike.articleDislikeId).isEqualTo(articleDislike.articleDislikeId)
@@ -103,7 +107,10 @@ class ArticleDislikePersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest(
             articleLikeArticleDislikePersistenceAdapter.save(articleDislike)
 
             // when
-            val exists = articleLikeArticleDislikePersistenceAdapter.existsByArticleIdAndUserId(articleDislike.articleId, articleDislike.userId)
+            val exists = articleLikeArticleDislikePersistenceAdapter.existsByArticleIdAndUserId(
+                articleDislike.articleId,
+                articleDislike.userId
+            )
 
             // then
             assertThat(exists).isTrue()
@@ -120,6 +127,36 @@ class ArticleDislikePersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest(
             )
 
             // then
+            assertThat(exists).isFalse()
+        }
+    }
+
+
+    @Nested
+    @DisplayName("remove : 게시글 싫어요 삭제")
+    inner class RemoveTest {
+
+        @Test
+        @DisplayName("삭제 성공 테스트")
+        fun test() {
+            // given
+            val articleDislike = articleDislikeFixture(
+                articleDislikeId = 123L,
+                articleId = 15L,
+                userId = 13456L,
+            )
+            articleLikeArticleDislikePersistenceAdapter.save(articleDislike)
+            flushAndClearEntityManager()
+
+            // when
+            articleLikeArticleDislikePersistenceAdapter.remove(articleDislike.articleId, articleDislike.userId)
+            flushAndClearEntityManager()
+
+            // then
+            val exists = articleLikeArticleDislikePersistenceAdapter.existsByArticleIdAndUserId(
+                articleDislike.articleId,
+                articleDislike.userId
+            )
             assertThat(exists).isFalse()
         }
     }
