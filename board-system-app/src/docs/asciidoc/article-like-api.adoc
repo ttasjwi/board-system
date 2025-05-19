@@ -99,3 +99,21 @@ include::{snippets}/article-dislike-cancel-success/response-fields.adoc[]
 ==== 예시
 include::{snippets}/article-dislike-cancel-success/http-request.adoc[]
 include::{snippets}/article-dislike-cancel-success/http-response.adoc[]
+
+=== 게시글 싫어요 수 조회
+==== 기본정보
+- 메서드 : GET
+- URL : `/api/v1/articles/{articleId}/dislikes/count`
+- 권한 : 누구든지
+
+게시글의 싫어요 수를 조회합니다.
+
+==== 요청
+include::{snippets}/article-dislike-count-read-success/path-parameters.adoc[]
+
+==== 응답
+include::{snippets}/article-dislike-count-read-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-dislike-count-read-success/http-request.adoc[]
+include::{snippets}/article-dislike-count-read-success/http-response.adoc[]

@@ -154,4 +154,11 @@ internal class TestContainer private constructor() {
             processor = articleDislikeCancelProcessor,
         )
     }
+
+    val articleDislikeCountReadUseCase: ArticleDislikeCountReadUseCase by lazy {
+        ArticleDislikeCountReadUseCaseImpl(
+            articlePersistencePort = articlePersistencePortFixture,
+            articleDislikeCountPersistencePort = articleDislikeCountPersistencePortFixture
+        )
+    }
 }
