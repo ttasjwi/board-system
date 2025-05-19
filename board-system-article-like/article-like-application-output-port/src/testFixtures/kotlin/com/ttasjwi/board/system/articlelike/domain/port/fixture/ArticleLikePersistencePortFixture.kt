@@ -25,4 +25,11 @@ class ArticleLikePersistencePortFixture : ArticleLikePersistencePort {
         return storage.values
             .any { it.articleId == articleId && it.userId == userId }
     }
+
+    override fun remove(articleId: Long, userId: Long) {
+        storage.values
+            .removeIf {
+                it.articleId == articleId && it.userId == userId
+            }
+    }
 }

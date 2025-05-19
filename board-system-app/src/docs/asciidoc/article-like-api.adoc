@@ -21,6 +21,27 @@ include::{snippets}/article-like-create-success/response-fields.adoc[]
 include::{snippets}/article-like-create-success/http-request.adoc[]
 include::{snippets}/article-like-create-success/http-response.adoc[]
 
+=== 게시글 좋아요 취소
+==== 기본정보
+- 메서드 : DELETE
+- URL : `/api/v1/articles/{articleId}/likes`
+- 권한 : 인증된 사용자 누구든지
+- 인증방식 : 액세스 토큰
+
+게시글에 '좋아요' 했던 것을 취소합니다. 사용자가 '좋아요' 한 글에 대해서만 취소 처리가 정상적으로 처리됩니다.
+
+==== 요청
+include::{snippets}/article-like-cancel-success/request-headers.adoc[]
+include::{snippets}/article-like-cancel-success/path-parameters.adoc[]
+
+==== 응답
+include::{snippets}/article-like-cancel-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-like-cancel-success/http-request.adoc[]
+include::{snippets}/article-like-cancel-success/http-response.adoc[]
+
+
 === 게시글 싫어요
 ==== 기본정보
 - 메서드 : POST

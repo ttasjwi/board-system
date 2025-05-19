@@ -53,4 +53,41 @@ class ArticlePersistencePortFixtureTest {
             assertThat(findArticleLikeCount).isNull()
         }
     }
+
+
+    @Nested
+    @DisplayName("existsById : articleId 값으로 게시글 존재여부 확인")
+    inner class ExistsByIdTest {
+
+        @Test
+        @DisplayName("존재하면 true 반환")
+        fun test1() {
+            // given
+            val article = articleFixture(
+                articleId = 123L,
+                articleCategoryId = 13445L
+            )
+            articlePersistencePortFixture.save(article)
+
+            // when
+            val exists = articlePersistencePortFixture.existsByArticleId(article.articleId)
+
+            // then
+            assertThat(exists).isTrue()
+        }
+
+
+        @Test
+        @DisplayName("존재하지 않으면 false 반환")
+        fun test2() {
+            // given
+            val articleId = 15555L
+
+            // when
+            // then
+            val exists = articlePersistencePortFixture.existsByArticleId(articleId)
+
+            assertThat(exists).isFalse()
+        }
+    }
 }

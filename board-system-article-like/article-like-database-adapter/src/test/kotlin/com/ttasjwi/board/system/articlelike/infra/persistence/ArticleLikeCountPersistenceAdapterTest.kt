@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("[article-like-database-adapter] ArticleLikeCountPersistenceAdapter 테스트")
-class ArticleLikeCountPersistencePortFixtureTest : ArticleLikeDataBaseIntegrationTest() {
+class ArticleLikeCountPersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest() {
 
     @Nested
     @DisplayName("findByIdOrNull : articleId 값으로 좋아요 수 조회")

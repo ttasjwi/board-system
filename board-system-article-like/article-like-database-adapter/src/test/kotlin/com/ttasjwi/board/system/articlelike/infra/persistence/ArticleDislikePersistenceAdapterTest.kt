@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 @DisplayName("[article-like-database-adapter] ArticleDislikePersistenceAdapter 테스트")
-class ArticleDislikePersistencePortFixtureTest : ArticleLikeDataBaseIntegrationTest() {
+class ArticleDislikePersistenceAdapterTest : ArticleLikeDataBaseIntegrationTest() {
 
     @Nested
     @DisplayName("findByIdOrNull: 조회 테스트")
