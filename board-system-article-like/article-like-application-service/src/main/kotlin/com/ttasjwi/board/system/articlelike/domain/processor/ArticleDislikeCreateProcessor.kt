@@ -19,7 +19,7 @@ internal class ArticleDislikeCreateProcessor(
     private val idGenerator: IdGenerator = IdGenerator.create()
 
     @Transactional
-    fun like(command: ArticleDislikeCreateCommand): ArticleDislike {
+    fun dislike(command: ArticleDislikeCreateCommand): ArticleDislike {
         // 게시글 조회
         val article = getArticleOrThrow(command.articleId)
 

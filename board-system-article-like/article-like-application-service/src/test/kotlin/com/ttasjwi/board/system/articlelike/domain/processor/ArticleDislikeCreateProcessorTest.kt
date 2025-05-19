@@ -68,7 +68,7 @@ class ArticleDislikeCreateProcessorTest {
         )
 
         // when
-        val articleDislike = articleDislikeCreateProcessor.like(command)
+        val articleDislike = articleDislikeCreateProcessor.dislike(command)
 
         // then
         val findArticleDislike =
@@ -129,7 +129,7 @@ class ArticleDislikeCreateProcessorTest {
         )
 
         // when
-        val articleDislike = articleDislikeCreateProcessor.like(command)
+        val articleDislike = articleDislikeCreateProcessor.dislike(command)
 
         // then
         val findArticleDislike =
@@ -161,7 +161,7 @@ class ArticleDislikeCreateProcessorTest {
 
         // when
         val exception = assertThrows<ArticleNotFoundException> {
-            articleDislikeCreateProcessor.like(command)
+            articleDislikeCreateProcessor.dislike(command)
         }
 
         // then
@@ -188,7 +188,7 @@ class ArticleDislikeCreateProcessorTest {
 
         // when
         val exception = assertThrows<IllegalStateException> {
-            articleDislikeCreateProcessor.like(command)
+            articleDislikeCreateProcessor.dislike(command)
         }
 
         // then
@@ -221,7 +221,7 @@ class ArticleDislikeCreateProcessorTest {
 
         // when
         val exception = assertThrows<ArticleDislikeNotAllowedException> {
-            articleDislikeCreateProcessor.like(command)
+            articleDislikeCreateProcessor.dislike(command)
         }
 
         // then
@@ -231,7 +231,7 @@ class ArticleDislikeCreateProcessorTest {
 
     @Test
     @DisplayName("같은 사용자가 다시 싫어요 시도하면 예외")
-    fun testDuplicateLike() {
+    fun testDuplicateDislike() {
         // given
         val article = articlePersistencePortFixture.save(
             articleFixture(
@@ -273,7 +273,7 @@ class ArticleDislikeCreateProcessorTest {
 
         // when
         val exception = assertThrows<ArticleAlreadyDislikedException> {
-            articleDislikeCreateProcessor.like(command)
+            articleDislikeCreateProcessor.dislike(command)
         }
 
         assertThat(exception.args).containsExactly(command.articleId, dislikeUser.userId)
