@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.articlelike.domain
 
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeCountFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleDislikeCountPersistencePortFixture
@@ -63,12 +62,7 @@ class ArticleDislikeCancelUseCaseImplTest {
             )
         )
 
-        articleDislikeCountPersistencePortFixture.save(
-            articleDislikeCountFixture(
-                articleId = article.articleId,
-                dislikeCount = 13L
-            )
-        )
+        articleDislikeCountPersistencePortFixture.increase(article.articleId)
 
         // when
         val response = articleDislikeCancelUseCase.cancelDislike(article.articleId)
