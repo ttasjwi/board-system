@@ -44,7 +44,7 @@ class ArticleDislikeCountIntegrationTest {
     fun dislikeCountConcurrencyTest() {
         val threadCount = 100
         val userCount = 3000
-        val boardArticleArticleCategoryId = 13413413413L
+        val boardArticleArticleCategoryId = 171531L
 
         val executorService = Executors.newFixedThreadPool(threadCount)
 
@@ -103,7 +103,7 @@ class ArticleDislikeCountIntegrationTest {
         println("count = ${response.dislikeCount}")
         println("--------------------------------------------------------------------------")
 
-        assertThat(response.dislikeCount).isNotEqualTo(userCount.toLong())
+        assertThat(response.dislikeCount).isEqualTo(userCount.toLong())
     }
 
     private fun cancelDislikes(
@@ -141,7 +141,7 @@ class ArticleDislikeCountIntegrationTest {
         println("count = ${response.dislikeCount}")
         println("--------------------------------------------------------------------------")
 
-        assertThat(response.dislikeCount).isNotEqualTo(0)
+        assertThat(response.dislikeCount).isEqualTo(0)
     }
 
 
