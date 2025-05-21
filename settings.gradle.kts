@@ -20,7 +20,6 @@ include(
     "board-system-user:user-application-service",
     "board-system-user:user-application-output-port",
     "board-system-user:user-domain",
-    "board-system-user:user-database-adapter",
     "board-system-user:user-redis-adapter",
     "board-system-user:user-password-adapter",
     "board-system-user:user-oauth2-client-adapter",
@@ -33,7 +32,6 @@ include(
     "board-system-board:board-application-service",
     "board-system-board:board-application-output-port",
     "board-system-board:board-domain",
-    "board-system-board:board-database-adapter",
 
     // article ===================================================================================
     "board-system-article",
@@ -42,7 +40,6 @@ include(
     "board-system-article:article-application-service",
     "board-system-article:article-application-output-port",
     "board-system-article:article-domain",
-    "board-system-article:article-database-adapter",
 
     // article-comment ===================================================================================
     "board-system-article-comment",
@@ -51,7 +48,6 @@ include(
     "board-system-article-comment:article-comment-application-service",
     "board-system-article-comment:article-comment-application-output-port",
     "board-system-article-comment:article-comment-domain",
-    "board-system-article-comment:article-comment-database-adapter",
 
     // article-like ===================================================================================
     "board-system-article-like",
@@ -60,17 +56,16 @@ include(
     "board-system-article-like:article-like-application-service",
     "board-system-article-like:article-like-application-output-port",
     "board-system-article-like:article-like-domain",
-    "board-system-article-like:article-like-database-adapter",
 
     // email-sender ==============================================================================
     "board-system-email-sender",
 
     // infrastructure ============================================================================
     "board-system-infrastructure",
-    "board-system-infrastructure:database-support",
     "board-system-infrastructure:event-publisher",
     "board-system-infrastructure:jwt",
     "board-system-infrastructure:web-support",
+    "board-system-infrastructure:database-adapter",
 
     // support
     "board-system-test:restdocs-support"
