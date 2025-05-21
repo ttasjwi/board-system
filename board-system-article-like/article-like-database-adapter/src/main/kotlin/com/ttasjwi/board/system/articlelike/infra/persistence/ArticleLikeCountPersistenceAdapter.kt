@@ -18,6 +18,10 @@ class ArticleLikeCountPersistenceAdapter(
         return articleLikeCount
     }
 
+    override fun increase(articleId: Long) {
+        jpaArticleLikeCountRepository.increase(articleId)
+    }
+
     override fun findByIdOrNull(articleId: Long): ArticleLikeCount? {
         return jpaArticleLikeCountRepository.findByIdOrNull(articleId)?.restoreDomain()
     }

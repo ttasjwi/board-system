@@ -12,6 +12,15 @@ class ArticleLikeCountPersistencePortFixture : ArticleLikeCountPersistencePort {
         return articleLikeCount
     }
 
+    override fun increase(articleId: Long) {
+        if (!storage.containsKey(articleId)) {
+            storage[articleId] = ArticleLikeCount(articleId, 1)
+        } else {
+            val articleLikeCount = storage[articleId]!!
+            storage[articleId] = ArticleLikeCount(articleId, articleLikeCount.likeCount + 1)
+        }
+    }
+
     override fun findByIdOrNull(articleId: Long): ArticleLikeCount? {
         return storage[articleId]
     }

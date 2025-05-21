@@ -18,6 +18,47 @@ class ArticleLikeCountPersistencePortFixtureTest {
     }
 
     @Nested
+    @DisplayName("increase: 좋아요 수 증가")
+    inner class IncreaseTest {
+
+        @Test
+        @DisplayName("최초 좋아요 테스트")
+        fun test1() {
+            // given
+            val articleId = 5857L
+
+            // when
+            articleLikeCountPersistencePortFixture.increase(articleId)
+
+
+            // then
+            val articleLikeCount = articleLikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+
+            assertThat(articleLikeCount.articleId).isEqualTo(articleId)
+            assertThat(articleLikeCount.likeCount).isEqualTo(1)
+        }
+
+        @Test
+        @DisplayName("첫번째 이후 좋아요 테스트")
+        fun test2() {
+            // given
+            val articleId = 5857L
+
+            // when
+            articleLikeCountPersistencePortFixture.increase(articleId)
+            articleLikeCountPersistencePortFixture.increase(articleId)
+
+
+            // then
+            val articleLikeCount = articleLikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+
+            assertThat(articleLikeCount.articleId).isEqualTo(articleId)
+            assertThat(articleLikeCount.likeCount).isEqualTo(2)
+        }
+
+    }
+
+    @Nested
     @DisplayName("findByIdOrNull : articleId 값으로 좋아요 수 조회")
     inner class FindByIdOrNullTest {
 
