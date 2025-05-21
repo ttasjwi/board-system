@@ -13,6 +13,7 @@ board-system-app/src/main/resources/rsa-key/private_key_productionSecret.pem
 board-system-app/src/main/resources/rsa-key/public_key_productionSecret.pem
 board-system-email-sender/src/test/resources/application-test.yml
 board-system-user/user-oauth2-client-adapter/src/main/resources/oauth2-client-secret.yml
+board-system-infrastructure/database-adapter/src/main/resources/database-test.yml
 
 ### Api Docs ###
 board-system-app/src/main/resources/static/docs/*.html
