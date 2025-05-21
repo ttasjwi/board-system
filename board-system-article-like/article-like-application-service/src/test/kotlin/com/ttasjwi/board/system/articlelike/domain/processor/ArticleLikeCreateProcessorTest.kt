@@ -6,7 +6,6 @@ import com.ttasjwi.board.system.articlelike.domain.exception.ArticleLikeNotAllow
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleNotFoundException
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleFixture
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleLikeCountFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleLikeFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleLikeCountPersistencePortFixture
@@ -114,12 +113,7 @@ class ArticleLikeCreateProcessorTest {
             )
         )
 
-        articleLikeCountPersistencePortFixture.save(
-            articleLikeCount = articleLikeCountFixture(
-                articleId = article.articleId,
-                likeCount = 1L
-            )
-        )
+        articleLikeCountPersistencePortFixture.increase(article.articleId)
 
         val command = ArticleLikeCreateCommand(
             articleId = article.articleId,
@@ -256,12 +250,7 @@ class ArticleLikeCreateProcessorTest {
             )
         )
 
-        articleLikeCountPersistencePortFixture.save(
-            articleLikeCount = articleLikeCountFixture(
-                articleId = article.articleId,
-                likeCount = 1L
-            )
-        )
+        articleLikeCountPersistencePortFixture.increase(article.articleId)
 
         val command = ArticleLikeCreateCommand(
             articleId = article.articleId,

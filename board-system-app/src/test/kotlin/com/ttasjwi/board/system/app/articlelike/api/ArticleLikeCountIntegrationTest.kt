@@ -21,7 +21,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-//@Disabled // 수동테스트용(테스트 해보고 싶을 경우 주석처리)
+@Disabled // 수동테스트용(테스트 해보고 싶을 경우 주석처리)
 @SpringBootTest
 @DisplayName("[app] 게시글 좋아요 수 통합테스트")
 class ArticleLikeCountIntegrationTest {
@@ -46,7 +46,7 @@ class ArticleLikeCountIntegrationTest {
     fun likeCountConcurrencyTest() {
         val threadCount = 100
         val userCount = 3000
-        val boardArticleArticleCategoryId = 5555325L
+        val boardArticleArticleCategoryId = 13413413413L
 
         val executorService = Executors.newFixedThreadPool(threadCount)
 
@@ -143,7 +143,7 @@ class ArticleLikeCountIntegrationTest {
         println("count = ${response.likeCount}")
         println("--------------------------------------------------------------------------")
 
-        assertThat(response.likeCount).isNotEqualTo(0)
+        assertThat(response.likeCount).isEqualTo(0)
     }
 
 

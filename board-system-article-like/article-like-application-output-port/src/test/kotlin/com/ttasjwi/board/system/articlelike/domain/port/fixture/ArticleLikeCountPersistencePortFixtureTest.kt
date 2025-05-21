@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.articlelike.domain.port.fixture
 
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleLikeCountFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -59,28 +58,33 @@ class ArticleLikeCountPersistencePortFixtureTest {
     }
 
     @Nested
-    @DisplayName("findByIdOrNull : articleId 값으로 좋아요 수 조회")
-    inner class FindByIdOrNullTest {
+    @DisplayName("decrease: 좋아요 수 감소")
+    inner class DecreaseTest {
 
         @Test
-        @DisplayName("성공 테스트")
-        fun test1() {
+        @DisplayName("두번 좋아요 수 증가 후, 좋아요수 감소 테스트")
+        fun test() {
             // given
-            val articleId = 13L
-            val articleLikeCount = articleLikeCountFixture(
-                articleId = articleId,
-                likeCount = 1345L
-            )
-            articleLikeCountPersistencePortFixture.save(articleLikeCount)
+            val articleId = 5857L
 
             // when
-            val findArticleLikeCount = articleLikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+            articleLikeCountPersistencePortFixture.increase(articleId)
+            articleLikeCountPersistencePortFixture.increase(articleId)
+            articleLikeCountPersistencePortFixture.decrease(articleId)
 
             // then
-            assertThat(findArticleLikeCount.articleId).isEqualTo(articleLikeCount.articleId)
-            assertThat(findArticleLikeCount.likeCount).isEqualTo(articleLikeCount.likeCount)
+            val articleLikeCount = articleLikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+
+            assertThat(articleLikeCount.articleId).isEqualTo(articleId)
+            assertThat(articleLikeCount.likeCount).isEqualTo(1)
         }
 
+    }
+
+
+    @Nested
+    @DisplayName("findByIdOrNull : articleId 값으로 좋아요 수 조회")
+    inner class FindByIdOrNullTest {
 
         @Test
         @DisplayName("조회 실패시 null 반환 테스트")

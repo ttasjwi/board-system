@@ -17,4 +17,14 @@ interface JpaArticleLikeCountRepository : JpaRepository<JpaArticleLikeCount, Lon
         """, nativeQuery = true
     )
     fun increase(articleId: Long)
+
+    @Modifying
+    @Query(
+        """
+            UPDATE article_like_counts
+            SET like_count = like_count - 1
+            WHERE article_id = :articleId
+        """, nativeQuery = true
+    )
+    fun decrease(articleId: Long)
 }
