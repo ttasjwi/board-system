@@ -1,7 +1,6 @@
 package com.ttasjwi.board.system.articlelike.domain
 
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleNotFoundException
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeCountFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleDislikeCountPersistencePortFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticlePersistencePortFixture
@@ -36,19 +35,14 @@ class ArticleDislikeCountReadUseCaseImplTest {
                 articleId = 134151235L,
             )
         )
-        val articleDislikeCount = articleDislikeCountPersistencePortFixture.save(
-            articleDislikeCountFixture(
-                articleId = article.articleId,
-                dislikeCount = 31412L,
-            )
-        )
+        articleDislikeCountPersistencePortFixture.increase(article.articleId)
 
         // when
         val response = articleDislikeCountReadUseCase.readDislikeCount(article.articleId)
 
         // then
         assertThat(response.articleId).isEqualTo(article.articleId.toString())
-        assertThat(response.dislikeCount).isEqualTo(articleDislikeCount.dislikeCount)
+        assertThat(response.dislikeCount).isEqualTo(1L)
     }
 
     @Test

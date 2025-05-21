@@ -5,7 +5,6 @@ import com.ttasjwi.board.system.articlelike.domain.exception.ArticleAlreadyDisli
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleDislikeNotAllowedException
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleNotFoundException
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleCategoryFixture
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeCountFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleCategoryPersistencePortFixture
@@ -115,12 +114,7 @@ class ArticleDislikeCreateProcessorTest {
             )
         )
 
-        articleDislikeCountPersistencePortFixture.save(
-            articleDislikeCount = articleDislikeCountFixture(
-                articleId = article.articleId,
-                dislikeCount = 1L
-            )
-        )
+        articleDislikeCountPersistencePortFixture.increase(article.articleId)
 
         val command = ArticleDislikeCreateCommand(
             articleId = article.articleId,
@@ -258,12 +252,7 @@ class ArticleDislikeCreateProcessorTest {
             )
         )
 
-        articleDislikeCountPersistencePortFixture.save(
-            articleDislikeCount = articleDislikeCountFixture(
-                articleId = article.articleId,
-                dislikeCount = 1L
-            )
-        )
+        articleDislikeCountPersistencePortFixture.increase(article.articleId)
 
         val command = ArticleDislikeCreateCommand(
             articleId = article.articleId,

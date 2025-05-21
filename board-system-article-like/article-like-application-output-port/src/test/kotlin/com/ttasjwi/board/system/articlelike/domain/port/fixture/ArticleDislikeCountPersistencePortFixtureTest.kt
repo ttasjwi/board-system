@@ -1,6 +1,5 @@
 package com.ttasjwi.board.system.articlelike.domain.port.fixture
 
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeCountFixture
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -18,28 +17,72 @@ class ArticleDislikeCountPersistencePortFixtureTest {
     }
 
     @Nested
-    @DisplayName("findByIdOrNull : articleId 값으로 좋아요 수 조회")
-    inner class FindByIdOrNullTest {
+    @DisplayName("increase: 싫어요 수 증가")
+    inner class IncreaseTest {
 
         @Test
-        @DisplayName("성공 테스트")
+        @DisplayName("최초 싫어요 테스트")
         fun test1() {
             // given
-            val articleId = 13L
-            val articleDislikeCount = articleDislikeCountFixture(
-                articleId = articleId,
-                dislikeCount = 1345L
-            )
-            articleDislikeCountPersistencePortFixture.save(articleDislikeCount)
+            val articleId = 5857L
 
             // when
-            val findArticleDislikeCount = articleDislikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+            articleDislikeCountPersistencePortFixture.increase(articleId)
+
 
             // then
-            assertThat(findArticleDislikeCount.articleId).isEqualTo(articleDislikeCount.articleId)
-            assertThat(findArticleDislikeCount.dislikeCount).isEqualTo(articleDislikeCount.dislikeCount)
+            val articleDislikeCount = articleDislikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+
+            assertThat(articleDislikeCount.articleId).isEqualTo(articleId)
+            assertThat(articleDislikeCount.dislikeCount).isEqualTo(1)
         }
 
+        @Test
+        @DisplayName("첫번째 이후 싫어요 테스트")
+        fun test2() {
+            // given
+            val articleId = 5857L
+
+            // when
+            articleDislikeCountPersistencePortFixture.increase(articleId)
+            articleDislikeCountPersistencePortFixture.increase(articleId)
+
+            // then
+            val articleDislikeCount = articleDislikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+
+            assertThat(articleDislikeCount.articleId).isEqualTo(articleId)
+            assertThat(articleDislikeCount.dislikeCount).isEqualTo(2)
+        }
+    }
+
+
+    @Nested
+    @DisplayName("decrease: 싫어요 수 감소")
+    inner class DecreaseTest {
+
+        @Test
+        @DisplayName("두번 싫어요 수 증가 후, 싫어요수 감소 테스트")
+        fun test() {
+            // given
+            val articleId = 5857L
+
+            // when
+            articleDislikeCountPersistencePortFixture.increase(articleId)
+            articleDislikeCountPersistencePortFixture.increase(articleId)
+            articleDislikeCountPersistencePortFixture.decrease(articleId)
+
+            // then
+            val articleDislikeCount = articleDislikeCountPersistencePortFixture.findByIdOrNull(articleId)!!
+
+            assertThat(articleDislikeCount.articleId).isEqualTo(articleId)
+            assertThat(articleDislikeCount.dislikeCount).isEqualTo(1)
+        }
+
+    }
+
+    @Nested
+    @DisplayName("findByIdOrNull : articleId 값으로 싫어요 수 조회")
+    inner class FindByIdOrNullTest {
 
         @Test
         @DisplayName("조회 실패시 null 반환 테스트")

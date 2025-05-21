@@ -61,9 +61,6 @@ internal class ArticleDislikeCancelProcessor(
      * 게시글 싫어요 수 감소
      */
     private fun decreaseArticleDislikeCount(articleId: Long) {
-        val articleDislikeCount = articleDislikeCountPersistencePort.findByIdOrNull(articleId = articleId)
-            ?: throw IllegalStateException("게시글 싫어요 수가 저장되어 있지 않음(articleId = $articleId)") // 서버 에러
-        articleDislikeCount.decrease()
-        articleDislikeCountPersistencePort.save(articleDislikeCount)
+        articleDislikeCountPersistencePort.decrease(articleId)
     }
 }

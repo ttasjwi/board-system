@@ -3,7 +3,6 @@ package com.ttasjwi.board.system.articlelike.domain.processor
 import com.ttasjwi.board.system.articlelike.domain.dto.ArticleDislikeCancelCommand
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleDislikeNotFoundException
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleNotFoundException
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeCountFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleDislikeFixture
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleDislikeCountPersistencePortFixture
@@ -58,14 +57,7 @@ class ArticleDislikeCancelProcessorTest {
             )
         )
 
-        val articleDislikeCount = articleDislikeCountPersistencePortFixture.save(
-            articleDislikeCountFixture(
-                articleId = article.articleId,
-                dislikeCount = 13L
-            )
-        )
-        val prevDislikeCount = articleDislikeCount.dislikeCount
-
+        articleDislikeCountPersistencePortFixture.increase(article.articleId)
         val command = ArticleDislikeCancelCommand(
             articleId = article.articleId,
             user = user,
@@ -84,7 +76,7 @@ class ArticleDislikeCancelProcessorTest {
 
         assertThat(articleDislikeExists).isFalse()
         assertThat(findArticleDislikeCount.articleId).isEqualTo(command.articleId)
-        assertThat(findArticleDislikeCount.dislikeCount).isEqualTo(prevDislikeCount - 1L)
+        assertThat(findArticleDislikeCount.dislikeCount).isEqualTo(0L)
     }
 
     @Test
@@ -133,43 +125,5 @@ class ArticleDislikeCancelProcessorTest {
 
         // then
         assertThat(exception.args).containsExactly(command.articleId, command.user.userId)
-    }
-
-    @Test
-    @DisplayName("게시글 싫어요 수가 존재하지 않으면 예외 발생")
-    fun testArticleDislikeCountNotFound() {
-        // given
-        val article = articlePersistencePortFixture.save(
-            articleFixture(
-                articleId = 1333L,
-                articleCategoryId = 5L,
-            )
-        )
-        val user = authUserFixture(userId = 3L, role = Role.USER)
-
-        articleDislikePersistencePortFixture.save(
-            articleDislikeFixture(
-                articleDislikeId = 12314135L,
-                articleId = article.articleId,
-                userId = user.userId,
-                createdAt = appDateTimeFixture(minute = 8)
-            )
-        )
-
-        val command = ArticleDislikeCancelCommand(
-            articleId = article.articleId,
-            user = user,
-            currentTime = appDateTimeFixture(minute = 35)
-        )
-
-        // when
-        val exception = assertThrows<IllegalStateException> {
-            articleDislikeCancelProcessor.cancelDislike(command)
-        }
-
-        // then
-        assertThat(exception.message).isEqualTo(
-            "게시글 싫어요 수가 저장되어 있지 않음(articleId = ${article.articleId})"
-        )
     }
 }

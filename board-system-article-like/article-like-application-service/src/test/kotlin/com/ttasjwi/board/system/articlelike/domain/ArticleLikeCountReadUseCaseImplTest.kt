@@ -2,7 +2,6 @@ package com.ttasjwi.board.system.articlelike.domain
 
 import com.ttasjwi.board.system.articlelike.domain.exception.ArticleNotFoundException
 import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleFixture
-import com.ttasjwi.board.system.articlelike.domain.model.fixture.articleLikeCountFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticleLikeCountPersistencePortFixture
 import com.ttasjwi.board.system.articlelike.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.articlelike.domain.test.support.TestContainer
