@@ -63,12 +63,7 @@ class ArticleLikeCancelUseCaseImplTest {
             )
         )
 
-        articleLikeCountPersistencePortFixture.save(
-            articleLikeCountFixture(
-                articleId = article.articleId,
-                likeCount = 13L
-            )
-        )
+        articleLikeCountPersistencePortFixture.increase(article.articleId)
 
         // when
         val response = articleLikeCancelUseCase.cancelLike(article.articleId)

@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 
-internal class AuthUserAuthentication
+class AuthUserAuthentication
 private constructor(
     private val authUser: AuthUser
 ) : Authentication {

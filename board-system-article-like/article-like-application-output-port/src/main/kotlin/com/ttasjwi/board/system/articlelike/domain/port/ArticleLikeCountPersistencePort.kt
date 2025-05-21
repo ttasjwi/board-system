@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.articlelike.domain.model.ArticleLikeCount
 
 interface ArticleLikeCountPersistencePort {
 
-    fun save(articleLikeCount: ArticleLikeCount): ArticleLikeCount
+    fun increase(articleId: Long)
+    fun decrease(articleId: Long)
     fun findByIdOrNull(articleId: Long): ArticleLikeCount?
 }

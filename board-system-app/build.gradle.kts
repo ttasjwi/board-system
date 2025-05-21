@@ -5,7 +5,9 @@ plugins {
 val asciidoctorExt: Configuration by configurations.creating
 
 dependencies {
+    // core
     implementation(project(":board-system-common:core"))
+    testImplementation(testFixtures(project(":board-system-common:core")))
 
     // email-sender
     implementation(project(":board-system-email-sender"))
@@ -23,11 +25,15 @@ dependencies {
     implementation(project(":board-system-board:board-web-adapter"))
     implementation(project(":board-system-board:board-application-service"))
     implementation(project(":board-system-board:board-database-adapter"))
+    testImplementation(testFixtures(project(":board-system-board:board-domain")))
+    testImplementation(project(":board-system-board:board-application-output-port"))
 
     // article
     implementation(project(":board-system-article:article-web-adapter"))
     implementation(project(":board-system-article:article-application-service"))
     implementation(project(":board-system-article:article-database-adapter"))
+    testImplementation(testFixtures(project(":board-system-article:article-domain")))
+    testImplementation(project(":board-system-article:article-application-output-port"))
 
     // article-comment
     implementation(project(":board-system-article-comment:article-comment-web-adapter"))
@@ -38,6 +44,7 @@ dependencies {
     implementation(project(":board-system-article-like:article-like-web-adapter"))
     implementation(project(":board-system-article-like:article-like-application-service"))
     implementation(project(":board-system-article-like:article-like-database-adapter"))
+    testImplementation(project(":board-system-article-like:article-like-application-input-port"))
 
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")

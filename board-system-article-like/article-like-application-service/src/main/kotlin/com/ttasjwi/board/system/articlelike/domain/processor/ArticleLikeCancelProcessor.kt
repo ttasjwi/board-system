@@ -61,9 +61,6 @@ internal class ArticleLikeCancelProcessor(
      * 게시글 좋아요 수 감소
      */
     private fun decreaseArticleLikeCount(articleId: Long) {
-        val articleLikeCount = articleLikeCountPersistencePort.findByIdOrNull(articleId = articleId)
-            ?: throw IllegalStateException("게시글 좋아요 수가 저장되어 있지 않음(articleId = $articleId)") // 서버 에러
-        articleLikeCount.decrease()
-        articleLikeCountPersistencePort.save(articleLikeCount)
+        articleLikeCountPersistencePort.decrease(articleId)
     }
 }

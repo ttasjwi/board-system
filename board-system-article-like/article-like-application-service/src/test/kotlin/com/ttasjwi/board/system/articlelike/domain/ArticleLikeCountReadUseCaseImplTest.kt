@@ -36,19 +36,14 @@ class ArticleLikeCountReadUseCaseImplTest {
                 articleId = 134151235L,
             )
         )
-        val articleLikeCount = articleLikeCountPersistencePortFixture.save(
-            articleLikeCountFixture(
-                articleId = article.articleId,
-                likeCount = 31412L,
-            )
-        )
+        articleLikeCountPersistencePortFixture.increase(article.articleId)
 
         // when
         val response = articleLikeCountReadUseCase.readLikeCount(article.articleId)
 
         // then
         assertThat(response.articleId).isEqualTo(article.articleId.toString())
-        assertThat(response.likeCount).isEqualTo(articleLikeCount.likeCount)
+        assertThat(response.likeCount).isEqualTo(1L)
     }
 
     @Test
