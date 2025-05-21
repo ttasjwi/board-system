@@ -115,9 +115,8 @@ CREATE TABLE IF NOT EXISTS article_likes(
 );
 
 CREATE TABLE IF NOT EXISTS article_like_counts(
-    article_like_count_id BIGINT NOT NULL PRIMARY KEY,
-    article_id            BIGINT NOT NULL UNIQUE,
-    like_count            BIGINT NOT NULL
+    article_id BIGINT NOT NULL PRIMARY KEY,
+    like_count BIGINT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS article_dislikes(
