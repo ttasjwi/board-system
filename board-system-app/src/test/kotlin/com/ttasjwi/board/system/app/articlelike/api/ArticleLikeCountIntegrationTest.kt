@@ -41,7 +41,7 @@ class ArticleLikeCountIntegrationTest {
     @DisplayName("좋아요 수 동시성 테스트 : 동시 사용자가 많을 때, 좋아요 수")
     fun likeCountConcurrencyTest() {
         val executorService = Executors.newFixedThreadPool(100)
-        likeCountTest(executorService, 111L, 111L, 111L)
+        likeCountTest(executorService, 1234567L, 1234567L, 1234567L)
         executorService.shutdown()
     }
 
@@ -86,7 +86,7 @@ class ArticleLikeCountIntegrationTest {
         println("count = ${response.likeCount}")
         println("--------------------------------------------------------------------------")
 
-        assertThat(response.likeCount).isNotEqualTo(userCount)
+        assertThat(response.likeCount).isEqualTo(userCount.toLong())
     }
 
     private fun like(articleId: Long, userId: Long) {

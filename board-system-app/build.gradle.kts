@@ -8,7 +8,6 @@ dependencies {
     // core
     implementation(project(":board-system-common:core"))
     testImplementation(testFixtures(project(":board-system-common:core")))
-    testImplementation(project(":board-system-common:token"))
 
     // email-sender
     implementation(project(":board-system-email-sender"))
@@ -54,8 +53,6 @@ dependencies {
     implementation("org.springframework.security:spring-security-config")
     implementation("org.springframework.security:spring-security-web")
 
-
-    testImplementation("org.springframework:spring-tx")
     implementation(project(":board-system-infrastructure:jwt"))
     implementation(project(":board-system-infrastructure:database-support"))
     implementation(project(":board-system-infrastructure:web-support"))

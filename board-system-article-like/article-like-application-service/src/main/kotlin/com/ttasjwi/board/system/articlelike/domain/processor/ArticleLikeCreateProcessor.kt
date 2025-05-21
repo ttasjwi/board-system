@@ -70,7 +70,6 @@ internal class ArticleLikeCreateProcessor(
         }
     }
 
-
     private fun createArticleLikeAndSave(command: ArticleLikeCreateCommand): ArticleLike {
         val articleLike = ArticleLike.create(
             articleLikeId = idGenerator.nextId(),
@@ -82,19 +81,7 @@ internal class ArticleLikeCreateProcessor(
         return articleLike
     }
 
-
     private fun upsertArticleLikeCount(articleId: Long) {
-        val articleLikeCount = articleLikeCountPersistencePort.findByIdOrNull(articleId = articleId)
-            ?: ArticleLikeCount.init(articleId)
-        articleLikeCount.increase()
-
-        // 동시성 문제가 발생할 여지가 있음.
-        // A 트랜잭션이 좋아요수를 조회
-        // B 트랜잭션이 좋아요수를 조회
-        // A 트랜잭션이 조회한 좋아요수를 기반으로 좋아요수 증가 커밋
-        // B 트랜잭션이 조회한 좋아요수를 기반으로 좋아요수 증가 커밋
-        // 이렇게 동시 요청자수가 2명일 경우 좋아요수가  2 증가해야하지만, 실제로는 1 증가할 수 있는 것이다.
-        // 동시요청자수가 100명, 1000명 늘어나게 될 경우 좋아요수의 정확도가 실제 좋아요 갯수와 많이 어긋나게 된다.
-        articleLikeCountPersistencePort.save(articleLikeCount)
+        articleLikeCountPersistencePort.increase(articleId)
     }
 }
