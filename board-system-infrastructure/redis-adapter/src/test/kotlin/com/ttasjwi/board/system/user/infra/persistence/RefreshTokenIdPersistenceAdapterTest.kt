@@ -1,14 +1,14 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
 import com.ttasjwi.board.system.common.time.AppDateTime
-import com.ttasjwi.board.system.user.infra.test.UserRedisAdapterTest
+import com.ttasjwi.board.system.test.RedisAdapterTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("RefreshTokenIdPersistenceAdapterTest")
-class RefreshTokenIdPersistenceAdapterTest : UserRedisAdapterTest() {
+class RefreshTokenIdPersistenceAdapterTest : RedisAdapterTest() {
 
     @AfterEach
     fun tearDown() {

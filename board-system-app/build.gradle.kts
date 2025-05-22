@@ -15,7 +15,6 @@ dependencies {
     // user
     implementation(project(":board-system-user:user-web-adapter"))
     implementation(project(":board-system-user:user-application-service"))
-    implementation(project(":board-system-user:user-redis-adapter"))
     implementation(project(":board-system-user:user-password-adapter"))
     implementation(project(":board-system-user:user-email-format-validate-adapter"))
     implementation(project(":board-system-user:user-oauth2-client-adapter"))
@@ -50,6 +49,7 @@ dependencies {
 
     implementation(project(":board-system-infrastructure:jwt"))
     implementation(project(":board-system-infrastructure:database-adapter"))
+    implementation(project(":board-system-infrastructure:redis-adapter"))
     implementation(project(":board-system-infrastructure:web-support"))
     implementation(project(":board-system-infrastructure:event-publisher"))
 

@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.user.infra
+package com.ttasjwi.board.system
 
 import com.ttasjwi.board.system.user.infra.persistence.EmailVerificationPersistenceAdapter
 import org.springframework.boot.autoconfigure.SpringBootApplication
