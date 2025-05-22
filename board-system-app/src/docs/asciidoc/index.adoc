@@ -21,4 +21,4 @@ include::board-api.adoc[]
 include::article-api.adoc[]
 include::article-comment-api.adoc[]
 include::article-like-api.adoc[]
-
+include::article-view-api.adoc[]

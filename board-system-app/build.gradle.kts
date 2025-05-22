@@ -88,12 +88,14 @@ tasks.register("copySnippets", Copy::class) {
     dependsOn(":board-system-article:article-web-adapter:test")
     dependsOn(":board-system-article-comment:article-comment-web-adapter:test")
     dependsOn(":board-system-article-like:article-like-web-adapter:test")
+    dependsOn(":board-system-article-view:article-view-web-adapter:test")
 
     from(file("$rootDir/board-system-user/user-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-board/board-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-article/article-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-article-comment/article-comment-web-adapter/build/generated-snippets"))
     from(file("$rootDir/board-system-article-like/article-like-web-adapter/build/generated-snippets"))
+    from(file("$rootDir/board-system-article-view/article-view-web-adapter/build/generated-snippets"))
     into(file("build/generated-snippets"))
 }
 

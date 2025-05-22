@@ -1,0 +1,23 @@
+== 게시글 조회수 API 명세
+
+=== 게시글 조회수 증가
+==== 기본정보
+- 메서드 : POST
+- URL : `/api/v1/articles/{articleId}/views`
+- 권한 : 인증된 사용자 누구든지
+- 인증방식 : 액세스 토큰
+
+게시글의 조회수를 증가시킵니다.
+한 사용자가 이 API를 호출하여 조회수를 증가시키고, 10분 이내에 다시 이 API 를 호출하더라도 조회수가 증가하지 않습니다.
+즉, 한 사용자는 10분당 1의 조회수를 증카시킬 수 있습니다.
+
+==== 요청
+include::{snippets}/article-view-count-increase-success/request-headers.adoc[]
+include::{snippets}/article-view-count-increase-success/path-parameters.adoc[]
+
+==== 응답
+응답으로 200 상태코드가 전달되고, 본문에 내용이 포함되지 않습니다.
+
+==== 예시
+include::{snippets}/article-view-count-increase-success/http-request.adoc[]
+include::{snippets}/article-view-count-increase-success/http-response.adoc[]
