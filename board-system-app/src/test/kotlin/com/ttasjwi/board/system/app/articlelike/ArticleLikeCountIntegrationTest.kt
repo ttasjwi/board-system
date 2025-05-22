@@ -1,8 +1,10 @@
-package com.ttasjwi.board.system.app.articlelike.api
+package com.ttasjwi.board.system.app.articlelike
 
 import com.ttasjwi.board.system.article.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
-import com.ttasjwi.board.system.articlelike.domain.*
+import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCancelUseCase
+import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCountReadUseCase
+import com.ttasjwi.board.system.articlelike.domain.ArticleLikeCreateUseCase
 import com.ttasjwi.board.system.board.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.board.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.common.auth.Role
@@ -21,8 +23,8 @@ import java.util.concurrent.Executors
 
 @Disabled // 수동테스트용(테스트 해보고 싶을 경우 주석처리)
 @SpringBootTest
-@DisplayName("[app] 게시글 싫어요 수 통합테스트")
-class ArticleDislikeCountIntegrationTest {
+@DisplayName("[app] 게시글 좋아요 수 통합테스트")
+class ArticleLikeCountIntegrationTest {
 
     @Autowired
     private lateinit var articlePersistencePort: ArticlePersistencePort
@@ -31,31 +33,31 @@ class ArticleDislikeCountIntegrationTest {
     private lateinit var articleCategoryPersistencePort: ArticleCategoryPersistencePort
 
     @Autowired
-    private lateinit var articleDislikeCreateUseCase: ArticleDislikeCreateUseCase
+    private lateinit var articleLikeCreateUseCase: ArticleLikeCreateUseCase
 
     @Autowired
-    private lateinit var articleDislikeCancelUseCase: ArticleDislikeCancelUseCase
+    private lateinit var articleLikeCancelUseCase: ArticleLikeCancelUseCase
 
     @Autowired
-    private lateinit var articleDislikeCountReadUseCase: ArticleDislikeCountReadUseCase
+    private lateinit var articleLikeCountReadUseCase: ArticleLikeCountReadUseCase
 
     @Test
-    @DisplayName("싫어요 수 동시성 테스트 : 동시 사용자가 많을 때, 싫어요 수")
-    fun dislikeCountConcurrencyTest() {
+    @DisplayName("좋아요 수 동시성 테스트 : 동시 사용자가 많을 때, 좋아요 수")
+    fun likeCountConcurrencyTest() {
         val threadCount = 100
         val userCount = 3000
-        val boardArticleArticleCategoryId = 171531L
+        val boardArticleArticleCategoryId = 13413413413L
 
         val executorService = Executors.newFixedThreadPool(threadCount)
 
-        createDislikes(
+        createLikes(
             executorService = executorService,
             userCount = userCount,
             boardId = boardArticleArticleCategoryId,
             articleId = boardArticleArticleCategoryId,
             articleCategoryId = boardArticleArticleCategoryId
         )
-        cancelDislikes(
+        cancelLikes(
             executorService = executorService,
             userCount = userCount,
             articleId = boardArticleArticleCategoryId,
@@ -63,7 +65,7 @@ class ArticleDislikeCountIntegrationTest {
         executorService.shutdown()
     }
 
-    private fun createDislikes(
+    private fun createLikes(
         executorService: ExecutorService,
         userCount: Int,
         boardId: Long,
@@ -75,14 +77,14 @@ class ArticleDislikeCountIntegrationTest {
 
         val latch = CountDownLatch(userCount)
         println("--------------------------------------------------------------------------")
-        println("start create Dislikes : articleId = $articleId")
+        println("start create Likes : articleId = $articleId")
         val start = System.nanoTime()
         for (i in 1..userCount) {
             val userId = i.toLong()
 
             executorService.execute {
                 try {
-                    dislike(articleId, userId)
+                    like(articleId, userId)
                 } catch (e: Exception) {
                     println("Error for userId=$userId: ${e.message}")
                 } finally {
@@ -95,32 +97,32 @@ class ArticleDislikeCountIntegrationTest {
         val end = System.nanoTime()
         println("time = ${(end - start) / 100_0000} ms")
 
-        val response = articleDislikeCountReadUseCase.readDislikeCount(
+        val response = articleLikeCountReadUseCase.readLikeCount(
             articleId = articleId,
         )
 
-        println("end create Dislikes : articleId = $articleId")
-        println("count = ${response.dislikeCount}")
+        println("end create Likes : articleId = $articleId")
+        println("count = ${response.likeCount}")
         println("--------------------------------------------------------------------------")
 
-        assertThat(response.dislikeCount).isEqualTo(userCount.toLong())
+        assertThat(response.likeCount).isEqualTo(userCount.toLong())
     }
 
-    private fun cancelDislikes(
+    private fun cancelLikes(
         executorService: ExecutorService,
         userCount: Int,
         articleId: Long,
     ) {
         val latch = CountDownLatch(userCount)
         println("--------------------------------------------------------------------------")
-        println("start cancel Dislikes : articleId = $articleId")
+        println("start cancel Likes : articleId = $articleId")
         val start = System.nanoTime()
         for (i in 1..userCount) {
             val userId = i.toLong()
 
             executorService.execute {
                 try {
-                    cancelDislike(articleId, userId)
+                    cancelLike(articleId, userId)
                 } catch (e: Exception) {
                     println("Error for userId=$userId: ${e.message}")
                 } finally {
@@ -133,26 +135,26 @@ class ArticleDislikeCountIntegrationTest {
         val end = System.nanoTime()
         println("time = ${(end - start) / 100_0000} ms")
 
-        val response = articleDislikeCountReadUseCase.readDislikeCount(
+        val response = articleLikeCountReadUseCase.readLikeCount(
             articleId = articleId,
         )
 
-        println("end cancel Dislikes : articleId = $articleId")
-        println("count = ${response.dislikeCount}")
+        println("end cancel Likes : articleId = $articleId")
+        println("count = ${response.likeCount}")
         println("--------------------------------------------------------------------------")
 
-        assertThat(response.dislikeCount).isEqualTo(0)
+        assertThat(response.likeCount).isEqualTo(0)
     }
 
 
-    private fun dislike(articleId: Long, userId: Long) {
+    private fun like(articleId: Long, userId: Long) {
         setAuthUser(userId)
-        articleDislikeCreateUseCase.dislike(articleId)
+        articleLikeCreateUseCase.like(articleId)
     }
 
-    private fun cancelDislike(articleId: Long, userId: Long) {
+    private fun cancelLike(articleId: Long, userId: Long) {
         setAuthUser(userId)
-        articleDislikeCancelUseCase.cancelDislike(articleId)
+        articleLikeCancelUseCase.cancelLike(articleId)
     }
 
     private fun setAuthUser(userId: Long) {

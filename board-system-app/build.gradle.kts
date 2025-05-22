@@ -18,6 +18,8 @@ dependencies {
     implementation(project(":board-system-user:user-password-adapter"))
     implementation(project(":board-system-user:user-email-format-validate-adapter"))
     implementation(project(":board-system-user:user-oauth2-client-adapter"))
+    testImplementation(testFixtures(project(":board-system-user:user-domain")))
+    testImplementation(project(":board-system-user:user-application-output-port"))
 
     // board
     implementation(project(":board-system-board:board-web-adapter"))
@@ -34,6 +36,9 @@ dependencies {
     // article-comment
     implementation(project(":board-system-article-comment:article-comment-web-adapter"))
     implementation(project(":board-system-article-comment:article-comment-application-service"))
+    testImplementation(project(":board-system-article-comment:article-comment-domain"))
+    testImplementation(project(":board-system-article-comment:article-comment-application-input-port"))
+    testImplementation(project(":board-system-article-comment:article-comment-application-output-port"))
 
     // article-like
     implementation(project(":board-system-article-like:article-like-web-adapter"))
