@@ -1,4 +1,4 @@
-package com.ttasjwi.board.system.user.infra.test
+package com.ttasjwi.board.system.test
 
 import com.ttasjwi.board.system.user.infra.persistence.EmailVerificationPersistenceAdapter
 import com.ttasjwi.board.system.user.infra.persistence.OAuth2AuthorizationRequestPersistenceAdapter
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.redis.core.StringRedisTemplate
 
 @SpringBootTest
-abstract class UserRedisAdapterTest {
+abstract class RedisAdapterTest {
 
     @Autowired
     protected lateinit var emailVerificationPersistenceAdapter: EmailVerificationPersistenceAdapter

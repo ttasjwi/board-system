@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.user.domain.model.fixture.googleOAuth2AuthorizationRequestFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.kakaoOAuth2AuthorizationRequestFixture
 import com.ttasjwi.board.system.user.domain.model.fixture.naverOAuth2AuthorizationRequestFixture
-import com.ttasjwi.board.system.user.infra.test.UserRedisAdapterTest
+import com.ttasjwi.board.system.test.RedisAdapterTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test
 
 
 @DisplayName("[user-redis-adapter] OAuth2AuthorizationRequestPersistenceAdapter 테스트")
-class OAuth2AuthorizationRequestPersistenceAdapterTest : UserRedisAdapterTest() {
+class OAuth2AuthorizationRequestPersistenceAdapterTest : RedisAdapterTest() {
 
     @Nested
     @DisplayName("Google 테스트")

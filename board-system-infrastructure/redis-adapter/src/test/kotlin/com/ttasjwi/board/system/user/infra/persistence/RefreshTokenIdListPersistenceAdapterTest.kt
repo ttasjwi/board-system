@@ -1,13 +1,13 @@
 package com.ttasjwi.board.system.user.infra.persistence
 
-import com.ttasjwi.board.system.user.infra.test.UserRedisAdapterTest
+import com.ttasjwi.board.system.test.RedisAdapterTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("UserRefreshTokenIdListPersistenceAdapter 테스트")
-class UserRefreshTokenIdListPersistenceAdapterTest : UserRedisAdapterTest() {
+class RefreshTokenIdListPersistenceAdapterTest : RedisAdapterTest() {
 
     @AfterEach
     fun tearDown() {

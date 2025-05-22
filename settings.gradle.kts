@@ -20,7 +20,6 @@ include(
     "board-system-user:user-application-service",
     "board-system-user:user-application-output-port",
     "board-system-user:user-domain",
-    "board-system-user:user-redis-adapter",
     "board-system-user:user-password-adapter",
     "board-system-user:user-oauth2-client-adapter",
     "board-system-user:user-email-format-validate-adapter",
@@ -66,6 +65,7 @@ include(
     "board-system-infrastructure:jwt",
     "board-system-infrastructure:web-support",
     "board-system-infrastructure:database-adapter",
+    "board-system-infrastructure:redis-adapter",
 
     // support
     "board-system-test:restdocs-support"

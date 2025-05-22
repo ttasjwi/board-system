@@ -9,13 +9,10 @@ spring:
     import:
       - database.yml
       - optional:database-secret.yml
+      - redis.yml
       - web-support.yml
       - oauth2-client.yml
       - optional:oauth2-client-secret.yml
-  data:
-    redis:
-      host: ${REDIS_HOST:127.0.0.1}
-      port: ${REDIS_PORT:6379}
   mail:
     host: ${MAIL_HOST}
     port: ${MAIL_PORT}
