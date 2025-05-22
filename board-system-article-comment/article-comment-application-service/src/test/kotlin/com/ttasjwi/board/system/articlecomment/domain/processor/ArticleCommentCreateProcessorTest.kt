@@ -5,6 +5,7 @@ import com.ttasjwi.board.system.articlecomment.domain.exception.*
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleCommentFixture
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticlePersistencePortFixture
@@ -22,6 +23,7 @@ class ArticleCommentCreateProcessorTest {
 
     private lateinit var processor: ArticleCommentCreateProcessor
     private lateinit var articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture
+    private lateinit var articleCommentCountPersistencePortfixture: ArticleCommentCountPersistencePortFixture
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
     private lateinit var articleCommentWriterNicknamePersistencePortFixture: ArticleCommentWriterNicknamePersistencePortFixture
 
@@ -30,6 +32,7 @@ class ArticleCommentCreateProcessorTest {
         val container = TestContainer.create()
         processor = container.articleCommentCreateProcessor
         articleCommentPersistencePortFixture = container.articleCommentPersistencePortFixture
+        articleCommentCountPersistencePortfixture = container.articleCommentCountPersistencePortFixture
         articlePersistencePortFixture = container.articlePersistencePortFixture
         articleCommentWriterNicknamePersistencePortFixture =
             container.articleCommentWriterNicknamePersistencePortFixture
@@ -62,6 +65,7 @@ class ArticleCommentCreateProcessorTest {
 
         // then
         val findArticleComment = articleCommentPersistencePortFixture.findById(articleComment.articleCommentId)!!
+        val findArticleCommentCount = articleCommentCountPersistencePortfixture.findByIdOrNull(articleComment.articleId)!!
 
         assertThat(articleComment.articleCommentId).isNotNull()
         assertThat(articleComment.content).isEqualTo(command.content)
@@ -76,6 +80,8 @@ class ArticleCommentCreateProcessorTest {
         assertThat(articleComment.modifiedAt).isEqualTo(command.currentTime)
 
         assertThat(findArticleComment.articleCommentId).isEqualTo(articleComment.articleCommentId)
+        assertThat(findArticleCommentCount.articleId).isEqualTo(articleComment.articleId)
+        assertThat(findArticleCommentCount.commentCount).isEqualTo(1)
     }
 
 
@@ -103,6 +109,7 @@ class ArticleCommentCreateProcessorTest {
                 deleteStatus = ArticleCommentDeleteStatus.NOT_DELETED
             )
         )
+        articleCommentCountPersistencePortfixture.increase(article.articleId)
 
         val command = ArticleCommentCreateCommand(
             content = "댓글 본문",
@@ -117,6 +124,7 @@ class ArticleCommentCreateProcessorTest {
 
         // then
         val findArticleComment = articleCommentPersistencePortFixture.findById(articleComment.articleCommentId)!!
+        val findArticleCommentCount = articleCommentCountPersistencePortfixture.findByIdOrNull(articleComment.articleId)!!
 
         assertThat(articleComment.articleCommentId).isNotNull()
         assertThat(articleComment.content).isEqualTo(command.content)
@@ -131,6 +139,8 @@ class ArticleCommentCreateProcessorTest {
         assertThat(articleComment.modifiedAt).isEqualTo(command.currentTime)
 
         assertThat(findArticleComment.articleCommentId).isEqualTo(articleComment.articleCommentId)
+        assertThat(findArticleCommentCount.articleId).isEqualTo(articleComment.articleId)
+        assertThat(findArticleCommentCount.commentCount).isEqualTo(2)
     }
 
 

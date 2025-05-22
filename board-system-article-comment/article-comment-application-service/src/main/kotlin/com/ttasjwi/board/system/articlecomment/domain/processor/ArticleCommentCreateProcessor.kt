@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.articlecomment.domain.processor
 import com.ttasjwi.board.system.articlecomment.domain.dto.ArticleCommentCreateCommand
 import com.ttasjwi.board.system.articlecomment.domain.exception.*
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleComment
+import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentCountPersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentPersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentWriterNicknamePersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticlePersistencePort
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 @ApplicationProcessor
 internal class ArticleCommentCreateProcessor(
     private val articleCommentPersistencePort: ArticleCommentPersistencePort,
+    private val articleCommentCountPersistencePort: ArticleCommentCountPersistencePort,
     private val articlePersistencePort: ArticlePersistencePort,
     private val articleCommentWriterNicknamePersistencePort: ArticleCommentWriterNicknamePersistencePort,
 ) {
@@ -37,6 +39,9 @@ internal class ArticleCommentCreateProcessor(
         // 댓글 생성 및 저장
         val articleComment = createArticleComment(command, parentComment, commentWriterNickname)
         articleCommentPersistencePort.save(articleComment)
+
+        // 댓글 수 증가
+        articleCommentCountPersistencePort.increase(command.articleId)
 
         return articleComment
     }

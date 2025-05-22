@@ -6,6 +6,8 @@ import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentCreat
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentInfiniteScrollReadQueryMapper
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentPageReadQueryMapper
 import com.ttasjwi.board.system.articlecomment.domain.policy.fixture.ArticleCommentContentPolicyFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentCountPersistencePort
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticlePersistencePortFixture
@@ -34,6 +36,10 @@ internal class TestContainer private constructor() {
     // port
     val articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture by lazy {
         ArticleCommentPersistencePortFixture()
+    }
+
+    val articleCommentCountPersistencePortFixture: ArticleCommentCountPersistencePortFixture by lazy {
+        ArticleCommentCountPersistencePortFixture()
     }
 
     val articlePersistencePortFixture: ArticlePersistencePortFixture by lazy {
@@ -70,6 +76,7 @@ internal class TestContainer private constructor() {
     val articleCommentCreateProcessor: ArticleCommentCreateProcessor by lazy {
         ArticleCommentCreateProcessor(
             articleCommentPersistencePort = articleCommentPersistencePortFixture,
+            articleCommentCountPersistencePort = articleCommentCountPersistencePortFixture,
             articlePersistencePort = articlePersistencePortFixture,
             articleCommentWriterNicknamePersistencePort = articleCommentWriterNicknamePersistencePortFixture,
         )

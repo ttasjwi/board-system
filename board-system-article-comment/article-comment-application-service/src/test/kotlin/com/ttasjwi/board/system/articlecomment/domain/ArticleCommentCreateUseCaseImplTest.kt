@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.articlecomment.domain
 
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticlePersistencePortFixture
@@ -22,6 +23,7 @@ class ArticleCommentCreateUseCaseImplTest {
     private lateinit var currentTime: AppDateTime
     private lateinit var articleCommentWriter: AuthUser
     private lateinit var articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture
+    private lateinit var articleCommentCountPersistencePortfixture: ArticleCommentCountPersistencePortFixture
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
     private lateinit var articleCommentWriterNicknamePersistencePortFixture: ArticleCommentWriterNicknamePersistencePortFixture
 
@@ -37,6 +39,7 @@ class ArticleCommentCreateUseCaseImplTest {
         container.authUserLoaderFixture.changeAuthUser(articleCommentWriter)
 
         articleCommentPersistencePortFixture = container.articleCommentPersistencePortFixture
+        articleCommentCountPersistencePortfixture = container.articleCommentCountPersistencePortFixture
         articlePersistencePortFixture = container.articlePersistencePortFixture
         articleCommentWriterNicknamePersistencePortFixture =
             container.articleCommentWriterNicknamePersistencePortFixture
@@ -64,6 +67,7 @@ class ArticleCommentCreateUseCaseImplTest {
 
         // then
         val findArticleComment = articleCommentPersistencePortFixture.findById(response.articleCommentId.toLong())!!
+        val findArticleCommentCount = articleCommentCountPersistencePortfixture.findByIdOrNull(request.articleId!!)!!
 
         assertThat(response.articleCommentId).isNotNull()
         assertThat(response.content).isEqualTo(request.content)
@@ -78,5 +82,7 @@ class ArticleCommentCreateUseCaseImplTest {
         assertThat(response.modifiedAt).isEqualTo(currentTime.toZonedDateTime())
 
         assertThat(findArticleComment.articleCommentId).isEqualTo(response.articleCommentId.toLong())
+        assertThat(findArticleCommentCount.articleId).isEqualTo(request.articleId)
+        assertThat(findArticleCommentCount.commentCount).isEqualTo(1)
     }
 }

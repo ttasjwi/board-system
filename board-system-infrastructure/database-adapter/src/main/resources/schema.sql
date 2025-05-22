@@ -65,6 +65,11 @@ CREATE TABLE IF NOT EXISTS article_comments(
     modified_at                    DATETIME      NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS article_comment_counts(
+    article_id    BIGINT NOT NULL PRIMARY KEY,
+    comment_count BIGINT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS article_likes(
     article_like_id BIGINT   NOT NULL PRIMARY KEY,
     article_id      BIGINT   NOT NULL,
