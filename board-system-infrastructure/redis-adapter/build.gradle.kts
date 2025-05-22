@@ -17,4 +17,9 @@ dependencies {
     // user-oauth2
     implementation("org.springframework.security:spring-security-oauth2-client")
     implementation("jakarta.servlet:jakarta.servlet-api")
+
+    // article-view
+    implementation(project(":board-system-article-view:article-view-domain"))
+    implementation(project(":board-system-article-view:article-view-application-output-port"))
+    testImplementation(testFixtures(project(":board-system-article-view:article-view-domain")))
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("RefreshTokenIdPersistenceAdapterTest")
+@DisplayName("[user-redis-adapter] RefreshTokenIdPersistenceAdapter 테스트")
 class RefreshTokenIdPersistenceAdapterTest : RedisAdapterTest() {
 
     @AfterEach

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("EmailVerificationPersistenceAdapter 테스트")
+@DisplayName("[user-redis-adapter] EmailVerificationPersistenceAdapter 테스트")
 class EmailVerificationPersistenceAdapterTest : RedisAdapterTest() {
 
     companion object {

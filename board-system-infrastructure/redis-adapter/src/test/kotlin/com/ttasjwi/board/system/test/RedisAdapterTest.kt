@@ -1,5 +1,7 @@
 package com.ttasjwi.board.system.test
 
+import com.ttasjwi.board.system.articleview.infra.persistence.ArticleViewCountLockPersistenceAdapter
+import com.ttasjwi.board.system.articleview.infra.persistence.ArticleViewCountPersistenceAdapter
 import com.ttasjwi.board.system.user.infra.persistence.EmailVerificationPersistenceAdapter
 import com.ttasjwi.board.system.user.infra.persistence.OAuth2AuthorizationRequestPersistenceAdapter
 import com.ttasjwi.board.system.user.infra.persistence.RefreshTokenIdPersistenceAdapter
@@ -22,6 +24,12 @@ abstract class RedisAdapterTest {
 
     @Autowired
     protected lateinit var oAuth2AuthorizationRequestPersistenceAdapter: OAuth2AuthorizationRequestPersistenceAdapter
+
+    @Autowired
+    protected lateinit var articleViewCountPersistenceAdapter: ArticleViewCountPersistenceAdapter
+
+    @Autowired
+    protected lateinit var articleViewCountLockPersistenceAdapter: ArticleViewCountLockPersistenceAdapter
 
     @Autowired
     protected lateinit var redisTemplate: StringRedisTemplate
