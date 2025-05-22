@@ -34,4 +34,9 @@ dependencies {
     implementation(project(":board-system-article-like:article-like-domain"))
     testImplementation(testFixtures(project(":board-system-article-like:article-like-domain")))
     implementation(project(":board-system-article-like:article-like-application-output-port"))
+
+    // article-view
+    implementation(project(":board-system-article-view:article-view-domain"))
+    testImplementation(testFixtures(project(":board-system-article-view:article-view-domain")))
+    implementation(project(":board-system-article-view:article-view-application-output-port"))
 }
