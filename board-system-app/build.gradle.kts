@@ -48,6 +48,9 @@ dependencies {
     // article-view
     implementation(project(":board-system-article-view:article-view-web-adapter"))
     implementation(project(":board-system-article-view:article-view-application-service"))
+    testImplementation(project(":board-system-article-view:article-view-domain"))
+    testImplementation(project(":board-system-article-view:article-view-application-input-port"))
+    testImplementation(project(":board-system-article-view:article-view-application-output-port"))
 
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")
