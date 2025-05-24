@@ -1,9 +1,7 @@
 package com.ttasjwi.board.system.articleview.domain
 
-import com.ttasjwi.board.system.articleview.domain.command.ArticleViewCountIncreaseCommand
 import com.ttasjwi.board.system.articleview.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.articleview.domain.port.fixture.ArticleViewCountPersistencePortFixture
-import com.ttasjwi.board.system.articleview.domain.processor.ArticleViewCountIncreaseProcessor
 import com.ttasjwi.board.system.articleview.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.Role
