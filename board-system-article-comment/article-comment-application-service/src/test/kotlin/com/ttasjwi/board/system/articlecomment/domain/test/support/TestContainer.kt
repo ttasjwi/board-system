@@ -108,6 +108,13 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val articleCommentCountReadUseCase: ArticleCommentCountReadUseCase by lazy {
+        ArticleCommentCountReadUseCaseImpl(
+            articlePersistencePort = articlePersistencePortFixture,
+            articleCommentCountPersistencePort = articleCommentCountPersistencePortFixture,
+        )
+    }
+
     val articleCommentPageReadUseCase: ArticleCommentPageReadUseCase by lazy {
         ArticleCommentPageReadUseCaseImpl(
             queryMapper = articleCommentPageReadQueryMapper,

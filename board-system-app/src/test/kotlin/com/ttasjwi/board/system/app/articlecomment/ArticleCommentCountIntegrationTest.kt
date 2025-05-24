@@ -2,9 +2,9 @@ package com.ttasjwi.board.system.app.articlecomment
 
 import com.ttasjwi.board.system.article.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
+import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCountReadUseCase
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateRequest
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCase
-import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentCountPersistencePort
 import com.ttasjwi.board.system.board.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.board.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.common.auth.Role
@@ -40,7 +40,7 @@ class ArticleCommentCountIntegrationTest {
     private lateinit var articleCommentCreateUseCase: ArticleCommentCreateUseCase
 
     @Autowired
-    private lateinit var articleCommentCountPersistencePort: ArticleCommentCountPersistencePort
+    private lateinit var articleCommentCountReadUseCase: ArticleCommentCountReadUseCase
 
     @Autowired
     private lateinit var userPersistencePort: UserPersistencePort
@@ -96,7 +96,7 @@ class ArticleCommentCountIntegrationTest {
         val end = System.nanoTime()
         println("time = ${(end - start) / 100_0000} ms")
 
-        val commentCount = articleCommentCountPersistencePort.findByIdOrNull(articleId)!!.commentCount
+        val commentCount = articleCommentCountReadUseCase.readCommentCount(articleId).commentCount
 
         println("end create Comments : articleId = $articleId")
         println("count = $commentCount")
