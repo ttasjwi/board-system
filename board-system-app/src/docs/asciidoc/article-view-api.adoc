@@ -21,3 +21,23 @@ include::{snippets}/article-view-count-increase-success/path-parameters.adoc[]
 ==== 예시
 include::{snippets}/article-view-count-increase-success/http-request.adoc[]
 include::{snippets}/article-view-count-increase-success/http-response.adoc[]
+
+
+=== 게시글 조회수 조회
+==== 기본정보
+- 메서드 : GET
+- URL : `/api/v1/articles/{articleId}/views/count`
+- 권한 : 누구든지
+
+게시글의 조회수를 조회합니다. 게시글이 존재해야합니다.
+
+==== 요청
+include::{snippets}/article-view-count-read-success/path-parameters.adoc[]
+
+==== 응답
+include::{snippets}/article-view-count-read-success/response-fields.adoc[]
+
+
+==== 예시
+include::{snippets}/article-view-count-read-success/http-request.adoc[]
+include::{snippets}/article-view-count-read-success/http-response.adoc[]

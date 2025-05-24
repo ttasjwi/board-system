@@ -2,6 +2,8 @@ package com.ttasjwi.board.system.articleview.domain.test.support
 
 import com.ttasjwi.board.system.articleview.domain.ArticleViewCountIncreaseUseCase
 import com.ttasjwi.board.system.articleview.domain.ArticleViewCountIncreaseUseCaseImpl
+import com.ttasjwi.board.system.articleview.domain.ArticleViewCountReadUseCase
+import com.ttasjwi.board.system.articleview.domain.ArticleViewCountReadUseCaseImpl
 import com.ttasjwi.board.system.articleview.domain.mapper.ArticleViewCountIncreaseCommandMapper
 import com.ttasjwi.board.system.articleview.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.articleview.domain.port.fixture.ArticleViewCountLockPersistencePortFixture
@@ -61,6 +63,13 @@ internal class TestContainer private constructor() {
         ArticleViewCountIncreaseUseCaseImpl(
             commandMapper = articleViewCountIncreaseCommandMapper,
             processor = articleViewCountIncreaseProcessor
+        )
+    }
+
+    val articleViewCountReadUseCase: ArticleViewCountReadUseCase by lazy {
+        ArticleViewCountReadUseCaseImpl(
+            articlePersistencePort = articlePersistencePortFixture,
+            articleViewCountPersistencePort = articleViewCountPersistencePortFixture,
         )
     }
 }
