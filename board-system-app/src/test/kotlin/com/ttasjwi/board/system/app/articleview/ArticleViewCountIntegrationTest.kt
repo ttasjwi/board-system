@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.app.articleview
 import com.ttasjwi.board.system.article.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
 import com.ttasjwi.board.system.articleview.domain.ArticleViewCountIncreaseUseCase
-import com.ttasjwi.board.system.articleview.domain.port.ArticleViewCountPersistencePort
+import com.ttasjwi.board.system.articleview.domain.ArticleViewCountReadUseCase
 import com.ttasjwi.board.system.board.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.board.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.common.auth.Role
@@ -22,7 +22,7 @@ import java.util.concurrent.Executors
 
 @Disabled // 수동테스트용(테스트 해보고 싶을 경우 주석처리)
 @SpringBootTest
-@DisplayName("[app] 게시글 조회 수 통합테스트")
+@DisplayName("[app] 게시글 조회수 통합테스트")
 class ArticleViewCountIntegrationTest {
 
     @Autowired
@@ -35,7 +35,7 @@ class ArticleViewCountIntegrationTest {
     private lateinit var articleCategoryPersistencePort: ArticleCategoryPersistencePort
 
     @Autowired
-    private lateinit var articleViewCountPersistencePort: ArticleViewCountPersistencePort
+    private lateinit var articleViewCountReadUseCase: ArticleViewCountReadUseCase
 
     @Test
     @DisplayName("댓글 수 동시성 테스트 : 같은 사용자가 동시 조회수 어뷰징 요청하더라도, 조회수는 1 증가한다")
@@ -89,7 +89,7 @@ class ArticleViewCountIntegrationTest {
         val end = System.nanoTime()
         println("time = ${(end - start) / 100_0000} ms")
 
-        val viewCount = articleViewCountPersistencePort.findByIdOrNull(articleId)!!.viewCount
+        val viewCount = articleViewCountReadUseCase.readViewCount(articleId).viewCount
 
         println("start increase viewCounts : articleId = $articleId")
         println("viewCount = $viewCount")
