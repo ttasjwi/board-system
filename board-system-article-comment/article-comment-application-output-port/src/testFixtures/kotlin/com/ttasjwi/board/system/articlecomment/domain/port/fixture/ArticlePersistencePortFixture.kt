@@ -15,4 +15,8 @@ class ArticlePersistencePortFixture : ArticlePersistencePort {
     override fun findById(articleId: Long): Article? {
         return storage[articleId]
     }
+
+    override fun existsById(articleId: Long): Boolean {
+        return storage.contains(articleId)
+    }
 }
