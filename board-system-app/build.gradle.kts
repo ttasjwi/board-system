@@ -38,7 +38,6 @@ dependencies {
     implementation(project(":board-system-article-comment:article-comment-application-service"))
     testImplementation(project(":board-system-article-comment:article-comment-domain"))
     testImplementation(project(":board-system-article-comment:article-comment-application-input-port"))
-    testImplementation(project(":board-system-article-comment:article-comment-application-output-port"))
 
     // article-like
     implementation(project(":board-system-article-like:article-like-web-adapter"))
