@@ -51,7 +51,7 @@ internal class ArticleCommentCreateProcessor(
      */
     private fun checkArticleExists(articleId: Long) {
         articlePersistencePort.findById(articleId)
-            ?: throw ArticleNotFoundException(source = "articleId", argument = articleId)
+            ?: throw ArticleNotFoundException(articleId = articleId)
     }
 
     /**
