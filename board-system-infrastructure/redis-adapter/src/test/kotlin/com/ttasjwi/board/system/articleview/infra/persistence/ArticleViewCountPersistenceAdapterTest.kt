@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 @DisplayName("[article-view-redis-adapter] ArticleViewCountPersistenceAdapter 테스트")
-class ArticleViewCountPersistencePortFixtureTest : RedisAdapterTest() {
+class ArticleViewCountPersistenceAdapterTest : RedisAdapterTest() {
 
     @BeforeEach
     fun tearDown() {

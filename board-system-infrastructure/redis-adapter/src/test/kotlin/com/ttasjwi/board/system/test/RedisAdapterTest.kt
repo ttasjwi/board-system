@@ -1,5 +1,6 @@
 package com.ttasjwi.board.system.test
 
+import com.ttasjwi.board.system.articleread.infra.persistence.ArticleViewCountStorageImpl
 import com.ttasjwi.board.system.articleview.infra.persistence.ArticleViewCountLockPersistenceAdapter
 import com.ttasjwi.board.system.articleview.infra.persistence.ArticleViewCountPersistenceAdapter
 import com.ttasjwi.board.system.user.infra.persistence.EmailVerificationPersistenceAdapter
@@ -30,6 +31,9 @@ abstract class RedisAdapterTest {
 
     @Autowired
     protected lateinit var articleViewCountLockPersistenceAdapter: ArticleViewCountLockPersistenceAdapter
+
+    @Autowired
+    protected lateinit var articleReadArticleViewCountStorageImpl: ArticleViewCountStorageImpl
 
     @Autowired
     protected lateinit var redisTemplate: StringRedisTemplate
