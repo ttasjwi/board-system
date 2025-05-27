@@ -65,6 +65,14 @@ include(
     "board-system-article-view:article-view-application-output-port",
     "board-system-article-view:article-view-domain",
 
+    // article-read ===================================================================================
+    "board-system-article-read",
+    "board-system-article-read:article-read-web-adapter",
+    "board-system-article-read:article-read-application-input-port",
+    "board-system-article-read:article-read-application-service",
+    "board-system-article-read:article-read-application-output-port",
+    "board-system-article-read:article-read-domain",
+
     // email-sender ==============================================================================
     "board-system-email-sender",
 
