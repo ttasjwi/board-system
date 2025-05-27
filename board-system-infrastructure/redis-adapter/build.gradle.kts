@@ -22,4 +22,9 @@ dependencies {
     implementation(project(":board-system-article-view:article-view-domain"))
     implementation(project(":board-system-article-view:article-view-application-output-port"))
     testImplementation(testFixtures(project(":board-system-article-view:article-view-domain")))
+
+    // article-read
+    implementation(project(":board-system-article-read:article-read-domain"))
+    implementation(project(":board-system-article-read:article-read-application-output-port"))
+    testImplementation(testFixtures(project(":board-system-article-read:article-read-domain")))
 }

@@ -29,6 +29,10 @@ enum class Dependencies(
     // mysql
     MYSQL_DRIVER(groupId = "com.mysql", artifactId = "mysql-connector-j"),
 
+    // querydsl
+    QUERY_DSL_JPA(groupId = "com.querydsl", artifactId = "querydsl-jpa", version = "5.1.0", classifier = "jakarta"),
+    QUERY_DSL_APT(groupId = "com.querydsl", artifactId = "querydsl-apt", version = "5.1.0", classifier = "jakarta"),
+
     // yaml message
     YAML_RESOURCE_BUNDLE(groupId = "dev.akkinoc.util", artifactId = "yaml-resource-bundle", version = "2.13.1"),
 

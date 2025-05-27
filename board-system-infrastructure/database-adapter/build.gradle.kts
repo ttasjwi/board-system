@@ -7,6 +7,9 @@ dependencies {
     runtimeOnly(Dependencies.MYSQL_DRIVER.fullName)
     implementation(Dependencies.P6SPY_DATASOURCE_DECORATOR.fullName)
 
+    implementation(Dependencies.QUERY_DSL_JPA.fullName)
+    kapt(Dependencies.QUERY_DSL_APT.fullName)
+
     implementation(project(":board-system-common:core"))
     testImplementation(testFixtures(project(":board-system-common:core")))
 
@@ -39,4 +42,9 @@ dependencies {
     implementation(project(":board-system-article-view:article-view-domain"))
     testImplementation(testFixtures(project(":board-system-article-view:article-view-domain")))
     implementation(project(":board-system-article-view:article-view-application-output-port"))
+
+    // article-read
+    implementation(project(":board-system-article-read:article-read-domain"))
+    testImplementation(testFixtures(project(":board-system-article-read:article-read-domain")))
+    implementation(project(":board-system-article-read:article-read-application-output-port"))
 }

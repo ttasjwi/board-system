@@ -93,7 +93,7 @@ class UserPersistenceAdapterTest : DataBaseIntegrationTest() {
         @Test
         fun test2() {
             // given
-            val userId = 1557L
+            val userId = 31414134151557L
 
             // when
             val findUser = userUserPersistenceAdapter.findByIdOrNull(userId)
