@@ -12,6 +12,7 @@ import org.springframework.context.annotation.FilterType
         "com.ttasjwi.board.system.articlecomment",
         "com.ttasjwi.board.system.articlelike",
         "com.ttasjwi.board.system.articleview",
+        "com.ttasjwi.board.system.articleread",
         "com.ttasjwi.board.system.board",
         "com.ttasjwi.board.system.user",
         "com.ttasjwi.board.system.emailsender",
