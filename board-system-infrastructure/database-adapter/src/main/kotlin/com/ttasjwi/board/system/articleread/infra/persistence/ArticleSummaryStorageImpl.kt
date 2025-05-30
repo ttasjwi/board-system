@@ -1,0 +1,69 @@
+package com.ttasjwi.board.system.articleread.infra.persistence
+
+import com.querydsl.jpa.impl.JPAQueryFactory
+import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryModel
+import com.ttasjwi.board.system.articleread.domain.port.ArticleSummaryStorage
+import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel
+import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_ArticleCategory
+import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_Board
+import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_Writer
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.JpaArticleRepository
+import org.springframework.stereotype.Component
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticle.jpaArticle as article
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticleCategory.jpaArticleCategory as articleCategory
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticleCommentCount.jpaArticleCommentCount as articleCommentCount
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticleDislikeCount.jpaArticleDislikeCount as articleDislikeCount
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticleLikeCount.jpaArticleLikeCount as articleLikeCount
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaBoard.jpaBoard as board
+
+@Component
+class ArticleSummaryStorageImpl(
+    private val jpaArticleRepository: JpaArticleRepository,
+    private val queryFactory: JPAQueryFactory
+) : ArticleSummaryStorage {
+
+    override fun findAllPage(boardId: Long, offSet: Long, limit: Long): List<ArticleSummaryQueryModel> {
+        return queryFactory
+            .select(
+                QQueryDslArticleSummaryQueryModel(
+                    article.articleId,
+                    article.title,
+                    QQueryDslArticleSummaryQueryModel_Board(
+                        article.boardId,
+                        board.name,
+                        board.slug
+                    ),
+                    QQueryDslArticleSummaryQueryModel_ArticleCategory(
+                        article.articleCategoryId,
+                        articleCategory.name,
+                        articleCategory.slug,
+                    ),
+                    QQueryDslArticleSummaryQueryModel_Writer(
+                        article.writerId,
+                        article.writerNickname
+                    ),
+                    articleCommentCount.commentCount.coalesce(0L),
+                    articleLikeCount.likeCount.coalesce(0L),
+                    articleDislikeCount.dislikeCount.coalesce(0L),
+                    article.createdAt
+                )
+            )
+            .from(article)
+            .innerJoin(board).on(board.boardId.eq(article.boardId))
+            .innerJoin(articleCategory).on(articleCategory.articleCategoryId.eq(article.articleCategoryId))
+            .leftJoin(articleCommentCount).on(articleCommentCount.articleId.eq(article.articleId))
+            .leftJoin(articleLikeCount).on(articleLikeCount.articleId.eq(article.articleId))
+            .leftJoin(articleDislikeCount).on(articleDislikeCount.articleId.eq(article.articleId))
+            .where(article.boardId.eq(boardId))
+            .orderBy(article.articleId.desc())
+            .offset(offSet)
+            .limit(limit)
+            .fetch()
+    }
+
+    override fun count(boardId: Long, limit: Long): Long {
+        // QueryDsl 은 FROM 절 서브쿼리를 지원하지 않음
+        // ---> native Query를 사용하기로 함.
+        return jpaArticleRepository.count(boardId, limit)
+    }
+}
