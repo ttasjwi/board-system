@@ -1,20 +1,18 @@
 package com.ttasjwi.board.system.articleread.domain.test.support
 
-import com.ttasjwi.board.system.articleread.domain.ArticleDetailReadUseCase
-import com.ttasjwi.board.system.articleread.domain.ArticleDetailReadUseCaseImpl
-import com.ttasjwi.board.system.articleread.domain.ArticleSummaryPageReadUseCase
-import com.ttasjwi.board.system.articleread.domain.ArticleSummaryPageReadUseCaseImpl
+import com.ttasjwi.board.system.articleread.domain.*
 import com.ttasjwi.board.system.articleread.domain.mapper.ArticleDetailReadQueryMapper
+import com.ttasjwi.board.system.articleread.domain.mapper.ArticleSummaryInfiniteScrollReadQueryMapper
 import com.ttasjwi.board.system.articleread.domain.mapper.ArticleSummaryPageReadQueryMapper
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleDetailStorageFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleSummaryStorageFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleViewCountStorageFixture
 import com.ttasjwi.board.system.articleread.domain.processor.ArticleDetailReadProcessor
+import com.ttasjwi.board.system.articleread.domain.processor.ArticleSummaryInfiniteScrollReadProcessor
 import com.ttasjwi.board.system.articleread.domain.processor.ArticleSummaryPageReadProcessor
-import com.ttasjwi.board.system.common.auth.AuthUserLoader
 import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
 
-internal class TestContainer private constructor(){
+internal class TestContainer private constructor() {
 
     companion object {
         fun create(): TestContainer {
@@ -51,6 +49,10 @@ internal class TestContainer private constructor(){
         ArticleSummaryPageReadQueryMapper()
     }
 
+    val articleSummaryInfiniteScrollReadQueryMapper: ArticleSummaryInfiniteScrollReadQueryMapper by lazy {
+        ArticleSummaryInfiniteScrollReadQueryMapper()
+    }
+
     // processor
     val articleDetailReadProcessor: ArticleDetailReadProcessor by lazy {
         ArticleDetailReadProcessor(
@@ -61,6 +63,13 @@ internal class TestContainer private constructor(){
 
     val articleSummaryPageReadProcessor: ArticleSummaryPageReadProcessor by lazy {
         ArticleSummaryPageReadProcessor(
+            articleSummaryStorage = articleSummaryStorageFixture,
+            articleViewCountStorage = articleViewCountStorageFixture,
+        )
+    }
+
+    val articleSummaryInfiniteScrollReadProcessor: ArticleSummaryInfiniteScrollReadProcessor by lazy {
+        ArticleSummaryInfiniteScrollReadProcessor(
             articleSummaryStorage = articleSummaryStorageFixture,
             articleViewCountStorage = articleViewCountStorageFixture,
         )
@@ -78,6 +87,13 @@ internal class TestContainer private constructor(){
         ArticleSummaryPageReadUseCaseImpl(
             queryMapper = articleSummaryPageReadQueryMapper,
             processor = articleSummaryPageReadProcessor
+        )
+    }
+
+    val articleSummaryInfiniteScrollReadUseCase: ArticleSummaryInfiniteScrollReadUseCase by lazy {
+        ArticleSummaryInfiniteScrollReadUseCaseImpl(
+            queryMapper = articleSummaryInfiniteScrollReadQueryMapper,
+            processor = articleSummaryInfiniteScrollReadProcessor
         )
     }
 

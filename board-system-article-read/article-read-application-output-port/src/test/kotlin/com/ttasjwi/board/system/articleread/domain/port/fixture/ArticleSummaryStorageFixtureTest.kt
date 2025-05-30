@@ -164,4 +164,66 @@ class ArticleSummaryStorageFixtureTest {
             assertThat(count).isEqualTo(10)
         }
     }
+
+
+    @Nested
+    @DisplayName("findAllInfiniteScroll : 게시글 무한 스크롤 조회")
+    inner class FindAllByInfiniteScrollTest {
+
+        @Test
+        @DisplayName("lastArticleId 가 null 이면 게시글을 처음부터 limit 건 조회한다.")
+        fun lastArticleIdNullTest() {
+            // given
+            val boardId = 1234566L
+            for (i in 1..10) {
+                val article = articleSummaryQueryModelFixture(
+                    articleId = i.toLong(),
+                    boardId = boardId,
+                    title = "title-$i",
+                )
+                articleSummaryStorageFixture.save(article)
+            }
+
+            // when
+            val articles = articleSummaryStorageFixture.findAllInfiniteScroll(
+                boardId = boardId,
+                limit = 3,
+                lastArticleId = null
+            )
+
+            // then
+            val articleIds = articles.map { it.articleId }
+
+            assertThat(articleIds.size).isEqualTo(3)
+            assertThat(articleIds).containsExactly(10, 9, 8)
+        }
+
+        @Test
+        @DisplayName("lastArticleId 가 있다면 해당 게시글 바로 이전부터, limit 건 조회한다.")
+        fun lastArticleIdNotNullTest() {
+            // given
+            val boardId = 1234566L
+            for (i in 1..10) {
+                val article = articleSummaryQueryModelFixture(
+                    articleId = i.toLong(),
+                    boardId = boardId,
+                    title = "title-$i",
+                )
+                articleSummaryStorageFixture.save(article)
+            }
+
+            // when
+            val articles = articleSummaryStorageFixture.findAllInfiniteScroll(
+                boardId = boardId,
+                limit = 3,
+                lastArticleId = 8
+            )
+
+            // then
+            val articleIds = articles.map { it.articleId }
+
+            assertThat(articleIds.size).isEqualTo(3)
+            assertThat(articleIds).containsExactly(7, 6, 5)
+        }
+    }
 }

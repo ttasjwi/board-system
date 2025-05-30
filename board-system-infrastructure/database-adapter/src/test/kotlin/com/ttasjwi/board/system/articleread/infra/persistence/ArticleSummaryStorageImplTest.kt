@@ -192,6 +192,196 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
         }
     }
 
+
+    @Nested
+    @DisplayName("findAllInfiniteScroll : 게시글 무한 스크롤 조회")
+    inner class FindAllByInfiniteScrollTest {
+
+
+        @Test
+        @DisplayName("lastArticleId 가 null 이면 게시글을 처음부터 limit 건 조회한다.")
+        fun lastArticleIdNullTest() {
+            // given
+            val boardId = 1234566L
+            createBoard(boardId)
+
+            for (i in 1..10) {
+                createArticleCategory(
+                    articleCategoryId = i.toLong(),
+                    boardId = boardId,
+                )
+                createArticle(
+                    articleId = i.toLong(),
+                    articleCategoryId = i.toLong(),
+                    boardId = boardId,
+                    writerId = i.toLong(),
+                    writerNickname = "writer$i",
+                )
+                createCommentCount(
+                    articleId = i.toLong(),
+                    commentCount = i.toLong(),
+                )
+                createLikeCount(
+                    articleId = i.toLong(),
+                    likeCount = i.toLong(),
+                )
+                createDislikeCount(
+                    articleId = i.toLong(),
+                    dislikeCount = i.toLong(),
+                )
+            }
+
+            // when
+            val articleSummaries = articleReadArticleSummaryStorage.findAllInfiniteScroll(
+                boardId = boardId,
+                limit = 3,
+                lastArticleId = null
+            )
+
+            for (articleSummary in articleSummaries) {
+                println("articleSummary= $articleSummary")
+            }
+
+            // then
+            val articleIds = articleSummaries.map { it.articleId }
+            val boardNames = articleSummaries.map { it.board.name }
+            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val commentCounts = articleSummaries.map { it.commentCount }
+            val likeCounts = articleSummaries.map { it.likeCount }
+            val dislikeCounts = articleSummaries.map { it.dislikeCount }
+
+            assertThat(articleIds.size).isEqualTo(3)
+            assertThat(articleIds).containsExactly(10, 9, 8)
+            assertThat(boardNames).containsExactly("board/$boardId", "board/$boardId", "board/$boardId")
+            assertThat(articleCategoryNames).containsExactly("category-10", "category-9", "category-8")
+            assertThat(commentCounts).containsExactly(10, 9, 8)
+            assertThat(likeCounts).containsExactly(10, 9, 8)
+            assertThat(dislikeCounts).containsExactly(10, 9, 8)
+        }
+
+        @Test
+        @DisplayName("lastArticleId 가 있다면 해당 게시글 바로 이전부터, limit 건 조회한다.")
+        fun lastArticleIdNotNullTest() {
+            // given
+            val boardId = 1234566L
+            createBoard(boardId)
+
+            for (i in 1..10) {
+                createArticleCategory(
+                    articleCategoryId = i.toLong(),
+                    boardId = boardId,
+                )
+                createArticle(
+                    articleId = i.toLong(),
+                    articleCategoryId = i.toLong(),
+                    boardId = boardId,
+                    writerId = i.toLong(),
+                    writerNickname = "writer$i",
+                )
+                createCommentCount(
+                    articleId = i.toLong(),
+                    commentCount = i.toLong(),
+                )
+                createLikeCount(
+                    articleId = i.toLong(),
+                    likeCount = i.toLong(),
+                )
+                createDislikeCount(
+                    articleId = i.toLong(),
+                    dislikeCount = i.toLong(),
+                )
+            }
+
+            // when
+            val articleSummaries = articleReadArticleSummaryStorage.findAllInfiniteScroll(
+                boardId = boardId,
+                limit = 3,
+                lastArticleId = 8
+            )
+
+            // then
+            val articleIds = articleSummaries.map { it.articleId }
+            val boardNames = articleSummaries.map { it.board.name }
+            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val commentCounts = articleSummaries.map { it.commentCount }
+            val likeCounts = articleSummaries.map { it.likeCount }
+            val dislikeCounts = articleSummaries.map { it.dislikeCount }
+
+            assertThat(articleIds.size).isEqualTo(3)
+            assertThat(articleIds).containsExactly(7, 6, 5)
+            assertThat(boardNames).containsExactly("board/$boardId", "board/$boardId", "board/$boardId")
+            assertThat(articleCategoryNames).containsExactly("category-7", "category-6", "category-5")
+            assertThat(commentCounts).containsExactly(7,6,5)
+            assertThat(likeCounts).containsExactly(7,6,5)
+            assertThat(dislikeCounts).containsExactly(7,6,5)
+        }
+
+
+        @Test
+        @DisplayName("댓글수/좋아요수/싫어요수가 저장되어 있지 않을 경우 0으로 가져와 지는 지 테스트")
+        fun commentLikeDislikeCountJoinTest() {
+            // given
+            val boardId = 1234566L
+            createBoard(boardId)
+
+            for (i in 1..10) {
+                createArticleCategory(
+                    articleCategoryId = i.toLong(),
+                    boardId = boardId,
+                )
+                createArticle(
+                    articleId = i.toLong(),
+                    articleCategoryId = i.toLong(),
+                    boardId = boardId,
+                    writerId = i.toLong(),
+                    writerNickname = "writer$i",
+                )
+            }
+            // 10 9 8 / 7 6 ... 1
+            // OffSet 을 3 부터 잡고, limit 를 3으로 잡기
+            // 7, 6, 5
+            val articleSummaries = articleReadArticleSummaryStorage.findAllInfiniteScroll(
+                boardId = boardId,
+                limit = 3,
+                lastArticleId = 8,
+            )
+            for (articleSummary in articleSummaries) {
+                println("articleSummary= $articleSummary")
+            }
+
+            val articleIds = articleSummaries.map { it.articleId }
+            val boardNames = articleSummaries.map { it.board.name }
+            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val commentCounts = articleSummaries.map { it.commentCount }
+            val likeCounts = articleSummaries.map { it.likeCount }
+            val dislikeCounts = articleSummaries.map { it.dislikeCount }
+
+            assertThat(articleIds.size).isEqualTo(3)
+            assertThat(articleIds).containsExactly(7, 6, 5)
+            assertThat(boardNames).containsExactly("board/$boardId", "board/$boardId", "board/$boardId")
+            assertThat(articleCategoryNames).containsExactly("category-7", "category-6", "category-5")
+            assertThat(commentCounts).containsExactly(0, 0, 0)
+            assertThat(likeCounts).containsExactly(0, 0, 0)
+            assertThat(dislikeCounts).containsExactly(0, 0, 0)
+        }
+
+
+        @Test
+        @DisplayName("조회대상을 찾지 못 했을 경우, 빈 리스트가 반환된다.")
+        fun testNotFound() {
+            // given
+            // when
+            val articleSummaries = articleReadArticleSummaryStorage.findAllInfiniteScroll(
+                boardId = 88949457L,
+                limit = 3,
+                lastArticleId = 1341355L,
+            )
+
+            // then
+            assertThat(articleSummaries).isEmpty()
+        }
+    }
+
     private fun createBoard(
         boardId: Long,
     ) {
