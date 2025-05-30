@@ -18,6 +18,18 @@ class ArticleViewCountStorageImpl(
         return redisTemplate.opsForValue().get(key)?.toLong() ?: return 0L
     }
 
+    override fun readViewCounts(articleIds: List<Long>): Map<Long, Long> {
+        if (articleIds.isEmpty()) return emptyMap()
+
+        val keys = articleIds.map { generateKey(it) }
+        val values = redisTemplate.opsForValue().multiGet(keys)
+
+        return articleIds.mapIndexed { index, id ->
+            val count = values?.getOrNull(index)?.toLong() ?: 0L
+            id to count
+        }.toMap()
+    }
+
     private fun generateKey(articleId: Long): String {
         return KEY_PATTERN.format(articleId)
     }

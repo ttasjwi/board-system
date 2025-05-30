@@ -67,6 +67,9 @@ abstract class DataBaseIntegrationTest {
     protected lateinit var articleReadArticleDetailStorage: com.ttasjwi.board.system.articleread.infra.persistence.ArticleDetailStorageImpl
 
     @Autowired
+    protected lateinit var articleReadArticleSummaryStorage: com.ttasjwi.board.system.articleread.infra.persistence.ArticleSummaryStorageImpl
+
+    @Autowired
     protected lateinit var entityManager: EntityManager
 
     protected fun flushAndClearEntityManager() {
