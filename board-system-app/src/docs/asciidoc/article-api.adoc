@@ -62,19 +62,20 @@ include::{snippets}/article-summary-page-read-success/http-response.adoc[]
 === 게시글 목록 조회(무한스크롤)
 ==== 기본정보
 - 메서드 : GET
-- URL : `/api/v1/articles/infinite-scroll`
+- URL : `/api/v2/boards/{boardId}/articles/infinite-scroll`
 - 권한 : 누구든지
 
-게시글 목록을 무한스크롤 방식으로 조회합니다.
+게시글 목록을 무한스크롤 방식으로 조회합니다. 게시글의 상세내역(본문, 현재 회원의 좋아요/싫어요 여부 등...)은 포함하지 않고, 간단한 정보만 목록으로 조회합니다.
 기준이 되는 `lastArticleId` 를 파라미터로 전달할 경우 해당 게시글 이전의 게시글부터 조회하고,
 전달하지 않을 경우 처음부터 조회합니다.
 
 ==== 요청
-include::{snippets}/article-infinite-scroll-read-success/query-parameters.adoc[]
+include::{snippets}/article-summary-infinite-scroll-read-success/path-parameters.adoc[]
+include::{snippets}/article-summary-infinite-scroll-read-success/query-parameters.adoc[]
 
 ==== 응답
-include::{snippets}/article-infinite-scroll-read-success/response-fields.adoc[]
+include::{snippets}/article-summary-infinite-scroll-read-success/response-fields.adoc[]
 
 ==== 예시
-include::{snippets}/article-infinite-scroll-read-success/http-request.adoc[]
-include::{snippets}/article-infinite-scroll-read-success/http-response.adoc[]
+include::{snippets}/article-summary-infinite-scroll-read-success/http-request.adoc[]
+include::{snippets}/article-summary-infinite-scroll-read-success/http-response.adoc[]
