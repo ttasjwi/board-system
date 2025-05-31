@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.article.domain.processor
 
 import com.ttasjwi.board.system.article.domain.dto.ArticleCreateCommand
 import com.ttasjwi.board.system.article.domain.exception.ArticleCategoryNotFoundException
+import com.ttasjwi.board.system.article.domain.exception.ArticleWriteNotAllowedException
 import com.ttasjwi.board.system.article.domain.exception.ArticleWriterNicknameNotFoundException
 import com.ttasjwi.board.system.article.domain.model.Article
 import com.ttasjwi.board.system.article.domain.model.ArticleCategory
@@ -29,9 +30,8 @@ internal class ArticleCreateProcessor(
         // 게시글 카테고리 조회
         val articleCategory = getArticleCategoryOrThrow(command.articleCategoryId)
 
-        // 향후 기능 확장 포인트 : 권한 체크
-        // 사용자가 혹시 게시판에서 차단됐거나, 해당 카테고리에 대해서 글을 작성할 권한이 없거나?
-
+        // 게시글 카테고리 정책 - 게시글 작성 가능 여부 확인
+        checkWritable(articleCategory)
 
         // 게시글 생성, 저장
         val article = createAndPersist(writerNickname, articleCategory, command)
@@ -52,6 +52,12 @@ internal class ArticleCreateProcessor(
                 source = "articleCategoryId",
                 argument = articleCategoryId
             )
+    }
+
+    private fun checkWritable(articleCategory: ArticleCategory) {
+        if (!articleCategory.allowWrite) {
+            throw ArticleWriteNotAllowedException(articleCategoryId = articleCategory.articleCategoryId)
+        }
     }
 
     private fun createAndPersist(writerNickname: String, articleCategory: ArticleCategory, command: ArticleCreateCommand): Article {
