@@ -23,7 +23,7 @@ internal class ArticleCategoryCreateUseCaseImpl(
             boardId = articleCategory.boardId.toString(),
             name = articleCategory.name,
             slug = articleCategory.slug,
-            allowSelfDelete = articleCategory.allowSelfDelete,
+            allowSelfEditDelete = articleCategory.allowSelfEditDelete,
             allowLike = articleCategory.allowLike,
             allowDislike = articleCategory.allowDislike,
             createdAt = articleCategory.createdAt.toZonedDateTime(),

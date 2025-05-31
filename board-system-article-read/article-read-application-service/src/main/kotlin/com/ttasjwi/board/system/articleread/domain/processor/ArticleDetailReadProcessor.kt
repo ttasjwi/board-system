@@ -37,7 +37,7 @@ internal class ArticleDetailReadProcessor(
                 articleCategoryId = articleDetail.articleCategory.articleCategoryId.toString(),
                 name = articleDetail.articleCategory.name,
                 slug = articleDetail.articleCategory.slug,
-                allowSelfDelete = articleDetail.articleCategory.allowSelfDelete,
+                allowSelfEditDelete = articleDetail.articleCategory.allowSelfEditDelete,
                 allowLike = articleDetail.articleCategory.allowLike,
                 allowDislike = articleDetail.articleCategory.allowDislike,
             ),

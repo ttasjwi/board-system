@@ -8,7 +8,7 @@ data class ArticleCategoryCreateCommand(
     val creator: AuthUser,
     val name: String,
     val slug: String,
-    val allowSelfDelete: Boolean,
+    val allowSelfEditDelete: Boolean,
     val allowLike: Boolean,
     val allowDislike: Boolean,
     val currentTime: AppDateTime

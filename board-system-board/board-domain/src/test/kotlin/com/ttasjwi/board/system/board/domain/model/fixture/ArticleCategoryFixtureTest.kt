@@ -17,7 +17,7 @@ class ArticleCategoryFixtureTest {
         assertThat(articleCategory.name).isNotNull
         assertThat(articleCategory.slug).isNotNull
         assertThat(articleCategory.boardId).isNotNull
-        assertThat(articleCategory.allowSelfDelete).isNotNull
+        assertThat(articleCategory.allowSelfEditDelete).isNotNull
         assertThat(articleCategory.allowLike).isNotNull
         assertThat(articleCategory.allowDislike).isNotNull
         assertThat(articleCategory.createdAt).isNotNull
@@ -30,7 +30,7 @@ class ArticleCategoryFixtureTest {
         val name = "일반"
         val slug = "general"
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val allowLike = false
         val allowDislike = false
         val createdAt = appDateTimeFixture(minute = 12)
@@ -39,7 +39,7 @@ class ArticleCategoryFixtureTest {
             name = name,
             slug = slug,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,
@@ -49,7 +49,7 @@ class ArticleCategoryFixtureTest {
         assertThat(articleCategory.name).isEqualTo(name)
         assertThat(articleCategory.slug).isEqualTo(slug)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(allowSelfDelete)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
         assertThat(articleCategory.allowLike).isEqualTo(allowLike)
         assertThat(articleCategory.allowDislike).isEqualTo(allowDislike)
         assertThat(articleCategory.createdAt).isEqualTo(createdAt)

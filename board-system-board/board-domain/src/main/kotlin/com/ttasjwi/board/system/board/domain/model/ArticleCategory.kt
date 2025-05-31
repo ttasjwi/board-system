@@ -8,7 +8,7 @@ class ArticleCategory(
     val boardId: Long,
     name: String,
     val slug: String,
-    allowSelfDelete: Boolean,
+    allowSelfEditDelete: Boolean,
     allowLike: Boolean,
     allowDislike: Boolean,
     val createdAt: AppDateTime
@@ -17,7 +17,7 @@ class ArticleCategory(
     var name: String = name
         private set
 
-    var allowSelfDelete: Boolean = allowSelfDelete
+    var allowSelfEditDelete: Boolean = allowSelfEditDelete
         private set
 
     var allowLike: Boolean = allowLike
@@ -33,7 +33,7 @@ class ArticleCategory(
             boardId: Long,
             name: String,
             slug: String,
-            allowSelfDelete: Boolean,
+            allowSelfEditDelete: Boolean,
             allowLike: Boolean,
             allowDislike: Boolean,
             createdAt: AppDateTime
@@ -43,7 +43,7 @@ class ArticleCategory(
                 boardId = boardId,
                 name = name,
                 slug = slug,
-                allowSelfDelete = allowSelfDelete,
+                allowSelfEditDelete = allowSelfEditDelete,
                 allowLike = allowLike,
                 allowDislike = allowDislike,
                 createdAt = createdAt
@@ -55,7 +55,7 @@ class ArticleCategory(
             boardId: Long,
             name: String,
             slug: String,
-            allowSelfDelete: Boolean,
+            allowSelfEditDelete: Boolean,
             allowLike: Boolean,
             allowDislike: Boolean,
             createdAt: LocalDateTime
@@ -65,7 +65,7 @@ class ArticleCategory(
                 boardId = boardId,
                 name = name,
                 slug = slug,
-                allowSelfDelete = allowSelfDelete,
+                allowSelfEditDelete = allowSelfEditDelete,
                 allowLike = allowLike,
                 allowDislike = allowDislike,
                 createdAt = AppDateTime.from(createdAt)
@@ -74,7 +74,7 @@ class ArticleCategory(
     }
 
     override fun toString(): String {
-        return "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, slug='$slug', createdAt=$createdAt, name='$name', allowSelfDelete=$allowSelfDelete, allowLike=$allowLike, allowDislike=$allowDislike)"
+        return "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, slug='$slug', createdAt=$createdAt, name='$name', allowSelfEditDelete=$allowSelfEditDelete, allowLike=$allowLike, allowDislike=$allowDislike)"
     }
 
 }

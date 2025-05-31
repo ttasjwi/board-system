@@ -48,7 +48,7 @@ class ArticleDetailReadControllerTest : ArticleReadRestDocsTest() {
                 articleCategoryId = "87364535667",
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true
             ),
@@ -92,7 +92,7 @@ class ArticleDetailReadControllerTest : ArticleReadRestDocsTest() {
                 jsonPath("$.articleCategory.name").value(response.articleCategory.name),
                 jsonPath("$.articleCategory.slug").value(response.articleCategory.slug),
                 jsonPath("$.articleCategory.name").value(response.articleCategory.name),
-                jsonPath("$.articleCategory.allowSelfDelete").value(response.articleCategory.allowSelfDelete),
+                jsonPath("$.articleCategory.allowSelfEditDelete").value(response.articleCategory.allowSelfEditDelete),
                 jsonPath("$.articleCategory.allowLike").value(response.articleCategory.allowLike),
                 jsonPath("$.articleCategory.allowDislike").value(response.articleCategory.allowDislike),
                 jsonPath("$.writer.writerId").value(response.writer.writerId),
@@ -153,7 +153,7 @@ class ArticleDetailReadControllerTest : ArticleReadRestDocsTest() {
                     "articleCategory.slug"
                             type STRING
                             means "게시글이 속한 게시글 카테고리 슬러그(게시글 카테고리 구분 영문자)",
-                    "articleCategory.allowSelfDelete"
+                    "articleCategory.allowSelfEditDelete"
                             type BOOLEAN
                             means "작성자가 스스로 게시글 삭제 또는 수정을 할 수 있는 지 여부",
                     "articleCategory.allowLike"

@@ -53,7 +53,7 @@ class ArticleCategoryCreateProcessorTest {
                 name = "일반",
                 slug = "general",
                 boardId = savedBoard.boardId,
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true
             )
@@ -70,7 +70,7 @@ class ArticleCategoryCreateProcessorTest {
             creator = authUserFixture(userId = savedBoard.managerId, role = Role.USER),
             name = "질문",
             slug = "question",
-            allowSelfDelete = false,
+            allowSelfEditDelete = false,
             allowLike = true,
             allowDislike = true,
             currentTime = appDateTimeFixture(minute = 8)
@@ -86,7 +86,7 @@ class ArticleCategoryCreateProcessorTest {
         assertThat(articleCategory.boardId).isEqualTo(command.boardId)
         assertThat(articleCategory.name).isEqualTo(command.name)
         assertThat(articleCategory.slug).isEqualTo(command.slug)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(command.allowSelfDelete)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(command.allowSelfEditDelete)
         assertThat(articleCategory.allowLike).isEqualTo(command.allowLike)
         assertThat(articleCategory.allowDislike).isEqualTo(command.allowDislike)
         assertThat(articleCategory.createdAt).isEqualTo(command.currentTime)
@@ -95,7 +95,7 @@ class ArticleCategoryCreateProcessorTest {
         assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
         assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
         assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
-        assertThat(findArticleCategory.allowSelfDelete).isEqualTo(articleCategory.allowSelfDelete)
+        assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
         assertThat(findArticleCategory.allowLike).isEqualTo(articleCategory.allowLike)
         assertThat(findArticleCategory.allowDislike).isEqualTo(articleCategory.allowDislike)
         assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -111,7 +111,7 @@ class ArticleCategoryCreateProcessorTest {
             creator = authUserFixture(userId = 1L, role = Role.USER),
             name = "질문",
             slug = "question",
-            allowSelfDelete = false,
+            allowSelfEditDelete = false,
             allowLike = true,
             allowDislike = true,
             currentTime = appDateTimeFixture(minute = 8)
@@ -137,7 +137,7 @@ class ArticleCategoryCreateProcessorTest {
             creator = authUserFixture(userId = 2L, role = Role.USER),
             name = "질문",
             slug = "question",
-            allowSelfDelete = false,
+            allowSelfEditDelete = false,
             allowLike = true,
             allowDislike = true,
             currentTime = appDateTimeFixture(minute = 8)
@@ -161,7 +161,7 @@ class ArticleCategoryCreateProcessorTest {
             creator = authUserFixture(userId = 1L, role = Role.USER),
             name = savedArticleCategory.name,
             slug = "gnr",
-            allowSelfDelete = false,
+            allowSelfEditDelete = false,
             allowLike = true,
             allowDislike = true,
             currentTime = appDateTimeFixture(minute = 8)
@@ -184,7 +184,7 @@ class ArticleCategoryCreateProcessorTest {
             creator = authUserFixture(userId = 1L, role = Role.USER),
             name = "질문",
             slug = savedArticleCategory.slug,
-            allowSelfDelete = false,
+            allowSelfEditDelete = false,
             allowLike = true,
             allowDislike = true,
             currentTime = appDateTimeFixture(minute = 8)

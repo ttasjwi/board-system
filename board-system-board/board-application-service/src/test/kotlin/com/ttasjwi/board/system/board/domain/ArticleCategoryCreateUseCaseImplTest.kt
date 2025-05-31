@@ -51,7 +51,7 @@ class ArticleCategoryCreateUseCaseImplTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = true,
             allowDislike = true
         )
@@ -65,7 +65,7 @@ class ArticleCategoryCreateUseCaseImplTest {
         assertThat(response.boardId).isEqualTo(boardId.toString())
         assertThat(response.name).isEqualTo(request.name)
         assertThat(response.slug).isEqualTo(request.slug)
-        assertThat(response.allowSelfDelete).isEqualTo(request.allowSelfDelete)
+        assertThat(response.allowSelfEditDelete).isEqualTo(request.allowSelfEditDelete)
         assertThat(response.allowLike).isEqualTo(request.allowLike)
         assertThat(response.allowDislike).isEqualTo(request.allowDislike)
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())

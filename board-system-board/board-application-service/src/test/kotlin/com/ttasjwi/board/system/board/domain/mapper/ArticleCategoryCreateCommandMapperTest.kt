@@ -49,7 +49,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -62,7 +62,7 @@ class ArticleCategoryCreateCommandMapperTest {
         assertThat(command.creator).isEqualTo(authUser)
         assertThat(command.name).isEqualTo(request.name)
         assertThat(command.slug).isEqualTo(request.slug)
-        assertThat(command.allowSelfDelete).isEqualTo(request.allowSelfDelete)
+        assertThat(command.allowSelfEditDelete).isEqualTo(request.allowSelfEditDelete)
         assertThat(command.allowLike).isEqualTo(request.allowLike)
         assertThat(command.allowDislike).isEqualTo(request.allowDislike)
         assertThat(command.currentTime).isEqualTo(currentTime)
@@ -76,7 +76,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = null,
             slug = "general",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -101,7 +101,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = ArticleCategoryNamePolicyFixture.ERROR_NAME,
             slug = "general",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -127,7 +127,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = null,
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -152,7 +152,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = ArticleCategorySlugPolicyFixture.ERROR_SLUG,
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -171,14 +171,14 @@ class ArticleCategoryCreateCommandMapperTest {
     }
 
     @Test
-    @DisplayName("allowSelfDelete 필드가 null 이면 예외가 발생한다.")
-    fun testAllowSelfDeleteNull() {
+    @DisplayName("allowSelfEditDelete 필드가 null 이면 예외가 발생한다.")
+    fun testAllowSelfEditDeleteNull() {
         // given
         val boardId = 12L
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
-            allowSelfDelete = null,
+            allowSelfEditDelete = null,
             allowLike = false,
             allowDislike = true,
         )
@@ -192,7 +192,7 @@ class ArticleCategoryCreateCommandMapperTest {
 
         assertThat(exceptions.size).isEqualTo(1)
         assertThat(exception).isInstanceOf(NullArgumentException::class.java)
-        assertThat(exception.source).isEqualTo("allowSelfDelete")
+        assertThat(exception.source).isEqualTo("allowSelfEditDelete")
     }
 
     @Test
@@ -203,7 +203,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = null,
             allowDislike = true,
         )
@@ -228,7 +228,7 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = false,
             allowDislike = null,
         )

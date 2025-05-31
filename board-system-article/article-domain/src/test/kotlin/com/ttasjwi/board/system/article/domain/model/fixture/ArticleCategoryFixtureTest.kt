@@ -13,7 +13,7 @@ class ArticleCategoryFixtureTest {
 
         assertThat(articleCategory.articleCategoryId).isNotNull
         assertThat(articleCategory.boardId).isNotNull
-        assertThat(articleCategory.allowSelfDelete).isNotNull
+        assertThat(articleCategory.allowSelfEditDelete).isNotNull
     }
 
     @Test
@@ -21,15 +21,15 @@ class ArticleCategoryFixtureTest {
     fun test2() {
         val articleCategoryId = 123434L
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val articleCategory = articleCategoryFixture(
             articleCategoryId = articleCategoryId,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
         )
 
         assertThat(articleCategory.articleCategoryId).isEqualTo(articleCategoryId)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(allowSelfDelete)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
     }
 }

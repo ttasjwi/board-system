@@ -36,7 +36,7 @@ class ArticleCategoryCreateControllerTest : BoardRestDocsTest() {
         val request = ArticleCategoryCreateRequest(
             name = "고양이",
             slug = "cat",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = true,
             allowDislike = true,
         )
@@ -53,7 +53,7 @@ class ArticleCategoryCreateControllerTest : BoardRestDocsTest() {
             boardId = boardId.toString(),
             name = request.name!!,
             slug = request.slug!!,
-            allowSelfDelete = request.allowSelfDelete!!,
+            allowSelfEditDelete = request.allowSelfEditDelete!!,
             allowLike = request.allowLike!!,
             allowDislike = request.allowDislike!!,
             createdAt = appDateTimeFixture(dayOfMonth = 1).toZonedDateTime(),
@@ -76,10 +76,10 @@ class ArticleCategoryCreateControllerTest : BoardRestDocsTest() {
                 jsonPath("$.boardId").value(response.boardId),
                 jsonPath("$.name").value(response.name),
                 jsonPath("$.slug").value(response.slug),
-                jsonPath("$.allowSelfDelete").value(response.allowSelfDelete),
+                jsonPath("$.allowSelfEditDelete").value(response.allowSelfEditDelete),
                 jsonPath("$.allowLike").value(response.allowLike),
                 jsonPath("$.allowDislike").value(response.allowLike),
-                jsonPath("$.allowSelfDelete").value(response.allowDislike),
+                jsonPath("$.allowSelfEditDelete").value(response.allowDislike),
                 jsonPath("$.createdAt").value("2025-01-01T00:00:00+09:00")
             )
             .andDocument(
@@ -101,7 +101,7 @@ class ArticleCategoryCreateControllerTest : BoardRestDocsTest() {
                             type STRING
                             means "게시글 카테고리 슬러그(게시글 카테고리 구분 영문자)"
                             constraint "최소 1자, 최대 8자, 영어 대소문자 및 숫자만 허용",
-                    "allowSelfDelete"
+                    "allowSelfEditDelete"
                             type BOOLEAN
                             means "작성자가 스스로 게시글 삭제 또는 수정을 할 수 있는 지 여부",
                     "allowLike"
@@ -124,7 +124,7 @@ class ArticleCategoryCreateControllerTest : BoardRestDocsTest() {
                     "slug"
                             type STRING
                             means "게시글 카테고리 슬러그(게시글 카테고리 구분 영문자)",
-                    "allowSelfDelete"
+                    "allowSelfEditDelete"
                             type BOOLEAN
                             means "작성자가 스스로 게시글 삭제 또는 수정을 할 수 있는 지 여부",
                     "allowLike"
@@ -150,7 +150,7 @@ class ArticleCategoryCreateControllerTest : BoardRestDocsTest() {
         val request = ArticleCategoryCreateRequest(
             name = "고양이",
             slug = "cat",
-            allowSelfDelete = true,
+            allowSelfEditDelete = true,
             allowLike = true,
             allowDislike = true,
         )

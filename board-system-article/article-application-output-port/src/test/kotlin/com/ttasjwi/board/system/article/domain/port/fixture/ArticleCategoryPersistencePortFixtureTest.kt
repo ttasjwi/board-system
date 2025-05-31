@@ -27,7 +27,7 @@ class ArticleCategoryPersistencePortFixtureTest {
             val articleCategory = articleCategoryFixture(
                 articleCategoryId = 1234566L,
                 boardId = 123456L,
-                allowSelfDelete = false,
+                allowSelfEditDelete = false,
             )
 
             // when
@@ -37,7 +37,7 @@ class ArticleCategoryPersistencePortFixtureTest {
             // then
             assertThat(findArticleCategory.articleCategoryId).isEqualTo(articleCategory.articleCategoryId)
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
-            assertThat(findArticleCategory.allowSelfDelete).isEqualTo(articleCategory.allowSelfDelete)
+            assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
         }
 
         @Test

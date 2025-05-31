@@ -35,7 +35,7 @@ class ArticleCreateProcessorTest {
             articleCategoryFixture(
                 articleCategoryId = 12314L,
                 boardId = 87719111L,
-                allowSelfDelete = true
+                allowSelfEditDelete = true
             )
         )
         articlePersistencePortFixture = container.articlePersistencePortFixture
