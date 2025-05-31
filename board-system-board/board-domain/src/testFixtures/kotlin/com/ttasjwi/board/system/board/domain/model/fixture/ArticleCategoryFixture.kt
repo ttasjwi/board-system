@@ -9,7 +9,7 @@ fun articleCategoryFixture(
     name: String = "테스트",
     slug: String = "testslug",
     boardId: Long = 12455657L,
-    allowSelfDelete: Boolean = true,
+    allowSelfEditDelete: Boolean = true,
     allowLike: Boolean = true,
     allowDislike: Boolean = true,
     createdAt: AppDateTime = appDateTimeFixture()
@@ -19,7 +19,7 @@ fun articleCategoryFixture(
         name = name,
         slug = slug,
         boardId = boardId,
-        allowSelfDelete = allowSelfDelete,
+        allowSelfEditDelete = allowSelfEditDelete,
         allowLike = allowLike,
         allowDislike = allowDislike,
         createdAt = createdAt,

@@ -31,7 +31,7 @@ class ArticleCategoryPersistencePortFixtureTest {
                 name = "일반",
                 slug = "general",
                 boardId = 1234567899L,
-                allowSelfDelete = false,
+                allowSelfEditDelete = false,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(hour = 12)
@@ -46,7 +46,7 @@ class ArticleCategoryPersistencePortFixtureTest {
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
             assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
             assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
-            assertThat(findArticleCategory.allowSelfDelete).isEqualTo(articleCategory.allowSelfDelete)
+            assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
             assertThat(findArticleCategory.allowLike).isEqualTo(articleCategory.allowLike)
             assertThat(findArticleCategory.allowDislike).isEqualTo(articleCategory.allowDislike)
             assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -62,7 +62,7 @@ class ArticleCategoryPersistencePortFixtureTest {
                 name = "일반",
                 slug = "general",
                 boardId = 1234567899L,
-                allowSelfDelete = false,
+                allowSelfEditDelete = false,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(hour = 12)
@@ -75,7 +75,7 @@ class ArticleCategoryPersistencePortFixtureTest {
                 name = articleCategory.name,
                 slug = articleCategory.slug,
                 boardId = 1234567899L,
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = false,
                 allowDislike = false,
                 createdAt = articleCategory.createdAt,
@@ -89,7 +89,7 @@ class ArticleCategoryPersistencePortFixtureTest {
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
             assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
             assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
-            assertThat(findArticleCategory.allowSelfDelete).isEqualTo(modifiedArticleCategory.allowSelfDelete)
+            assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(modifiedArticleCategory.allowSelfEditDelete)
             assertThat(findArticleCategory.allowLike).isEqualTo(modifiedArticleCategory.allowLike)
             assertThat(findArticleCategory.allowDislike).isEqualTo(modifiedArticleCategory.allowDislike)
             assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -118,7 +118,7 @@ class ArticleCategoryPersistencePortFixtureTest {
                     name = "일반",
                     slug = "general",
                     boardId = 1234567899L,
-                    allowSelfDelete = false,
+                    allowSelfEditDelete = false,
                     allowLike = true,
                     allowDislike = true,
                     createdAt = appDateTimeFixture(hour = 12)
@@ -163,7 +163,7 @@ class ArticleCategoryPersistencePortFixtureTest {
                     name = "일반",
                     slug = "general",
                     boardId = 1234567899L,
-                    allowSelfDelete = false,
+                    allowSelfEditDelete = false,
                     allowLike = true,
                     allowDislike = true,
                     createdAt = appDateTimeFixture(hour = 12)

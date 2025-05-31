@@ -3,7 +3,7 @@ package com.ttasjwi.board.system.article.domain.model
 class ArticleCategory(
     val articleCategoryId: Long,
     val boardId: Long,
-    val allowSelfDelete: Boolean,
+    val allowSelfEditDelete: Boolean,
 ) {
 
     companion object {
@@ -11,17 +11,17 @@ class ArticleCategory(
         fun restore(
             articleCategoryId: Long,
             boardId: Long,
-            allowSelfDelete: Boolean
+            allowSelfEditDelete: Boolean
         ): ArticleCategory {
             return ArticleCategory(
                 articleCategoryId = articleCategoryId,
                 boardId = boardId,
-                allowSelfDelete = allowSelfDelete
+                allowSelfEditDelete = allowSelfEditDelete
             )
         }
     }
 
     override fun toString(): String {
-        return "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, allowSelfDelete=$allowSelfDelete)"
+        return "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, allowSelfEditDelete=$allowSelfEditDelete)"
     }
 }

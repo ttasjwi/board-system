@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS boards(
 );
 
 CREATE TABLE IF NOT EXISTS article_categories(
-    article_category_id BIGINT      NOT NULL PRIMARY KEY,
-    name                VARCHAR(20) NOT NULL,
-    slug                VARCHAR(8)  NOT NULL,
-    board_id            BIGINT      NOT NULL,
-    allow_self_delete   BOOLEAN     NOT NULL,
-    allow_like          BOOLEAN     NOT NULL,
-    allow_dislike       BOOLEAN     NOT NULL,
-    created_at          DATETIME    NOT NULL,
+    article_category_id    BIGINT      NOT NULL PRIMARY KEY,
+    name                   VARCHAR(20) NOT NULL,
+    slug                   VARCHAR(8)  NOT NULL,
+    board_id               BIGINT      NOT NULL,
+    allow_self_edit_delete BOOLEAN     NOT NULL,
+    allow_like             BOOLEAN     NOT NULL,
+    allow_dislike          BOOLEAN     NOT NULL,
+    created_at             DATETIME    NOT NULL,
 
     CONSTRAINT uq_board_id_and_name UNIQUE (board_id, name),
     CONSTRAINT uq_board_id_and_slug UNIQUE (board_id, slug)

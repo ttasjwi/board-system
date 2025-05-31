@@ -24,8 +24,8 @@ class JpaArticleCategory(
     @Column(name = "slug", length = 8, nullable = false)
     var slug: String,
 
-    @Column(name = "allow_self_delete", nullable = false)
-    var allowSelfDelete: Boolean,
+    @Column(name = "allow_self_edit_delete", nullable = false)
+    var allowSelfEditDelete: Boolean,
 
     @Column(name = "allow_like", nullable = false)
     var allowLike: Boolean,
@@ -41,7 +41,7 @@ class JpaArticleCategory(
         return ArticleCategory.restore(
             articleCategoryId = articleCategoryId,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
         )
     }
 }

@@ -36,7 +36,7 @@ class ArticleDetailStorageImpl(
                         article.articleCategoryId,
                         articleCategory.name,
                         articleCategory.slug,
-                        articleCategory.allowSelfDelete,
+                        articleCategory.allowSelfEditDelete,
                         articleCategory.allowLike,
                         articleCategory.allowDislike,
                     ),

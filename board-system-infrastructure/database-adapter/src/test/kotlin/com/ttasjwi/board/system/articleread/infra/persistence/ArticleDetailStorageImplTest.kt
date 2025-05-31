@@ -49,7 +49,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
                 boardId = board.boardId,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 27).toLocalDateTime()
@@ -82,7 +82,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
             assertThat(articleDetail.articleCategory.articleCategoryId).isEqualTo(article.articleCategoryId)
             assertThat(articleDetail.articleCategory.name).isEqualTo(articleCategory.name)
             assertThat(articleDetail.articleCategory.slug).isEqualTo(articleCategory.slug)
-            assertThat(articleDetail.articleCategory.allowSelfDelete).isEqualTo(articleCategory.allowSelfDelete)
+            assertThat(articleDetail.articleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
             assertThat(articleDetail.articleCategory.allowLike).isEqualTo(articleCategory.allowLike)
             assertThat(articleDetail.articleCategory.allowDislike).isEqualTo(articleCategory.allowDislike)
             assertThat(articleDetail.board.boardId).isEqualTo(article.boardId)
@@ -113,7 +113,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
                 boardId = board.boardId,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 27).toLocalDateTime()
@@ -184,7 +184,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
                 boardId = board.boardId,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 27).toLocalDateTime()
@@ -236,7 +236,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
                 boardId = board.boardId,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 27).toLocalDateTime()
@@ -287,7 +287,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
                 boardId = board.boardId,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 27).toLocalDateTime()
@@ -340,7 +340,7 @@ class ArticleDetailStorageImplTest : DataBaseIntegrationTest() {
                 boardId = board.boardId,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 27).toLocalDateTime()

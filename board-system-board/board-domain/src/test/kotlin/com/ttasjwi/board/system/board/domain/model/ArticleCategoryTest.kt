@@ -15,7 +15,7 @@ class ArticleCategoryTest {
         val name = "일반"
         val slug = "general"
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val allowLike = false
         val allowDislike = false
         val createdAt = appDateTimeFixture(minute = 12)
@@ -24,7 +24,7 @@ class ArticleCategoryTest {
             name = name,
             slug = slug,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,
@@ -34,7 +34,7 @@ class ArticleCategoryTest {
         assertThat(articleCategory.name).isEqualTo(name)
         assertThat(articleCategory.slug).isEqualTo(slug)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(allowSelfDelete)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
         assertThat(articleCategory.allowLike).isEqualTo(allowLike)
         assertThat(articleCategory.allowDislike).isEqualTo(allowDislike)
         assertThat(articleCategory.createdAt).isEqualTo(createdAt)
@@ -47,7 +47,7 @@ class ArticleCategoryTest {
         val name = "일반"
         val slug = "general"
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val allowLike = false
         val allowDislike = false
         val createdAt = appDateTimeFixture(minute = 12).toLocalDateTime()
@@ -56,7 +56,7 @@ class ArticleCategoryTest {
             name = name,
             slug = slug,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,
@@ -66,7 +66,7 @@ class ArticleCategoryTest {
         assertThat(articleCategory.name).isEqualTo(name)
         assertThat(articleCategory.slug).isEqualTo(slug)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(allowSelfDelete)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
         assertThat(articleCategory.allowLike).isEqualTo(allowLike)
         assertThat(articleCategory.allowDislike).isEqualTo(allowDislike)
         assertThat(articleCategory.createdAt.toLocalDateTime()).isEqualTo(createdAt)
@@ -80,7 +80,7 @@ class ArticleCategoryTest {
         val name = "일반"
         val slug = "general"
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val allowLike = false
         val allowDislike = false
         val createdAt = appDateTimeFixture(minute = 12)
@@ -89,7 +89,7 @@ class ArticleCategoryTest {
             name = name,
             slug = slug,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,
@@ -98,7 +98,7 @@ class ArticleCategoryTest {
         val str = articleCategory.toString()
 
         assertThat(str).isEqualTo(
-            "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, slug='$slug', createdAt=$createdAt, name='$name', allowSelfDelete=$allowSelfDelete, allowLike=$allowLike, allowDislike=$allowDislike)"
+            "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, slug='$slug', createdAt=$createdAt, name='$name', allowSelfEditDelete=$allowSelfEditDelete, allowLike=$allowLike, allowDislike=$allowDislike)"
         )
     }
 }

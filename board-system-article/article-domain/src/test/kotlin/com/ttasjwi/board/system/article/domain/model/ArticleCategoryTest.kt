@@ -12,16 +12,16 @@ class ArticleCategoryTest {
     fun restore() {
         val articleCategoryId = 123434L
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val articleCategory = ArticleCategory.restore(
             articleCategoryId = articleCategoryId,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
         )
 
         assertThat(articleCategory.articleCategoryId).isEqualTo(articleCategoryId)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(allowSelfDelete)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
     }
 
     @Test
@@ -29,17 +29,17 @@ class ArticleCategoryTest {
     fun toStringTest() {
         val articleCategoryId = 123434L
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowSelfEditDelete = true
         val articleCategory = ArticleCategory.restore(
             articleCategoryId = articleCategoryId,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
         )
 
         val str = articleCategory.toString()
 
         assertThat(str).isEqualTo(
-            "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, allowSelfDelete=$allowSelfDelete)"
+            "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, allowSelfEditDelete=$allowSelfEditDelete)"
         )
     }
 }

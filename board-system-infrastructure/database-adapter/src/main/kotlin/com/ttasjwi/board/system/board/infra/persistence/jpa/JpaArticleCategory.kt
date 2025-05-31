@@ -24,8 +24,8 @@ class JpaArticleCategory(
     @Column(name = "slug", length = 8, nullable = false)
     var slug: String,
 
-    @Column(name = "allow_self_delete", nullable = false)
-    var allowSelfDelete: Boolean,
+    @Column(name = "allow_self_edit_delete", nullable = false)
+    var allowSelfEditDelete: Boolean,
 
     @Column(name = "allow_like", nullable = false)
     var allowLike: Boolean,
@@ -45,7 +45,7 @@ class JpaArticleCategory(
                 boardId = articleCategory.boardId,
                 name = articleCategory.name,
                 slug = articleCategory.slug,
-                allowSelfDelete = articleCategory.allowSelfDelete,
+                allowSelfEditDelete = articleCategory.allowSelfEditDelete,
                 allowLike = articleCategory.allowLike,
                 allowDislike = articleCategory.allowDislike,
                 createdAt = articleCategory.createdAt.toLocalDateTime(),
@@ -59,7 +59,7 @@ class JpaArticleCategory(
             boardId = boardId,
             name = name,
             slug = slug,
-            allowSelfDelete = allowSelfDelete,
+            allowSelfEditDelete = allowSelfEditDelete,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,

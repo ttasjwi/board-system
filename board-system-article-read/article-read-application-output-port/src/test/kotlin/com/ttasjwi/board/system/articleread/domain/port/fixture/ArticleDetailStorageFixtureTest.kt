@@ -27,7 +27,7 @@ class ArticleDetailStorageFixtureTest {
         val articleCategoryId = 25L
         val articleCategoryName = "사진"
         val articleCategorySlug = "picture"
-        val articleCategoryAllowSelfDelete = true
+        val articleCategoryAllowSelfEditDelete = true
         val articleCategoryAllowLike = true
         val articleCategoryAllowDislike = false
         val boardId = 4L
@@ -51,7 +51,7 @@ class ArticleDetailStorageFixtureTest {
             articleCategoryId = articleCategoryId,
             articleCategoryName = articleCategoryName,
             articleCategorySlug = articleCategorySlug,
-            articleCategoryAllowSelfDelete = articleCategoryAllowSelfDelete,
+            articleCategoryAllowSelfEditDelete = articleCategoryAllowSelfEditDelete,
             articleCategoryAllowLike = articleCategoryAllowLike,
             articleCategoryAllowDislike = articleCategoryAllowDislike,
             boardId = boardId,
@@ -79,7 +79,7 @@ class ArticleDetailStorageFixtureTest {
         assertThat(findArticleDetail.articleCategory.articleCategoryId).isEqualTo(articleCategoryId)
         assertThat(findArticleDetail.articleCategory.name).isEqualTo(articleCategoryName)
         assertThat(findArticleDetail.articleCategory.slug).isEqualTo(articleCategorySlug)
-        assertThat(findArticleDetail.articleCategory.allowSelfDelete).isEqualTo(articleCategoryAllowSelfDelete)
+        assertThat(findArticleDetail.articleCategory.allowSelfEditDelete).isEqualTo(articleCategoryAllowSelfEditDelete)
         assertThat(findArticleDetail.articleCategory.allowLike).isEqualTo(articleCategoryAllowLike)
         assertThat(findArticleDetail.articleCategory.allowDislike).isEqualTo(articleCategoryAllowDislike)
         assertThat(findArticleDetail.board.boardId).isEqualTo(boardId)

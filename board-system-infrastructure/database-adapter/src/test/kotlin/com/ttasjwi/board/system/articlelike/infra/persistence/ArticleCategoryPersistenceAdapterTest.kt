@@ -24,7 +24,7 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                 boardId = 13L,
                 name = "일반",
                 slug = "general",
-                allowSelfDelete = true,
+                allowSelfEditDelete = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture().toLocalDateTime()
