@@ -3,8 +3,10 @@ package com.ttasjwi.board.system.articlecomment.domain.processor
 import com.ttasjwi.board.system.articlecomment.domain.dto.ArticleCommentCreateCommand
 import com.ttasjwi.board.system.articlecomment.domain.exception.*
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
+import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleCommentFixture
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
@@ -23,8 +25,9 @@ class ArticleCommentCreateProcessorTest {
 
     private lateinit var processor: ArticleCommentCreateProcessor
     private lateinit var articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture
-    private lateinit var articleCommentCountPersistencePortfixture: ArticleCommentCountPersistencePortFixture
+    private lateinit var articleCommentCountPersistencePortFixture: ArticleCommentCountPersistencePortFixture
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
+    private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
     private lateinit var articleCommentWriterNicknamePersistencePortFixture: ArticleCommentWriterNicknamePersistencePortFixture
 
     @BeforeEach
@@ -32,12 +35,11 @@ class ArticleCommentCreateProcessorTest {
         val container = TestContainer.create()
         processor = container.articleCommentCreateProcessor
         articleCommentPersistencePortFixture = container.articleCommentPersistencePortFixture
-        articleCommentCountPersistencePortfixture = container.articleCommentCountPersistencePortFixture
+        articleCommentCountPersistencePortFixture = container.articleCommentCountPersistencePortFixture
         articlePersistencePortFixture = container.articlePersistencePortFixture
-        articleCommentWriterNicknamePersistencePortFixture =
-            container.articleCommentWriterNicknamePersistencePortFixture
+        articleCategoryPersistencePortFixture = container.articleCategoryPersistencePortFixture
+        articleCommentWriterNicknamePersistencePortFixture = container.articleCommentWriterNicknamePersistencePortFixture
     }
-
 
     @Test
     @DisplayName("성공 테스트 - 부모댓글이 없을 때")
@@ -45,8 +47,17 @@ class ArticleCommentCreateProcessorTest {
         // given
         val commentWriter = authUserFixture(userId = 1234L)
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val articleCommentWriterNickname = articleCommentWriterNicknamePersistencePortFixture.save(
             commentWriterId = commentWriter.userId,
             commentWriterNickname = "땃쥐"
@@ -65,7 +76,7 @@ class ArticleCommentCreateProcessorTest {
 
         // then
         val findArticleComment = articleCommentPersistencePortFixture.findById(articleComment.articleCommentId)!!
-        val findArticleCommentCount = articleCommentCountPersistencePortfixture.findByIdOrNull(articleComment.articleId)!!
+        val findArticleCommentCount = articleCommentCountPersistencePortFixture.findByIdOrNull(articleComment.articleId)!!
 
         assertThat(articleComment.articleCommentId).isNotNull()
         assertThat(articleComment.content).isEqualTo(command.content)
@@ -91,8 +102,17 @@ class ArticleCommentCreateProcessorTest {
         // given
         val commentWriter = authUserFixture(userId = 1234L)
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val articleCommentWriterNickname = articleCommentWriterNicknamePersistencePortFixture.save(
             commentWriterId = commentWriter.userId,
             commentWriterNickname = "땃쥐"
@@ -109,7 +129,7 @@ class ArticleCommentCreateProcessorTest {
                 deleteStatus = ArticleCommentDeleteStatus.NOT_DELETED
             )
         )
-        articleCommentCountPersistencePortfixture.increase(article.articleId)
+        articleCommentCountPersistencePortFixture.increase(article.articleId)
 
         val command = ArticleCommentCreateCommand(
             content = "댓글 본문",
@@ -124,7 +144,7 @@ class ArticleCommentCreateProcessorTest {
 
         // then
         val findArticleComment = articleCommentPersistencePortFixture.findById(articleComment.articleCommentId)!!
-        val findArticleCommentCount = articleCommentCountPersistencePortfixture.findByIdOrNull(articleComment.articleId)!!
+        val findArticleCommentCount = articleCommentCountPersistencePortFixture.findByIdOrNull(articleComment.articleId)!!
 
         assertThat(articleComment.articleCommentId).isNotNull()
         assertThat(articleComment.content).isEqualTo(command.content)
@@ -167,13 +187,80 @@ class ArticleCommentCreateProcessorTest {
     }
 
     @Test
-    @DisplayName("부모댓글 Id가 명령에 있으나, 부모댓글 Id가 조회되지 않았을 때 예외 발생")
+    @DisplayName("게시글 카테고리가 존재하지 않을 때 예외 발생")
     fun testFailure2() {
         // given
         val commentWriter = authUserFixture(userId = 1234L)
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val command = ArticleCommentCreateCommand(
+            content = "댓글 본문",
+            articleId = article.articleId,
+            parentCommentId = null,
+            currentTime = appDateTimeFixture(),
+            commentWriter = commentWriter
+        )
+
+        // when
+        val exception = assertThrows<IllegalStateException> {
+            processor.create(command)
+        }
+        assertThat(exception.message).isEqualTo("게시글 카테고리 조회 실패 : (articleId = ${article.articleId}, articleCategoryId= ${article.articleCategoryId})")
+    }
+
+    @Test
+    @DisplayName("게시글 카테고리 정책 상, 게시글 댓글 작성이 불가능할 경우 예외 발생")
+    fun testFailure3() {
+        // given
+        val commentWriter = authUserFixture(userId = 1234L)
+        val article = articlePersistencePortFixture.save(
+            articleFixture(
+                articleCategoryId = 154L,
+            )
+        )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = false
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
+        val command = ArticleCommentCreateCommand(
+            content = "댓글 본문",
+            articleId = article.articleId,
+            parentCommentId = null,
+            currentTime = appDateTimeFixture(),
+            commentWriter = commentWriter
+        )
+
+        // when
+        val exception = assertThrows<ArticleCommentWriteNotAllowedException> {
+            processor.create(command)
+        }
+        assertThat(exception.args).containsExactly(article.articleId, article.articleCategoryId)
+    }
+
+    @Test
+    @DisplayName("부모댓글 Id가 명령에 있으나, 부모댓글 Id가 조회되지 않았을 때 예외 발생")
+    fun testFailure4() {
+        // given
+        val commentWriter = authUserFixture(userId = 1234L)
+        val article = articlePersistencePortFixture.save(
+            articleFixture(
+                articleCategoryId = 154L,
+            )
+        )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val command = ArticleCommentCreateCommand(
             content = "댓글 본문",
             articleId = article.articleId,
@@ -194,12 +281,21 @@ class ArticleCommentCreateProcessorTest {
 
     @Test
     @DisplayName("부모댓글이 게시글의 댓글이 아닐 경우 예외 발생")
-    fun testFailure3() {
+    fun testFailure5() {
         // given
         val commentWriter = authUserFixture(userId = 1234L)
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val parentComment = articleCommentPersistencePortFixture.save(
             articleCommentFixture(
                 articleCommentId = 12345L,
@@ -233,12 +329,21 @@ class ArticleCommentCreateProcessorTest {
 
     @Test
     @DisplayName("부모댓글이 논리적으로 삭제된 상태일 때 예외 발생")
-    fun testFailure4() {
+    fun testFailure6() {
         // given
         val commentWriter = authUserFixture(userId = 1234L)
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val parentComment = articleCommentPersistencePortFixture.save(
             articleCommentFixture(
                 articleCommentId = 12345L,
@@ -273,12 +378,21 @@ class ArticleCommentCreateProcessorTest {
 
     @Test
     @DisplayName("게시글 작성자의 닉네임 조회에 실패했을 경우 예외 발생")
-    fun testFailure5() {
+    fun testFailure7() {
         // given
         val commentWriter = authUserFixture(userId = 1234L)
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val parentComment = articleCommentPersistencePortFixture.save(
             articleCommentFixture(
                 articleCommentId = 12345L,

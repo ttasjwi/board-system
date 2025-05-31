@@ -1,12 +1,11 @@
 package com.ttasjwi.board.system.articlecomment.domain.test.support
 
 import com.ttasjwi.board.system.articlecomment.domain.*
-import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentCreateUseCaseImpl
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentCreateCommandMapper
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentInfiniteScrollReadQueryMapper
 import com.ttasjwi.board.system.articlecomment.domain.mapper.ArticleCommentPageReadQueryMapper
 import com.ttasjwi.board.system.articlecomment.domain.policy.fixture.ArticleCommentContentPolicyFixture
-import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentCountPersistencePort
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
@@ -50,6 +49,10 @@ internal class TestContainer private constructor() {
         ArticleCommentWriterNicknamePersistencePortFixture()
     }
 
+    val articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture by lazy {
+        ArticleCategoryPersistencePortFixture()
+    }
+
     // domain policy
     val articleCommentContentPolicyFixture: ArticleCommentContentPolicyFixture by lazy {
         ArticleCommentContentPolicyFixture()
@@ -78,6 +81,7 @@ internal class TestContainer private constructor() {
             articleCommentPersistencePort = articleCommentPersistencePortFixture,
             articleCommentCountPersistencePort = articleCommentCountPersistencePortFixture,
             articlePersistencePort = articlePersistencePortFixture,
+            articleCategoryPersistencePort = articleCategoryPersistencePortFixture,
             articleCommentWriterNicknamePersistencePort = articleCommentWriterNicknamePersistencePortFixture,
         )
     }
