@@ -2,9 +2,11 @@ package com.ttasjwi.board.system.article.domain.processor
 
 import com.ttasjwi.board.system.article.domain.dto.ArticleCreateCommand
 import com.ttasjwi.board.system.article.domain.exception.ArticleCategoryNotFoundException
+import com.ttasjwi.board.system.article.domain.exception.ArticleWriteNotAllowedException
 import com.ttasjwi.board.system.article.domain.exception.ArticleWriterNicknameNotFoundException
 import com.ttasjwi.board.system.article.domain.model.ArticleCategory
 import com.ttasjwi.board.system.article.domain.model.fixture.articleCategoryFixture
+import com.ttasjwi.board.system.article.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleWriterNicknamePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
@@ -23,6 +25,7 @@ class ArticleCreateProcessorTest {
     private lateinit var processor: ArticleCreateProcessor
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
     private lateinit var articleWriterNicknamePersistencePortFixture: ArticleWriterNicknamePersistencePortFixture
+    private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
     private lateinit var savedArticleCategory: ArticleCategory
 
     @BeforeEach
@@ -30,15 +33,7 @@ class ArticleCreateProcessorTest {
         val container = TestContainer.create()
         processor = container.articleCreateProcessor
         articleWriterNicknamePersistencePortFixture = container.articleWriterNicknamePersistencePortFixture
-
-        savedArticleCategory = container.articleCategoryPersistencePortFixture.save(
-            articleCategoryFixture(
-                articleCategoryId = 12314L,
-                boardId = 87719111L,
-                allowWrite = true,
-                allowSelfEditDelete = true
-            )
-        )
+        articleCategoryPersistencePortFixture = container.articleCategoryPersistencePortFixture
         articlePersistencePortFixture = container.articlePersistencePortFixture
     }
 
@@ -47,6 +42,21 @@ class ArticleCreateProcessorTest {
     fun successTest() {
         // given
         val writerNickname = "땃고양이"
+        val authUser = authUserFixture(userId = 15747L, role = Role.USER)
+
+        articleWriterNicknamePersistencePortFixture.save(
+            writerId = authUser.userId,
+            writerNickname = writerNickname
+        )
+        val savedArticleCategory = articleCategoryPersistencePortFixture.save(
+            articleCategoryFixture(
+                articleCategoryId = 12314L,
+                boardId = 87719111L,
+                allowWrite = true,
+                allowSelfEditDelete = true
+            )
+        )
+
         val command = ArticleCreateCommand(
             title = "제목",
             content = "본문",
@@ -54,10 +64,7 @@ class ArticleCreateProcessorTest {
             writer = authUserFixture(userId = 15747L, role = Role.USER),
             currentTime = appDateTimeFixture(minute = 43)
         )
-        articleWriterNicknamePersistencePortFixture.save(
-            writerId = command.writer.userId,
-            writerNickname = writerNickname
-        )
+
 
         // when
         val article = processor.create(command)
@@ -123,6 +130,44 @@ class ArticleCreateProcessorTest {
         }
 
         // then
-        assertThat(ex.message).isEqualTo("조건에 부합하는 게시글 카테고리를 찾지 못 했습니다. (articleCategoryId = ${command.articleCategoryId})")
+        assertThat(ex.args).containsExactly("articleCategoryId", command.articleCategoryId)
+    }
+
+    @Test
+    @DisplayName("게시글 카테고리 정책상, 게시글 작성을 할 수 없을 경우 예외가 발생한다.")
+    fun failureWhenArticleWriteNotAllowed() {
+        // given
+        val writerNickname = "땃고양이"
+        val authUser = authUserFixture(userId = 15747L, role = Role.USER)
+
+        articleWriterNicknamePersistencePortFixture.save(
+            writerId = authUser.userId,
+            writerNickname = writerNickname
+        )
+        val savedArticleCategory = articleCategoryPersistencePortFixture.save(
+            articleCategoryFixture(
+                articleCategoryId = 12314L,
+                boardId = 87719111L,
+                allowWrite = false,
+                allowSelfEditDelete = true
+            )
+        )
+
+        val command = ArticleCreateCommand(
+            title = "제목",
+            content = "본문",
+            articleCategoryId = savedArticleCategory.articleCategoryId,
+            writer = authUserFixture(userId = 15747L, role = Role.USER),
+            currentTime = appDateTimeFixture(minute = 43)
+        )
+
+
+        // when
+        val ex = assertThrows<ArticleWriteNotAllowedException> {
+            processor.create(command)
+        }
+
+        // then
+        assertThat(ex.args).containsExactly(command.articleCategoryId)
     }
 }
