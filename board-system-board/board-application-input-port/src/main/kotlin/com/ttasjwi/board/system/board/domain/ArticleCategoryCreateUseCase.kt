@@ -9,7 +9,9 @@ interface ArticleCategoryCreateUseCase {
 data class ArticleCategoryCreateRequest(
     val name: String?,
     val slug: String?,
+    val allowWrite: Boolean?,
     val allowSelfEditDelete: Boolean?,
+    val allowComment: Boolean?,
     val allowLike: Boolean?,
     val allowDislike: Boolean?
 )
@@ -19,7 +21,9 @@ data class ArticleCategoryCreateResponse(
     val boardId: String,
     val name: String,
     val slug: String,
+    val allowWrite: Boolean,
     val allowSelfEditDelete: Boolean,
+    val allowComment: Boolean,
     val allowLike: Boolean,
     val allowDislike: Boolean,
     val createdAt: ZonedDateTime

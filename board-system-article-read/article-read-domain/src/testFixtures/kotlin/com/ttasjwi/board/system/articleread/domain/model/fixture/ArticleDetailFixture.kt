@@ -11,7 +11,9 @@ fun articleDetailFixture(
     articleCategoryId: Long = 2L,
     articleCategoryName: String = "일반",
     articleCategorySlug: String = "general",
+    articleCategoryAllowWrite: Boolean = true,
     articleCategoryAllowSelfEditDelete: Boolean = true,
+    articleCategoryAllowComment: Boolean = true,
     articleCategoryAllowLike: Boolean = true,
     articleCategoryAllowDislike: Boolean = true,
     boardId: Long = 3L,
@@ -35,7 +37,9 @@ fun articleDetailFixture(
             articleCategoryId = articleCategoryId,
             name = articleCategoryName,
             slug = articleCategorySlug,
+            allowWrite = articleCategoryAllowWrite,
             allowSelfEditDelete = articleCategoryAllowSelfEditDelete,
+            allowComment = articleCategoryAllowComment,
             allowLike = articleCategoryAllowLike,
             allowDislike = articleCategoryAllowDislike
         ),
@@ -58,8 +62,7 @@ fun articleDetailFixture(
     )
 }
 
-internal data class TestArticleDetail
-internal constructor(
+internal data class TestArticleDetail(
     override val articleId: Long,
     override val title: String,
     override val content: String,
@@ -79,7 +82,9 @@ internal constructor(
         override val articleCategoryId: Long,
         override val name: String,
         override val slug: String,
+        override val allowWrite: Boolean,
         override val allowSelfEditDelete: Boolean,
+        override val allowComment: Boolean,
         override val allowLike: Boolean,
         override val allowDislike: Boolean
     ) : ArticleDetail.ArticleCategory

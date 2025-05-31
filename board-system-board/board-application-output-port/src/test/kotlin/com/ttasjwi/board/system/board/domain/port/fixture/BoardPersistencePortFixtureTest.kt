@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("BoardPersistencePortFixture 테스트")
+@DisplayName("[board-application-output-port] BoardPersistencePortFixture 테스트")
 class BoardPersistencePortFixtureTest {
 
     private lateinit var boardPersistencePortFixture: BoardPersistencePortFixture

@@ -24,7 +24,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                 boardId = 123456L,
                 name = "질문",
                 slug = "question",
+                allowWrite = true,
                 allowSelfEditDelete = false,
+                allowComment = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(minute = 13).toLocalDateTime()
@@ -39,6 +41,7 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
             // then
             assertThat(findArticleCategory.articleCategoryId).isEqualTo(articleCategory.articleCategoryId)
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
+            assertThat(findArticleCategory.allowWrite).isEqualTo(articleCategory.allowWrite)
             assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
         }
 

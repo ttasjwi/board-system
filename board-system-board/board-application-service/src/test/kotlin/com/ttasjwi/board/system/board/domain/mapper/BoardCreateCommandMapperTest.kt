@@ -19,7 +19,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("BoardCreateCommandMapper: 게시판 생성명령 매퍼")
+@DisplayName("[board-application-service] BoardCreateCommandMapper: 게시판 생성명령 매퍼")
 class BoardCreateCommandMapperTest {
 
     private lateinit var commandMapper: BoardCreateCommandMapper

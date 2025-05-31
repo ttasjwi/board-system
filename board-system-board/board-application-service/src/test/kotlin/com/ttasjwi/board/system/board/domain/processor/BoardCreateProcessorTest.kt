@@ -16,7 +16,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("BoardCreateProcessor: 게시판 생성을 실질적으로 수행하는 처리자")
+@DisplayName("[board-application-service] BoardCreateProcessor: 게시판 생성을 실질적으로 수행하는 처리자")
 class BoardCreateProcessorTest {
 
     private lateinit var processor: BoardCreateProcessor

@@ -23,7 +23,9 @@ internal class ArticleCategoryCreateCommandMapper(
 
         val articleCategoryName = getArticleCategoryName(request.name, exceptionCollector)
         val articleCategorySlug = getArticleCategorySlug(request.slug, exceptionCollector)
+        val allowWrite = getAllowWrite(request.allowWrite, exceptionCollector)
         val allowSelfEditDelete = getAllowSelfEditDelete(request.allowSelfEditDelete, exceptionCollector)
+        val allowComment = getAllowComment(request.allowComment, exceptionCollector)
         val allowLike = getAllowLike(request.allowLike, exceptionCollector)
         val allowDislike = getAllowDislike(request.allowDislike, exceptionCollector)
 
@@ -34,7 +36,9 @@ internal class ArticleCategoryCreateCommandMapper(
             creator = authUserLoader.loadCurrentAuthUser()!!,
             name = articleCategoryName!!,
             slug = articleCategorySlug!!,
+            allowWrite = allowWrite!!,
             allowSelfEditDelete = allowSelfEditDelete!!,
+            allowComment = allowComment!!,
             allowLike = allowLike!!,
             allowDislike = allowDislike!!,
             currentTime = timeManager.now()
@@ -75,6 +79,19 @@ internal class ArticleCategoryCreateCommandMapper(
             }
     }
 
+    private fun getAllowWrite(
+        allowWrite: Boolean?,
+        exceptionCollector: ValidationExceptionCollector
+    ): Boolean? {
+        if (allowWrite == null) {
+            exceptionCollector.addCustomExceptionOrThrow(
+                NullArgumentException("allowWrite")
+            )
+            return null
+        }
+        return allowWrite
+    }
+
     private fun getAllowSelfEditDelete(
         allowSelfEditDelete: Boolean?,
         exceptionCollector: ValidationExceptionCollector
@@ -86,6 +103,19 @@ internal class ArticleCategoryCreateCommandMapper(
             return null
         }
         return allowSelfEditDelete
+    }
+
+    private fun getAllowComment(
+        allowComment: Boolean?,
+        exceptionCollector: ValidationExceptionCollector
+    ): Boolean? {
+        if (allowComment == null) {
+            exceptionCollector.addCustomExceptionOrThrow(
+                NullArgumentException("allowComment")
+            )
+            return null
+        }
+        return allowComment
     }
 
     private fun getAllowLike(allowLike: Boolean?, exceptionCollector: ValidationExceptionCollector): Boolean? {

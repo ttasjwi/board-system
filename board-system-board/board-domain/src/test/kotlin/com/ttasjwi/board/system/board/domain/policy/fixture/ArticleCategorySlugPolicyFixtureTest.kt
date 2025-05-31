@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("ArticleCategorySlugPolicyFixture : 게시글 카테고리 슬러그 정책 픽스쳐")
+@DisplayName("[board-domain] ArticleCategorySlugPolicyFixture : 게시글 카테고리 슬러그 정책 픽스쳐")
 class ArticleCategorySlugPolicyFixtureTest {
 
 

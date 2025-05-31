@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("InvalidArticleCategorySlugFormatException: 게시글 카테고리 슬러그 포맷이 유효하지 않을 때의 예외")
+@DisplayName("[board-domain] InvalidArticleCategorySlugFormatException: 게시글 카테고리 슬러그 포맷이 유효하지 않을 때의 예외")
 class InvalidArticleCategorySlugFormatExceptionTest {
 
     @Test

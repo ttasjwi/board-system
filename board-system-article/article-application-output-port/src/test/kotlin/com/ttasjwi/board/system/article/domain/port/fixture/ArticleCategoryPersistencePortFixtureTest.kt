@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
+@DisplayName("[article-application-output-port] ArticleCategoryPersistencePortFixture 테스트")
 class ArticleCategoryPersistencePortFixtureTest {
 
     private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
@@ -27,6 +28,7 @@ class ArticleCategoryPersistencePortFixtureTest {
             val articleCategory = articleCategoryFixture(
                 articleCategoryId = 1234566L,
                 boardId = 123456L,
+                allowWrite = true,
                 allowSelfEditDelete = false,
             )
 
@@ -37,6 +39,7 @@ class ArticleCategoryPersistencePortFixtureTest {
             // then
             assertThat(findArticleCategory.articleCategoryId).isEqualTo(articleCategory.articleCategoryId)
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
+            assertThat(findArticleCategory.allowWrite).isEqualTo(findArticleCategory.allowWrite)
             assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
         }
 

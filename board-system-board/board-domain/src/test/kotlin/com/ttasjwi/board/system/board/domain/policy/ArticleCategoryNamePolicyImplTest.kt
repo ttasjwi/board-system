@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.board.domain.exception.InvalidArticleCategoryNam
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("ArticleCategoryNameImpl : 게시글 카테고리명 정책")
+@DisplayName("[board-domain] ArticleCategoryNameImpl : 게시글 카테고리명 정책")
 class ArticleCategoryNamePolicyImplTest {
 
     private lateinit var articleCategoryNamePolicy: ArticleCategoryNamePolicy

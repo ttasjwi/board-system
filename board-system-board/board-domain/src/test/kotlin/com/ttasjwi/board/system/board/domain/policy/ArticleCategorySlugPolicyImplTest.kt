@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-@DisplayName("ArticleCategorySlugPolicyImpl: 게시글 카테고리 슬러그 도메인 정책")
+@DisplayName("[board-domain] ArticleCategorySlugPolicyImpl: 게시글 카테고리 슬러그 도메인 정책")
 class ArticleCategorySlugPolicyImplTest {
 
     private lateinit var articleCategorySlugPolicy: ArticleCategorySlugPolicy

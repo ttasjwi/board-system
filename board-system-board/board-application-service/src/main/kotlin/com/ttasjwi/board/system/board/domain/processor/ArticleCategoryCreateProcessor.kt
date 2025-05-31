@@ -73,7 +73,9 @@ class ArticleCategoryCreateProcessor(
             boardId = command.boardId,
             name = command.name,
             slug = command.slug,
+            allowWrite = command.allowWrite,
             allowSelfEditDelete = command.allowSelfEditDelete,
+            allowComment = command.allowComment,
             allowLike = command.allowLike,
             allowDislike = command.allowDislike,
             createdAt = command.currentTime
