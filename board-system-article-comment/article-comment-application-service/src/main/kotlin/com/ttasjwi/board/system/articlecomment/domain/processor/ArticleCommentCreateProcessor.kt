@@ -2,7 +2,10 @@ package com.ttasjwi.board.system.articlecomment.domain.processor
 
 import com.ttasjwi.board.system.articlecomment.domain.dto.ArticleCommentCreateCommand
 import com.ttasjwi.board.system.articlecomment.domain.exception.*
+import com.ttasjwi.board.system.articlecomment.domain.model.Article
+import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCategory
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleComment
+import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentCountPersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentPersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentWriterNicknamePersistencePort
@@ -16,6 +19,7 @@ internal class ArticleCommentCreateProcessor(
     private val articleCommentPersistencePort: ArticleCommentPersistencePort,
     private val articleCommentCountPersistencePort: ArticleCommentCountPersistencePort,
     private val articlePersistencePort: ArticlePersistencePort,
+    private val articleCategoryPersistencePort: ArticleCategoryPersistencePort,
     private val articleCommentWriterNicknamePersistencePort: ArticleCommentWriterNicknamePersistencePort,
 ) {
 
@@ -24,11 +28,15 @@ internal class ArticleCommentCreateProcessor(
     @Transactional
     fun create(command: ArticleCommentCreateCommand): ArticleComment {
         // 게시글 존재여부 확인 : 게시글이 없을 경우 예외 발생
-        checkArticleExists(command.articleId)
+        val article = getArticle(command.articleId)
 
-        // 기능 확장가능성?
-        // 1. 향후 게시글 soft delete 상태가 추가되었을 때, 삭제 상태인지 확인 필요
-        // 2. 게시글 카테고리 제약에 의해, 댓글을 작성할 수 없는 경우 검증 필요
+        // 확장가능성 : 향후 게시글 soft delete 상태가 추가되었을 때, 삭제 상태인지 확인 필요
+
+        // 게시글 카테고리 조회
+        val articleCategory = getArticleCategory(article)
+
+        // 게시글 카테고리 제약에 의해, 댓글을 작성할 수 없는 지 확인
+        checkCommentWritable(article.articleId, articleCategory)
 
         // 부모댓글 아이디가 있다면 조회함. 유효한 부모댓글을 가져와야 함.
         val parentComment = getValidParentComment(command.parentCommentId, command.articleId)
@@ -47,11 +55,22 @@ internal class ArticleCommentCreateProcessor(
     }
 
     /**
-     * 게시글 존재여부 확인
+     * 게시글 조회
      */
-    private fun checkArticleExists(articleId: Long) {
-        articlePersistencePort.findById(articleId)
+    private fun getArticle(articleId: Long): Article {
+        return articlePersistencePort.findById(articleId)
             ?: throw ArticleNotFoundException(articleId = articleId)
+    }
+
+    private fun getArticleCategory(article: Article): ArticleCategory {
+        return articleCategoryPersistencePort.findByIdOrNull(article.articleCategoryId)
+            ?: throw IllegalStateException("게시글 카테고리 조회 실패 : (articleId = ${article.articleId}, articleCategoryId= ${article.articleCategoryId})")
+    }
+
+    private fun checkCommentWritable(articleId: Long, articleCategory: ArticleCategory) {
+        if (!articleCategory.allowComment) {
+            throw ArticleCommentWriteNotAllowedException(articleId = articleId, articleCategoryId = articleCategory.articleCategoryId)
+        }
     }
 
     /**

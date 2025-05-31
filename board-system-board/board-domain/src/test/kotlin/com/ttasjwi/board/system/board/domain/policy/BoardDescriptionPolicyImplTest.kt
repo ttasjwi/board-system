@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.board.domain.exception.InvalidBoardDescriptionFo
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("BoardDescriptionPolicyImpl: 게시판 설명 도메인 정책")
+@DisplayName("[board-domain] BoardDescriptionPolicyImpl: 게시판 설명 도메인 정책")
 class BoardDescriptionPolicyImplTest {
 
     private lateinit var boardDescriptionPolicy: BoardDescriptionPolicy

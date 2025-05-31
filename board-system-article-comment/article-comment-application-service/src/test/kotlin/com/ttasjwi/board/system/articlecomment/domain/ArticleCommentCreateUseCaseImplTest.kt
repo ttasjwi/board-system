@@ -1,11 +1,9 @@
 package com.ttasjwi.board.system.articlecomment.domain
 
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
+import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleFixture
-import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
-import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
-import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentWriterNicknamePersistencePortFixture
-import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticlePersistencePortFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.*
 import com.ttasjwi.board.system.articlecomment.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.AuthUser
 import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
@@ -25,6 +23,7 @@ class ArticleCommentCreateUseCaseImplTest {
     private lateinit var articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture
     private lateinit var articleCommentCountPersistencePortfixture: ArticleCommentCountPersistencePortFixture
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
+    private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
     private lateinit var articleCommentWriterNicknamePersistencePortFixture: ArticleCommentWriterNicknamePersistencePortFixture
 
     @BeforeEach
@@ -41,6 +40,7 @@ class ArticleCommentCreateUseCaseImplTest {
         articleCommentPersistencePortFixture = container.articleCommentPersistencePortFixture
         articleCommentCountPersistencePortfixture = container.articleCommentCountPersistencePortFixture
         articlePersistencePortFixture = container.articlePersistencePortFixture
+        articleCategoryPersistencePortFixture = container.articleCategoryPersistencePortFixture
         articleCommentWriterNicknamePersistencePortFixture =
             container.articleCommentWriterNicknamePersistencePortFixture
     }
@@ -50,8 +50,17 @@ class ArticleCommentCreateUseCaseImplTest {
     fun testSuccess() {
         // given
         val article = articlePersistencePortFixture.save(
-            articleFixture()
+            articleFixture(
+                articleCategoryId = 154L,
+            )
         )
+
+        val articleCategory = articleCategoryFixture(
+            articleCategoryId = article.articleCategoryId,
+            allowComment = true
+        )
+        articleCategoryPersistencePortFixture.save(articleCategory)
+
         val articleCommentWriterNickname = articleCommentWriterNicknamePersistencePortFixture.save(
             commentWriterId = articleCommentWriter.userId,
             commentWriterNickname = "땃쥐"

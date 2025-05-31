@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("BoardNotFoundException 테스트")
+@DisplayName("[board-domain] BoardNotFoundException 테스트")
 class BoardNotFoundExceptionTest {
 
     @Test

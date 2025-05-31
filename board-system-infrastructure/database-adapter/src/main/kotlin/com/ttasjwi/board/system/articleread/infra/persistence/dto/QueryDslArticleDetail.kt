@@ -29,7 +29,9 @@ class QueryDslArticleDetail
         override val articleCategoryId: Long,
         override val name: String,
         override val slug: String,
-        override val allowSelfDelete: Boolean,
+        override val allowWrite: Boolean,
+        override val allowSelfEditDelete: Boolean,
+        override val allowComment: Boolean,
         override val allowLike: Boolean,
         override val allowDislike: Boolean
     ): ArticleDetail.ArticleCategory

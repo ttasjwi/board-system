@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleCategoryUseCaseImpl : 게시글 카테고리 생성 유즈케이스 구현체")
+@DisplayName("[board-application-service] ArticleCategoryUseCaseImpl : 게시글 카테고리 생성 유즈케이스 구현체")
 class ArticleCategoryCreateUseCaseImplTest {
 
     private lateinit var useCase: ArticleCategoryCreateUseCase
@@ -51,7 +51,9 @@ class ArticleCategoryCreateUseCaseImplTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
-            allowSelfDelete = true,
+            allowWrite = true,
+            allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = true,
             allowDislike = true
         )
@@ -65,7 +67,7 @@ class ArticleCategoryCreateUseCaseImplTest {
         assertThat(response.boardId).isEqualTo(boardId.toString())
         assertThat(response.name).isEqualTo(request.name)
         assertThat(response.slug).isEqualTo(request.slug)
-        assertThat(response.allowSelfDelete).isEqualTo(request.allowSelfDelete)
+        assertThat(response.allowSelfEditDelete).isEqualTo(request.allowSelfEditDelete)
         assertThat(response.allowLike).isEqualTo(request.allowLike)
         assertThat(response.allowDislike).isEqualTo(request.allowDislike)
         assertThat(response.createdAt).isEqualTo(currentTime.toZonedDateTime())

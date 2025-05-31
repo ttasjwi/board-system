@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleCategory: 게시글 카테고리")
+@DisplayName("[article-domain] ArticleCategory: 게시글 카테고리")
 class ArticleCategoryTest {
 
     @Test
@@ -12,16 +12,19 @@ class ArticleCategoryTest {
     fun restore() {
         val articleCategoryId = 123434L
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowWrite = true
+        val allowSelfEditDelete = true
         val articleCategory = ArticleCategory.restore(
             articleCategoryId = articleCategoryId,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowWrite = allowWrite,
+            allowSelfEditDelete = allowSelfEditDelete,
         )
 
         assertThat(articleCategory.articleCategoryId).isEqualTo(articleCategoryId)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
-        assertThat(articleCategory.allowSelfDelete).isEqualTo(allowSelfDelete)
+        assertThat(articleCategory.allowWrite).isEqualTo(allowWrite)
+        assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
     }
 
     @Test
@@ -29,17 +32,17 @@ class ArticleCategoryTest {
     fun toStringTest() {
         val articleCategoryId = 123434L
         val boardId = 13L
-        val allowSelfDelete = true
+        val allowWrite = true
+        val allowSelfEditDelete = true
         val articleCategory = ArticleCategory.restore(
             articleCategoryId = articleCategoryId,
             boardId = boardId,
-            allowSelfDelete = allowSelfDelete,
+            allowWrite = allowWrite,
+            allowSelfEditDelete = allowSelfEditDelete,
         )
 
-        val str = articleCategory.toString()
-
-        assertThat(str).isEqualTo(
-            "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, allowSelfDelete=$allowSelfDelete)"
+        assertThat(articleCategory.toString()).isEqualTo(
+            "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, allowWrite=$allowWrite, allowSelfEditDelete=$allowSelfEditDelete)"
         )
     }
 }

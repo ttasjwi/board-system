@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("게시판 테스트")
+@DisplayName("[board-domain] Board 테스트")
 class BoardTest {
 
     @Test

@@ -14,24 +14,30 @@ class JpaArticleCategory(
     @Column(name = "article_category_id")
     val articleCategoryId: Long,
 
-    @Column(name = "board_id", nullable = false)
+    @Column(name = "board_id")
     val boardId: Long,
 
-    @Column(name = "name", length = 20, nullable = false)
-    var name: String,
+    @Column(name = "name")
+    val name: String,
 
-    @Column(name = "slug", length = 8, nullable = false)
-    var slug: String,
+    @Column(name = "slug")
+    val slug: String,
 
-    @Column(name = "allow_self_delete", nullable = false)
-    var allowSelfDelete: Boolean,
+    @Column(name = "allow_write")
+    val allowWrite: Boolean,
 
-    @Column(name = "allow_like", nullable = false)
-    var allowLike: Boolean,
+    @Column(name = "allow_self_edit_delete")
+    val allowSelfEditDelete: Boolean,
 
-    @Column(name = "allow_dislike", nullable = false)
-    var allowDislike: Boolean,
+    @Column(name = "allow_comment")
+    val allowComment: Boolean,
 
-    @Column(name = "created_at", columnDefinition = "DATETIME", nullable = false)
+    @Column(name = "allow_like")
+    val allowLike: Boolean,
+
+    @Column(name = "allow_dislike")
+    val allowDislike: Boolean,
+
+    @Column(name = "created_at")
     val createdAt: LocalDateTime,
 )

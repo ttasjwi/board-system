@@ -23,7 +23,9 @@ internal class ArticleCategoryCreateCommandMapper(
 
         val articleCategoryName = getArticleCategoryName(request.name, exceptionCollector)
         val articleCategorySlug = getArticleCategorySlug(request.slug, exceptionCollector)
-        val allowSelfDelete = getAllowSelfDelete(request.allowSelfDelete, exceptionCollector)
+        val allowWrite = getAllowWrite(request.allowWrite, exceptionCollector)
+        val allowSelfEditDelete = getAllowSelfEditDelete(request.allowSelfEditDelete, exceptionCollector)
+        val allowComment = getAllowComment(request.allowComment, exceptionCollector)
         val allowLike = getAllowLike(request.allowLike, exceptionCollector)
         val allowDislike = getAllowDislike(request.allowDislike, exceptionCollector)
 
@@ -34,7 +36,9 @@ internal class ArticleCategoryCreateCommandMapper(
             creator = authUserLoader.loadCurrentAuthUser()!!,
             name = articleCategoryName!!,
             slug = articleCategorySlug!!,
-            allowSelfDelete = allowSelfDelete!!,
+            allowWrite = allowWrite!!,
+            allowSelfEditDelete = allowSelfEditDelete!!,
+            allowComment = allowComment!!,
             allowLike = allowLike!!,
             allowDislike = allowDislike!!,
             currentTime = timeManager.now()
@@ -75,17 +79,43 @@ internal class ArticleCategoryCreateCommandMapper(
             }
     }
 
-    private fun getAllowSelfDelete(
-        allowSelfDelete: Boolean?,
+    private fun getAllowWrite(
+        allowWrite: Boolean?,
         exceptionCollector: ValidationExceptionCollector
     ): Boolean? {
-        if (allowSelfDelete == null) {
+        if (allowWrite == null) {
             exceptionCollector.addCustomExceptionOrThrow(
-                NullArgumentException("allowSelfDelete")
+                NullArgumentException("allowWrite")
             )
             return null
         }
-        return allowSelfDelete
+        return allowWrite
+    }
+
+    private fun getAllowSelfEditDelete(
+        allowSelfEditDelete: Boolean?,
+        exceptionCollector: ValidationExceptionCollector
+    ): Boolean? {
+        if (allowSelfEditDelete == null) {
+            exceptionCollector.addCustomExceptionOrThrow(
+                NullArgumentException("allowSelfEditDelete")
+            )
+            return null
+        }
+        return allowSelfEditDelete
+    }
+
+    private fun getAllowComment(
+        allowComment: Boolean?,
+        exceptionCollector: ValidationExceptionCollector
+    ): Boolean? {
+        if (allowComment == null) {
+            exceptionCollector.addCustomExceptionOrThrow(
+                NullArgumentException("allowComment")
+            )
+            return null
+        }
+        return allowComment
     }
 
     private fun getAllowLike(allowLike: Boolean?, exceptionCollector: ValidationExceptionCollector): Boolean? {

@@ -44,7 +44,8 @@ class ArticleCreateUseCaseImplTest {
             articleCategoryFixture(
                 articleCategoryId = 12314L,
                 boardId = 87719111L,
-                allowSelfDelete = true
+                allowWrite = true,
+                allowSelfEditDelete = true
             )
         )
     }

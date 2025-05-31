@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-@DisplayName("BoardSlugPolicyImpl: 게시판 슬러그 도메인 정책")
+@DisplayName("[board-domain] BoardSlugPolicyImpl: 게시판 슬러그 도메인 정책")
 class BoardSlugPolicyImplTest {
 
     private lateinit var boardSlugPolicy: BoardSlugPolicy

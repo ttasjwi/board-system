@@ -8,7 +8,9 @@ class ArticleCategory(
     val boardId: Long,
     name: String,
     val slug: String,
-    allowSelfDelete: Boolean,
+    allowWrite: Boolean,
+    allowSelfEditDelete: Boolean,
+    allowComment: Boolean,
     allowLike: Boolean,
     allowDislike: Boolean,
     val createdAt: AppDateTime
@@ -17,7 +19,13 @@ class ArticleCategory(
     var name: String = name
         private set
 
-    var allowSelfDelete: Boolean = allowSelfDelete
+    var allowWrite: Boolean = allowWrite
+        private set
+
+    var allowSelfEditDelete: Boolean = allowSelfEditDelete
+        private set
+
+    var allowComment: Boolean = allowComment
         private set
 
     var allowLike: Boolean = allowLike
@@ -33,7 +41,9 @@ class ArticleCategory(
             boardId: Long,
             name: String,
             slug: String,
-            allowSelfDelete: Boolean,
+            allowWrite: Boolean,
+            allowSelfEditDelete: Boolean,
+            allowComment: Boolean,
             allowLike: Boolean,
             allowDislike: Boolean,
             createdAt: AppDateTime
@@ -43,7 +53,9 @@ class ArticleCategory(
                 boardId = boardId,
                 name = name,
                 slug = slug,
-                allowSelfDelete = allowSelfDelete,
+                allowWrite = allowWrite,
+                allowSelfEditDelete = allowSelfEditDelete,
+                allowComment = allowComment,
                 allowLike = allowLike,
                 allowDislike = allowDislike,
                 createdAt = createdAt
@@ -55,7 +67,9 @@ class ArticleCategory(
             boardId: Long,
             name: String,
             slug: String,
-            allowSelfDelete: Boolean,
+            allowWrite: Boolean,
+            allowSelfEditDelete: Boolean,
+            allowComment: Boolean,
             allowLike: Boolean,
             allowDislike: Boolean,
             createdAt: LocalDateTime
@@ -65,7 +79,9 @@ class ArticleCategory(
                 boardId = boardId,
                 name = name,
                 slug = slug,
-                allowSelfDelete = allowSelfDelete,
+                allowWrite = allowWrite,
+                allowSelfEditDelete = allowSelfEditDelete,
+                allowComment = allowComment,
                 allowLike = allowLike,
                 allowDislike = allowDislike,
                 createdAt = AppDateTime.from(createdAt)
@@ -74,7 +90,6 @@ class ArticleCategory(
     }
 
     override fun toString(): String {
-        return "ArticleCategory(articleCategoryId=$articleCategoryId, boardId=$boardId, slug='$slug', createdAt=$createdAt, name='$name', allowSelfDelete=$allowSelfDelete, allowLike=$allowLike, allowDislike=$allowDislike)"
+        return "ArticleCategory(articleCategoryId=$articleCategoryId, name='$name', slug='$slug', boardId=$boardId, allowWrite=$allowWrite, allowSelfEditDelete=$allowSelfEditDelete, allowComment=$allowComment, allowLike=$allowLike, allowDislike=$allowDislike, createdAt=$createdAt)"
     }
-
 }
