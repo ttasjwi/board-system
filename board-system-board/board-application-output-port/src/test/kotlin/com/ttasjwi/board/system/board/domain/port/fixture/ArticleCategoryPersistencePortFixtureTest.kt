@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleCategoryPersistencePortFixture 테스트")
+@DisplayName("[board-application-output-port] ArticleCategoryPersistencePortFixture 테스트")
 class ArticleCategoryPersistencePortFixtureTest {
 
     private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
@@ -31,7 +31,9 @@ class ArticleCategoryPersistencePortFixtureTest {
                 name = "일반",
                 slug = "general",
                 boardId = 1234567899L,
+                allowWrite = true,
                 allowSelfEditDelete = false,
+                allowComment = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(hour = 12)
@@ -46,7 +48,9 @@ class ArticleCategoryPersistencePortFixtureTest {
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
             assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
             assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
+            assertThat(findArticleCategory.allowWrite).isEqualTo(articleCategory.allowWrite)
             assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
+            assertThat(findArticleCategory.allowComment).isEqualTo(articleCategory.allowComment)
             assertThat(findArticleCategory.allowLike).isEqualTo(articleCategory.allowLike)
             assertThat(findArticleCategory.allowDislike).isEqualTo(articleCategory.allowDislike)
             assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -62,7 +66,9 @@ class ArticleCategoryPersistencePortFixtureTest {
                 name = "일반",
                 slug = "general",
                 boardId = 1234567899L,
+                allowWrite = true,
                 allowSelfEditDelete = false,
+                allowComment = true,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(hour = 12)
@@ -75,7 +81,9 @@ class ArticleCategoryPersistencePortFixtureTest {
                 name = articleCategory.name,
                 slug = articleCategory.slug,
                 boardId = 1234567899L,
+                allowWrite = true,
                 allowSelfEditDelete = true,
+                allowComment = false,
                 allowLike = false,
                 allowDislike = false,
                 createdAt = articleCategory.createdAt,
@@ -86,10 +94,12 @@ class ArticleCategoryPersistencePortFixtureTest {
 
             // then
             assertThat(findArticleCategory.articleCategoryId).isEqualTo(articleCategory.articleCategoryId)
-            assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
-            assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
-            assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
+            assertThat(findArticleCategory.boardId).isEqualTo(modifiedArticleCategory.boardId)
+            assertThat(findArticleCategory.name).isEqualTo(modifiedArticleCategory.name)
+            assertThat(findArticleCategory.slug).isEqualTo(modifiedArticleCategory.slug)
+            assertThat(findArticleCategory.allowWrite).isEqualTo(modifiedArticleCategory.allowWrite)
             assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(modifiedArticleCategory.allowSelfEditDelete)
+            assertThat(findArticleCategory.allowComment).isEqualTo(modifiedArticleCategory.allowComment)
             assertThat(findArticleCategory.allowLike).isEqualTo(modifiedArticleCategory.allowLike)
             assertThat(findArticleCategory.allowDislike).isEqualTo(modifiedArticleCategory.allowDislike)
             assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -118,7 +128,9 @@ class ArticleCategoryPersistencePortFixtureTest {
                     name = "일반",
                     slug = "general",
                     boardId = 1234567899L,
+                    allowWrite = true,
                     allowSelfEditDelete = false,
+                    allowComment = true,
                     allowLike = true,
                     allowDislike = true,
                     createdAt = appDateTimeFixture(hour = 12)
@@ -163,7 +175,9 @@ class ArticleCategoryPersistencePortFixtureTest {
                     name = "일반",
                     slug = "general",
                     boardId = 1234567899L,
+                    allowWrite = true,
                     allowSelfEditDelete = false,
+                    allowComment = true,
                     allowLike = true,
                     allowDislike = true,
                     createdAt = appDateTimeFixture(hour = 12)

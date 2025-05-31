@@ -31,7 +31,9 @@ class ArticleDetailFixtureTest {
         val articleCategoryId = 25L
         val articleCategoryName = "사진"
         val articleCategorySlug = "picture"
+        val articleCategoryAllowWrite = true
         val articleCategoryAllowSelfEditDelete = true
+        val articleCategoryAllowComment = true
         val articleCategoryAllowLike = true
         val articleCategoryAllowDislike = false
         val boardId = 4L
@@ -55,7 +57,9 @@ class ArticleDetailFixtureTest {
             articleCategoryId = articleCategoryId,
             articleCategoryName = articleCategoryName,
             articleCategorySlug = articleCategorySlug,
+            articleCategoryAllowWrite = articleCategoryAllowWrite,
             articleCategoryAllowSelfEditDelete = articleCategoryAllowSelfEditDelete,
+            articleCategoryAllowComment = articleCategoryAllowComment,
             articleCategoryAllowLike = articleCategoryAllowLike,
             articleCategoryAllowDislike = articleCategoryAllowDislike,
             boardId = boardId,
@@ -79,7 +83,9 @@ class ArticleDetailFixtureTest {
         assertThat(articleDetail.articleCategory.articleCategoryId).isEqualTo(articleCategoryId)
         assertThat(articleDetail.articleCategory.name).isEqualTo(articleCategoryName)
         assertThat(articleDetail.articleCategory.slug).isEqualTo(articleCategorySlug)
+        assertThat(articleDetail.articleCategory.allowWrite).isEqualTo(articleCategoryAllowWrite)
         assertThat(articleDetail.articleCategory.allowSelfEditDelete).isEqualTo(articleCategoryAllowSelfEditDelete)
+        assertThat(articleDetail.articleCategory.allowComment).isEqualTo(articleCategoryAllowComment)
         assertThat(articleDetail.articleCategory.allowLike).isEqualTo(articleCategoryAllowLike)
         assertThat(articleDetail.articleCategory.allowDislike).isEqualTo(articleCategoryAllowDislike)
         assertThat(articleDetail.board.boardId).isEqualTo(boardId)
@@ -96,4 +102,3 @@ class ArticleDetailFixtureTest {
         assertThat(articleDetail.modifiedAt).isEqualTo(modifiedAt)
     }
 }
-

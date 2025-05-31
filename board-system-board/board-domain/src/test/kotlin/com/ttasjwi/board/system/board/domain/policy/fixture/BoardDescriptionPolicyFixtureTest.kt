@@ -5,7 +5,7 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("BoardDescriptionPolicyFixture 테스트")
+@DisplayName("[board-domain] BoardDescriptionPolicyFixture 테스트")
 class BoardDescriptionPolicyFixtureTest {
 
     private lateinit var boardDescriptionPolicyFixture: BoardDescriptionPolicy

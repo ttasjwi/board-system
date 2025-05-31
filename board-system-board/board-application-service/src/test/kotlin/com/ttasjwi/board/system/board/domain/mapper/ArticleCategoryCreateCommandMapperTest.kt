@@ -18,7 +18,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
-@DisplayName("ArticleCategoryCreateCommandMapper: 게시글 카테고리 생성명령 매퍼")
+@DisplayName("[board-application-service] ArticleCategoryCreateCommandMapper: 게시글 카테고리 생성명령 매퍼")
 class ArticleCategoryCreateCommandMapperTest {
 
     private lateinit var commandMapper: ArticleCategoryCreateCommandMapper
@@ -49,7 +49,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -62,7 +64,9 @@ class ArticleCategoryCreateCommandMapperTest {
         assertThat(command.creator).isEqualTo(authUser)
         assertThat(command.name).isEqualTo(request.name)
         assertThat(command.slug).isEqualTo(request.slug)
+        assertThat(command.allowWrite).isEqualTo(request.allowWrite)
         assertThat(command.allowSelfEditDelete).isEqualTo(request.allowSelfEditDelete)
+        assertThat(command.allowComment).isEqualTo(request.allowComment)
         assertThat(command.allowLike).isEqualTo(request.allowLike)
         assertThat(command.allowDislike).isEqualTo(request.allowDislike)
         assertThat(command.currentTime).isEqualTo(currentTime)
@@ -76,7 +80,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = null,
             slug = "general",
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -101,7 +107,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = ArticleCategoryNamePolicyFixture.ERROR_NAME,
             slug = "general",
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -127,7 +135,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = null,
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -152,7 +162,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = ArticleCategorySlugPolicyFixture.ERROR_SLUG,
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -171,6 +183,33 @@ class ArticleCategoryCreateCommandMapperTest {
     }
 
     @Test
+    @DisplayName("allowWrite 필드가 null 이면 예외가 발생한다.")
+    fun testAllowWriteNull() {
+        // given
+        val boardId = 12L
+        val request = ArticleCategoryCreateRequest(
+            name = "일반",
+            slug = "general",
+            allowWrite = null,
+            allowSelfEditDelete = true,
+            allowComment = true,
+            allowLike = false,
+            allowDislike = true,
+        )
+
+        // when
+        val exceptionCollector = assertThrows<ValidationExceptionCollector> { commandMapper.mapToCommand(boardId, request) }
+
+        // then
+        val exceptions = exceptionCollector.getExceptions()
+        val exception = exceptions.first()
+
+        assertThat(exceptions.size).isEqualTo(1)
+        assertThat(exception).isInstanceOf(NullArgumentException::class.java)
+        assertThat(exception.source).isEqualTo("allowWrite")
+    }
+
+    @Test
     @DisplayName("allowSelfEditDelete 필드가 null 이면 예외가 발생한다.")
     fun testAllowSelfEditDeleteNull() {
         // given
@@ -178,7 +217,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
+            allowWrite = true,
             allowSelfEditDelete = null,
+            allowComment = true,
             allowLike = false,
             allowDislike = true,
         )
@@ -196,6 +237,33 @@ class ArticleCategoryCreateCommandMapperTest {
     }
 
     @Test
+    @DisplayName("allowComment 필드가 null 이면 예외가 발생한다.")
+    fun testAllowComment() {
+        // given
+        val boardId = 12L
+        val request = ArticleCategoryCreateRequest(
+            name = "일반",
+            slug = "general",
+            allowWrite = true,
+            allowSelfEditDelete = true,
+            allowComment = null,
+            allowLike = false,
+            allowDislike = true,
+        )
+
+        // when
+        val exceptionCollector = assertThrows<ValidationExceptionCollector> { commandMapper.mapToCommand(boardId, request) }
+
+        // then
+        val exceptions = exceptionCollector.getExceptions()
+        val exception = exceptions.first()
+
+        assertThat(exceptions.size).isEqualTo(1)
+        assertThat(exception).isInstanceOf(NullArgumentException::class.java)
+        assertThat(exception.source).isEqualTo("allowComment")
+    }
+
+    @Test
     @DisplayName("allowLike 필드가 null 이면 예외가 발생한다.")
     fun testAllowLikeNull() {
         // given
@@ -203,7 +271,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = null,
             allowDislike = true,
         )
@@ -228,7 +298,9 @@ class ArticleCategoryCreateCommandMapperTest {
         val request = ArticleCategoryCreateRequest(
             name = "일반",
             slug = "general",
+            allowWrite = true,
             allowSelfEditDelete = true,
+            allowComment = true,
             allowLike = false,
             allowDislike = null,
         )

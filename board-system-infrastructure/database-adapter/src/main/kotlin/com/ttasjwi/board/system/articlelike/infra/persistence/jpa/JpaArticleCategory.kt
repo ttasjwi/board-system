@@ -24,8 +24,14 @@ class JpaArticleCategory(
     @Column(name = "slug")
     val slug: String,
 
+    @Column(name = "allow_write")
+    val allowWrite: Boolean,
+
     @Column(name = "allow_self_edit_delete")
     val allowSelfEditDelete: Boolean,
+
+    @Column(name = "allow_comment")
+    val allowComment: Boolean,
 
     @Column(name = "allow_like")
     val allowLike: Boolean,

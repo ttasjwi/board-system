@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("DuplicateBoardSlugException: 게시판 슬러그 중복 예외")
+@DisplayName("[board-domain] DuplicateBoardSlugException: 게시판 슬러그 중복 예외")
 class DuplicateBoardSlugExceptionTest {
 
     @Test

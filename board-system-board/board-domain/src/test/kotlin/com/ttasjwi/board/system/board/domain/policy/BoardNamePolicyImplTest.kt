@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-@DisplayName("BoardNamePolicyImpl: 게시판 이름 도메인 정책")
+@DisplayName("[board-domain] BoardNamePolicyImpl: 게시판 이름 도메인 정책")
 class BoardNamePolicyImplTest {
 
     private lateinit var boardNamePolicy: BoardNamePolicy

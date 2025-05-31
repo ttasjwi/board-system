@@ -48,7 +48,9 @@ class ArticleDetailReadControllerTest : ArticleReadRestDocsTest() {
                 articleCategoryId = "87364535667",
                 name = "일반",
                 slug = "general",
+                allowWrite = true,
                 allowSelfEditDelete = true,
+                allowComment = true,
                 allowLike = true,
                 allowDislike = true
             ),
@@ -92,7 +94,9 @@ class ArticleDetailReadControllerTest : ArticleReadRestDocsTest() {
                 jsonPath("$.articleCategory.name").value(response.articleCategory.name),
                 jsonPath("$.articleCategory.slug").value(response.articleCategory.slug),
                 jsonPath("$.articleCategory.name").value(response.articleCategory.name),
+                jsonPath("$.articleCategory.allowWrite").value(response.articleCategory.allowWrite),
                 jsonPath("$.articleCategory.allowSelfEditDelete").value(response.articleCategory.allowSelfEditDelete),
+                jsonPath("$.articleCategory.allowComment").value(response.articleCategory.allowComment),
                 jsonPath("$.articleCategory.allowLike").value(response.articleCategory.allowLike),
                 jsonPath("$.articleCategory.allowDislike").value(response.articleCategory.allowDislike),
                 jsonPath("$.writer.writerId").value(response.writer.writerId),
@@ -153,9 +157,15 @@ class ArticleDetailReadControllerTest : ArticleReadRestDocsTest() {
                     "articleCategory.slug"
                             type STRING
                             means "게시글이 속한 게시글 카테고리 슬러그(게시글 카테고리 구분 영문자)",
+                    "articleCategory.allowWrite"
+                            type BOOLEAN
+                            means "일반 사용자가 게시글 작성을 할 수 있는 지 여부",
                     "articleCategory.allowSelfEditDelete"
                             type BOOLEAN
                             means "작성자가 스스로 게시글 삭제 또는 수정을 할 수 있는 지 여부",
+                    "articleCategory.allowComment"
+                            type BOOLEAN
+                            means "일반 사용자가 댓글을 작성할 수 있는 지 여부",
                     "articleCategory.allowLike"
                             type BOOLEAN
                             means "사용자들이 게시글을 좋아요 할 수 있는 지 여부",

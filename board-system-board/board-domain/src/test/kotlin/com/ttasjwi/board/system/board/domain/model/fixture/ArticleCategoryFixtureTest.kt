@@ -5,22 +5,15 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleCategory 픽스쳐 테스트")
+@DisplayName("[board-domain] ArticleCategoryFixture 테스트")
 class ArticleCategoryFixtureTest {
 
     @Test
-    @DisplayName("인자 없이 생성해도 기본값을 가진다.")
+    @DisplayName("인자 없이 생성해도 기본값을 가진 채 생성된다.")
     fun test1() {
         val articleCategory = articleCategoryFixture()
 
-        assertThat(articleCategory.articleCategoryId).isNotNull
-        assertThat(articleCategory.name).isNotNull
-        assertThat(articleCategory.slug).isNotNull
-        assertThat(articleCategory.boardId).isNotNull
-        assertThat(articleCategory.allowSelfEditDelete).isNotNull
-        assertThat(articleCategory.allowLike).isNotNull
-        assertThat(articleCategory.allowDislike).isNotNull
-        assertThat(articleCategory.createdAt).isNotNull
+        assertThat(articleCategory).isNotNull
     }
 
     @Test
@@ -30,7 +23,9 @@ class ArticleCategoryFixtureTest {
         val name = "일반"
         val slug = "general"
         val boardId = 13L
+        val allowWrite = false
         val allowSelfEditDelete = true
+        val allowComment = false
         val allowLike = false
         val allowDislike = false
         val createdAt = appDateTimeFixture(minute = 12)
@@ -39,7 +34,9 @@ class ArticleCategoryFixtureTest {
             name = name,
             slug = slug,
             boardId = boardId,
+            allowWrite = allowWrite,
             allowSelfEditDelete = allowSelfEditDelete,
+            allowComment = allowComment,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,
@@ -49,7 +46,9 @@ class ArticleCategoryFixtureTest {
         assertThat(articleCategory.name).isEqualTo(name)
         assertThat(articleCategory.slug).isEqualTo(slug)
         assertThat(articleCategory.boardId).isEqualTo(boardId)
+        assertThat(articleCategory.allowWrite).isEqualTo(allowWrite)
         assertThat(articleCategory.allowSelfEditDelete).isEqualTo(allowSelfEditDelete)
+        assertThat(articleCategory.allowComment).isEqualTo(allowComment)
         assertThat(articleCategory.allowLike).isEqualTo(allowLike)
         assertThat(articleCategory.allowDislike).isEqualTo(allowDislike)
         assertThat(articleCategory.createdAt).isEqualTo(createdAt)

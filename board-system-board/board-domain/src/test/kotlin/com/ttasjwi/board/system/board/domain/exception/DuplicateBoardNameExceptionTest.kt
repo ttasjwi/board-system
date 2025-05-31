@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("DuplicateBoardNameException: 게시판 이름 중복 예외")
+@DisplayName("[board-domain] DuplicateBoardNameException: 게시판 이름 중복 예외")
 class DuplicateBoardNameExceptionTest {
 
     @Test

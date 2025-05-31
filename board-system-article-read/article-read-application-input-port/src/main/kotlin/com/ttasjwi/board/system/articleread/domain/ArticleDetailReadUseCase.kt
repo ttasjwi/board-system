@@ -34,7 +34,9 @@ data class ArticleDetailReadResponse(
         val articleCategoryId: String,
         val name: String,
         val slug: String,
+        val allowWrite: Boolean,
         val allowSelfEditDelete: Boolean,
+        val allowComment: Boolean,
         val allowLike: Boolean,
         val allowDislike: Boolean,
     )

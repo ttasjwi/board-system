@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("InvalidBoardNameFormatException: 유효하지 않은 게시판 이름 형식 예외")
+@DisplayName("[board-domain] InvalidBoardNameFormatException: 유효하지 않은 게시판 이름 형식 예외")
 class InvalidBoardNameFormatExceptionTest {
 
     @Test

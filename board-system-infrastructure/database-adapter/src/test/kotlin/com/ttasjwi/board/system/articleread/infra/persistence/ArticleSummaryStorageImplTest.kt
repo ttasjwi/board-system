@@ -407,6 +407,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             name = "category-$articleCategoryId",
             slug = "slug$articleCategoryId",
             allowSelfEditDelete = true,
+            allowWrite = true,
+            allowComment = true,
             allowLike = true,
             allowDislike = true,
             createdAt = appDateTimeFixture(minute = 0).toLocalDateTime()

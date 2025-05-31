@@ -24,7 +24,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                 name = "일반",
                 slug = "general",
                 boardId = 1234567899L,
+                allowWrite = true,
                 allowSelfEditDelete = false,
+                allowComment = false,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(hour = 12)
@@ -41,7 +43,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
             assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
             assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
+            assertThat(findArticleCategory.allowWrite).isEqualTo(articleCategory.allowWrite)
             assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(articleCategory.allowSelfEditDelete)
+            assertThat(findArticleCategory.allowComment).isEqualTo(articleCategory.allowComment)
             assertThat(findArticleCategory.allowLike).isEqualTo(articleCategory.allowLike)
             assertThat(findArticleCategory.allowDislike).isEqualTo(articleCategory.allowDislike)
             assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -57,7 +61,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                 name = "일반",
                 slug = "general",
                 boardId = 1234567899L,
+                allowWrite = true,
                 allowSelfEditDelete = false,
+                allowComment = false,
                 allowLike = true,
                 allowDislike = true,
                 createdAt = appDateTimeFixture(hour = 12)
@@ -70,7 +76,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                 name = articleCategory.name,
                 slug = articleCategory.slug,
                 boardId = 1234567899L,
+                allowWrite = false,
                 allowSelfEditDelete = true,
+                allowComment = true,
                 allowLike = false,
                 allowDislike = false,
                 createdAt = articleCategory.createdAt,
@@ -86,7 +94,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
             assertThat(findArticleCategory.boardId).isEqualTo(articleCategory.boardId)
             assertThat(findArticleCategory.name).isEqualTo(articleCategory.name)
             assertThat(findArticleCategory.slug).isEqualTo(articleCategory.slug)
+            assertThat(findArticleCategory.allowWrite).isEqualTo(modifiedArticleCategory.allowWrite)
             assertThat(findArticleCategory.allowSelfEditDelete).isEqualTo(modifiedArticleCategory.allowSelfEditDelete)
+            assertThat(findArticleCategory.allowComment).isEqualTo(modifiedArticleCategory.allowComment)
             assertThat(findArticleCategory.allowLike).isEqualTo(modifiedArticleCategory.allowLike)
             assertThat(findArticleCategory.allowDislike).isEqualTo(modifiedArticleCategory.allowDislike)
             assertThat(findArticleCategory.createdAt).isEqualTo(articleCategory.createdAt)
@@ -115,7 +125,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                     name = "일반",
                     slug = "general",
                     boardId = 1234567899L,
+                    allowWrite = true,
                     allowSelfEditDelete = false,
+                    allowComment = true,
                     allowLike = true,
                     allowDislike = true,
                     createdAt = appDateTimeFixture(hour = 12)
@@ -161,7 +173,9 @@ class ArticleCategoryPersistenceAdapterTest : DataBaseIntegrationTest() {
                     name = "일반",
                     slug = "general",
                     boardId = 1234567899L,
+                    allowWrite = true,
                     allowSelfEditDelete = false,
+                    allowComment = true,
                     allowLike = true,
                     allowDislike = true,
                     createdAt = appDateTimeFixture(hour = 12)

@@ -15,25 +15,31 @@ class JpaArticleCategory(
     @Column(name = "article_category_id")
     val articleCategoryId: Long,
 
-    @Column(name = "board_id", nullable = false)
+    @Column(name = "board_id")
     val boardId: Long,
 
-    @Column(name = "name", length = 20, nullable = false)
+    @Column(name = "name")
     var name: String,
 
-    @Column(name = "slug", length = 8, nullable = false)
-    var slug: String,
+    @Column(name = "slug")
+    val slug: String,
 
-    @Column(name = "allow_self_edit_delete", nullable = false)
+    @Column(name = "allow_write")
+    var allowWrite: Boolean,
+
+    @Column(name = "allow_self_edit_delete")
     var allowSelfEditDelete: Boolean,
 
-    @Column(name = "allow_like", nullable = false)
+    @Column(name = "allow_comment")
+    var allowComment: Boolean,
+
+    @Column(name = "allow_like")
     var allowLike: Boolean,
 
-    @Column(name = "allow_dislike", nullable = false)
+    @Column(name = "allow_dislike")
     var allowDislike: Boolean,
 
-    @Column(name = "created_at", columnDefinition = "DATETIME", nullable = false)
+    @Column(name = "created_at")
     val createdAt: LocalDateTime,
 ) {
 
@@ -45,7 +51,9 @@ class JpaArticleCategory(
                 boardId = articleCategory.boardId,
                 name = articleCategory.name,
                 slug = articleCategory.slug,
+                allowWrite = articleCategory.allowWrite,
                 allowSelfEditDelete = articleCategory.allowSelfEditDelete,
+                allowComment = articleCategory.allowComment,
                 allowLike = articleCategory.allowLike,
                 allowDislike = articleCategory.allowDislike,
                 createdAt = articleCategory.createdAt.toLocalDateTime(),
@@ -59,7 +67,9 @@ class JpaArticleCategory(
             boardId = boardId,
             name = name,
             slug = slug,
+            allowWrite = allowWrite,
             allowSelfEditDelete = allowSelfEditDelete,
+            allowComment = allowComment,
             allowLike = allowLike,
             allowDislike = allowDislike,
             createdAt = createdAt,

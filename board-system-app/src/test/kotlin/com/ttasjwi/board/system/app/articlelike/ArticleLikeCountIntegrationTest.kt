@@ -189,8 +189,11 @@ class ArticleLikeCountIntegrationTest {
                 name = "테스트",
                 slug = "test",
                 boardId = boardId,
+                allowWrite = true,
+                allowSelfEditDelete = true,
+                allowComment = true,
                 allowLike = true,
-                allowDislike = true
+                allowDislike = true,
             )
         )
     }

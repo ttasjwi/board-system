@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("InvalidBoardDescriptionFormatException: 유효하지 않은 게시판 설명 형식 예외")
+@DisplayName("[board-domain] InvalidBoardDescriptionFormatException: 유효하지 않은 게시판 설명 형식 예외")
 class InvalidBoardDescriptionFormatExceptionTest {
 
     @Test

@@ -35,6 +35,7 @@ class ArticleCreateProcessorTest {
             articleCategoryFixture(
                 articleCategoryId = 12314L,
                 boardId = 87719111L,
+                allowWrite = true,
                 allowSelfEditDelete = true
             )
         )
