@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleWriterNicknameNotFoundException: 게시글 작성시 사용자 닉네임 조회에 실패했을 때 발생하는 예외")
+@DisplayName("[article-domain] ArticleWriterNicknameNotFoundException 테스트")
 class ArticleWriterNicknameNotFoundExceptionTest {
     @Test
     @DisplayName("예외 기본값 테스트")

@@ -78,6 +78,24 @@ internal constructor(
         }
     }
 
+    fun isWriter(userId: Long): Boolean {
+        return this.writerId == userId
+    }
+
+    fun update(title: String, content: String, modifiedAt: AppDateTime): UpdateResult {
+        if (title == this.title && content == this.content) {
+            return UpdateResult.UNCHANGED
+        }
+        this.title = title
+        this.content = content
+        this.modifiedAt = modifiedAt
+        return UpdateResult.CHANGED
+    }
+
+    enum class UpdateResult {
+        CHANGED, UNCHANGED
+    }
+
     override fun toString(): String {
         return "Article(articleId=$articleId, title='$title', content='$content', boardId=$boardId, articleCategoryId=$articleCategoryId, writerId=$writerId, writerNickname='$writerNickname', createdAt=$createdAt, modifiedAt=$modifiedAt)"
     }

@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleFixture: 게시글 픽스쳐 테스트")
+@DisplayName("[article-domain] ArticleFixture: 게시글 픽스쳐 테스트")
 class ArticleFixtureTest {
 
     @Test

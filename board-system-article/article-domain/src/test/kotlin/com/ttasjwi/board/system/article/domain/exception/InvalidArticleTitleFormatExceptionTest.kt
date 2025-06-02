@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("InvalidArticleTitleFormatException: 유효하지 않은 게시글 제목 포맷일 때 발생하는 예외")
+@DisplayName("[article-domain] InvalidArticleTitleFormatException: 유효하지 않은 게시글 제목 포맷일 때 발생하는 예외")
 class InvalidArticleTitleFormatExceptionTest {
 
     @Test

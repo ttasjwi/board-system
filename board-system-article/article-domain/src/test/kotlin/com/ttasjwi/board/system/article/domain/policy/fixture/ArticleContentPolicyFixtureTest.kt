@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.common.exception.CustomException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("ArticleContentPolicyFixture: 게시글 본문 정책 픽스쳐 테스트")
+@DisplayName("[article-domain] ArticleContentPolicyFixture: 게시글 본문 정책 픽스쳐 테스트")
 class ArticleContentPolicyFixtureTest {
 
     private lateinit var articleContentPolicyFixture: ArticleContentPolicyFixture
