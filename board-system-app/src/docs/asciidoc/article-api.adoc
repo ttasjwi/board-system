@@ -79,3 +79,26 @@ include::{snippets}/article-summary-infinite-scroll-read-success/response-fields
 ==== 예시
 include::{snippets}/article-summary-infinite-scroll-read-success/http-request.adoc[]
 include::{snippets}/article-summary-infinite-scroll-read-success/http-response.adoc[]
+
+=== 게시글 수정
+==== 기본정보
+- 메서드 : PUT
+- URL : `/api/v1/articles/{articleId}`
+- 권한 : 인증된 사용자 누구든지(게시글 작성자)
+- 인증방식 : 액세스 토큰
+
+게시글을 수정합니다.
+게시글 작성자만 게시글을 수정할 있고, 게시글의 카테고리 정책상 게시글을 수정할 수 있어야합니다.
+게시글의 본문, 내용이 기존과 같을 경우 게시글은 실제 변경되지 않고, 둘 중 하나가 변경되면 실제 변경됩니다. (이때 게시글의 수정일도 현재 시간으로 변경됩니다.)
+
+==== 요청
+include::{snippets}/article-update-success/request-headers.adoc[]
+include::{snippets}/article-update-success/path-parameters.adoc[]
+include::{snippets}/article-update-success/request-fields.adoc[]
+
+==== 응답
+include::{snippets}/article-update-success/response-fields.adoc[]
+
+==== 예시
+include::{snippets}/article-update-success/http-request.adoc[]
+include::{snippets}/article-update-success/http-response.adoc[]

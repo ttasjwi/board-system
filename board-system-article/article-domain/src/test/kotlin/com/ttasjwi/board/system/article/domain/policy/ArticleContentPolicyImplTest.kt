@@ -4,7 +4,7 @@ import com.ttasjwi.board.system.article.domain.exception.InvalidArticleContentFo
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 
-@DisplayName("ArticleContentPolicyImpl: 게시글 본문 정책 구현체 테스트")
+@DisplayName("[article-domain] ArticleContentPolicyImpl: 게시글 본문 정책 구현체 테스트")
 class ArticleContentPolicyImplTest {
 
     private lateinit var articleContentPolicy: ArticleContentPolicy

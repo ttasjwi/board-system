@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
 
-@DisplayName("ArticleContentPolicyImpl: 게시글 제목 정책 구현체 테스트")
+@DisplayName("[article-domain] ArticleContentPolicyImpl: 게시글 제목 정책 구현체 테스트")
 class ArticleTitlePolicyImplTest {
 
     private lateinit var articleTitlePolicy: ArticleTitlePolicy

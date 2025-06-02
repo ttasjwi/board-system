@@ -5,7 +5,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-@DisplayName("ArticleCategoryNotFoundException: 게시글 카테고리를 찾지 못했을 때 발생하는 예외")
+@DisplayName("[article-domain] ArticleCategoryNotFoundException 테스트")
 class ArticleCategoryNotFoundExceptionTest {
     @Test
     @DisplayName("예외 기본값 테스트")
