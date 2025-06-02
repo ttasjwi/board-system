@@ -1,9 +1,11 @@
 package com.ttasjwi.board.system.article.domain.test.support
 
 import com.ttasjwi.board.system.article.domain.*
+import com.ttasjwi.board.system.article.domain.dto.ArticleUpdateCommand
 import com.ttasjwi.board.system.article.domain.mapper.ArticleCreateCommandMapper
 import com.ttasjwi.board.system.article.domain.mapper.ArticleInfiniteScrollReadQueryMapper
 import com.ttasjwi.board.system.article.domain.mapper.ArticlePageReadQueryMapper
+import com.ttasjwi.board.system.article.domain.mapper.ArticleUpdateCommandMapper
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleContentPolicyFixture
 import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleTitlePolicyFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleCategoryPersistencePortFixture
@@ -12,6 +14,7 @@ import com.ttasjwi.board.system.article.domain.port.fixture.ArticleWriterNicknam
 import com.ttasjwi.board.system.article.domain.processor.ArticleCreateProcessor
 import com.ttasjwi.board.system.article.domain.processor.ArticleInfiniteScrollReadProcessor
 import com.ttasjwi.board.system.article.domain.processor.ArticlePageReadProcessor
+import com.ttasjwi.board.system.article.domain.processor.ArticleUpdateProcessor
 import com.ttasjwi.board.system.common.auth.fixture.AuthUserLoaderFixture
 import com.ttasjwi.board.system.common.time.fixture.TimeManagerFixture
 
@@ -45,6 +48,15 @@ internal class TestContainer private constructor() {
         )
     }
 
+    val articleUpdateCommandMapper: ArticleUpdateCommandMapper by lazy {
+        ArticleUpdateCommandMapper(
+            articleTitlePolicy = articleTitlePolicyFixture,
+            articleContentPolicy = articleContentPolicyFixture,
+            authUserLoader = authUserLoaderFixture,
+            timeManager = timeManagerFixture,
+        )
+    }
+
     // query mapper
     val articlePageReadQueryMapper: ArticlePageReadQueryMapper by lazy {
         ArticlePageReadQueryMapper()
@@ -59,6 +71,13 @@ internal class TestContainer private constructor() {
             articlePersistencePort = articlePersistencePortFixture,
             articleCategoryPersistencePort = articleCategoryPersistencePortFixture,
             articleWriterNicknamePersistencePort = articleWriterNicknamePersistencePortFixture,
+        )
+    }
+
+    val articleUpdateProcessor: ArticleUpdateProcessor by lazy {
+        ArticleUpdateProcessor(
+            articlePersistencePort = articlePersistencePortFixture,
+            articleCategoryPersistencePort = articleCategoryPersistencePortFixture,
         )
     }
 
@@ -79,6 +98,13 @@ internal class TestContainer private constructor() {
         ArticleCreateUseCaseImpl(
             commandMapper = articleCreateCommandMapper,
             processor = articleCreateProcessor,
+        )
+    }
+
+    val articleUpdateUseCase: ArticleUpdateUseCase by lazy {
+        ArticleUpdateUseCaseImpl(
+            articleUpdateCommandMapper = articleUpdateCommandMapper,
+            articleUpdateProcessor = articleUpdateProcessor,
         )
     }
 
