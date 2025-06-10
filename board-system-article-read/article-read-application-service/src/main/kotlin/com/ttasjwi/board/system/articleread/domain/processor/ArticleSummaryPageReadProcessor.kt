@@ -90,8 +90,8 @@ class ArticleSummaryPageReadProcessor(
             ),
             articleCategory = ArticleSummaryPageReadResponse.Article.ArticleCategory(
                 articleCategoryId = this.articleCategory.articleCategoryId.toString(),
-                name = this.board.name,
-                slug = this.board.slug,
+                name = this.articleCategory.name,
+                slug = this.articleCategory.slug,
             ),
             writer = ArticleSummaryPageReadResponse.Article.Writer(
                 writerId = this.writer.writerId.toString(),

@@ -50,12 +50,20 @@ dependencies {
     testImplementation(project(":board-system-article-view:article-view-domain"))
     testImplementation(project(":board-system-article-view:article-view-application-input-port"))
 
+    // article-read
+    implementation(project(":board-system-article-read:article-read-web-adapter"))
+    implementation(project(":board-system-article-read:article-read-application-service"))
+
     // aop
     implementation("org.springframework.boot:spring-boot-starter-aop")
 
     // security
     implementation("org.springframework.security:spring-security-config")
     implementation("org.springframework.security:spring-security-web")
+
+
+    testImplementation(Dependencies.SPRING_BOOT_DATA_JPA.fullName)
+    testImplementation(project(":board-system-common:id-generator"))
 
     implementation(project(":board-system-infrastructure:jwt"))
     implementation(project(":board-system-infrastructure:database-adapter"))
