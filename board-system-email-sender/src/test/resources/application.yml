@@ -1,15 +1,7 @@
 spring:
   profiles:
-    active: ${SERVER_PROFILE:test}
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          timeout: 5000
-          starttls:
-            enable: true
+    active: test
+  config:
+    import:
+      - email-sender.yml
+      - optional:email-sender-secret.yml

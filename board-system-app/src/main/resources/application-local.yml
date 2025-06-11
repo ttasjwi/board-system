@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+accessToken:
+  rsaKeyPath:
+    public: classpath:/rsa-key/access-token_public-key_app-local.pem
+    private: classpath:/rsa-key/access-token_private-key_app-local.pem
+
+refreshToken:
+  rsaKeyPath:
+    public: classpath:/rsa-key/refresh-token_public-key_app-local.pem
+    private: classpath:/rsa-key/refresh-token_private-key_app-local.pem
