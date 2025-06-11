@@ -1,35 +1,17 @@
 spring:
   profiles:
-    active: ${SERVER_PROFILE:test}
+    active: test
   application:
     name: board-system
   config:
     import:
       - database.yml
-      - optional:database-test.yml
+      - database-test.yml
       - redis.yml
+      - redis-test.yml
+      - email-sender.yml
       - web-support.yml
       - oauth2-client.yml
+      - jwt.yml
+      - optional:email-sender-secret.yml
       - optional:oauth2-client-secret.yml
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          timeout: 5000
-          starttls:
-            enable: true
-
-accessToken:
-  rsaKeyPath:
-    public: ${RSA_ACCESS_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/access-token_public-key_app-test.pem}
-    private: ${RSA_ACCESS_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/access-token_private-key_app-test.pem}
-
-refreshToken:
-  rsaKeyPath:
-    public: ${RSA_REFRESH_TOKEN_PUBLIC_KEY_PATH:classpath:/rsa-key/refresh-token_public-key_app-test.pem}
-    private: ${RSA_REFRESH_TOKEN_PRIVATE_KEY_PATH:classpath:/rsa-key/refresh-token_private-key_app-test.pem}

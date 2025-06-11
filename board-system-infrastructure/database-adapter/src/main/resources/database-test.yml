@@ -1,0 +1,8 @@
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/board_db_test
+    username: board_user_test
+    password: db1004
