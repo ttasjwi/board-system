@@ -6,6 +6,10 @@ build/
 !**/src/test/**/build/
 
 ### secret properties files ###
+board-system-infrastructure/jwt/src/main/resources/rsa-key/access-token_public-key_app-production.pem
+board-system-infrastructure/jwt/src/main/resources/rsa-key/access-token_private-key_app-production.pem
+board-system-infrastructure/jwt/src/main/resources/rsa-key/refresh-token_public-key_app-production.pem
+board-system-infrastructure/jwt/src/main/resources/rsa-key/refresh-token_private-key_app-production.pem
 board-system-infrastructure/database-adapter/src/main/resources/database-production.yml
 board-system-infrastructure/redis-adapter/src/main/resources/redis-production.yml
 board-system-user/user-oauth2-client-adapter/src/main/resources/oauth2-client-secret.yml
