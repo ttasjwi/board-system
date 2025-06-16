@@ -9,6 +9,7 @@ import com.ttasjwi.board.system.article.domain.model.ArticleCategory
 import com.ttasjwi.board.system.article.domain.port.ArticleCategoryPersistencePort
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
 import com.ttasjwi.board.system.article.domain.port.ArticleWriterNicknamePersistencePort
+import com.ttasjwi.board.system.article.domain.port.BoardArticleCountPersistencePort
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.idgenerator.IdGenerator
 import org.springframework.transaction.annotation.Transactional
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional
 internal class ArticleCreateProcessor(
     private val articlePersistencePort: ArticlePersistencePort,
     private val articleCategoryPersistencePort: ArticleCategoryPersistencePort,
-    private val articleWriterNicknamePersistencePort: ArticleWriterNicknamePersistencePort
+    private val articleWriterNicknamePersistencePort: ArticleWriterNicknamePersistencePort,
+    private val boardArticleCountPersistencePort: BoardArticleCountPersistencePort,
 ) {
 
     private val articleIdGenerator: IdGenerator = IdGenerator.create()
@@ -35,6 +37,9 @@ internal class ArticleCreateProcessor(
 
         // 게시글 생성, 저장
         val article = createAndPersist(writerNickname, articleCategory, command)
+
+        // 게시판 게시글 수 증가
+        boardArticleCountPersistencePort.increase(articleCategory.boardId)
 
         return article
     }

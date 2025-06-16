@@ -31,6 +31,9 @@ abstract class DataBaseIntegrationTest {
     protected lateinit var articleArticleWriterNicknamePersistenceAdapter: com.ttasjwi.board.system.article.infra.persistence.ArticleWriterNicknamePersistenceAdapter
 
     @Autowired
+    protected lateinit var articleBoardArticleCountPersistenceAdapter: com.ttasjwi.board.system.article.infra.persistence.BoardArticleCountPersistenceAdapter
+
+    @Autowired
     protected lateinit var articleCommentArticleCommentPersistenceAdapter: com.ttasjwi.board.system.articlecomment.infra.persistence.ArticleCommentPersistenceAdapter
 
     @Autowired

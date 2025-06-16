@@ -11,6 +11,7 @@ import com.ttasjwi.board.system.article.domain.policy.fixture.ArticleTitlePolicy
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleWriterNicknamePersistencePortFixture
+import com.ttasjwi.board.system.article.domain.port.fixture.BoardArticleCountPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.processor.ArticleCreateProcessor
 import com.ttasjwi.board.system.article.domain.processor.ArticleInfiniteScrollReadProcessor
 import com.ttasjwi.board.system.article.domain.processor.ArticlePageReadProcessor
@@ -33,6 +34,7 @@ internal class TestContainer private constructor() {
     val articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture by lazy { ArticleCategoryPersistencePortFixture() }
     val articlePersistencePortFixture: ArticlePersistencePortFixture by lazy { ArticlePersistencePortFixture() }
     val articleWriterNicknamePersistencePortFixture by lazy { ArticleWriterNicknamePersistencePortFixture() }
+    val boardArticleCountPersistencePortFixture: BoardArticleCountPersistencePortFixture by lazy { BoardArticleCountPersistencePortFixture() }
 
     // domain policy
     val articleTitlePolicyFixture: ArticleTitlePolicyFixture by lazy { ArticleTitlePolicyFixture() }
@@ -71,6 +73,7 @@ internal class TestContainer private constructor() {
             articlePersistencePort = articlePersistencePortFixture,
             articleCategoryPersistencePort = articleCategoryPersistencePortFixture,
             articleWriterNicknamePersistencePort = articleWriterNicknamePersistencePortFixture,
+            boardArticleCountPersistencePort = boardArticleCountPersistencePortFixture
         )
     }
 
