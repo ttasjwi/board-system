@@ -50,7 +50,14 @@ CREATE TABLE IF NOT EXISTS articles(
     writer_id           BIGINT        NOT NULL,
     writer_nickname     VARCHAR(15)   NOT NULL,
     created_at          DATETIME      NOT NULL,
-    modified_at         DATETIME      NOT NULL
+    modified_at         DATETIME      NOT NULL,
+
+    INDEX idx_board_id_article_id (board_id ASC, article_id DESC)
+);
+
+CREATE TABLE IF NOT EXISTS board_article_counts(
+    board_id      BIGINT NOT NULL PRIMARY KEY,
+    article_count BIGINT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS article_comments(
