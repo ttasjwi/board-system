@@ -87,6 +87,7 @@ internal class TestContainer private constructor() {
     val articlePageReadProcessor: ArticlePageReadProcessor by lazy {
         ArticlePageReadProcessor(
             articlePersistencePort = articlePersistencePortFixture,
+            boardArticleCountPersistencePort = boardArticleCountPersistencePortFixture
         )
     }
 

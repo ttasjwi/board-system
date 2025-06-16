@@ -23,24 +23,6 @@ interface JpaArticleRepository : JpaRepository<JpaArticle, Long> {
 
     @Query(
         """
-        WITH cte AS (
-            SELECT a.article_id
-            FROM articles AS a
-            WHERE a.board_id = :boardId
-            LIMIT :limit
-        )
-        SELECT COUNT(*)
-        FROM cte
-    """, nativeQuery = true
-    )
-    fun count(
-        @Param("boardId") boardId: Long,
-        @Param("limit") limit: Long
-    )
-            : Long
-
-    @Query(
-        """
            SELECT a.article_id, a.title, a.content, a.board_id, a.article_category_id, a.writer_id, a.writer_nickname, a.created_at, a.modified_at
            FROM articles AS a
            WHERE a.board_id = :boardId

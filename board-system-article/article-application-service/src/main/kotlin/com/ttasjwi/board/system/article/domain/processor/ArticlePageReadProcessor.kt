@@ -5,14 +5,15 @@ import com.ttasjwi.board.system.article.domain.ArticlePageReadResponse
 import com.ttasjwi.board.system.article.domain.dto.ArticlePageReadQuery
 import com.ttasjwi.board.system.article.domain.model.Article
 import com.ttasjwi.board.system.article.domain.port.ArticlePersistencePort
+import com.ttasjwi.board.system.article.domain.port.BoardArticleCountPersistencePort
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.page.PagingInfo
 import com.ttasjwi.board.system.common.page.calculateOffset
-import com.ttasjwi.board.system.common.page.calculatePageLimit
 
 @ApplicationProcessor
 class ArticlePageReadProcessor(
-    private val articlePersistencePort: ArticlePersistencePort
+    private val articlePersistencePort: ArticlePersistencePort,
+    private val boardArticleCountPersistencePort: BoardArticleCountPersistencePort
 ) {
 
     companion object {
@@ -20,27 +21,22 @@ class ArticlePageReadProcessor(
     }
 
     fun readAllPage(query: ArticlePageReadQuery): ArticlePageReadResponse {
-        val articleCount = readArticleCount(query)
+        val totalArticleCount = readArticleCount(query.boardId)
         val articles = readArticles(query)
 
         val pagingInfo = PagingInfo.from(
             page = query.page,
             pageSize = query.pageSize,
-            totalCount = articleCount,
+            totalCount = totalArticleCount,
             pageGroupSize = ARTICLE_PAGE_GROUP_SIZE
         )
 
         return makeResponse(pagingInfo, articles)
     }
 
-    private fun readArticleCount(query: ArticlePageReadQuery) = articlePersistencePort.count(
-        boardId = query.boardId,
-        limit = calculatePageLimit(
-            page = query.page,
-            pageSize = query.pageSize,
-            movablePageCount = ARTICLE_PAGE_GROUP_SIZE
-        )
-    )
+    private fun readArticleCount(boardId: Long): Long {
+        return boardArticleCountPersistencePort.findByIdOrNull(boardId)?.articleCount ?: 0L
+    }
 
     private fun readArticles(query: ArticlePageReadQuery) =
         articlePersistencePort.findAllPage(

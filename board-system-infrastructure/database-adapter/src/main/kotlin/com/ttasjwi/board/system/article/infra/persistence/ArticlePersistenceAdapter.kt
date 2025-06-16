@@ -28,10 +28,6 @@ class ArticlePersistenceAdapter(
             .map { it.retoreToDomain() }
     }
 
-    override fun count(boardId: Long, limit: Long): Long {
-        return jpaArticleRepository.count(boardId, limit)
-    }
-
     override fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<Article> {
         return when (lastArticleId) {
             null -> jpaArticleRepository.findAllInfiniteScroll(boardId, limit)

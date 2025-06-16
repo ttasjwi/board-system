@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.article.domain
 
 import com.ttasjwi.board.system.article.domain.model.fixture.articleFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
+import com.ttasjwi.board.system.article.domain.port.fixture.BoardArticleCountPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.processor.ArticlePageReadProcessor
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -14,12 +15,14 @@ class ArticlePageReadUseCaseImplTest {
 
     private lateinit var articlePageReadUseCase: ArticlePageReadUseCase
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
+    private lateinit var boardArticleCountPersistencePortFixture: BoardArticleCountPersistencePortFixture
 
     @BeforeEach
     fun setUp() {
         val container = TestContainer.create()
         articlePageReadUseCase = container.articlePageReadUseCase
         articlePersistencePortFixture = container.articlePersistencePortFixture
+        boardArticleCountPersistencePortFixture = container.boardArticleCountPersistencePortFixture
     }
     @Test
     @DisplayName("성공테스트")
@@ -33,6 +36,7 @@ class ArticlePageReadUseCaseImplTest {
                 title = "title-$i",
             )
             articlePersistencePortFixture.save(article)
+            boardArticleCountPersistencePortFixture.increase(boardId)
         }
 
         val request = ArticlePageReadRequest(
