@@ -19,12 +19,10 @@ class QueryDslArticleSummaryQueryModel @QueryProjection constructor(
     override val commentCount: Long,
     override val likeCount: Long,
     override val dislikeCount: Long,
-    createdAt: LocalDateTime,
+    override val createdAt: LocalDateTime,
 ) : ArticleSummaryQueryModel {
 
-    override val createdAt: AppDateTime = AppDateTime.from(createdAt)
-
     override fun toString(): String {
-        return "QueryDslArticleSummaryQueryModel(articleId=$articleId, title='$title', boardId=$boardId, boardName='$boardName', boardSlug='$boardSlug', articleCategoryId=$articleCategoryId, articleCategoryName='$articleCategoryName', articleCategorySlug='$articleCategorySlug', writerId=$writerId, writerNickname='$writerNickname', commentCount=$commentCount, likeCount=$likeCount, dislikeCount=$dislikeCount, createdAt=$createdAt)"
+        return "QueryDslArticleSummaryQueryModel(articleId=$articleId, title='$title', boardId=$boardId, boardName='$boardName', boardSlug='$boardSlug', articleCategoryId=$articleCategoryId, articleCategoryName='$articleCategoryName', articleCategorySlug='$articleCategorySlug', writerId=$writerId, writerNickname='$writerNickname', commentCount=$commentCount, likeCount=$likeCount, dislikeCount=$dislikeCount, createdAt=${AppDateTime.from(createdAt)})"
     }
 }

@@ -1,6 +1,6 @@
 package com.ttasjwi.board.system.articleread.domain.model
 
-import com.ttasjwi.board.system.common.time.AppDateTime
+import java.time.LocalDateTime
 
 interface ArticleSummaryQueryModel {
     val articleId: Long
@@ -16,5 +16,5 @@ interface ArticleSummaryQueryModel {
     val commentCount: Long
     val likeCount: Long
     val dislikeCount: Long
-    val createdAt: AppDateTime
+    val createdAt: LocalDateTime
 }

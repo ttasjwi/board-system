@@ -72,6 +72,6 @@ class ArticleSummaryQueryModelFixtureTest {
         assertThat(articleSummary.commentCount).isEqualTo(commentCount)
         assertThat(articleSummary.likeCount).isEqualTo(likeCount)
         assertThat(articleSummary.dislikeCount).isEqualTo(dislikeCount)
-        assertThat(articleSummary.createdAt).isEqualTo(createdAt)
+        assertThat(articleSummary.createdAt).isEqualTo(createdAt.toLocalDateTime())
     }
 }

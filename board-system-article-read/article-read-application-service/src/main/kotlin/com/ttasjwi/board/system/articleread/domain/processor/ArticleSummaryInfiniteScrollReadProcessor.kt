@@ -6,6 +6,7 @@ import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryMode
 import com.ttasjwi.board.system.articleread.domain.port.ArticleSummaryStorage
 import com.ttasjwi.board.system.articleread.domain.port.ArticleViewCountStorage
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 @ApplicationProcessor
 internal class ArticleSummaryInfiniteScrollReadProcessor(
@@ -74,7 +75,7 @@ internal class ArticleSummaryInfiniteScrollReadProcessor(
             commentCount = this.commentCount,
             likeCount = this.likeCount,
             dislikeCount = this.dislikeCount,
-            createdAt = this.createdAt.toZonedDateTime(),
+            createdAt = AppDateTime.from(this.createdAt).toZonedDateTime(),
         )
     }
 }

@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.articleread.domain.model.fixture
 import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryModel
 import com.ttasjwi.board.system.common.time.AppDateTime
 import com.ttasjwi.board.system.common.time.fixture.appDateTimeFixture
+import java.time.LocalDateTime
 
 fun articleSummaryQueryModelFixture(
     articleId: Long = 1L,
@@ -34,7 +35,7 @@ fun articleSummaryQueryModelFixture(
         commentCount = commentCount,
         likeCount = likeCount,
         dislikeCount = dislikeCount,
-        createdAt = createdAt,
+        createdAt = createdAt.toLocalDateTime(),
     )
 }
 
@@ -52,5 +53,5 @@ data class TestArticleSummary(
     override val commentCount: Long,
     override val likeCount: Long,
     override val dislikeCount: Long,
-    override val createdAt: AppDateTime
+    override val createdAt: LocalDateTime
 ): ArticleSummaryQueryModel
