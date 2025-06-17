@@ -32,6 +32,7 @@ dependencies {
     implementation(project(":board-system-article:article-application-service"))
     testImplementation(testFixtures(project(":board-system-article:article-domain")))
     testImplementation(project(":board-system-article:article-application-output-port"))
+    testImplementation(project(":board-system-article:article-application-input-port"))
 
     // article-comment
     implementation(project(":board-system-article-comment:article-comment-web-adapter"))
