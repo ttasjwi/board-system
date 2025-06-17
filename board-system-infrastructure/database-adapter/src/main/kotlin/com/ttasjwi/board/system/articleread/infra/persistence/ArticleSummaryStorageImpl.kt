@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryModel
 import com.ttasjwi.board.system.articleread.domain.port.ArticleSummaryStorage
 import com.ttasjwi.board.system.articleread.infra.persistence.dto.*
+import com.ttasjwi.board.system.articleread.infra.persistence.jpa.JpaArticleRepository
 import org.springframework.stereotype.Component
 import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticle.jpaArticle as article
 import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticleCategory.jpaArticleCategory as articleCategory
@@ -16,16 +17,16 @@ import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaBoard.jpaB
 
 @Component
 class ArticleSummaryStorageImpl(
+    private val jpaArticleRepository: JpaArticleRepository,
     private val queryFactory: JPAQueryFactory
 ) : ArticleSummaryStorage {
 
-    override fun findAllPage(boardId: Long, offSet: Long, limit: Long): List<ArticleSummaryQueryModel> {
-        return selectArticleSummaryWithJoins()
-            .where(article.boardId.eq(boardId))
-            .orderBy(article.articleId.desc())
-            .offset(offSet)
-            .limit(limit)
-            .fetch()
+    override fun findAllPage(boardId: Long, limit: Long, offset: Long): List<ArticleSummaryQueryModel> {
+        return jpaArticleRepository.findAllPage(
+            boardId = boardId,
+            limit = limit,
+            offset = offset,
+        )
     }
 
     override fun findAllInfiniteScroll(
@@ -55,20 +56,14 @@ class ArticleSummaryStorageImpl(
         return QQueryDslArticleSummaryQueryModel(
             article.articleId,
             article.title,
-            QQueryDslArticleSummaryQueryModel_Board(
-                article.boardId,
-                board.name,
-                board.slug
-            ),
-            QQueryDslArticleSummaryQueryModel_ArticleCategory(
-                article.articleCategoryId,
-                articleCategory.name,
-                articleCategory.slug,
-            ),
-            QQueryDslArticleSummaryQueryModel_Writer(
-                article.writerId,
-                article.writerNickname
-            ),
+            article.boardId,
+            board.name,
+            board.slug,
+            article.articleCategoryId,
+            articleCategory.name,
+            articleCategory.slug,
+            article.writerId,
+            article.writerNickname,
             articleCommentCount.commentCount.coalesce(0L),
             articleLikeCount.likeCount.coalesce(0L),
             articleDislikeCount.dislikeCount.coalesce(0L),

@@ -52,16 +52,16 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             // 7, 6, 5
             val articleSummaries = articleReadArticleSummaryStorage.findAllPage(
                 boardId = boardId,
-                offSet = 3,
                 limit = 3,
+                offset = 3,
             )
             for (articleSummary in articleSummaries) {
                 println("articleSummary= $articleSummary")
             }
 
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -101,16 +101,16 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             // 7, 6, 5
             val articleSummaries = articleReadArticleSummaryStorage.findAllPage(
                 boardId = boardId,
-                offSet = 3,
                 limit = 3,
+                offset = 3,
             )
             for (articleSummary in articleSummaries) {
                 println("articleSummary= $articleSummary")
             }
 
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -131,8 +131,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             // when
             val articles = articleReadArticleSummaryStorage.findAllPage(
                 boardId = 88949457L,
-                offSet = 3,
                 limit = 3,
+                offset = 3,
             )
 
             // then
@@ -192,8 +192,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
 
             // then
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -249,8 +249,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
 
             // then
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -298,8 +298,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             }
 
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }

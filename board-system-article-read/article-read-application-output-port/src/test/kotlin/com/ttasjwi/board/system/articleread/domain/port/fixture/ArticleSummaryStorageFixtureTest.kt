@@ -35,20 +35,20 @@ class ArticleSummaryStorageFixtureTest {
             assertThat(findArticleSummary.articleId).isEqualTo(articleSummary.articleId)
 
             // then
-            assertThat(findArticleSummary.articleId).isEqualTo(findArticleSummary.articleId)
-            assertThat(findArticleSummary.title).isEqualTo(findArticleSummary.title)
-            assertThat(findArticleSummary.articleCategory.articleCategoryId).isEqualTo(findArticleSummary.articleCategory.articleCategoryId)
-            assertThat(findArticleSummary.articleCategory.name).isEqualTo(findArticleSummary.articleCategory.name)
-            assertThat(findArticleSummary.articleCategory.slug).isEqualTo(findArticleSummary.articleCategory.slug)
-            assertThat(findArticleSummary.board.boardId).isEqualTo(findArticleSummary.board.boardId)
-            assertThat(findArticleSummary.board.name).isEqualTo(findArticleSummary.board.name)
-            assertThat(findArticleSummary.board.slug).isEqualTo(findArticleSummary.board.slug)
-            assertThat(findArticleSummary.writer.writerId).isEqualTo(findArticleSummary.writer.writerId)
-            assertThat(findArticleSummary.writer.nickname).isEqualTo(findArticleSummary.writer.nickname)
-            assertThat(findArticleSummary.commentCount).isEqualTo(findArticleSummary.commentCount)
-            assertThat(findArticleSummary.likeCount).isEqualTo(findArticleSummary.likeCount)
-            assertThat(findArticleSummary.dislikeCount).isEqualTo(findArticleSummary.dislikeCount)
-            assertThat(findArticleSummary.createdAt).isEqualTo(findArticleSummary.createdAt)
+            assertThat(findArticleSummary.articleId).isEqualTo(articleSummary.articleId)
+            assertThat(findArticleSummary.title).isEqualTo(articleSummary.title)
+            assertThat(findArticleSummary.articleCategoryId).isEqualTo(articleSummary.articleCategoryId)
+            assertThat(findArticleSummary.articleCategoryName).isEqualTo(articleSummary.articleCategoryName)
+            assertThat(findArticleSummary.articleCategorySlug).isEqualTo(articleSummary.articleCategorySlug)
+            assertThat(findArticleSummary.boardId).isEqualTo(articleSummary.boardId)
+            assertThat(findArticleSummary.boardName).isEqualTo(articleSummary.boardName)
+            assertThat(findArticleSummary.boardSlug).isEqualTo(articleSummary.boardSlug)
+            assertThat(findArticleSummary.writerId).isEqualTo(articleSummary.writerId)
+            assertThat(findArticleSummary.writerNickname).isEqualTo(articleSummary.writerNickname)
+            assertThat(findArticleSummary.commentCount).isEqualTo(articleSummary.commentCount)
+            assertThat(findArticleSummary.likeCount).isEqualTo(articleSummary.likeCount)
+            assertThat(findArticleSummary.dislikeCount).isEqualTo(articleSummary.dislikeCount)
+            assertThat(findArticleSummary.createdAt).isEqualTo(articleSummary.createdAt)
         }
 
 
@@ -67,7 +67,7 @@ class ArticleSummaryStorageFixtureTest {
     }
 
     @Nested
-    @DisplayName("findAllPage: OffSet부터 시작하여, limit 만큼의 게시글 정보를 가져온다.")
+    @DisplayName("findAllPage: Offset 부터 시작하여, limit 만큼의 게시글 정보를 가져온다.")
     inner class FindAllPageTest {
 
         @Test
@@ -90,7 +90,7 @@ class ArticleSummaryStorageFixtureTest {
             // 7, 6, 5
             val articles = articleSummaryStorageFixture.findAllPage(
                 boardId = boardId,
-                offSet = 3,
+                offset = 3,
                 limit = 3,
             )
             val articleIds = articles.map { it.articleId }
@@ -107,7 +107,7 @@ class ArticleSummaryStorageFixtureTest {
             // when
             val articles = articleSummaryStorageFixture.findAllPage(
                 boardId = 88949457L,
-                offSet = 3,
+                offset = 3,
                 limit = 3,
             )
 

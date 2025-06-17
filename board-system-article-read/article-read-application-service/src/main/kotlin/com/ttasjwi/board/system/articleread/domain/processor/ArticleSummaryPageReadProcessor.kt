@@ -50,11 +50,11 @@ class ArticleSummaryPageReadProcessor(
     private fun readArticles(query: ArticleSummaryPageReadQuery): List<ArticleSummaryQueryModel> {
         return articleSummaryStorage.findAllPage(
             boardId = query.boardId,
-            offSet = calculateOffset(
+            limit = query.pageSize,
+            offset = calculateOffset(
                 page = query.page,
                 pageSize = query.pageSize
             ),
-            limit = query.pageSize
         )
     }
 
@@ -80,18 +80,18 @@ class ArticleSummaryPageReadProcessor(
             articleId = this.articleId.toString(),
             title = this.title,
             board = ArticleSummaryPageReadResponse.Article.Board(
-                boardId = this.board.boardId.toString(),
-                name = this.board.name,
-                slug = this.board.slug,
+                boardId = this.boardId.toString(),
+                name = this.boardName,
+                slug = this.boardSlug,
             ),
             articleCategory = ArticleSummaryPageReadResponse.Article.ArticleCategory(
-                articleCategoryId = this.articleCategory.articleCategoryId.toString(),
-                name = this.articleCategory.name,
-                slug = this.articleCategory.slug,
+                articleCategoryId = this.articleCategoryId.toString(),
+                name = this.articleCategoryName,
+                slug = this.articleCategorySlug,
             ),
             writer = ArticleSummaryPageReadResponse.Article.Writer(
-                writerId = this.writer.writerId.toString(),
-                nickname = this.writer.nickname,
+                writerId = this.writerId.toString(),
+                nickname = this.writerNickname,
             ),
             viewCount = viewCount,
             commentCount = this.commentCount,

@@ -8,9 +8,14 @@ import java.time.LocalDateTime
 class QueryDslArticleSummaryQueryModel @QueryProjection constructor(
     override val articleId: Long,
     override val title: String,
-    override val board: ArticleSummaryQueryModel.Board,
-    override val articleCategory: ArticleSummaryQueryModel.ArticleCategory,
-    override val writer: ArticleSummaryQueryModel.Writer,
+    override val boardId: Long,
+    override val boardName: String,
+    override val boardSlug: String,
+    override val articleCategoryId: Long,
+    override val articleCategoryName: String,
+    override val articleCategorySlug: String,
+    override val writerId: Long,
+    override val writerNickname: String,
     override val commentCount: Long,
     override val likeCount: Long,
     override val dislikeCount: Long,
@@ -19,27 +24,7 @@ class QueryDslArticleSummaryQueryModel @QueryProjection constructor(
 
     override val createdAt: AppDateTime = AppDateTime.from(createdAt)
 
-
-    data class Board @QueryProjection constructor(
-        override val boardId: Long,
-        override val name: String,
-        override val slug: String
-    ): ArticleSummaryQueryModel.Board
-
-    data class ArticleCategory @QueryProjection constructor(
-        override val articleCategoryId: Long,
-        override val name: String,
-        override val slug: String
-    ): ArticleSummaryQueryModel.ArticleCategory
-
-    data class Writer @QueryProjection constructor(
-        override val writerId: Long,
-        override val nickname: String
-    ): ArticleSummaryQueryModel.Writer
-
     override fun toString(): String {
-        return "QueryDslArticleSummaryQueryModel(articleId=$articleId, title='$title', board=$board, articleCategory=$articleCategory, writer=$writer, commentCount=$commentCount, likeCount=$likeCount, dislikeCount=$dislikeCount, createdAt=$createdAt)"
+        return "QueryDslArticleSummaryQueryModel(articleId=$articleId, title='$title', boardId=$boardId, boardName='$boardName', boardSlug='$boardSlug', articleCategoryId=$articleCategoryId, articleCategoryName='$articleCategoryName', articleCategorySlug='$articleCategorySlug', writerId=$writerId, writerNickname='$writerNickname', commentCount=$commentCount, likeCount=$likeCount, dislikeCount=$dislikeCount, createdAt=$createdAt)"
     }
-
-
 }
