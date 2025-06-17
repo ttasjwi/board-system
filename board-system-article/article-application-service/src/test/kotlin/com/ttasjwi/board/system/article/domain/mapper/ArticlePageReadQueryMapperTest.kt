@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.article.domain.mapper
 
 import com.ttasjwi.board.system.article.domain.ArticlePageReadRequest
+import com.ttasjwi.board.system.article.domain.exception.InvalidArticlePageException
 import com.ttasjwi.board.system.article.domain.exception.InvalidArticlePageSizeException
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.exception.NullArgumentException
@@ -107,6 +108,61 @@ class ArticlePageReadQueryMapperTest {
         assertThat(exceptions.size).isEqualTo(1)
         assertThat(exceptions[0]).isInstanceOf(NullArgumentException::class.java)
         assertThat(exceptions[0].source).isEqualTo("pageSize")
+    }
+
+
+    @Test
+    @DisplayName("page 가 최소 page 보다 작으면 예외 발생")
+    fun invalidPageTest1() {
+        // given
+        val request = ArticlePageReadRequest(
+            boardId = 1234L,
+            page = ArticlePageReadQueryMapper.MIN_PAGE - 1,
+            pageSize = 10L
+        )
+
+        // when
+        val exceptionCollector = assertThrows<ValidationExceptionCollector> {
+            queryMapper.mapToQuery(request)
+        }
+
+        // then
+        val exceptions = exceptionCollector.getExceptions()
+        assertThat(exceptions.size).isEqualTo(1)
+        assertThat(exceptions[0]).isInstanceOf(InvalidArticlePageException::class.java)
+        assertThat(exceptions[0].source).isEqualTo("page")
+        assertThat(exceptions[0].args).containsExactly(
+            request.page,
+            ArticlePageReadQueryMapper.MIN_PAGE,
+            ArticlePageReadQueryMapper.MAX_PAGE
+        )
+    }
+
+    @Test
+    @DisplayName("page 가 최대 page 보다 크면 예외 발생")
+    fun invalidPageTest2() {
+        // given
+        val request = ArticlePageReadRequest(
+            boardId = 1234L,
+            page = ArticlePageReadQueryMapper.MAX_PAGE + 1,
+            pageSize = 10L
+        )
+
+        // when
+        val exceptionCollector = assertThrows<ValidationExceptionCollector> {
+            queryMapper.mapToQuery(request)
+        }
+
+        // then
+        val exceptions = exceptionCollector.getExceptions()
+        assertThat(exceptions.size).isEqualTo(1)
+        assertThat(exceptions[0]).isInstanceOf(InvalidArticlePageException::class.java)
+        assertThat(exceptions[0].source).isEqualTo("page")
+        assertThat(exceptions[0].args).containsExactly(
+            request.page,
+            ArticlePageReadQueryMapper.MIN_PAGE,
+            ArticlePageReadQueryMapper.MAX_PAGE
+        )
     }
 
     @Test

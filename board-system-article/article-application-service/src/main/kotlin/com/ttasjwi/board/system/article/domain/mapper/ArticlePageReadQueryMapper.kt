@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.article.domain.mapper
 
 import com.ttasjwi.board.system.article.domain.ArticlePageReadRequest
 import com.ttasjwi.board.system.article.domain.dto.ArticlePageReadQuery
+import com.ttasjwi.board.system.article.domain.exception.InvalidArticlePageException
 import com.ttasjwi.board.system.article.domain.exception.InvalidArticlePageSizeException
 import com.ttasjwi.board.system.common.annotation.component.ApplicationQueryMapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
@@ -11,6 +12,8 @@ import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 class ArticlePageReadQueryMapper {
 
     companion object {
+        internal const val MIN_PAGE = 1L
+        internal const val MAX_PAGE = 100L
         internal const val MIN_PAGE_SIZE = 1L
         internal const val MAX_PAGE_SIZE = 50L
     }
@@ -42,6 +45,15 @@ class ArticlePageReadQueryMapper {
         if (page == null) {
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("page"))
             return null
+        }
+        if (page < MIN_PAGE || page > MAX_PAGE) {
+            exceptionCollector.addCustomExceptionOrThrow(
+                InvalidArticlePageException(
+                    page = page,
+                    minPage = MIN_PAGE,
+                    maxPage = MAX_PAGE
+                )
+            )
         }
         return page
     }
