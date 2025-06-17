@@ -4,6 +4,7 @@ import com.ttasjwi.board.system.articleread.domain.dto.ArticleSummaryPageReadQue
 import com.ttasjwi.board.system.articleread.domain.model.fixture.articleSummaryQueryModelFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleSummaryStorageFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleViewCountStorageFixture
+import com.ttasjwi.board.system.articleread.domain.port.fixture.BoardArticleCountStorageFixture
 import com.ttasjwi.board.system.articleread.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -17,6 +18,7 @@ class ArticleSummaryPageReadProcessorTest {
     private lateinit var articleSummaryPageReadProcessor: ArticleSummaryPageReadProcessor
     private lateinit var articleSummaryStorageFixture: ArticleSummaryStorageFixture
     private lateinit var articleViewCountStorageFixture: ArticleViewCountStorageFixture
+    private lateinit var boardArticleCountStorageFixture: BoardArticleCountStorageFixture
 
     @BeforeEach
     fun setup() {
@@ -24,6 +26,7 @@ class ArticleSummaryPageReadProcessorTest {
         articleSummaryPageReadProcessor = container.articleSummaryPageReadProcessor
         articleSummaryStorageFixture = container.articleSummaryStorageFixture
         articleViewCountStorageFixture = container.articleViewCountStorageFixture
+        boardArticleCountStorageFixture = container.boardArticleCountStorageFixture
     }
 
     @Test
@@ -31,8 +34,9 @@ class ArticleSummaryPageReadProcessorTest {
     fun testSuccess() {
         // given
         val boardId = 1234566L
+        val articleCount = 50L
 
-        for (id in 1L..50L) {
+        for (id in 1L..articleCount) {
             val articleSummary = articleSummaryQueryModelFixture(
                 boardId = boardId,
                 articleId = id,
@@ -44,6 +48,7 @@ class ArticleSummaryPageReadProcessorTest {
                 viewCount = id
             )
         }
+        boardArticleCountStorageFixture.save(boardId, articleCount)
 
         val query = ArticleSummaryPageReadQuery(
             boardId = boardId,

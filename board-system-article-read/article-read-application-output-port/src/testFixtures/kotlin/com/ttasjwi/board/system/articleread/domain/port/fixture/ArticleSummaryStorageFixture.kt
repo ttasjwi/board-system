@@ -15,26 +15,17 @@ class ArticleSummaryStorageFixture : ArticleSummaryStorage {
         return storage[articleId]
     }
 
-    override fun findAllPage(boardId: Long, offSet: Long, limit: Long): List<ArticleSummaryQueryModel> {
+    override fun findAllPage(boardId: Long, limit: Long, offset: Long): List<ArticleSummaryQueryModel> {
         return storage.values
-            .filter { it.board.boardId == boardId }
+            .filter { it.boardId == boardId }
             .sortedByDescending { it.articleId }
-            .drop(offSet.toInt())
+            .drop(offset.toInt())
             .take(limit.toInt())
-    }
-
-    override fun count(boardId: Long, limit: Long): Long {
-        return storage.values
-            .filter { it.board.boardId == boardId }
-            .sortedByDescending { it.articleId }
-            .take(limit.toInt())
-            .count()
-            .toLong()
     }
 
     override fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<ArticleSummaryQueryModel> {
         return storage.values
-            .filter { it.board.boardId == boardId }
+            .filter { it.boardId == boardId }
             .sortedByDescending { it.articleId }
             .filter { if (lastArticleId == null) true else it.articleId < lastArticleId }
             .take(limit.toInt())

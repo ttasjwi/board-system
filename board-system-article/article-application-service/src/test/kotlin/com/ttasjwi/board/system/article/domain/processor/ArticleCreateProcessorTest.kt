@@ -4,11 +4,11 @@ import com.ttasjwi.board.system.article.domain.dto.ArticleCreateCommand
 import com.ttasjwi.board.system.article.domain.exception.ArticleCategoryNotFoundException
 import com.ttasjwi.board.system.article.domain.exception.ArticleWriteNotAllowedException
 import com.ttasjwi.board.system.article.domain.exception.ArticleWriterNicknameNotFoundException
-import com.ttasjwi.board.system.article.domain.model.ArticleCategory
 import com.ttasjwi.board.system.article.domain.model.fixture.articleCategoryFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleCategoryPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticlePersistencePortFixture
 import com.ttasjwi.board.system.article.domain.port.fixture.ArticleWriterNicknamePersistencePortFixture
+import com.ttasjwi.board.system.article.domain.port.fixture.BoardArticleCountPersistencePortFixture
 import com.ttasjwi.board.system.article.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.auth.Role
 import com.ttasjwi.board.system.common.auth.fixture.authUserFixture
@@ -26,7 +26,7 @@ class ArticleCreateProcessorTest {
     private lateinit var articlePersistencePortFixture: ArticlePersistencePortFixture
     private lateinit var articleWriterNicknamePersistencePortFixture: ArticleWriterNicknamePersistencePortFixture
     private lateinit var articleCategoryPersistencePortFixture: ArticleCategoryPersistencePortFixture
-    private lateinit var savedArticleCategory: ArticleCategory
+    private lateinit var boardArticleCountPersistencePortFixture: BoardArticleCountPersistencePortFixture
 
     @BeforeEach
     fun setup() {
@@ -35,6 +35,7 @@ class ArticleCreateProcessorTest {
         articleWriterNicknamePersistencePortFixture = container.articleWriterNicknamePersistencePortFixture
         articleCategoryPersistencePortFixture = container.articleCategoryPersistencePortFixture
         articlePersistencePortFixture = container.articlePersistencePortFixture
+        boardArticleCountPersistencePortFixture = container.boardArticleCountPersistencePortFixture
     }
 
     @Test
@@ -71,6 +72,7 @@ class ArticleCreateProcessorTest {
 
         // then
         val findArticle = articlePersistencePortFixture.findByIdOrNull(article.articleId)!!
+        val boardArticleCount = boardArticleCountPersistencePortFixture.findByIdOrNull(savedArticleCategory.boardId)!!
 
         assertThat(article.articleId).isNotNull()
         assertThat(article.title).isEqualTo(command.title)
@@ -84,6 +86,7 @@ class ArticleCreateProcessorTest {
 
         assertThat(findArticle.title).isEqualTo(article.title)
         assertThat(findArticle.content).isEqualTo(command.content)
+        assertThat(boardArticleCount.articleCount).isEqualTo(1)
     }
 
     @Test

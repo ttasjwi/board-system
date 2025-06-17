@@ -5,11 +5,7 @@ import com.querydsl.jpa.impl.JPAQuery
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryModel
 import com.ttasjwi.board.system.articleread.domain.port.ArticleSummaryStorage
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_ArticleCategory
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_Board
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_Writer
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QueryDslArticleSummaryQueryModel
+import com.ttasjwi.board.system.articleread.infra.persistence.dto.*
 import com.ttasjwi.board.system.articleread.infra.persistence.jpa.JpaArticleRepository
 import org.springframework.stereotype.Component
 import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticle.jpaArticle as article
@@ -25,19 +21,12 @@ class ArticleSummaryStorageImpl(
     private val queryFactory: JPAQueryFactory
 ) : ArticleSummaryStorage {
 
-    override fun findAllPage(boardId: Long, offSet: Long, limit: Long): List<ArticleSummaryQueryModel> {
-        return selectArticleSummaryWithJoins()
-            .where(article.boardId.eq(boardId))
-            .orderBy(article.articleId.desc())
-            .offset(offSet)
-            .limit(limit)
-            .fetch()
-    }
-
-    override fun count(boardId: Long, limit: Long): Long {
-        // QueryDsl 은 FROM 절 서브쿼리를 지원하지 않음
-        // ---> native Query를 사용하기로 함.
-        return jpaArticleRepository.count(boardId, limit)
+    override fun findAllPage(boardId: Long, limit: Long, offset: Long): List<ArticleSummaryQueryModel> {
+        return jpaArticleRepository.findAllPage(
+            boardId = boardId,
+            limit = limit,
+            offset = offset,
+        )
     }
 
     override fun findAllInfiniteScroll(
@@ -67,20 +56,14 @@ class ArticleSummaryStorageImpl(
         return QQueryDslArticleSummaryQueryModel(
             article.articleId,
             article.title,
-            QQueryDslArticleSummaryQueryModel_Board(
-                article.boardId,
-                board.name,
-                board.slug
-            ),
-            QQueryDslArticleSummaryQueryModel_ArticleCategory(
-                article.articleCategoryId,
-                articleCategory.name,
-                articleCategory.slug,
-            ),
-            QQueryDslArticleSummaryQueryModel_Writer(
-                article.writerId,
-                article.writerNickname
-            ),
+            article.boardId,
+            board.name,
+            board.slug,
+            article.articleCategoryId,
+            articleCategory.name,
+            articleCategory.slug,
+            article.writerId,
+            article.writerNickname,
             articleCommentCount.commentCount.coalesce(0L),
             articleLikeCount.likeCount.coalesce(0L),
             articleDislikeCount.dislikeCount.coalesce(0L),

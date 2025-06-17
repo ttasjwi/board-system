@@ -24,15 +24,6 @@ class ArticlePersistencePortFixture : ArticlePersistencePort {
             .take(pageSize.toInt())
     }
 
-    override fun count(boardId: Long, limit: Long): Long {
-        return storage.values
-            .filter { it.boardId == boardId }
-            .sortedByDescending { it.articleId }
-            .take(limit.toInt())
-            .count()
-            .toLong()
-    }
-
     override fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<Article> {
         return storage.values
             .filter { it.boardId == boardId }

@@ -166,7 +166,8 @@ class ArticleSummaryPageReadControllerTest : ArticleReadRestDocsTest() {
                 ),
                 queryParameters(
                     "page"
-                            paramMeans "페이지",
+                            paramMeans "페이지"
+                            constraint "1 이상 100 이하만 허용(그 이후는 무한 스크롤 방식 조회를 사용하세요.)",
                     "pageSize"
                             paramMeans "한 페이지 당 게시글 수"
                             constraint "1 이상 50 이하만 허용"

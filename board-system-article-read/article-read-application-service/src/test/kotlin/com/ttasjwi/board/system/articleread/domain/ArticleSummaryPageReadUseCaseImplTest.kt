@@ -3,6 +3,7 @@ package com.ttasjwi.board.system.articleread.domain
 import com.ttasjwi.board.system.articleread.domain.model.fixture.articleSummaryQueryModelFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleSummaryStorageFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleViewCountStorageFixture
+import com.ttasjwi.board.system.articleread.domain.port.fixture.BoardArticleCountStorageFixture
 import com.ttasjwi.board.system.articleread.domain.processor.ArticleSummaryPageReadProcessor
 import com.ttasjwi.board.system.articleread.domain.test.support.TestContainer
 import org.assertj.core.api.Assertions.assertThat
@@ -16,6 +17,7 @@ class ArticleSummaryPageReadUseCaseImplTest {
     private lateinit var articleSummaryPageReadUseCase: ArticleSummaryPageReadUseCase
     private lateinit var articleSummaryStorageFixture: ArticleSummaryStorageFixture
     private lateinit var articleViewCountStorageFixture: ArticleViewCountStorageFixture
+    private lateinit var boardArticleCountStorageFixture: BoardArticleCountStorageFixture
 
     @BeforeEach
     fun setUp() {
@@ -23,6 +25,7 @@ class ArticleSummaryPageReadUseCaseImplTest {
         articleSummaryPageReadUseCase = container.articleSummaryPageReadUseCase
         articleSummaryStorageFixture = container.articleSummaryStorageFixture
         articleViewCountStorageFixture = container.articleViewCountStorageFixture
+        boardArticleCountStorageFixture = container.boardArticleCountStorageFixture
     }
 
     @Test
@@ -30,7 +33,8 @@ class ArticleSummaryPageReadUseCaseImplTest {
     fun testSuccess() {
         // given
         val boardId = 1234566L
-        for (id in 1L..50L) {
+        val articleCount = 50L
+        for (id in 1L..articleCount) {
             val article = articleSummaryQueryModelFixture(
                 articleId = id,
                 boardId = boardId,
@@ -42,6 +46,7 @@ class ArticleSummaryPageReadUseCaseImplTest {
                 viewCount = id
             )
         }
+        boardArticleCountStorageFixture.save(boardId, articleCount)
 
         val request = ArticleSummaryPageReadRequest(
             boardId = boardId,

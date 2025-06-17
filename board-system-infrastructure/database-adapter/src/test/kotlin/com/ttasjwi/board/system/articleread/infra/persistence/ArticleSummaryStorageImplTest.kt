@@ -52,16 +52,16 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             // 7, 6, 5
             val articleSummaries = articleReadArticleSummaryStorage.findAllPage(
                 boardId = boardId,
-                offSet = 3,
                 limit = 3,
+                offset = 3,
             )
             for (articleSummary in articleSummaries) {
                 println("articleSummary= $articleSummary")
             }
 
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -101,16 +101,16 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             // 7, 6, 5
             val articleSummaries = articleReadArticleSummaryStorage.findAllPage(
                 boardId = boardId,
-                offSet = 3,
                 limit = 3,
+                offset = 3,
             )
             for (articleSummary in articleSummaries) {
                 println("articleSummary= $articleSummary")
             }
 
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -131,8 +131,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             // when
             val articles = articleReadArticleSummaryStorage.findAllPage(
                 boardId = 88949457L,
-                offSet = 3,
                 limit = 3,
+                offset = 3,
             )
 
             // then
@@ -140,58 +140,6 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
         }
 
     }
-
-    @Nested
-    @DisplayName("count: 최대 limit 건까지 범위 내에서 게시판 게시글의 갯수를 센다.")
-    inner class CountTest {
-
-
-        @Test
-        @DisplayName("게시글 갯수가 limit 보다 같거나, 많으면, limit 만큼 갯수를 센다.")
-        fun test1() {
-            // given
-            val boardId = 1234566L
-            for (i in 1..10) {
-                createArticle(
-                    articleId = i.toLong(),
-                    articleCategoryId = i.toLong(),
-                    boardId = boardId,
-                    writerId = i.toLong(),
-                    writerNickname = "writer$i",
-                )
-            }
-
-            // when
-            val count = articleReadArticleSummaryStorage.count(boardId, 9)
-
-            // then
-            assertThat(count).isEqualTo(9)
-        }
-
-
-        @Test
-        @DisplayName("게시글 갯수가 limit 보다 적으면 게시글 갯수까지만큼 센다.")
-        fun test2() {
-            // given
-            val boardId = 1234566L
-            for (i in 1..10) {
-                createArticle(
-                    articleId = i.toLong(),
-                    articleCategoryId = i.toLong(),
-                    boardId = boardId,
-                    writerId = i.toLong(),
-                    writerNickname = "writer$i",
-                )
-            }
-
-            // when
-            val count = articleReadArticleSummaryStorage.count(boardId, 15)
-
-            // then
-            assertThat(count).isEqualTo(10)
-        }
-    }
-
 
     @Nested
     @DisplayName("findAllInfiniteScroll : 게시글 무한 스크롤 조회")
@@ -244,8 +192,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
 
             // then
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -301,8 +249,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
 
             // then
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
@@ -350,8 +298,8 @@ class ArticleSummaryStorageImplTest : DataBaseIntegrationTest() {
             }
 
             val articleIds = articleSummaries.map { it.articleId }
-            val boardNames = articleSummaries.map { it.board.name }
-            val articleCategoryNames = articleSummaries.map { it.articleCategory.name }
+            val boardNames = articleSummaries.map { it.boardName }
+            val articleCategoryNames = articleSummaries.map { it.articleCategoryName }
             val commentCounts = articleSummaries.map { it.commentCount }
             val likeCounts = articleSummaries.map { it.likeCount }
             val dislikeCounts = articleSummaries.map { it.dislikeCount }
