@@ -9,6 +9,7 @@ import com.ttasjwi.board.system.articleread.domain.port.BoardArticleCountStorage
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.page.PagingInfo
 import com.ttasjwi.board.system.common.page.calculateOffset
+import com.ttasjwi.board.system.common.time.AppDateTime
 
 @ApplicationProcessor
 class ArticleSummaryPageReadProcessor(
@@ -97,7 +98,7 @@ class ArticleSummaryPageReadProcessor(
             commentCount = this.commentCount,
             likeCount = this.likeCount,
             dislikeCount = this.dislikeCount,
-            createdAt = this.createdAt.toZonedDateTime(),
+            createdAt = AppDateTime.from(this.createdAt).toZonedDateTime(),
         )
     }
 }
