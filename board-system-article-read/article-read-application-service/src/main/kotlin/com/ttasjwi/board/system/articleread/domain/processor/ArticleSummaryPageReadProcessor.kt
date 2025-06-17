@@ -5,15 +5,16 @@ import com.ttasjwi.board.system.articleread.domain.dto.ArticleSummaryPageReadQue
 import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryModel
 import com.ttasjwi.board.system.articleread.domain.port.ArticleSummaryStorage
 import com.ttasjwi.board.system.articleread.domain.port.ArticleViewCountStorage
+import com.ttasjwi.board.system.articleread.domain.port.BoardArticleCountStorage
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.page.PagingInfo
 import com.ttasjwi.board.system.common.page.calculateOffset
-import com.ttasjwi.board.system.common.page.calculatePageLimit
 
 @ApplicationProcessor
 class ArticleSummaryPageReadProcessor(
     private val articleSummaryStorage: ArticleSummaryStorage,
-    private val articleViewCountStorage: ArticleViewCountStorage,
+    private val boardArticleCountStorage: BoardArticleCountStorage,
+    private val articleViewCountStorage: ArticleViewCountStorage
 ) {
 
     companion object {
@@ -22,7 +23,7 @@ class ArticleSummaryPageReadProcessor(
 
     fun readAllPage(query: ArticleSummaryPageReadQuery): ArticleSummaryPageReadResponse {
         // 게시글 수 조회
-        val articleCount = readArticleCount(query)
+        val articleCount = readArticleCount(query.boardId)
 
         // 게시글 조회
         val articles = readArticles(query)
@@ -42,14 +43,9 @@ class ArticleSummaryPageReadProcessor(
         return makeResponse(pagingInfo, articles, viewCounts)
     }
 
-    private fun readArticleCount(query: ArticleSummaryPageReadQuery) = articleSummaryStorage.count(
-        boardId = query.boardId,
-        limit = calculatePageLimit(
-            page = query.page,
-            pageSize = query.pageSize,
-            movablePageCount = ARTICLE_PAGE_GROUP_SIZE
-        )
-    )
+    private fun readArticleCount(boardId: Long): Long {
+        return boardArticleCountStorage.count(boardId)
+    }
 
     private fun readArticles(query: ArticleSummaryPageReadQuery): List<ArticleSummaryQueryModel> {
         return articleSummaryStorage.findAllPage(

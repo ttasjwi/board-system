@@ -117,56 +117,6 @@ class ArticleSummaryStorageFixtureTest {
     }
 
     @Nested
-    @DisplayName("count: 최대 limit 건까지 범위 내에서 게시판 게시글의 갯수를 센다.")
-    inner class CountTest {
-
-
-        @Test
-        @DisplayName("게시글 갯수가 limit 보다 같거나, 많으면, limit 만큼 갯수를 센다.")
-        fun test1() {
-            // given
-            val boardId = 1234566L
-            for (i in 1L..10L) {
-                articleSummaryStorageFixture.save(
-                    articleSummaryQueryModelFixture(
-                        articleId = i,
-                        boardId = boardId
-                    )
-                )
-            }
-
-            // when
-            val count = articleSummaryStorageFixture.count(boardId, 9)
-
-            // then
-            assertThat(count).isEqualTo(9)
-        }
-
-
-        @Test
-        @DisplayName("게시글 갯수가 limit 보다 적으면 게시글 갯수까지만큼 센다.")
-        fun test2() {
-            // given
-            val boardId = 1234566L
-            for (i in 1L..10L) {
-                articleSummaryStorageFixture.save(
-                    articleSummaryQueryModelFixture(
-                        articleId = i,
-                        boardId = boardId
-                    )
-                )
-            }
-
-            // when
-            val count = articleSummaryStorageFixture.count(boardId, 15)
-
-            // then
-            assertThat(count).isEqualTo(10)
-        }
-    }
-
-
-    @Nested
     @DisplayName("findAllInfiniteScroll : 게시글 무한 스크롤 조회")
     inner class FindAllByInfiniteScrollTest {
 

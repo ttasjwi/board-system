@@ -4,7 +4,5 @@ import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryMode
 
 interface ArticleSummaryStorage {
     fun findAllPage(boardId: Long, offSet: Long, limit: Long): List<ArticleSummaryQueryModel>
-    fun count(boardId: Long, limit: Long): Long
-
     fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<ArticleSummaryQueryModel>
 }

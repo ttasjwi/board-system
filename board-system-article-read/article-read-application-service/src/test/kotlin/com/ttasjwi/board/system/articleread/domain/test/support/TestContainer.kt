@@ -7,6 +7,7 @@ import com.ttasjwi.board.system.articleread.domain.mapper.ArticleSummaryPageRead
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleDetailStorageFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleSummaryStorageFixture
 import com.ttasjwi.board.system.articleread.domain.port.fixture.ArticleViewCountStorageFixture
+import com.ttasjwi.board.system.articleread.domain.port.fixture.BoardArticleCountStorageFixture
 import com.ttasjwi.board.system.articleread.domain.processor.ArticleDetailReadProcessor
 import com.ttasjwi.board.system.articleread.domain.processor.ArticleSummaryInfiniteScrollReadProcessor
 import com.ttasjwi.board.system.articleread.domain.processor.ArticleSummaryPageReadProcessor
@@ -34,9 +35,14 @@ internal class TestContainer private constructor() {
         ArticleSummaryStorageFixture()
     }
 
+    val boardArticleCountStorageFixture: BoardArticleCountStorageFixture by lazy {
+        BoardArticleCountStorageFixture()
+    }
+
     val articleViewCountStorageFixture: ArticleViewCountStorageFixture by lazy {
         ArticleViewCountStorageFixture()
     }
+
 
     // mapper
     val articleDetailReadQueryMapper: ArticleDetailReadQueryMapper by lazy {
@@ -64,6 +70,7 @@ internal class TestContainer private constructor() {
     val articleSummaryPageReadProcessor: ArticleSummaryPageReadProcessor by lazy {
         ArticleSummaryPageReadProcessor(
             articleSummaryStorage = articleSummaryStorageFixture,
+            boardArticleCountStorage = boardArticleCountStorageFixture,
             articleViewCountStorage = articleViewCountStorageFixture,
         )
     }

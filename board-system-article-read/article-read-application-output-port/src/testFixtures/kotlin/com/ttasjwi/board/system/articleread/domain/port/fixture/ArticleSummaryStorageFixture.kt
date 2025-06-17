@@ -23,15 +23,6 @@ class ArticleSummaryStorageFixture : ArticleSummaryStorage {
             .take(limit.toInt())
     }
 
-    override fun count(boardId: Long, limit: Long): Long {
-        return storage.values
-            .filter { it.board.boardId == boardId }
-            .sortedByDescending { it.articleId }
-            .take(limit.toInt())
-            .count()
-            .toLong()
-    }
-
     override fun findAllInfiniteScroll(boardId: Long, limit: Long, lastArticleId: Long?): List<ArticleSummaryQueryModel> {
         return storage.values
             .filter { it.board.boardId == boardId }

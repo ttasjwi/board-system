@@ -5,12 +5,7 @@ import com.querydsl.jpa.impl.JPAQuery
 import com.querydsl.jpa.impl.JPAQueryFactory
 import com.ttasjwi.board.system.articleread.domain.model.ArticleSummaryQueryModel
 import com.ttasjwi.board.system.articleread.domain.port.ArticleSummaryStorage
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_ArticleCategory
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_Board
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QQueryDslArticleSummaryQueryModel_Writer
-import com.ttasjwi.board.system.articleread.infra.persistence.dto.QueryDslArticleSummaryQueryModel
-import com.ttasjwi.board.system.articleread.infra.persistence.jpa.JpaArticleRepository
+import com.ttasjwi.board.system.articleread.infra.persistence.dto.*
 import org.springframework.stereotype.Component
 import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticle.jpaArticle as article
 import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaArticleCategory.jpaArticleCategory as articleCategory
@@ -21,7 +16,6 @@ import com.ttasjwi.board.system.articleread.infra.persistence.jpa.QJpaBoard.jpaB
 
 @Component
 class ArticleSummaryStorageImpl(
-    private val jpaArticleRepository: JpaArticleRepository,
     private val queryFactory: JPAQueryFactory
 ) : ArticleSummaryStorage {
 
@@ -32,12 +26,6 @@ class ArticleSummaryStorageImpl(
             .offset(offSet)
             .limit(limit)
             .fetch()
-    }
-
-    override fun count(boardId: Long, limit: Long): Long {
-        // QueryDsl 은 FROM 절 서브쿼리를 지원하지 않음
-        // ---> native Query를 사용하기로 함.
-        return jpaArticleRepository.count(boardId, limit)
     }
 
     override fun findAllInfiniteScroll(
