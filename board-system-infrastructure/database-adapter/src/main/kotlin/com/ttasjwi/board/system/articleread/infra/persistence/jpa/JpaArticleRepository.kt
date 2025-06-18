@@ -52,4 +52,101 @@ interface JpaArticleRepository : JpaRepository<JpaArticle, Long> {
         @Param("limit") limit: Long,
         @Param("offset") offset: Long
     ): List<ArticleSummaryQueryModel>
+
+    @Query(
+        value = """
+            WITH cte(article_id) AS (
+                SELECT
+                    a.article_id
+                FROM
+                    articles a
+                WHERE
+                    a.board_id = :boardId
+                ORDER BY
+                    a.article_id DESC
+                LIMIT :limit
+            )
+            SELECT
+                a.article_id AS articleId,
+                a.title AS title,
+                a.board_id AS boardId,
+                b.name AS boardName,
+                b.slug AS boardSlug,
+                a.article_category_id AS articleCategoryId,
+                ac.name AS articleCategoryName,
+                ac.slug AS articleCategorySlug,
+                a.writer_id AS writerId,
+                a.writer_nickname AS writerNickname,
+                COALESCE(acc.comment_count, 0) AS commentCount,
+                COALESCE(alc.like_count, 0) AS likeCount,
+                COALESCE(adc.dislike_count, 0) AS dislikeCount,
+                a.created_at AS createdAt
+            FROM
+                articles a
+                    JOIN cte 
+                        ON cte.article_id = a.article_id
+                    JOIN boards b
+                        ON b.board_id = a.board_id
+                    JOIN article_categories ac
+                        ON ac.article_category_Id = a.article_category_id
+                    LEFT JOIN article_comment_counts acc
+                        ON acc.article_id = a.article_id
+                    LEFT JOIN article_like_counts alc
+                        ON alc.article_id = a.article_id
+                    LEFT JOIN article_dislike_counts adc
+                        ON adc.article_id = a.article_id;
+    """, nativeQuery = true)
+    fun findAllInfiniteScroll(
+        @Param("boardId") boardId: Long,
+        @Param("limit") limit: Long,
+    ): List<ArticleSummaryQueryModel>
+
+    @Query(
+        value = """
+            WITH cte(article_id) AS (
+                SELECT
+                    a.article_id
+                FROM
+                    articles a
+                WHERE
+                    a.board_id = :boardId AND a.article_id < :lastArticleId
+                ORDER BY
+                    a.article_id DESC
+                LIMIT :limit
+            )
+            SELECT
+                a.article_id AS articleId,
+                a.title AS title,
+                a.board_id AS boardId,
+                b.name AS boardName,
+                b.slug AS boardSlug,
+                a.article_category_id AS articleCategoryId,
+                ac.name AS articleCategoryName,
+                ac.slug AS articleCategorySlug,
+                a.writer_id AS writerId,
+                a.writer_nickname AS writerNickname,
+                COALESCE(acc.comment_count, 0) AS commentCount,
+                COALESCE(alc.like_count, 0) AS likeCount,
+                COALESCE(adc.dislike_count, 0) AS dislikeCount,
+                a.created_at AS createdAt
+            FROM
+                articles a
+                    JOIN cte 
+                        ON cte.article_id = a.article_id
+                    JOIN boards b
+                        ON b.board_id = a.board_id
+                    JOIN article_categories ac
+                        ON ac.article_category_Id = a.article_category_id
+                    LEFT JOIN article_comment_counts acc
+                        ON acc.article_id = a.article_id
+                    LEFT JOIN article_like_counts alc
+                        ON alc.article_id = a.article_id
+                    LEFT JOIN article_dislike_counts adc
+                        ON adc.article_id = a.article_id;
+    """, nativeQuery = true)
+    fun findAllInfiniteScroll(
+        @Param("boardId") boardId: Long,
+        @Param("lastArticleId") lastArticleId: Long,
+        @Param("limit") limit: Long
+    ): List<ArticleSummaryQueryModel>
 }
