@@ -28,10 +28,6 @@ class ArticleCommentPersistenceAdapter(
             .map { it.restoreDomain() }
     }
 
-    override fun count(articleId: Long, limit: Long): Long {
-        return jpaArticleCommentRepository.count(articleId, limit)
-    }
-
     override fun findAllInfiniteScroll(
         articleId: Long,
         limit: Long,

@@ -8,7 +8,6 @@ import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentPersist
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.page.PagingInfo
 import com.ttasjwi.board.system.common.page.calculateOffset
-import com.ttasjwi.board.system.common.page.calculatePageLimit
 
 @ApplicationProcessor
 internal class ArticleCommentPageReadProcessor(
