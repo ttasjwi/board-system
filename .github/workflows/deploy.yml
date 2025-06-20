@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  Deploy:
+  BuildAndPushDockerImage:
     runs-on: ubuntu-latest
     env:
       SERVER_PROFILE: test
@@ -88,6 +88,11 @@ jobs:
       - name: 도커 이미지 푸시
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/board-be:latest
 
+
+  Deploy:
+    needs: BuildAndPushDockerImage
+    runs-on: ubuntu-latest
+    steps:
       - name: GitHub Actions 실행자 IP 얻어오기
         id: GITHUB_ACTIONS_IP
         uses: haythem/public-ip@v1.3

@@ -71,7 +71,9 @@ CREATE TABLE IF NOT EXISTS article_comments(
     parent_comment_writer_nickname VARCHAR(15),
     delete_status                  VARCHAR(20)   NOT NULL,
     created_at                     DATETIME      NOT NULL,
-    modified_at                    DATETIME      NOT NULL
+    modified_at                    DATETIME      NOT NULL,
+
+    INDEX idx_article_id_root_parent_comment_id_article_comment_id (article_id ASC, root_parent_comment_id ASC, article_comment_id ASC)
 );
 
 CREATE TABLE IF NOT EXISTS article_comment_counts(

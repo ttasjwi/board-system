@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.articlecomment.domain
 
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleCommentDeleteStatus
 import com.ttasjwi.board.system.articlecomment.domain.model.fixture.articleCommentFixture
+import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentCountPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.port.fixture.ArticleCommentPersistencePortFixture
 import com.ttasjwi.board.system.articlecomment.domain.processor.ArticleCommentPageReadProcessor
 import com.ttasjwi.board.system.articlecomment.domain.test.support.TestContainer
@@ -10,19 +11,21 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
-
 @DisplayName("[article-comment-application-service] ArticleCommentPageReadUseCase 테스트")
 class ArticleCommentPageReadUseCaseImplTest {
 
     private lateinit var useCase: ArticleCommentPageReadUseCase
     private lateinit var articleCommentPersistencePortFixture: ArticleCommentPersistencePortFixture
+    private lateinit var articleCommentCountPersistencePortFixture: ArticleCommentCountPersistencePortFixture
 
     @BeforeEach
     fun setUp() {
         val container = TestContainer.create()
         useCase = container.articleCommentPageReadUseCase
         articleCommentPersistencePortFixture = container.articleCommentPersistencePortFixture
+        articleCommentCountPersistencePortFixture = container.articleCommentCountPersistencePortFixture
     }
+
     @Test
     @DisplayName("성공테스트")
     fun testSuccess() {
@@ -47,6 +50,7 @@ class ArticleCommentPageReadUseCaseImplTest {
                 )
             }
             articleCommentPersistencePortFixture.save(comment)
+            articleCommentCountPersistencePortFixture.increase(articleId)
         }
 
         val request = ArticleCommentPageReadRequest(

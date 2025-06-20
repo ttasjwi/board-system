@@ -2,6 +2,7 @@ package com.ttasjwi.board.system.articlecomment.domain.mapper
 
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentPageReadRequest
 import com.ttasjwi.board.system.articlecomment.domain.dto.ArticleCommentPageReadQuery
+import com.ttasjwi.board.system.articlecomment.domain.exception.InvalidArticleCommentPageException
 import com.ttasjwi.board.system.articlecomment.domain.exception.InvalidArticleCommentPageSizeException
 import com.ttasjwi.board.system.common.annotation.component.ApplicationQueryMapper
 import com.ttasjwi.board.system.common.exception.NullArgumentException
@@ -11,6 +12,8 @@ import com.ttasjwi.board.system.common.exception.ValidationExceptionCollector
 internal class ArticleCommentPageReadQueryMapper {
 
     companion object {
+        internal const val MIN_PAGE = 1L
+        internal const val MAX_PAGE = 100L
         internal const val MIN_PAGE_SIZE = 1L
         internal const val MAX_PAGE_SIZE = 50L
     }
@@ -40,6 +43,12 @@ internal class ArticleCommentPageReadQueryMapper {
     private fun getPage(page: Long?, exceptionCollector: ValidationExceptionCollector): Long? {
         if (page == null) {
             exceptionCollector.addCustomExceptionOrThrow(NullArgumentException("page"))
+            return null
+        }
+        if (page < MIN_PAGE || page > MAX_PAGE) {
+            exceptionCollector.addCustomExceptionOrThrow(
+                InvalidArticleCommentPageException(page = page, minPage =  MIN_PAGE, maxPage = MAX_PAGE)
+            )
             return null
         }
         return page

@@ -1,6 +1,7 @@
 package com.ttasjwi.board.system.articlecomment.domain.mapper
 
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentPageReadRequest
+import com.ttasjwi.board.system.articlecomment.domain.exception.InvalidArticleCommentPageException
 import com.ttasjwi.board.system.articlecomment.domain.exception.InvalidArticleCommentPageSizeException
 import com.ttasjwi.board.system.articlecomment.domain.test.support.TestContainer
 import com.ttasjwi.board.system.common.exception.NullArgumentException
@@ -86,6 +87,61 @@ class ArticleCommentPageReadQueryMapperTest {
         assertThat(exceptions[0].source).isEqualTo("page")
     }
 
+
+    @Test
+    @DisplayName("page 번호가 최소 page 번호보다 작으면 예외 발생")
+    fun invalidPageTest1() {
+        // given
+        val request = ArticleCommentPageReadRequest(
+            articleId = 1234L,
+            page = ArticleCommentPageReadQueryMapper.MIN_PAGE - 1L,
+            pageSize = 50L
+        )
+
+        // when
+        val exceptionCollector = assertThrows<ValidationExceptionCollector> {
+            queryMapper.mapToQuery(request)
+        }
+
+        // then
+        val exceptions = exceptionCollector.getExceptions()
+        assertThat(exceptions.size).isEqualTo(1)
+        assertThat(exceptions[0]).isInstanceOf(InvalidArticleCommentPageException::class.java)
+        assertThat(exceptions[0].source).isEqualTo("page")
+        assertThat(exceptions[0].args).containsExactly(
+            request.page,
+            ArticleCommentPageReadQueryMapper.MIN_PAGE,
+            ArticleCommentPageReadQueryMapper.MAX_PAGE
+        )
+    }
+
+
+    @Test
+    @DisplayName("page 번호가 최대 page 번호보다 크면 예외 발생")
+    fun invalidPageTest2() {
+        // given
+        val request = ArticleCommentPageReadRequest(
+            articleId = 1234L,
+            page = ArticleCommentPageReadQueryMapper.MAX_PAGE + 1L,
+            pageSize = 50L
+        )
+
+        // when
+        val exceptionCollector = assertThrows<ValidationExceptionCollector> {
+            queryMapper.mapToQuery(request)
+        }
+
+        // then
+        val exceptions = exceptionCollector.getExceptions()
+        assertThat(exceptions.size).isEqualTo(1)
+        assertThat(exceptions[0]).isInstanceOf(InvalidArticleCommentPageException::class.java)
+        assertThat(exceptions[0].source).isEqualTo("page")
+        assertThat(exceptions[0].args).containsExactly(
+            request.page,
+            ArticleCommentPageReadQueryMapper.MIN_PAGE,
+            ArticleCommentPageReadQueryMapper.MAX_PAGE
+        )
+    }
 
     @Test
     @DisplayName("pageSize 가 null 이면 예외 발생")

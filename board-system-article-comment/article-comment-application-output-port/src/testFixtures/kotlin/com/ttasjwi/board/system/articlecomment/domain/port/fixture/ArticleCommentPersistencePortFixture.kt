@@ -27,14 +27,6 @@ class ArticleCommentPersistencePortFixture : ArticleCommentPersistencePort {
             .take(limit.toInt())
     }
 
-    override fun count(articleId: Long, limit: Long): Long {
-        return storage.values
-            .filter { it.articleId == articleId }
-            .take(limit.toInt())
-            .count()
-            .toLong()
-    }
-
     override fun findAllInfiniteScroll(
         articleId: Long,
         limit: Long,

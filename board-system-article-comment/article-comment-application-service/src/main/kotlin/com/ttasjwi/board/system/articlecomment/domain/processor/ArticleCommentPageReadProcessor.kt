@@ -3,15 +3,16 @@ package com.ttasjwi.board.system.articlecomment.domain.processor
 import com.ttasjwi.board.system.articlecomment.domain.ArticleCommentPageReadResponse
 import com.ttasjwi.board.system.articlecomment.domain.dto.ArticleCommentPageReadQuery
 import com.ttasjwi.board.system.articlecomment.domain.model.ArticleComment
+import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentCountPersistencePort
 import com.ttasjwi.board.system.articlecomment.domain.port.ArticleCommentPersistencePort
 import com.ttasjwi.board.system.common.annotation.component.ApplicationProcessor
 import com.ttasjwi.board.system.common.page.PagingInfo
 import com.ttasjwi.board.system.common.page.calculateOffset
-import com.ttasjwi.board.system.common.page.calculatePageLimit
 
 @ApplicationProcessor
 internal class ArticleCommentPageReadProcessor(
-    private val articleCommentPersistencePort: ArticleCommentPersistencePort
+    private val articleCommentPersistencePort: ArticleCommentPersistencePort,
+    private val articleCommentCountPersistencePort: ArticleCommentCountPersistencePort,
 ) {
 
     companion object {
@@ -19,7 +20,7 @@ internal class ArticleCommentPageReadProcessor(
     }
 
     fun readAllPage(query: ArticleCommentPageReadQuery): ArticleCommentPageReadResponse {
-        val commentCount = readCommentCount(query)
+        val commentCount = readCommentCount(query.articleId)
         val comments = readComments(query)
 
         val pagingInfo = PagingInfo.from(
@@ -32,14 +33,9 @@ internal class ArticleCommentPageReadProcessor(
         return makeResponse(pagingInfo, comments)
     }
 
-    private fun readCommentCount(query: ArticleCommentPageReadQuery) = articleCommentPersistencePort.count(
-        articleId = query.articleId,
-        limit = calculatePageLimit(
-            page = query.page,
-            pageSize = query.pageSize,
-            movablePageCount = ARTICLE_COMMENT_PAGE_GROUP_SIZE
-        )
-    )
+    private fun readCommentCount(articleId: Long): Long {
+        return articleCommentCountPersistencePort.findByIdOrNull(articleId)?.commentCount ?: 0L
+    }
 
     private fun readComments(query: ArticleCommentPageReadQuery) =
         articleCommentPersistencePort.findAllPage(

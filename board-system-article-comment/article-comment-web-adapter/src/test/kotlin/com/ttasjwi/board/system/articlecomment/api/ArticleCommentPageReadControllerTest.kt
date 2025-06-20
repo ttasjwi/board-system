@@ -155,7 +155,8 @@ class ArticleCommentPageReadControllerTest : ArticleCommentRestDocsTest() {
                     "articleId"
                             paramMeans "게시글 식별자(Id)",
                     "page"
-                            paramMeans "페이지",
+                            paramMeans "페이지"
+                            constraint "1 이상 100 이하만 허용",
                     "pageSize"
                             paramMeans "한 페이지 당 댓글 수"
                             constraint "1 이상 50 이하만 허용"
