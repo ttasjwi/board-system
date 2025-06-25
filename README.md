@@ -465,3 +465,82 @@
   - 예외 메시지 구조가 정형화되어 있어, 로깅 및 테스트, 분석에도 용이합니다.
 
 ---
+
+## ✅ 인프라 구조
+![infra](./imgs/infra.png)
+
+Amazon AWS 를 통해 애플리케이션을 배포, 운영합니다. AWS 내부 인프라는 다음의 크게 다음 요소들로 구성되어 있습니다.
+- VPC : AWS 에서 제공하는 가상사설망입니다. 우리서비스의 애플리케이션을 하나의 망, VPC 단위로 묶어서 서비스를 관리
+- 서브넷: 외부사용자들에게 노출되는 정도에 따라 서브넷을 분리하여 보안을 강화했습니다.
+  - 퍼블릭 서브넷: 최종사용자가 직접적으로 접근가능한 영역 (EC2 인스턴스)
+  - 프라이빗 서브넷: 최종사용자가 직접적으로 접근할 수 없는 영역 (RDS, ElastiCache)
+- 보안그룹: EC2, AWS, RDS 각각마다 어느 IP 또는 다른 그룹에서 어느 방식으로 접근 가능하도록 할지 통제하도록 했습니다.
+- EC2: 애플리케이션이 배포되는 AWS 의 컴퓨터입니다.
+- RDS: 관계형 데이터베이스 서비스. MySQL 서버입니다. 프라이빗 서브넷에 둠으로서, 외부에서 직접 접근이 불가능합니다.
+- ElastiCache: 인메모리 데이터베이스 서비스. Redis 서버입니다. 프라이빗 서브넷에 둠으로서, 외부에서 직접 접근이 불가능합니다.
+
+---
+
+## ✅ 테스트 코드
+![test-code.png](./imgs/test-code.png)
+
+- 애플리케이션의 안정성, 신뢰성 보장을 위해 각 모듈단위 테스트를 작성했습니다.
+- 기본계층인 api 계층, 애플리케이션 계층, 도메인 계층에 대한 테스트 커버리지를 최대한 유지하도록 하고 있습니다. (인텔리제이 기준 테스트 커버리지 100% 지향)
+- 외부 기술을 사용하는 부분은 주요 지점에서 검증 코드를 작성하고 문제가 발생했을 때 추가적인 대응 및 테스트 보강하도록 하고 있습니다.
+- 활용
+  - CI/CD 스크립트의 빌드테스트 과정에서 함께 계속 실행되어, 테스트가 깨지는 코드가 배포되지 않도록 하고 있습니다.
+  - Spring Rest Docs 문서화 과정에서 테스트코드 통과를 선행 조건으로 둠으로서, API 문서 최신화에도 적극적으로 활용하고 있습니다.
+- 2025.06.25 기준 1102개 테스트가 작성되어 있습니다.
+  - 공통 모듈: 113개
+    - core: 90개
+    - data-serializer: 1개
+    - id-generator: 2개
+    - token: 20개
+  - 사용자 모듈: 261개
+    - user-application-output-port: 38개
+    - user-application-service: 86개
+    - user-domain: 116개
+    - user-email-format-validate-adapter: 5개
+    - user-email-oauth2-client-adapter: 3개
+    - user-password-adapter: 3개
+    - user-web-adapter: 10개
+  - 게시판 모듈: 128개
+    - board-application-output-port: 16개
+    - board-application-service: 27개
+    - board-domain: 81개
+    - board-web-adapter: 4개
+  - 게시글 모듈: 105개
+    - article-application-output-port: 14개
+    - article-application-service: 44개
+    - article-domain: 40개
+    - article-web-adapter: 7개
+  - 게시글 댓글 모듈: 101개
+    - article-comment-application-output-port: 17개
+    - article-comment-application-service: 41개
+    - article-comment-domain: 37개
+    - article-comment-web-adapter: 6개
+  - 게시글 좋아요/싫어요 모듈: 103개
+    - article-like-application-output-port: 28개
+    - article-like-application-service: 32개
+    - article-like-domain: 33개
+    - article-like-web-adapter: 10개
+  - 게시글 조회 모듈: 47개
+    - article-read-application-output-port: 15개
+    - article-read-application-service: 22개
+    - article-read-domain: 7개
+    - article-read-web-adapter: 3개
+  - 게시글 조회수 모듈: 23개
+    - article-view-application-output-port: 7개
+    - article-view-application-service: 8개
+    - article-view-domain: 5개
+    - article-view-web-adapter: 3개
+  - 이메일 발송 모듈: 2개
+    - email-sender: 2개
+  - 외부 기술 모듈: 219개
+    - database-adapter: 109개
+    - event-publisher: 1개
+    - jwt: 18개
+    - redis-adapter: 24개
+    - web-support: 67개
+
+---
