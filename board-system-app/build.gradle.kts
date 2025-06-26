@@ -1,3 +1,6 @@
+import org.asciidoctor.gradle.jvm.AsciidoctorTask
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id("org.asciidoctor.jvm.convert") version "4.0.4"
 }
@@ -76,23 +79,8 @@ dependencies {
     asciidoctorExt("org.springframework.restdocs:spring-restdocs-asciidoctor")
 }
 
-tasks.asciidoctor {
-    dependsOn("copySnippets")
-    configurations(asciidoctorExt.name)
-
-    doFirst {
-        delete {
-            file("src/main/resources/static/docs")
-        }
-    }
-
-    inputs.dir("build/generated-snippets")
-    attributes["snippets"] = file("build/generated-snippets")
-    baseDirFollowsSourceFile()
-}
-
+// 스니펫 복사
 tasks.register("copySnippets", Copy::class) {
-    dependsOn(tasks.test)
     dependsOn(":board-system-user:user-web-adapter:test")
     dependsOn(":board-system-board:board-web-adapter:test")
     dependsOn(":board-system-article:article-web-adapter:test")
@@ -111,17 +99,28 @@ tasks.register("copySnippets", Copy::class) {
     into(file("build/generated-snippets"))
 }
 
-tasks.register("copyHtml", Copy::class) {
-    dependsOn(tasks.asciidoctor)
-    from(file("build/docs/asciidoc/"))
-    into(file("src/main/resources/static/docs"))
+// adoc 파일, snippet 들을 기반으로 문서화 작업
+tasks.named<AsciidoctorTask>("asciidoctor") {
+    dependsOn("copySnippets")
+    configurations(asciidoctorExt.name)
+
+    doFirst {
+        delete("build/docs/asciidoc")
+    }
+
+    inputs.dir("build/generated-snippets")
+    attributes["snippets"] = file("build/generated-snippets")
+    baseDirFollowsSourceFile()
 }
 
-tasks.build {
-    dependsOn("copyHtml")
+// JAR에 포함될 리소스들을 준비
+tasks.named<ProcessResources>("processResources") {
+    dependsOn("asciidoctor")
+    from("build/docs/asciidoc") {
+        into("static/docs")
+    }
 }
 
-tasks.getByName("bootJar") {
-    dependsOn("copyHtml")
+tasks.named<BootJar>("bootJar") {
     enabled = true
 }
