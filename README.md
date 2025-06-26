@@ -200,7 +200,7 @@
 
 ---
 
-### GitHub Actions 를 활용한 CI/CD 파이프라인 구축(with. Docker)
+### [GitHub Actions 를 활용한 CI/CD 파이프라인 구축(with. Docker)]
 - 도입 배경
     - 코드 변경 시, 기존 기능과의 통합이 제대로 이루어졌는지를 매번 수동으로 확인해야 했습니다.
     - 애플리케이션 배포 과정도 수작업으로 진행했기 때문에, 무중단 배포를 실수 없이 수행하기 어려운 구조였습니다.
@@ -228,7 +228,7 @@
     - 무중단 배포 구현: 기존 트래픽 처리 중인 컨테이너에 영향을 주지 않고 새 버전으로 안전하게 전환
     - Docker 기반 컨테이너 격리를 통해, 컨테이너 내부 서비스 장애가 발생해도 호스트 환경에는 영향이 없습니다.
 
-### [의존성 역전을 고려한, 멀티모듈 아키텍처 설계](https://github.com/ttasjwi/board-system/wiki/%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%82%B4%EB%B6%80-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EA%B2%B0%EC%A0%95(with.-%EB%A9%80%ED%8B%B0%EB%AA%A8%EB%93%88))
+### [[의존성 역전을 고려한, 멀티모듈 아키텍처 설계]](https://github.com/ttasjwi/board-system/wiki/%EC%95%A0%ED%94%8C%EB%A6%AC%EC%BC%80%EC%9D%B4%EC%85%98-%EB%82%B4%EB%B6%80-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EA%B2%B0%EC%A0%95(with.-%EB%A9%80%ED%8B%B0%EB%AA%A8%EB%93%88))
 - 도입배경  
   ![architecture-1.webp](./imgs/architecture-1.webp)  
 
@@ -512,6 +512,27 @@
 
 ---
 
+## 🛢️ 데이터베이스 설계
+![erd](./imgs/erd.png)
+
+- 우리 시스템의 데이터베이스 ERD 입니다.
+- 대부분은 정규화 된 형태로 설계했으나, 일부분 테이블은 성능테스트 시 발견한 조회 성능 문제로 인해 비정규화를 했고, 정합성은 애플리케이션 수준에서 맞추도록 했습니다.
+- 구성 테이블
+  - `users`: 사용자
+  - `social_connections`: 소셜연동
+  - `boards`: 게시판
+  - `article_categories`: 게시글 카테고리
+  - `articles`: 게시글
+  - `board_article_counts`: 게시판별 게시글 수 (비정규화)
+  - `article_likes`: 게시글 좋아요
+  - `article_like_counts`: 게시글 좋아요 수 (비정규화)
+  - `article_dislikes`: 게시글 싫어요
+  - `article_dislike_counts`: 게시글 싫어요 수 (비정규화)
+  - `article_comments`: 게시글 댓글
+  - `article_comment_counts`: 게시글 댓글 수 (비정규화)
+
+---
+
 ## ✅ 테스트 코드
 ![test-code.png](./imgs/test-code.png)
 
@@ -523,55 +544,55 @@
   - Spring Rest Docs 문서화 과정에서 테스트코드 통과를 선행 조건으로 둠으로서, API 문서 최신화에도 적극적으로 활용하고 있습니다.
 - 2025.06.25 기준 1102개 테스트가 작성되어 있습니다.
   - 공통 모듈: 113개
-    - core: 90개
-    - data-serializer: 1개
-    - id-generator: 2개
-    - token: 20개
+    - `core`: 90개
+    - `data-serializer`: 1개
+    - `id-generator`: 2개
+    - `token`: 20개
   - 사용자 모듈: 261개
-    - user-application-output-port: 38개
-    - user-application-service: 86개
-    - user-domain: 116개
-    - user-email-format-validate-adapter: 5개
-    - user-email-oauth2-client-adapter: 3개
-    - user-password-adapter: 3개
-    - user-web-adapter: 10개
+    - `user-application-output-port`: 38개
+    - `user-application-service`: 86개
+    - `user-domain`: 116개
+    - `user-email-format-validate-adapter`: 5개
+    - `user-email-oauth2-client-adapter`: 3개
+    - `user-password-adapter`: 3개
+    - `user-web-adapter`: 10개
   - 게시판 모듈: 128개
-    - board-application-output-port: 16개
-    - board-application-service: 27개
-    - board-domain: 81개
-    - board-web-adapter: 4개
+    - `board-application-output-port`: 16개
+    - `board-application-service`: 27개
+    - `board-domain`: 81개
+    - `board-web-adapter`: 4개
   - 게시글 모듈: 105개
-    - article-application-output-port: 14개
-    - article-application-service: 44개
-    - article-domain: 40개
-    - article-web-adapter: 7개
+    - `article-application-output-port`: 14개
+    - `article-application-service`: 44개
+    - `article-domain`: 40개
+    - `article-web-adapter`: 7개
   - 게시글 댓글 모듈: 101개
-    - article-comment-application-output-port: 17개
-    - article-comment-application-service: 41개
-    - article-comment-domain: 37개
-    - article-comment-web-adapter: 6개
+    - `article-comment-application-output-port`: 17개
+    - `article-comment-application-service`: 41개
+    - `article-comment-domain`: 37개
+    - `article-comment-web-adapter`: 6개
   - 게시글 좋아요/싫어요 모듈: 103개
-    - article-like-application-output-port: 28개
-    - article-like-application-service: 32개
-    - article-like-domain: 33개
-    - article-like-web-adapter: 10개
+    - `article-like-application-output-port`: 28개
+    - `article-like-application-service`: 32개
+    - `article-like-domain`: 33개
+    - `article-like-web-adapter`: 10개
   - 게시글 조회 모듈: 47개
-    - article-read-application-output-port: 15개
-    - article-read-application-service: 22개
-    - article-read-domain: 7개
-    - article-read-web-adapter: 3개
+    - `article-read-application-output-port`: 15개
+    - `article-read-application-service`: 22개
+    - `article-read-domain`: 7개
+    - `article-read-web-adapter`: 3개
   - 게시글 조회수 모듈: 23개
-    - article-view-application-output-port: 7개
-    - article-view-application-service: 8개
-    - article-view-domain: 5개
-    - article-view-web-adapter: 3개
+    - `article-view-application-output-port`: 7개
+    - `article-view-application-service`: 8개
+    - `article-view-domain`: 5개
+    - `article-view-web-adapter`: 3개
   - 이메일 발송 모듈: 2개
-    - email-sender: 2개
+    - `email-sender`: 2개
   - 외부 기술 모듈: 219개
-    - database-adapter: 109개
-    - event-publisher: 1개
-    - jwt: 18개
-    - redis-adapter: 24개
-    - web-support: 67개
+    - `database-adapter`: 109개
+    - `event-publisher`: 1개
+    - `jwt`: 18개
+    - `redis-adapter`: 24개
+    - `web-support`: 67개
 
 ---
