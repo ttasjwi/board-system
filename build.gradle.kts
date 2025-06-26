@@ -1,3 +1,5 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     id(Plugins.KOTLIN_JVM.id) version Plugins.KOTLIN_JVM.version
     id(Plugins.KOTLIN_SPRING.id) version Plugins.KOTLIN_SPRING.version apply false
@@ -49,14 +51,19 @@ allprojects {
         // OpenJDK 64-bit Server VM warning: Sharing is only supported for boot loader ...)
         jvmArgs(
             "-XX:+EnableDynamicAgentLoading",
-            "-Xshare:off")
+            "-Xshare:off"
+        )
     }
 
-    tasks.getByName("bootJar") {
+    tasks.named<BootJar>("bootJar") {
         enabled = false
     }
 
-    tasks.getByName("jar") {
+    tasks.named<Jar>("jar") {
         enabled = true
     }
+}
+
+tasks.named("build") {
+    dependsOn(":board-system-app:bootJar")
 }
