@@ -6,6 +6,7 @@
 - API 루트 경로 : `https://api.board-system.site`
 - API 문서 : https://api.board-system.site/docs
 - Github 링크 : https://github.com/ttasjwi/board-system
+- Wiki: https://github.com/ttasjwi/board-system/wiki
 - 주요기능 : 로그인/소셜로그인, 게시글 기능, 게시글 좋아요/싫어요 기능, 게시글 댓글 기능, 게시글 조회수 기능, …
 - Kotlin, Spring Boot, MySQL, Redis, JPA, AWS(EC2, RDS, ElastiCache), Docker, Github Actions, K6, ...
 
@@ -413,7 +414,7 @@
     - 또, 예외 클래스가 예외 메시지를 가지게 하고 이를 사용자에게 내보내기만 하면  다국어 환경에 맞게 각각 다른 메시지를 제공하기 어렵습니다.
 - 개선방향
     - 예외 클래스 추상화: 모든 도메인 예외는 `CustomException`을 상속받아 구현되며, 다음과 같은 구조를 가집니다.
-        ```kotlin
+        ```kotlin 
         abstract class CustomException(
             val status: ErrorStatus, // 예외가 발생한 이유를 설명하는 상태 정보.
             val code: String, // 예외 메시지 구성을 위한 코드 ("Error.xxx" 형식).
